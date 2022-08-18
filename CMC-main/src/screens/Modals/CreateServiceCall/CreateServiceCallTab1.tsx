@@ -114,9 +114,16 @@ const CreateServiceCallModal1 = (props: any) => {
 
   const [age, setAge] = React.useState("");
   const [openModal, setOpenModal] = React.useState(false);
+  const [error,setError] =React.useState(false)
 
   const handleChangeItemCode = (event: any) => {
-    props.setItemCode(event.target.value)
+    if(!event.target.value){
+      setError(true)
+    }
+    else{
+      setError(false)
+      props.setItemCode(event.target.value)
+    }
   };
   const handleChangeMRF = (event: any) => {
     props.setChangeMRF(event.target.value)
@@ -169,6 +176,7 @@ const CreateServiceCallModal1 = (props: any) => {
               sx={{ width: "99%" }}
               onChange={handleChangeItemCode}
             />
+            {error && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Item Code</span>}
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>MRF Serial Number</TextBoxHeader>
