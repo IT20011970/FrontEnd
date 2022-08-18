@@ -1,0 +1,77 @@
+.sideBarIcon {
+  margin-left: 5px;
+  fill: #383838 !important;
+}
+
+.sideBarIcon:hover {
+  fill: #0091d5 !important;
+}
+
+.sideBarIcon:active {
+  fill: #0091d5 !important;
+}
+
+.sideBarIcon:hover {
+  fill: #0091d5 !important;
+}
+
+.sideBarLogobtn {
+  margin-left: 8px !important;
+  background-color: none !important;
+  border-radius: 0 !important;
+}
+
+.sideBarLogo {
+  margin-left: 8px !important;
+  background-color: none !important;
+  border-radius: 0 !important;
+}
+
+.sideBarChevron {
+  width: 35px !important;
+  height: 35px !important;
+  background-color: #80bad5 !important;
+  color: white !important;
+  font-size: 2rem !important;
+  /* position:absolute !important;
+    bottom:0 !important; */
+}
+
+.sideBarChevron:hover {
+  background-color: #0091d5 !important;
+}
+
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+  margin-left: 40% !important;
+}
+
+.css-1d6w9lk-MuiButtonBase-root-MuiIconButton-root {
+  margin-left: 25% !important;
+}
+
+.css-bshv44-MuiButtonBase-root-MuiListItem-root:hover {
+  background-color: rgb(26, 89, 151, 0.1) !important;
+  fill: #43d500 !important;
+  border-left: 6px solid #0091d5 !important;
+  /* margin-left: -8px; */
+}
+
+.css-bshv44-MuiButtonBase-root-MuiListItem-root:hover .sideBarIcon {
+  margin-left: 0px !important;
+  /* margin-left: -8px; */
+}
+
+.css-10hburv-MuiTypography-root {
+  font-family: "Montserrat" !important;
+  font-size: 15px !important;
+  font-weight: 600;
+  color: #383838 !important;
+  text-decoration: none;
+}
+
+a:hover,
+a:visited,
+a:link,
+a:active {
+  text-decoration: none !important;
+}

@@ -1,0 +1,28 @@
+.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  border: 1px #0091d5 solid !important;
+  background-color: white !important;
+}
+
+.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root {
+  border: 1px #d4d4d4 solid !important;
+  background-color: white !important;
+}
+
+.css-m3l1ig-MuiNativeSelect-select-MuiInputBase-input.css-m3l1ig-MuiNativeSelect-select-MuiInputBase-input.css-m3l1ig-MuiNativeSelect-select-MuiInputBase-input {
+  border: 1px #80bad5 solid !important;
+  background-color: white !important;
+  border-radius: 5px !important;
+  color: #0091d5 !important;
+}
+
+.css-m3l1ig-MuiNativeSelect-select-MuiInputBase-input.css-m3l1ig-MuiNativeSelect-select-MuiInputBase-input.css-m3l1ig-MuiNativeSelect-select-MuiInputBase-input:hover {
+  border: 1px #0091d5 solid !important;
+}
+
+.controlButton {
+  fill: #0091d5 !important;
+}
+
+.controlButton:hover {
+  fill: #80bad5 !important;
+}

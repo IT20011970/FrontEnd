@@ -1,0 +1,23 @@
+.css-11b3ww9-MuiPaper-root-MuiAppBar-root {
+  background-color: white !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.topNavIcon {
+  color: #383838 !important;
+  font-size: 1.5rem !important;
+}
+
+.topNavIcon:hover {
+  color: #0091d5 !important;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover {
+  background-color: rgb(26, 89, 151, 0.1) !important;
+}
+
+.css-1t29gy6-MuiToolbar-root {
+  max-height: 55px !important;
+  min-height: 55px !important;
+}
