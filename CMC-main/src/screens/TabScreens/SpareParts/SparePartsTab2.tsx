@@ -66,7 +66,7 @@ const Heading = styled(Paper)(({ theme }) => ({
 }));
 
 const RequestButton = styled(Button)(({ theme }) => ({
-  width: "auto",
+  width: "100%",
   height: "auto",
   marginTop: "3px",
   backgroundColor: "#0091D5",
@@ -215,13 +215,13 @@ const SparePartsTab2 = () => {
 
   return (
     <>
-      <Stack spacing={6} direction="row">
-        <Grid container rowSpacing={1}>
+      <Stack spacing={6} direction="row" sx={{ padding: "0px" }}>
+        <Grid container spacing={3}>
           <Grid item xs={6}>
             <Heading>Spare Parts</Heading>
           </Grid>
-          <Grid item xs={3} sx={{ pr: 3 }}>
-            <Search>
+          <Grid item xs={3} >
+            <Search sx={{ borderRadius: "4px" }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -231,10 +231,11 @@ const SparePartsTab2 = () => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
+            
           </Grid>
           <Grid item xs={3}>
-            <RequestButton variant="contained">
-              Create Service Call
+            <RequestButton variant="contained"  >
+               Create a Service Call
             </RequestButton>
           </Grid>
         </Grid>
