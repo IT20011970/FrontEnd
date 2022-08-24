@@ -11,6 +11,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import "../../../Styles/Modal.css";
+import {number, string} from "prop-types";
+import {useEffect} from "react";
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -111,58 +113,175 @@ const ModalTittle = styled("text")(({ theme }) => ({
 }));
 
 const CreateServiceCallModal1 = (props: any) => {
+  console.log(props.setNext)
 
   const [age, setAge] = React.useState("");
   const [openModal, setOpenModal] = React.useState(false);
-  const [error,setError] =React.useState(false)
+  const [errorItem,setItemError] =React.useState(false)
+  const [errorMRF,setMRFError] =React.useState(false)
+  const [errorSerialNumber,setSerialNumberError] =React.useState(false)
+  const [errorItemDescription,setItemDescriptionError] =React.useState(false)
+  const [errorItemGroup,setItemGroup] =React.useState(false)
+  const [errorCustomerID,setCustomerID] =React.useState(false)
+  const [errorCustomerName,setCustomerName] =React.useState(false)
+  const [errorContactPerson,setContactPerson] =React.useState(false)
+  const [errorTelephone,setTelephone] =React.useState(false)
+  const [errorCustomerAddress,setCustomerAddress] =React.useState(false)
+  const [errorServiceCall,setServiceCall] =React.useState(false)
+  const [errorStatus,setStatus] =React.useState(false)
+  const [allError,setError]=React.useState(false)
+
+
+  useEffect (()=>{
+    console.log(props.valueNext)
+      // if(props.valueNext==="true"){
+      //  if(props)
+      //   setItemError(true)
+      //   setMRFError(true)
+      //   setSerialNumberError(true)
+      //   setItemDescriptionError(true)
+      //   setItemGroup(true)
+      //   setCustomerID(true)
+      //   setCustomerName(true)
+      //   setContactPerson(true)
+      //   setTelephone(true)
+      //   setCustomerAddress(true)
+      //   setServiceCall(true)
+      //   setStatus(true)
+      // }
+  })
 
   const handleChangeItemCode = (event: any) => {
+     props.setNext("false")
     if(!event.target.value){
-      setError(true)
+      setItemError(true)
     }
     else{
-      setError(false)
+      setItemError(false)
       props.setItemCode(event.target.value)
     }
   };
   const handleChangeMRF = (event: any) => {
-    props.setChangeMRF(event.target.value)
+    props.setNext("false")
+    if(!event.target.value){
+      setMRFError(true)
+    }else {
+      setMRFError(false)
+      props.setChangeMRF(event.target.value)
+    }
   };
   const handleChangeSerialNumber = (event: any) => {
-    props.setIChangeSerialNumber(event.target.value)
+    props.setNext("false")
+    if(!event.target.value){
+      setSerialNumberError(true)
+    }else {
+      setSerialNumberError(false)
+      props.setIChangeSerialNumber(event.target.value)
+    }
   };
   const handleChangeItemDescription = (event: any) => {
-    props.setItemDescription(event.target.value)
+    props.setNext("false")
+    if(!event.target.value){
+      setItemDescriptionError(true)
+    }else {
+      setItemDescriptionError(false)
+      props.setItemDescription(event.target.value)
+    }
   };
   const handleChangeItemGroup = (event: any) => {
-    props.setItemGroup(event.target.value)
+    props.setNext("false")
+    if(!event.target.value){
+      setItemGroup(true)
+    }else {
+      setItemGroup(false)
+      props.setItemGroup(event.target.value)
+    }
   };
   const handleChangeCustomerID = (event: any) => {
-    props.setCustomerID(event.target.value)
-  };
-  const handleChangeContactPerson = (event: any) => {
-    props.setContactPerson(event.target.value)
-  };
-  const handlChangeAddress = (event: any) => {
-    props.setAddress(event.target.value)
-  };
-  const handleChangeTelephoneNo = (event: any) => {
-    props.setTelephoneNo(event.target.value)
-  };
-  const handleChangeStatus = (event: any) => {
-    props.setChangeStatus(event.target.value);
-  };
-  const handleChangeServiceCallId = (event: any) => {
-    props.setChangeServiceCallId(event.target.value)
-  };
-  const handleChangePriority = (event: any) => {
-    props.setChangePriority(event.target.value)
+    props.setNext("false")
+    if(!event.target.value){
+      setCustomerID(true)
+    }else {
+      setCustomerID(false)
+      props.setCustomerID(event.target.value)
+    }
   };
   const handleChangeCustomerName = (event: any) => {
-    props.setCustomerName(event.target.value)
+    props.setNext("false")
+    if(!event.target.value){
+      setCustomerName(true)
+    }else {
+      setCustomerName(false)
+      props.setCustomerName(event.target.value)
+    }
+  };
+  const handleChangeContactPerson = (event: any) => {
+    props.setNext("false")
+    if(!event.target.value){
+      setContactPerson(true)
+    }else {
+      setContactPerson(false)
+      props.setContactPerson(event.target.value)
+    }
   };
 
-//
+  const handleChangeTelephoneNo = (event: any) => {
+    props.setNext("false")
+    if(!event.target.value){
+           setTelephone(true)
+      //setTelephone(true)
+    }else {
+      if(event.target.value.length===3){
+        event.target.value=event.target.value+"-"
+      }
+      else if(event.target.value.length===4) {
+        event.target.value=""
+      }
+
+      if(event.target.value.match('[0-9]{3}[-][0-9]{7}$')){
+        setTelephone(false)
+        props.setTelephoneNo(event.target.value)
+      }
+      else{
+        setTelephone(true)
+      }
+
+    }
+  };
+  const handlChangeAddress = (event: any) => {
+    props.setNext("false")
+    if(!event.target.value){
+      setCustomerAddress(true)
+    }else {
+      setCustomerAddress(false)
+      props.setAddress(event.target.value)
+    }
+  };
+  const handleChangeServiceCallId = (event: any) => {
+    props.setNext("false")
+    if(!event.target.value){
+      setServiceCall(true)
+    }else {
+      setServiceCall(false)
+      props.setChangeServiceCallId(event.target.value)
+    }
+  };
+  const handleChangeStatus = (event: any) => {
+    props.setNext("false")
+    console.log(event.target.value)
+    if(!event.target.value){
+      setStatus(true)
+    }else {
+      setStatus(false)
+      props.setChangeStatus(event.target.value);
+    }
+  };
+  const handleChangePriority = (event: any) => {
+    props.setNext("false")
+    props.setChangePriority(event.target.value)
+  };
+
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -175,8 +294,9 @@ const CreateServiceCallModal1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeItemCode}
+              onFocus={handleChangeItemCode}
             />
-            {error && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Item Code</span>}
+            {errorItem && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Item Code</span>}
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>MRF Serial Number</TextBoxHeader>
@@ -186,7 +306,9 @@ const CreateServiceCallModal1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeMRF}
+              onFocus={handleChangeMRF}
             />
+            {errorMRF && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter MRF number</span>}
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Serial Number</TextBoxHeader>
@@ -196,8 +318,10 @@ const CreateServiceCallModal1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeSerialNumber}
-            />
-          </Grid>
+              onFocus={handleChangeSerialNumber}
+              />
+            {errorSerialNumber && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Serial Number</span>}
+           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Item Description</TextBoxHeader>
             <TextBox
@@ -206,7 +330,9 @@ const CreateServiceCallModal1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeItemDescription}
+              onFocus={handleChangeItemDescription}
             />
+            {errorItemDescription && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Item Description</span>}
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Item Group</TextBoxHeader>
@@ -216,7 +342,9 @@ const CreateServiceCallModal1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeItemGroup}
+              onFocus={handleChangeItemGroup}
             />
+            {errorItemGroup && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Item Group</span>}
           </Grid>
         </Grid>
         <Divider
@@ -235,7 +363,9 @@ const CreateServiceCallModal1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeCustomerID}
+              onFocus={handleChangeCustomerID}
             />
+            {errorCustomerID && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Customer ID</span>}
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Customer Name</TextBoxHeader>
@@ -245,7 +375,9 @@ const CreateServiceCallModal1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeCustomerName}
-            />
+              onFocus={handleChangeCustomerName}
+                />
+            {errorCustomerName && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Customer Name</span>}
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Contact Person</TextBoxHeader>
@@ -255,7 +387,9 @@ const CreateServiceCallModal1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeContactPerson}
+              onFocus={handleChangeContactPerson}
             />
+            {errorContactPerson && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Contact Person</span>}
           </Grid>
         </Grid>
         <Grid container spacing={2}>
@@ -267,7 +401,9 @@ const CreateServiceCallModal1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeTelephoneNo}
+              onFocus={handleChangeTelephoneNo}
             />
+            {errorTelephone && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Valid Number</span>}
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Customer Address ID</TextBoxHeader>
@@ -277,7 +413,9 @@ const CreateServiceCallModal1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handlChangeAddress}
+              onFocus={handlChangeAddress}
             />
+            {errorCustomerAddress && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Adddress Id</span>}
           </Grid>
         </Grid>
         <Divider
@@ -295,14 +433,16 @@ const CreateServiceCallModal1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeServiceCallId}
+              onFocus={handleChangeServiceCallId}
             />
+            {errorServiceCall && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Service Call Id</span>}
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Status</TextBoxHeader>
             <SelectBox
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={age}
+              required
               onChange={handleChangeStatus}
               sx={{ width: "99%" }}
             >
@@ -310,6 +450,7 @@ const CreateServiceCallModal1 = (props: any) => {
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </SelectBox>
+            {errorStatus && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Status</span>}
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Priority</TextBoxHeader>
