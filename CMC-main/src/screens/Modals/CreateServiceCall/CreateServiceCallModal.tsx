@@ -115,7 +115,7 @@ const CreateServiceCallModal = (props: any) => {
   const [ActualStartDate, setActualStartDate] = React.useState("")
   const [ActualEndDate, setActualEndDate] = React.useState("")
 
-  var [Next, setNext] = React.useState([""])
+  var [Next, setNext] = React.useState("")
   const [allError,setError]=React.useState(true)
   var [array2, setArray2] = useState([]);
 
@@ -126,6 +126,7 @@ const CreateServiceCallModal = (props: any) => {
   const handleChange = async (newValue: string) => {
     if(ChangeMRF&&ChangeSerialNumber&&ItemDescription&&ItemGroup&&CustomerID&&CustomerName&&ContactPerson&&TelephoneNo&&ChangeStatus&&ChangePriority&&Address)
        setMainTabValue(newValue);
+    setNext("true")
   };
 
   function post(){

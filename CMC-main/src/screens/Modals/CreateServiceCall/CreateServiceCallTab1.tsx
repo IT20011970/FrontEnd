@@ -134,21 +134,21 @@ const CreateServiceCallModal1 = (props: any) => {
 
   useEffect (()=>{
     console.log(props.valueNext)
-      // if(props.valueNext==="true"){
-      //  if(props)
-      //   setItemError(true)
-      //   setMRFError(true)
-      //   setSerialNumberError(true)
-      //   setItemDescriptionError(true)
-      //   setItemGroup(true)
-      //   setCustomerID(true)
-      //   setCustomerName(true)
-      //   setContactPerson(true)
-      //   setTelephone(true)
-      //   setCustomerAddress(true)
-      //   setServiceCall(true)
-      //   setStatus(true)
-      // }
+      if(props.valueNext==="true"){
+       if(props)
+        setItemError(true)
+        setMRFError(true)
+        setSerialNumberError(true)
+        setItemDescriptionError(true)
+        setItemGroup(true)
+        setCustomerID(true)
+        setCustomerName(true)
+        setContactPerson(true)
+        setTelephone(true)
+        setCustomerAddress(true)
+        setServiceCall(true)
+        setStatus(true)
+      }
   })
 
   const handleChangeItemCode = (event: any) => {
