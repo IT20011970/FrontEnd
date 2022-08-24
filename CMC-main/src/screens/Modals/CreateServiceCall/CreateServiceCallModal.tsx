@@ -25,6 +25,7 @@ import CreateServiceCallTab1 from "./CreateServiceCallTab1";
 import CreateServiceCallTab2 from "./CreateServiceCallTab2";
 import Header from "../../../components/Header";
 import "../../../Styles/Modal.css";
+import {useState} from "react";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -74,7 +75,6 @@ const TabName = styled("text")(({ theme }) => ({
 }));
 
 const CreateServiceCallModal = (props: any) => {
-  console.log(props)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -115,13 +115,18 @@ const CreateServiceCallModal = (props: any) => {
   const [ActualStartDate, setActualStartDate] = React.useState("")
   const [ActualEndDate, setActualEndDate] = React.useState("")
 
+  var [Next, setNext] = React.useState("")
+  const [allError,setError]=React.useState(true)
+  var [array2, setArray2] = useState([]);
 
   const  [Test, setTest] = React.useState("1");
   const  [Test1, setTest1] = React.useState("1");
 
 
-  const handleChange = (newValue: string) => {
-    setMainTabValue(newValue);
+  const handleChange = async (newValue: string) => {
+    if(ChangeMRF&&ChangeSerialNumber&&ItemDescription&&ItemGroup&&CustomerID&&CustomerName&&ContactPerson&&TelephoneNo&&ChangeStatus&&ChangePriority&&Address)
+       setMainTabValue(newValue);
+    setNext("true")
   };
 
   function post(){
@@ -165,7 +170,7 @@ const CreateServiceCallModal = (props: any) => {
     fetch('http://localhost:3000/service-calls',requestOptions)
   }
   const sendDataToParent = (index: any) => {
-    console.log(index);
+    //console.log(index);
   };
   const getTab = (index: string): string => {
     switch (index) {
@@ -195,21 +200,22 @@ const CreateServiceCallModal = (props: any) => {
     setSecondTabValue(newValue);
     setTabName(getTab(newValue));
   };
-  console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
-  console.log(Subject, Origin,
-  ProblemType,
-  InquiryType,
-  CreatedBy,
-  HandledBy,
-  Queue,
-  Secretary,
-  SalesAssistant,
-      CreatedOn,
-  EstimatedDuration,
-  PlanedEndDate,
-  PlanedStartDate,
-  ActualStartDate,
-  ActualEndDate)
+  //console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
+  // console.log(Subject, Origin,
+  // ProblemType,
+  // InquiryType,
+  // CreatedBy,
+  // HandledBy,
+  // Queue,
+  // Secretary,
+  // SalesAssistant,
+  //     CreatedOn,
+  // EstimatedDuration,
+  // PlanedEndDate,
+  // PlanedStartDate,
+  // ActualStartDate,
+  // ActualEndDate)
+  console.log(allError)
   return (
     <>
       <Modal
@@ -291,7 +297,7 @@ const CreateServiceCallModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateServiceCallTab1 setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+              <CreateServiceCallTab1 setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} valueNext={Next} setError={setError} setNext={setNext}/>
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
