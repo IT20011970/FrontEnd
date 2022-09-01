@@ -210,10 +210,10 @@ const SparePartsTab1 = () => {
     <>
       <Stack spacing={6} direction="row" sx={{ padding: "0px" }}>
         <Grid container spacing={3}>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <Heading>Spare Parts</Heading>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3} >
             <Search sx={{ borderRadius: "4px" }}>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -223,13 +223,14 @@ const SparePartsTab1 = () => {
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
               />
-            </Search>
+            </Search> 
           </Grid>
-          <Grid item xs={4}>
-            <RequestButton variant="contained"
+          <Grid item xs={3}>
+            <RequestButton variant="contained" 
                            onClick={() => setOpenModal(true)}>
-              Create Spare Parts Request
+              Create Spare-Parts Request
             </RequestButton>
+          
           </Grid>
         </Grid>
       </Stack>

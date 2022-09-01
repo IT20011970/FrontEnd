@@ -162,7 +162,7 @@ const CreateServiceCallModal = (props: any) => {
         }
       ]})
     };
-    fetch('http://localhost:3000/service-calls',requestOptions)
+    fetch('http://localhost:3000/spare-parts',requestOptions)
   }
   const sendDataToParent = (index: any) => {
     console.log(index);
@@ -171,22 +171,7 @@ const CreateServiceCallModal = (props: any) => {
     switch (index) {
       case "1":
         return "General";
-      case "2":
-        return "Ticket";
-      case "3":
-        return "Solutions";
-      case "4":
-        return "Remarks";
-      case "5":
-        return "Scheduling";
-      case "6":
-        return "Expenses";
-      case "7":
-        return "Resolution";
-      case "8":
-        return "History";
-      case "9":
-        return "Related Documents";
+      
       default:
         return "General";
     }
