@@ -85,19 +85,7 @@ const CreateServiceCallModal = (props: any) => {
   const [secondTabValue, setSecondTabValue] = React.useState("1");
   const [tabName, setTabName] = React.useState("General");
   //child 1
-  const [ItemCode, setItemCode] = React.useState("");
-  const [ChangeMRF, setChangeMRF] = React.useState("");
-  const [ChangeSerialNumber, setIChangeSerialNumber] = React.useState("");
-  const [ItemDescription, setItemDescription] = React.useState("");
-  const [ItemGroup, setItemGroup] = React.useState("");
-  const [CustomerID, setCustomerID] = React.useState("");
-  const [CustomerName, setCustomerName] = React.useState("");
-  const [ContactPerson, setContactPerson] = React.useState("");
-  const [TelephoneNo, setTelephoneNo] = React.useState("");
-  const [ChangeStatus, setChangeStatus] = React.useState("");
-  const [ChangeServiceCallId, setChangeServiceCallId] = React.useState("");
-  const [ChangePriority, setChangePriority] = React.useState("");
-  const [Address, setAddress] = React.useState("");
+
   //child 2
   const [Subject, setSubject] = React.useState("");
   const [Origin, setOrigin] = React.useState("");
@@ -121,28 +109,32 @@ const CreateServiceCallModal = (props: any) => {
 
   const  [Test, setTest] = React.useState("1");
   const  [Test1, setTest1] = React.useState("1");
+  const [fields, setfields] = useState<any>({fields:{}});
 
 
   const handleChange = async (newValue: string) => {
-    if(ChangeMRF&&ChangeSerialNumber&&ItemDescription&&ItemGroup&&CustomerID&&CustomerName&&ContactPerson&&TelephoneNo&&ChangeStatus&&ChangePriority&&Address)
-       setMainTabValue(newValue);
-    setNext("true")
+    // if(ChangeMRF&&ChangeSerialNumber&&ItemDescription&&ItemGroup&&CustomerID&&CustomerName&&ContactPerson&&TelephoneNo&&ChangeStatus&&ChangePriority&&Address)
+         setMainTabValue(newValue);
+       setNext("true")
   };
 
   function post(){
+    console.log(fields.fields)
+    console.log(fields)
     const requestOptions ={
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        CustomerId: CustomerID,
-        CustomeName:CustomerName,
-        ContactPerson:ContactPerson,
-        TelephoneNo: TelephoneNo,
-        CustomerAddressId:Address,
+        CustomerId: parseInt(fields.fields.CustomerID),
+        CustomeName:fields.fields.CustomerName,
+        ContactPerson:fields.fields.ContactPerson,
+        TelephoneNo: fields.fields.TelephoneNo,
+        CustomerAddressId:fields.fields.AddressId,
           serviceCalls: [
         {
-          Status:ChangeStatus,
-          Priority:ChangePriority,
+          ServiceCallId:parseInt(fields.fields.ServiceCallId),
+          Status:fields.fields.Status,
+          Priority:fields.fields.ItemCode,
           Subject: Subject,
           Origin: Origin,
           ProblemType: ProblemType,
@@ -159,15 +151,16 @@ const CreateServiceCallModal = (props: any) => {
           ActualStartDate: ActualStartDate,
           ActualEndDate: ActualEndDate,
           itemEntity: {
-            MrfSerialNumber: ChangeMRF,
-            SerialNumber: ChangeSerialNumber,
-            ItemDescription:ItemDescription ,
-            ItemGroup:ItemGroup
+            ItemCode:parseInt(fields.fields.ItemCode),
+            MrfSerialNumber: fields.fields.MRF,
+            SerialNumber: fields.fields.SerialNumber,
+            ItemDescription:fields.fields.ItemDescription ,
+            ItemGroup:fields.fields.ItemGroup
           }
         }
       ]})
     };
-    fetch('http://localhost:3000/service-calls',requestOptions)
+    fetch('http://localhost:3000/service-calls/',requestOptions)
   }
   const sendDataToParent = (index: any) => {
     //console.log(index);
@@ -200,7 +193,10 @@ const CreateServiceCallModal = (props: any) => {
     setSecondTabValue(newValue);
     setTabName(getTab(newValue));
   };
-  //console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
+  // console.log(fields.fields.MRF)
+  // console.log(field["ItemCode"])
+  // console.log(fields["ItemCode"])
+  // console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
   // console.log(Subject, Origin,
   // ProblemType,
   // InquiryType,
@@ -215,7 +211,7 @@ const CreateServiceCallModal = (props: any) => {
   // PlanedStartDate,
   // ActualStartDate,
   // ActualEndDate)
-  console.log(allError)
+  //console.log(allError)
   return (
     <>
       <Modal
@@ -297,7 +293,7 @@ const CreateServiceCallModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateServiceCallTab1 setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} valueNext={Next} setError={setError} setNext={setNext}/>
+              <CreateServiceCallTab1 setfields={setfields}  valueNext={Next}  setNext={setNext}/>
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
@@ -317,6 +313,7 @@ const CreateServiceCallModal = (props: any) => {
                   className="cancelButton"
                   onClick={handleClose}
                 >
+                  {fields.fields["MRF"]}
                   Cancel
                 </ModalButton>
               </Grid>
