@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -12,7 +12,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import "../../../Styles/Modal.css";
 import {number, string} from "prop-types";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import { useForm } from "react-hook-form";
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -113,177 +114,343 @@ const ModalTittle = styled("text")(({ theme }) => ({
 }));
 
 const CreateServiceCallModal1 = (props: any) => {
-  console.log(props.setNext)
-
-  const [age, setAge] = React.useState("");
-  const [openModal, setOpenModal] = React.useState(false);
-  const [errorItem,setItemError] =React.useState(false)
-  const [errorMRF,setMRFError] =React.useState(false)
-  const [errorSerialNumber,setSerialNumberError] =React.useState(false)
-  const [errorItemDescription,setItemDescriptionError] =React.useState(false)
-  const [errorItemGroup,setItemGroup] =React.useState(false)
-  const [errorCustomerID,setCustomerID] =React.useState(false)
-  const [errorCustomerName,setCustomerName] =React.useState(false)
-  const [errorContactPerson,setContactPerson] =React.useState(false)
-  const [errorTelephone,setTelephone] =React.useState(false)
-  const [errorCustomerAddress,setCustomerAddress] =React.useState(false)
-  const [errorServiceCall,setServiceCall] =React.useState(false)
-  const [errorStatus,setStatus] =React.useState(false)
-  const [allError,setError]=React.useState(false)
-
+  // console.log(props.setNext)
+  const [fields, setfields] = useState<any>({});
+  const [errors,seterrors]=useState<any>({})
+  const [next,setnext]=useState("")
+  const [formInput, setFormInput] = useState({
+    email: "a",
+    password: "a",
+  });
 
   useEffect (()=>{
-    console.log(props.valueNext)
+    // console.log(props.valueNext)
       if(props.valueNext==="true"){
-       if(props)
-        setItemError(true)
-        setMRFError(true)
-        setSerialNumberError(true)
-        setItemDescriptionError(true)
-        setItemGroup(true)
-        setCustomerID(true)
-        setCustomerName(true)
-        setContactPerson(true)
-        setTelephone(true)
-        setCustomerAddress(true)
-        setServiceCall(true)
-        setStatus(true)
+        setnext("true")
+        handleValidation()
       }
   })
 
-  const handleChangeItemCode = (event: any) => {
-     props.setNext("false")
-    if(!event.target.value){
-      setItemError(true)
-    }
-    else{
-      setItemError(false)
-      props.setItemCode(event.target.value)
-    }
-  };
-  const handleChangeMRF = (event: any) => {
-    props.setNext("false")
-    if(!event.target.value){
-      setMRFError(true)
-    }else {
-      setMRFError(false)
-      props.setChangeMRF(event.target.value)
-    }
-  };
-  const handleChangeSerialNumber = (event: any) => {
-    props.setNext("false")
-    if(!event.target.value){
-      setSerialNumberError(true)
-    }else {
-      setSerialNumberError(false)
-      props.setIChangeSerialNumber(event.target.value)
-    }
-  };
-  const handleChangeItemDescription = (event: any) => {
-    props.setNext("false")
-    if(!event.target.value){
-      setItemDescriptionError(true)
-    }else {
-      setItemDescriptionError(false)
-      props.setItemDescription(event.target.value)
-    }
-  };
-  const handleChangeItemGroup = (event: any) => {
-    props.setNext("false")
-    if(!event.target.value){
-      setItemGroup(true)
-    }else {
-      setItemGroup(false)
-      props.setItemGroup(event.target.value)
-    }
-  };
-  const handleChangeCustomerID = (event: any) => {
-    props.setNext("false")
-    if(!event.target.value){
-      setCustomerID(true)
-    }else {
-      setCustomerID(false)
-      props.setCustomerID(event.target.value)
-    }
-  };
-  const handleChangeCustomerName = (event: any) => {
-    props.setNext("false")
-    if(!event.target.value){
-      setCustomerName(true)
-    }else {
-      setCustomerName(false)
-      props.setCustomerName(event.target.value)
-    }
-  };
-  const handleChangeContactPerson = (event: any) => {
-    props.setNext("false")
-    if(!event.target.value){
-      setContactPerson(true)
-    }else {
-      setContactPerson(false)
-      props.setContactPerson(event.target.value)
-    }
-  };
 
-  const handleChangeTelephoneNo = (event: any) => {
-    props.setNext("false")
-    if(!event.target.value){
-           setTelephone(true)
-      //setTelephone(true)
-    }else {
-      if(event.target.value.length===3){
-        event.target.value=event.target.value+"-"
+  function handleChange(e:any,f:any) {
+    // let field=fields
+    fields[f] = e.target.value;
+    handleValidation()
+  }
+  function select() {
+    let field=fields
+    if(!fields["Status"])
+    field["Status"] = "0";
+    // setfields({Status:"0"})
+    handleValidation()
+  }
+
+ function handleValidation(){
+    console.log(fields)
+   // console.log(fields["MRF"])
+   // let errors: any = {};
+   let formIsValid = true;
+   // console.log( typeof fields["Status"])
+   //  console.log( fields["Status"])
+   //   //ItemCode
+    if(typeof fields["ItemCode"] === "string"){
+        if (fields["ItemCode"]==="") {
+          errors["ItemCode"] = "Please Enter Item Code ";
+         seterrors(errors)
+        }
+       else{
+           errors["ItemCode"] = "good"
+           setfields( fields )
+             props.setfields({fields})
+           seterrors(errors)
+       }
+     }
+
+  // MRF
+   if(typeof fields["MRF"] === "string"){
+     if (fields["MRF"]==="") {
+       errors["MRF"] = "Please Enter MRF ";
+       seterrors(errors)
+     }
+     else if (!fields["MRF"].match(/^[a-zA-Z]+$/)) {
+       errors["MRF"] = "Only letters ";
+       seterrors(errors)
+     }
+     else{
+       errors["MRF"] = "good"
+       setfields( fields )
+        props.setfields({fields})
+       seterrors(errors)
+     }
+   }
+
+    //SerialNumber
+   if(typeof fields["SerialNumber"] === "string"){
+     if (fields["SerialNumber"]==="") {
+       errors["SerialNumber"] = "Please Enter Serial Number ";
+       seterrors(errors)
+     }
+     else if (!fields["SerialNumber"].match(/^[a-zA-Z]+$/)) {
+       errors["SerialNumber"] = "Only letters ";
+       seterrors(errors)
+     }
+     else{
+       errors["SerialNumber"] = "good"
+       setfields( fields )
+       props.setfields({fields})
+       seterrors(errors)
+     }
+   }
+    //ItemDescription
+   if(typeof fields["ItemDescription"] === "string"){
+     if (fields["ItemDescription"]==="") {
+       errors["ItemDescription"] = "Please Enter Item Description ";
+       seterrors(errors)
+     }
+     else if (!fields["ItemDescription"].match(/^[a-zA-Z]+$/)) {
+       errors["ItemDescription"] = "Only letters ";
+       seterrors(errors)
+     }
+     else{
+       errors["ItemDescription"] = "good"
+       setfields( fields )
+       props.setfields({fields})
+       seterrors(errors)
+     }
+   }
+  //ItemGroup
+   if(typeof fields["ItemGroup"] === "string"){
+     if (fields["ItemGroup"]==="") {
+       errors["ItemGroup"] = "Please Enter Item Group ";
+       seterrors(errors)
+     }
+     else if (!fields["ItemGroup"].match(/^[a-zA-Z]+$/)) {
+       errors["ItemGroup"] = "Only letters ";
+       seterrors(errors)
+     }
+     else{
+       errors["ItemGroup"] = "good"
+       setfields( fields )
+       props.setfields({fields})
+       seterrors(errors)
+     }
+   }
+   //CustomerID
+   if(typeof fields["CustomerID"] === "string") {
+     // setfields( {ContactPerson:'',CustomerName:'',TelephoneNo:'',AddressId:''} )
+     if (fields["CustomerID"] === "") {
+       errors["CustomerID"] = "Please Enter Customer ID ";
+       seterrors(errors)
+     }  else {
+       errors["CustomerID"] = "good"
+       seterrors(errors)
+       const requestOptions = {
+         method: 'GET',
+         headers: {'Content-Type': 'application/json'}
+       };
+       fetch('http://localhost:3000/service-calls/'+fields["CustomerID"],requestOptions)
+           .then(response=>{ return response.json()})
+           .then(data=>{
+             if(data.statusCode===404){
+               fields["CustomerID"] =""
+               fields["ContactPerson"] = ""
+               fields["CustomerName"] =""
+               fields["TelephoneNo"] = ""
+               fields["AddressId"] = ""
+               fields["CustomerName"] = ""
+               setfields(fields)
+               props.setfields({fields})
+               console.log(data)
+             }
+             else{
+
+               // console.log(data)
+               fields["CustomerID"] = data.CustomerId
+               fields["ContactPerson"] = data.ContactPerson
+               fields["CustomerName"] = data.CustomeName
+               fields["TelephoneNo"] = data.TelephoneNo
+               fields["AddressId"] = data.CustomeName
+               fields["CustomerName"] = data.CustomerAddressId
+
+               setfields(fields)
+               // setfields( {CustomerID:data.CustomerId,ContactPerson:data.ContactPerson,CustomerName:data.CustomeName,TelephoneNo:data.TelephoneNo,AddressId:data.CustomerAddressId} )
+                props.setfields({fields})
+               }
+
+           })
+     }
+   }
+    //CustomerName
+   if(typeof fields["CustomerName"] === "string"){
+     if (fields["CustomerName"]==="") {
+       errors["CustomerName"] = "Please Enter Customer Name ";
+       seterrors(errors)
+     }
+     else if (!fields["CustomerName"].match(/^[a-zA-Z]+$/)) {
+       errors["CustomerName"] = "Only letters ";
+       seterrors(errors)
+     }
+     else{
+       errors["CustomerName"] = "good"
+       setfields( fields )
+       props.setfields({fields})
+       seterrors(errors)
+     }
+   }
+   //ContactPerson
+   if(typeof fields["ContactPerson"] === "string"){
+     if (fields["ContactPerson"]==="") {
+       errors["ContactPerson"] = "Please Enter Contact Person ";
+       seterrors(errors)
+     }
+     else if (!fields["ContactPerson"].match(/^[a-zA-Z]+$/)) {
+       errors["ContactPerson"] = "Only letters ";
+       seterrors(errors)
+     }
+     else{
+       errors["ContactPerson"] = "good"
+       setfields( fields )
+       props.setfields({fields})
+       seterrors(errors)
+     }
+   }
+    //TelephoneNo
+   if(typeof fields["TelephoneNo"] === "string"){
+       // if(fields["TelephoneNo"].length===3){
+       //   fields["TelephoneNo"]=fields["TelephoneNo"]+"-"
+       // }
+       // else if(fields["TelephoneNo"].length===4) {
+       //   setfields({TelephoneNo: ""})
+       // }
+     if (fields["TelephoneNo"]==="") {
+       errors["TelephoneNo"] = "Please Enter Telephone No";
+       seterrors(errors)
+     }
+     else if (fields["TelephoneNo"].match(/^[0-9]{9}$/)) {
+       errors["TelephoneNo"] = "good";
+       seterrors(errors)
+     }
+     else{
+       errors["TelephoneNo"] = "Invalid Telephone No"
+       seterrors(errors)
+       setfields( fields )
+       props.setfields({fields})
+       seterrors(errors)
+     }
+   }
+    //AddressId
+   if(typeof fields["AddressId"] === "string"){
+     if (fields["AddressId"]==="") {
+       errors["AddressId"] = "Please Enter Address Id ";
+       seterrors(errors)
+     }
+     else if (!fields["AddressId"].match(/^[a-zA-Z]+$/)) {
+       errors["AddressId"] = "Only letters ";
+       seterrors(errors)
+     }
+     else{
+       errors["AddressId"] = "good"
+       setfields( fields )
+       props.setfields({fields})
+       seterrors(errors)
+     }
+   }
+  //ServiceCallId
+   if(typeof fields["ServiceCallId"] === "string"){
+     if (fields["ServiceCallId"]==="") {
+       errors["ServiceCallId"] = "Please Enter ServiceCall Id ";
+       seterrors(errors)
+     }
+     else{
+       errors["ServiceCallId"] = "good"
+       setfields( fields )
+       props.setfields({fields})
+       seterrors(errors)
+     }
+   }
+    //Status
+   if(typeof fields["Status"] !== "undefined"){
+     if (fields["Status"]==="0") {
+       errors["Status"] = "Please Enter Status";
+       seterrors(errors)
+     }
+     else{
+       errors["Status"] = "good"
+       setfields( fields )
+       props.setfields({fields})
+       seterrors(errors)
+     }
+   }
+   //Priority
+   if(typeof fields["Priority"] === "string"){
+     if (fields["Priority"]==="") {
+       errors["Priority"] = "Please Enter Priority ";
+       seterrors(errors)
+     }
+     else if (!fields["Priority"].match(/^[a-zA-Z]+$/)) {
+       errors["Priority"] = "Only letters ";
+       seterrors(errors)
+     }
+     else{
+       errors["Priority"] = "good"
+       setfields( fields )
+       props.setfields({fields})
+       seterrors(errors)
+     }
+   }
+   //Begin
+    if(next==="true") {
+     if(typeof fields["ItemCode"] !== "string") {
+       errors["ItemCode"] = "Please Enter Item Code ";
+       seterrors(errors)
+     }
+     if(typeof fields["MRF"] !== "string") {
+       errors["MRF"] = "Please Enter MRF ";
+       seterrors(errors)
+     }
+      if(typeof fields["SerialNumber"] !== "string") {
+        errors["SerialNumber"] = "Please Enter SerialNumber ";
+        seterrors(errors)
       }
-      else if(event.target.value.length===4) {
-        event.target.value=""
-      }
-
-      if(event.target.value.match('[0-9]{3}[-][0-9]{7}$')){
-        setTelephone(false)
-        props.setTelephoneNo(event.target.value)
-      }
-      else{
-        setTelephone(true)
-      }
-
-    }
-  };
-  const handlChangeAddress = (event: any) => {
-    props.setNext("false")
-    if(!event.target.value){
-      setCustomerAddress(true)
-    }else {
-      setCustomerAddress(false)
-      props.setAddress(event.target.value)
-    }
-  };
-  const handleChangeServiceCallId = (event: any) => {
-    props.setNext("false")
-    if(!event.target.value){
-      setServiceCall(true)
-    }else {
-      setServiceCall(false)
-      props.setChangeServiceCallId(event.target.value)
-    }
-  };
-  const handleChangeStatus = (event: any) => {
-    props.setNext("false")
-    console.log(event.target.value)
-    if(!event.target.value){
-      setStatus(true)
-    }else {
-      setStatus(false)
-      props.setChangeStatus(event.target.value);
-    }
-  };
-  const handleChangePriority = (event: any) => {
-    props.setNext("false")
-    props.setChangePriority(event.target.value)
-  };
+   }
 
 
+
+ }
+
+    // function handleChange(e:any,f:any) {
+  //   fields.=e.target.value;
+  //   // console.log(fields[f])
+  //   let errors = {ItemCode:''};
+  //   let formIsValid = true;
+  //   //ItemCode
+  //   if (!fields.ItemCode) {
+  //     formIsValid = false;
+  //     errors.ItemCode = "Cannot be empty";
+  //
+  //   }
+  //   else{
+  //     if (typeof fields["ItemCode"] !== "undefined") {
+  //       if (!fields["ItemCode"].match(/^[a-zA-Z]+$/)) {
+  //         formIsValid = false;
+  //         errors["ItemCode"] = "Only letters";
+  //       }
+  //     }
+  //     else{
+  //       // fields[f]=e.target.value
+  //       setfields( fields );
+  //     }
+  //   }
+  //
+  //
+  //   seterrors(errors)
+  // }
+
+
+  // @ts-ignore
   return (
     <>
+    <form>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={6} md={3}>
@@ -293,11 +460,12 @@ const CreateServiceCallModal1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handleChangeItemCode}
-              onFocus={handleChangeItemCode}
+              name="ItemCode"
+              onChange={(e) => handleChange(e,"ItemCode") }
+              onFocus={(e) => handleChange(e,"ItemCode") }
             />
-            {errorItem && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Item Code</span>}
-          </Grid>
+            <span style={{color: "red"}}>{errors["ItemCode"]}</span>
+            </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>MRF Serial Number</TextBoxHeader>
             <TextBox
@@ -305,11 +473,14 @@ const CreateServiceCallModal1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handleChangeMRF}
-              onFocus={handleChangeMRF}
+              onChange={(e) => handleChange(e,"MRF") }
+              onFocus={(e) => handleChange(e,"MRF") }
             />
-            {errorMRF && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter MRF number</span>}
-          </Grid>
+            {fields["ItemCode"]}
+            <br/>
+            {fields.MRF}
+            <span style={{ color: "red" }}>{errors["MRF"]}</span>
+             </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Serial Number</TextBoxHeader>
             <TextBox
@@ -317,11 +488,11 @@ const CreateServiceCallModal1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handleChangeSerialNumber}
-              onFocus={handleChangeSerialNumber}
+              onChange={(e) => handleChange(e,"SerialNumber") }
+              onFocus={(e) => handleChange(e,"SerialNumber") }
               />
-            {errorSerialNumber && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Serial Number</span>}
-           </Grid>
+            <span style={{color: "red"}}>{errors["SerialNumber"]}</span>
+            </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Item Description</TextBoxHeader>
             <TextBox
@@ -329,11 +500,11 @@ const CreateServiceCallModal1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handleChangeItemDescription}
-              onFocus={handleChangeItemDescription}
+              onChange={(e) => handleChange(e,"ItemDescription") }
+              onFocus={(e) => handleChange(e,"ItemDescription") }
             />
-            {errorItemDescription && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Item Description</span>}
-          </Grid>
+            <span style={{color: "red"}}>{errors["ItemDescription"]}</span>
+             </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Item Group</TextBoxHeader>
             <TextBox
@@ -341,11 +512,11 @@ const CreateServiceCallModal1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handleChangeItemGroup}
-              onFocus={handleChangeItemGroup}
+              onChange={(e) => handleChange(e,"ItemGroup") }
+              onFocus={(e) => handleChange(e,"ItemGroup") }
             />
-            {errorItemGroup && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Item Group</span>}
-          </Grid>
+            <span style={{color: "red"}}>{errors["ItemGroup"]}</span>
+             </Grid>
         </Grid>
         <Divider
           orientation="horizontal"
@@ -358,53 +529,56 @@ const CreateServiceCallModal1 = (props: any) => {
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Customer ID</TextBoxHeader>
             <TextBox
-              id="outlined-basic"
+              id="outlined-basic1"
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handleChangeCustomerID}
-              onFocus={handleChangeCustomerID}
+              onChange={(e) => handleChange(e,"CustomerID") }
+              onFocus={(e) => handleChange(e,"CustomerID") }
             />
-            {errorCustomerID && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Customer ID</span>}
+            <span style={{color: "red"}}>{errors["CustomerID"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Customer Name</TextBoxHeader>
             <TextBox
-              id="outlined-basic"
+              id="outlined-basic2"
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handleChangeCustomerName}
-              onFocus={handleChangeCustomerName}
+              value={fields["CustomerName"]}
+              onChange={(e) => handleChange(e,"CustomerName") }
+              onFocus={(e) => handleChange(e,"CustomerName") }
                 />
-            {errorCustomerName && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Customer Name</span>}
-          </Grid>
+            <span style={{color: "red"}}>{errors["CustomerName"]}</span>
+            </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Contact Person</TextBoxHeader>
             <TextBox
-              id="outlined-basic"
+              id="outlined-basic3"
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handleChangeContactPerson}
-              onFocus={handleChangeContactPerson}
+              value={fields["ContactPerson"]}
+              onChange={(e) => handleChange(e,"ContactPerson") }
+              onFocus={(e) => handleChange(e,"ContactPerson") }
             />
-            {errorContactPerson && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Contact Person</span>}
-          </Grid>
+            <span style={{color: "red"}}>{errors["ContactPerson"]}</span>
+            </Grid>
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Telephone No</TextBoxHeader>
             <TextBox
-              id="outlined-basic"
+              id="outlined-basic4"
               variant="outlined"
               placeholder="Text (default)"
+              value={fields["TelephoneNo"]}
               sx={{ width: "99%" }}
-              onChange={handleChangeTelephoneNo}
-              onFocus={handleChangeTelephoneNo}
+              onChange={(e) => handleChange(e,"TelephoneNo") }
+              onFocus={(e) => handleChange(e,"TelephoneNo") }
             />
-            {errorTelephone && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Valid Number</span>}
-          </Grid>
+            <span style={{color: "red"}}>{errors["TelephoneNo"]}</span>
+            </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Customer Address ID</TextBoxHeader>
             <TextBox
@@ -412,11 +586,12 @@ const CreateServiceCallModal1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handlChangeAddress}
-              onFocus={handlChangeAddress}
+              value={fields["AddressId"]}
+              onChange={(e) => handleChange(e,"AddressId") }
+              onFocus={(e) => handleChange(e,"AddressId") }
             />
-            {errorCustomerAddress && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Adddress Id</span>}
-          </Grid>
+            <span style={{color: "red"}}>{errors["AddressId"]}</span>
+             </Grid>
         </Grid>
         <Divider
           orientation="horizontal"
@@ -432,25 +607,26 @@ const CreateServiceCallModal1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handleChangeServiceCallId}
-              onFocus={handleChangeServiceCallId}
+              onChange={(e) => handleChange(e,"ServiceCallId") }
+              onFocus={(e) => handleChange(e,"ServiceCallId") }
             />
-            {errorServiceCall && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Service Call Id</span>}
-          </Grid>
+            <span style={{color: "red"}}>{errors["ServiceCallId"]}</span>
+              </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Status</TextBoxHeader>
             <SelectBox
               labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              required
-              onChange={handleChangeStatus}
+              id="demo-simple-select1"
               sx={{ width: "99%" }}
+              defaultValue=""
+                onChange={(e) => handleChange(e,"Status") }
+                onFocus={ select }
             >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </SelectBox>
-            {errorStatus && <span style={{color: "red",fontSize: "12px",padding: "3px"}}>Please Enter Status</span>}
+            <span style={{color: "red"}}>{errors["Status"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Priority</TextBoxHeader>
@@ -459,11 +635,14 @@ const CreateServiceCallModal1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handleChangePriority}
+              onChange={(e) => handleChange(e,"Priority") }
+              onFocus={(e) => handleChange(e,"Priority") }
             />
+            <span style={{color: "red"}}>{errors["Priority"]}</span>
           </Grid>
         </Grid>
       </Box>
+    </form>
     </>
   );
 };
