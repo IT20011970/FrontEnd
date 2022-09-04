@@ -2,11 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="372d2b3a-46c6-48a7-b8d2-cf30db5b1b81" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CMC-main/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/CMC-main/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMC-main/src/screens/Modals/CreateSpareParts/CreateSparePartslModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CMC-main/src/screens/Modals/CreateSpareParts/CreateSparePartslModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMC-main/src/screens/TabScreens/SpareParts/SparePartsTab1.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CMC-main/src/screens/TabScreens/SpareParts/SparePartsTab1.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMC-main/src/screens/TabScreens/SpareParts/SparePartsTab2.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CMC-main/src/screens/TabScreens/SpareParts/SparePartsTab2.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMC-main/src/screens/ResourceAllocation.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMC-main/src/screens/ServiceTicket.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMC-main/src/screens/TabScreens/ResourceAllocation/ResourceAllocationSubTab1.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMC-main/src/screens/TabScreens/ResourceAllocation/ResourceAllocationSubTab2.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMC-main/src/screens/TabScreens/ResourceAllocation/ResourceAllocationTab1.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CMC-main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMC-main/src/components/SideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CMC-main/src/components/SideBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMC-main/src/screens/Modals/CreateServiceCall/CreateServiceCallModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CMC-main/src/screens/Modals/CreateServiceCall/CreateServiceCallModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMC-main/src/screens/Modals/CreateServiceCall/CreateServiceCallTab1.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CMC-main/src/screens/Modals/CreateServiceCall/CreateServiceCallTab1.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMC-main/src/screens/Modals/CreateServiceCall/Modal2-Tabs/GeneralTab.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CMC-main/src/screens/Modals/CreateServiceCall/Modal2-Tabs/GeneralTab.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMC-main/src/screens/ServiceTickets.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,14 +33,32 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/CMC-main/src/screens" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Users\Gayan\Desktop\company\react\CMC-main\CMC-main\node_modules\typescript\lib" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Gayan\Desktop\company\react\CMC-main\CMC-main\src\screens" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Gayan\Desktop\company\react\CMC-main\CMC-main\src\screens" />
+    </key>
+  </component>
   <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/CMC-main/package.json" />
       <command value="run" />
@@ -62,7 +90,8 @@
       <workItem from="1661742267346" duration="10037000" />
       <workItem from="1661782565713" duration="9012000" />
       <workItem from="1661791787570" duration="57136000" />
-      <workItem from="1662005614140" duration="24601000" />
+      <workItem from="1662005614140" duration="46590000" />
+      <workItem from="1662115140255" duration="2901000" />
     </task>
     <servers />
   </component>

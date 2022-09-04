@@ -80,6 +80,7 @@ const CreateServiceCallModal = (props: any) => {
   const handleClose = () => {
     setOpen(false);
     setMainTabValue("1");
+    setNext("false")
   };
   const [mainTabValue, setMainTabValue] = React.useState("1");
   const [secondTabValue, setSecondTabValue] = React.useState("1");
@@ -293,7 +294,7 @@ const CreateServiceCallModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateServiceCallTab1 setfields={setfields}  valueNext={Next}  setNext={setNext}/>
+              <CreateServiceCallTab1 sendDataToParent={sendDataToParent}  setfields={setfields}  valueNext={Next}  setNext={setNext}/>
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
