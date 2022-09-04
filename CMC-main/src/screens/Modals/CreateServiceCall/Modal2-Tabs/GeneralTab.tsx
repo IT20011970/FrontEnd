@@ -145,6 +145,7 @@ const GeneralTab = (props: any) => {
               id="demo-simple-select"
               onChange={handleChangeOrigin}
               // label="Age"
+              defaultValue=""
 
             >
               <MenuItem value={10}>Ten</MenuItem>
@@ -158,6 +159,7 @@ const GeneralTab = (props: any) => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               // label="Age"
+              defaultValue=""
               onChange={handleChangeProblemType}
             >
               <MenuItem value={10}>Ten</MenuItem>
@@ -171,6 +173,7 @@ const GeneralTab = (props: any) => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               // label="Age"
+              defaultValue=""
               onChange={handleChangeInquiryType}
             >
               <MenuItem value={10}>Ten</MenuItem>
@@ -193,6 +196,7 @@ const GeneralTab = (props: any) => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               // label="Age"
+              defaultValue=""
               onChange={handleChangeCreatedBy}
             >
               <MenuItem value={10}>Ten</MenuItem>
@@ -206,6 +210,7 @@ const GeneralTab = (props: any) => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               // label="Age"
+              defaultValue=""
               onChange={handleChangeHandledBy}
             >
               <MenuItem value={10}>Ten</MenuItem>
@@ -219,6 +224,7 @@ const GeneralTab = (props: any) => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               // label="Age"
+              defaultValue=""
               onChange={handleChangeQueue}
             >
               <MenuItem value={10}>Ten</MenuItem>
@@ -232,6 +238,7 @@ const GeneralTab = (props: any) => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               // label="Age"
+              defaultValue=""
               onChange={handleChangeSecretary}
             >
               <MenuItem value={10}>Ten</MenuItem>
@@ -245,6 +252,7 @@ const GeneralTab = (props: any) => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               // label="Age"
+              defaultValue=""
                onChange={handleChangeSalesAssistant}
             >
               <MenuItem value={10}>Ten</MenuItem>

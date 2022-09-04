@@ -28,12 +28,13 @@ import Tab from "@mui/material/Tab";
 
 import Dashboard from "./../screens/Dashboard";
 import ServiceCall from "./../screens/ServiceCall";
-import ServiceTickets from "./../screens/ServiceTickets";
 import SpareParts from "./../screens/SpareParts";
 // import "./../Styles/SideBar.css";
 // import "./../Styles/TopNav.css";
 // import "./../Styles/Styles.css";
 import TabPanel from "./../screens/ServiceCall";
+import ResourceAllocation from "../screens/ResourceAllocation";
+import ServiceTicket from "../screens/ServiceTicket";
 
 const useStyles = makeStyles({
   topNavIcon: {
@@ -400,6 +401,27 @@ const SideBar = () => {
                 </AppBar>
               </Box>
             </Route>
+            <Route exact path="/ResourceAllocation">
+              <Box className="TabBox">
+                <AppBar position="static">
+                  <Tabs
+                      TabIndicatorProps={{
+                        style: {
+                          backgroundColor: "#0091D5",
+                          height: "6px",
+                        },
+                      }}
+                      value={value}
+                      onChange={handleChange}
+                      textColor="inherit"
+                      variant="fullWidth"
+                  >
+                    <Tab label="Resource Allocation" {...a11yProps(0)} />
+                    <Tab label="Resource Allocation List" {...a11yProps(1)} />
+                  </Tabs>
+                </AppBar>
+              </Box>
+            </Route>
           </Switch>
         </AppBar>
         {renderMobileMenu}
@@ -725,10 +747,13 @@ const SideBar = () => {
               <ServiceCall value={value} />
             </Route>
             <Route exact path="/ServiceTickets">
-              <ServiceTickets />
+              <ServiceTicket  value={value}/>
             </Route>
             <Route exact path="/SpareParts">
               <SpareParts value={value} />
+            </Route>
+            <Route exact path="/ResourceAllocation">
+              <ResourceAllocation value={value} />
             </Route>
           </Switch>
         </Box>
