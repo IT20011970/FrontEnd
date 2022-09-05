@@ -162,7 +162,7 @@ const CreateServiceCallModal = (props: any) => {
         }
       ]})
     };
-    fetch('http://localhost:3000/spare-parts',requestOptions)
+    fetch('http://localhost:3000/SpareParts',requestOptions)
   }
   const sendDataToParent = (index: any) => {
     console.log(index);
@@ -258,13 +258,7 @@ const CreateServiceCallModal = (props: any) => {
                   sx={{ marginLeft: "-40px" }}
                 >
                   <Tab label="General" value="1" />
-                  <Tab label="Tickets" value="2" />
-                  <Tab label="Solutions" value="3" />
-                  <Tab label="Remarks" value="4" />
-                  <Tab label="Scheduling" value="5" />
-                  <Tab label="Expenses" value="6" />
-                  <Tab label="Resolution" value="7" />
-                  <Tab label="History" value="8" />
+                  
                   <Tab label="Related Documents" value="9" />
                 </TabList>
               </Box>

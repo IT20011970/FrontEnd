@@ -114,7 +114,7 @@ const CreateServiceCallModal = (props: any) => {
 
   const handleChange = async (newValue: string) => {
     // if(ChangeMRF&&ChangeSerialNumber&&ItemDescription&&ItemGroup&&CustomerID&&CustomerName&&ContactPerson&&TelephoneNo&&ChangeStatus&&ChangePriority&&Address)
-         setMainTabValue(newValue);
+       setMainTabValue(newValue);
        setNext("true")
   };
 
