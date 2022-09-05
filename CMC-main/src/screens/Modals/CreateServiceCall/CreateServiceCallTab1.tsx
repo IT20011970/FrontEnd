@@ -413,39 +413,7 @@ const CreateServiceCallModal1 = (props: any) => {
         seterrors(errors)
       }
    }
-
-
-
  }
-
-    // function handleChange(e:any,f:any) {
-  //   fields.=e.target.value;
-  //   // console.log(fields[f])
-  //   let errors = {ItemCode:''};
-  //   let formIsValid = true;
-  //   //ItemCode
-  //   if (!fields.ItemCode) {
-  //     formIsValid = false;
-  //     errors.ItemCode = "Cannot be empty";
-  //
-  //   }
-  //   else{
-  //     if (typeof fields["ItemCode"] !== "undefined") {
-  //       if (!fields["ItemCode"].match(/^[a-zA-Z]+$/)) {
-  //         formIsValid = false;
-  //         errors["ItemCode"] = "Only letters";
-  //       }
-  //     }
-  //     else{
-  //       // fields[f]=e.target.value
-  //       setfields( fields );
-  //     }
-  //   }
-  //
-  //
-  //   seterrors(errors)
-  // }
-
 
   // @ts-ignore
   return (
