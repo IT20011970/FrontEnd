@@ -249,7 +249,7 @@ const ServiceCallTab1 = () => {
                 </SearchIconWrapper>
                 <StyledInputBase
                     onChange={(e) => setSearchInput(e.target.value)}
-                    placeholder="Searchâ€¦"
+                    placeholder="Search"
                     inputProps={{ "aria-label": "search" }}
                 />
               </Search>

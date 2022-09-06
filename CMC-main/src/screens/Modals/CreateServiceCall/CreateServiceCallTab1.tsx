@@ -114,7 +114,7 @@ const ModalTittle = styled("text")(({ theme }) => ({
 }));
 
 const CreateServiceCallModal1 = (props: any) => {
-  // console.log(props.setNext)
+   console.log(props.setNext)
   const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
   const [next,setnext]=useState("")
@@ -124,7 +124,7 @@ const CreateServiceCallModal1 = (props: any) => {
   });
 
   useEffect (()=>{
-    // console.log(props.valueNext)
+    console.log(props.valueNext)
       if(props.valueNext==="true"){
         setnext("true")
         handleValidation()

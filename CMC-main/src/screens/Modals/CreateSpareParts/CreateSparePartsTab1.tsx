@@ -161,6 +161,42 @@ const CreateSparePartsTab1 = (props: any) => {
   };
 
 
+
+//   const stidRegex = RegExp(
+//     /^[0-9]{1,5}$/
+//   );
+  
+//   const formValid = formErrors =>{
+//     let valid = true;
+
+//     Object.values(formErrors).forEach(val => {
+//         val.length > 0 && (valid = false)
+//     });
+//     return valid;
+// };
+
+//   handleInputChange = (e) => {
+//     const { name, value } = e.target;
+
+//     let formErrors = this.state.formErrors;
+
+//     switch(name){
+//         case "stid":
+//             formErrors.email = stidRegex.test(value) ? ""
+//             : "invalid email address";
+//             break;
+//             default:
+//               break;
+//     }
+
+//     this.setState({formErrors, [name]:value}, ()=>console.log(this.state));
+
+//     this.setState({
+//         ...this.state,
+//         [name]: value
+//     })
+//   }
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -168,11 +204,16 @@ const CreateSparePartsTab1 = (props: any) => {
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Service Ticket ID</TextBoxHeader>
             <TextBox
+              // name="stid"
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeItemCode}
+            
+              // {formErrors.name.length != 10 && (
+              //   <span className="errorMessage">{formErrors.name}</span>
+              //   )}
             />
           </Grid>
           <Grid item xs={6} md={3}>
