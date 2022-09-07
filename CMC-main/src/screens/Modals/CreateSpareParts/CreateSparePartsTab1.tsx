@@ -14,6 +14,7 @@ import "../../../Styles/Modal.css";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DateTimePicker from "@mui/lab/DateTimePicker";
+import { useForm } from "react-hook-form";
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -47,25 +48,25 @@ const TextBox = styled(TextField)(({ theme }) => ({
   },
 }));
 
-// const SelectBox = styled(Select)(({ theme }) => ({
-//   ...theme.typography.body2,
-//   padding: theme.spacing(0),
-//   textAlign: "center",
-//   boxShadow: "none",
-//   fontFamily: "Montserrat",
-//   fontSize: 14,
-//   fontWeight: 400,
-//   color: "#383838",
-//   borderRadius: "4px",
-//   height: "40px",
-//   boxSizing: "content-box",
+const SelectBox = styled(Select)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(0),
+  textAlign: "center",
+  boxShadow: "none",
+  fontFamily: "Montserrat",
+  fontSize: 14,
+  fontWeight: 400,
+  color: "#383838",
+  borderRadius: "4px",
+  height: "40px",
+  boxSizing: "content-box",
 //   // "& .MuiSelect-select": {
 //   //   borderRadius: "4px",
 //   //   height: "40px",
 //   //   width: "auto",
 //   //   // padding: "10px",
 //   // },
-// }));
+}));
 
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
@@ -88,6 +89,19 @@ const SelectInput = styled(Select)(({ theme }) => ({
   },
 }));
 
+const ModalButton = styled(Button)(({ theme }) => ({
+  width: "90px",
+  height: "auto",
+  borderRadius: "2px",
+  cursor: "pointer",
+  fontFamily: "Montserrat",
+  fontSize: "14px",
+  fontWeight: 600,
+  float: "right",
+  padding: "7px",
+  boxShadow: "none",
+}));
+
 const Modal = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -96,6 +110,12 @@ const Modal = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }));
+
+// const ModalTittle = styled("text")(({ theme }) => ({
+//   fontFamily: "Montserrat",
+//   fontSize: 24,
+//   fontWeight: 700,
+// }));
 
 const style = {
   position: "absolute",
@@ -117,8 +137,16 @@ const ModalTittle = styled("text")(({ theme }) => ({
 
 const CreateSparePartsTab1 = (props: any) => {
 
+  const { open, setOpen } = props;
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const [age, setAge] = React.useState("");
   const [openModal, setOpenModal] = React.useState(false);
+
+  const handleChange = (event: any) => {
+    setAge(event.target.value);
+  };
 
   const handleChangeItemCode = (event: any) => {
     props.setItemCode(event.target.value)
@@ -207,13 +235,13 @@ const CreateSparePartsTab1 = (props: any) => {
               // name="stid"
               id="outlined-basic"
               variant="outlined"
-              placeholder="Text (default)"
-              sx={{ width: "99%" }}
+              placeholder="Text (default)" required
+              sx={{ width: "99%" }} 
               onChange={handleChangeItemCode}
             
               // {formErrors.name.length != 10 && (
               //   <span className="errorMessage">{formErrors.name}</span>
-              //   )}
+              //   )} 
             />
           </Grid>
           <Grid item xs={6} md={3}>
