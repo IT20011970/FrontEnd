@@ -252,6 +252,12 @@ const CreateServiceCallModal1 = (props: any) => {
            .then(response=>{ return response.json()})
            .then(data=>{
              if(data.statusCode===404){
+               fields["CustomerID"] =""
+               fields["ContactPerson"] = ""
+               fields["CustomerName"] =""
+               fields["TelephoneNo"] = ""
+               fields["AddressId"] = ""
+               fields["CustomerName"] = ""
                setfields(fields)
                props.setfields({fields})
                console.log(data)
