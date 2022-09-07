@@ -34,6 +34,7 @@ import ResourceAllocation from "../../ResourceAllocation";
 import CreateSparePartslModal from "../../Modals/CreateSpareParts/CreateSparePartslModal";
 
 
+
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: "8px",

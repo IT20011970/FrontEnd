@@ -35,6 +35,7 @@ import SpareParts from "./../screens/SpareParts";
 import TabPanel from "./../screens/ServiceCall";
 import ResourceAllocation from "../screens/ResourceAllocation";
 import ServiceTicket from "../screens/ServiceTicket";
+import Calender from "../screens/Calender";
 
 const useStyles = makeStyles({
   topNavIcon: {
@@ -422,6 +423,27 @@ const SideBar = () => {
                 </AppBar>
               </Box>
             </Route>
+            <Route exact path="/Calendar">
+              <Box className="TabBox">
+                <AppBar position="static">
+                  <Tabs
+                      TabIndicatorProps={{
+                        style: {
+                          backgroundColor: "#0091D5",
+                          height: "6px",
+                        },
+                      }}
+                      value={value}
+                      onChange={handleChange}
+                      textColor="inherit"
+                      variant="fullWidth"
+                  >
+                    <Tab label="Personal Calendar" {...a11yProps(0)} />
+                    <Tab label="Resource Calendar" {...a11yProps(1)} />
+                  </Tabs>
+                </AppBar>
+              </Box>
+            </Route>
           </Switch>
         </AppBar>
         {renderMobileMenu}
@@ -754,6 +776,9 @@ const SideBar = () => {
             </Route>
             <Route exact path="/ResourceAllocation">
               <ResourceAllocation value={value} />
+            </Route>
+            <Route exact path="/Calendar">
+              <Calender value={value} />
             </Route>
           </Switch>
         </Box>
