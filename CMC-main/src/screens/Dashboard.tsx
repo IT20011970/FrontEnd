@@ -207,7 +207,12 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
+const navigationService =()=>{// eslint-disable-next-line no-restricted-globals
+location.href='/ServiceCall'
+}
+
 const Dashboard = () => {
+
   return (
     <>
       <Header />
@@ -232,6 +237,7 @@ const Dashboard = () => {
               />
             </svg>
           }
+          onClick={navigationService}
         >
           Create Service Call
         </AddButton>
