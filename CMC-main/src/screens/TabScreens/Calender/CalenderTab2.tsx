@@ -201,7 +201,7 @@ for (var i = 0; i < 50; i++) {
   );
 }
 
-const CalenderTab1 = () => {
+const CalenderTab2 = () => {
   //Modal
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -252,7 +252,7 @@ const CalenderTab1 = () => {
         <Stack spacing={6} direction="row">
           <Grid container rowSpacing={1}>
             <Grid item xs={6}>
-              <Heading>Personl Calender</Heading>
+              <Heading>Resource Calender</Heading>
             </Grid>
             <Grid item xs={3} sx={{ pr: 3 }}>
               <Search>
@@ -332,4 +332,4 @@ const CalenderTab1 = () => {
   );
 };
 
-export default CalenderTab1;
+export default CalenderTab2;
