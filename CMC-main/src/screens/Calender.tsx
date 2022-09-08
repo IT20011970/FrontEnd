@@ -61,7 +61,7 @@ const Calender = (props: any) => {
                     </TabPanel>
                     <TabPanel value={props.value} index={1}>
                         <Header />
-                        <SparePartsTab2 />
+                        <CalenderTab2 />
                     </TabPanel>
                 </SwipeableViews>
             </Box>
