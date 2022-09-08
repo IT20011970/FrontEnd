@@ -15,6 +15,7 @@ import SparePartsTab1 from "./TabScreens/SpareParts/SparePartsTab1";
 import SparePartsTab2 from "./TabScreens/SpareParts/SparePartsTab2";
 import "./../Styles/Styles.css";
 import CalenderTab1 from "./TabScreens/Calender/CalenderTab1";
+import CalenderTab2 from "./TabScreens/Calender/CalenderTab2";
 
 const TabPanel = (props: any) => {
     const { children, value, index, ...other } = props;
