@@ -1,3 +1,5 @@
+import {useEffect} from "react";
+
 const events = [
     { title: "All Day Event", start: getDate("YEAR-MONTH-01") },
     {
@@ -31,6 +33,7 @@ const events = [
     { title: "Happy Hour", start: getDate("YEAR-MONTH-18T17:30:00+00:00") },
     { title: "Dinner", start: getDate("YEAR-MONTH-18T20:00:00+00:00") }
 ];
+
 
 function getDate(dayString:any) {
     const today = new Date();
