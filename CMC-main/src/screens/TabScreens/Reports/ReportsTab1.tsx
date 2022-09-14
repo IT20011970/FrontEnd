@@ -23,6 +23,12 @@ import "./../../../Styles/Tabs.css";
 
 import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal";
 import {useEffect, useState} from "react";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import DateTimePicker from "@mui/lab/DateTimePicker";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import TextField from "@mui/material/TextField";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -34,6 +40,27 @@ const Search = styled("div")(({ theme }) => ({
     marginLeft: 0,
     border: "1px solid #D6E4EC",
     width: "100%",
+}));
+
+const TextBox = styled(TextField)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(0),
+    textAlign: "center",
+    boxShadow: "none",
+    fontFamily: "Montserrat",
+    fontSize: 14,
+    fontWeight: 400,
+    color: "#383838",
+    borderRadius: "10px",
+    width: "95%",
+    backgroundColor: "#FBFBFB",
+    // minWidth: "250px",
+    "& .MuiOutlinedInput-root": {
+        borderRadius: "10px",
+        height: "40px",
+        width: "auto",
+        // padding: "10px",
+    },
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -68,16 +95,37 @@ const Heading = styled(Paper)(({ theme }) => ({
     backgroundColor: "transparent",
 }));
 
+const SelectBox = styled(Select)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(0),
+    textAlign: "center",
+    boxShadow: "none",
+    fontFamily: "Montserrat",
+    fontSize: 14,
+    fontWeight: 400,
+    color: "#383838",
+    borderRadius: "10px",
+    height: "40px",
+    width: "100%",
+    boxSizing: "content-box",
+    backgroundColor:"#fbfbfb"
+    // "& .MuiSelect-select": {
+    //   borderRadius: "4px",
+    //   height: "40px",
+    //   width: "auto",
+    //   // padding: "10px",
+    // },
+}));
+
 const RequestButton = styled(Button)(({ theme }) => ({
-    width: "auto",
+    width: "100%",
     height: "auto",
     marginTop: "3px",
     backgroundColor: "#0091D5",
-    borderRadius: "2px",
+    borderRadius: "10px",
     cursor: "pointer",
     fontFamily: "Montserrat",
     fontSize: "14px",
-    float: "right",
     boxShadow: "none",
 }));
 
@@ -212,6 +260,10 @@ const ReportsTab1 = () => {
         setPage(newPage);
     };
 
+    const handleChangesetPlanedStartDate= (event:any) => {
+       console.log(event)
+    }
+
     // Change the number of rows per page when user changes
     const handleChangeRowsPerPage = (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -239,10 +291,10 @@ const ReportsTab1 = () => {
         <>
             <Stack spacing={6} direction="row">
                 <Grid container rowSpacing={1}>
-                    <Grid item xs={6}>
+                    <Grid item xs={2} sx={{ pr: 1 }}>
                         <Heading>Service Call</Heading>
                     </Grid>
-                    <Grid item xs={3} sx={{ pr: 3 }}>
+                    <Grid item xs={2} sx={{ pr: 1 }}>
                         <Search>
                             <SearchIconWrapper>
                                 <SearchIcon />
@@ -254,13 +306,45 @@ const ReportsTab1 = () => {
                             />
                         </Search>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={2} sx={{ pr: 3 }}>
+                        <SelectBox
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                        >
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </SelectBox>
+                    </Grid>
+                    <Grid item xs={2} sx={{ pr: 3 }} >
                         <RequestButton
                             variant="contained"
                             onClick={() => setOpenModal(true)}
                         >
-                            Create Service Call
+                            Last 07 Days
                         </RequestButton>
+                    </Grid>
+                    <Grid item xs={2} sx={{ pr: 3 }} >
+                        <RequestButton
+                            variant="contained"
+                            onClick={() => setOpenModal(true)}
+                            sx={{backgroundColor: "#ebebeb",border:1,borderColor:"#0091D5",color:'#383838'}}
+                        >
+                           Last 30 Days
+                        </RequestButton>
+                    </Grid>
+                    <Grid item xs={2} sx={{ pr: 3 }}>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <DateTimePicker
+                                renderInput={(params) => <TextBox {...params} />}
+                                value={new Date()}
+                                onChange={(newValue) => {
+                                    handleChangesetPlanedStartDate((newValue != null ? newValue.toString() : new Date())
+                                    );
+                                }}
+                                className="dateTimePicker"
+                            />
+                        </LocalizationProvider>
                     </Grid>
                 </Grid>
             </Stack>
