@@ -259,10 +259,9 @@ const CreateSparePartsTab1 = (props: any) => {
             <SelectInput
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
+                 variant="outlined"
                 placeholder="Text (default)"
-                // label="Age"
-
-            >
+                  >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
@@ -302,7 +301,7 @@ const CreateSparePartsTab1 = (props: any) => {
 
         <Grid container spacing={2}>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Customer ID</TextBoxHeader>
+            <TextBoxHeader>Service Call ID</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -312,7 +311,7 @@ const CreateSparePartsTab1 = (props: any) => {
             />
           </Grid>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Customer Name</TextBoxHeader>
+            <TextBoxHeader>Item Code</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -322,7 +321,7 @@ const CreateSparePartsTab1 = (props: any) => {
             />
           </Grid>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Contact Person</TextBoxHeader>
+            <TextBoxHeader>Item Description</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -331,26 +330,14 @@ const CreateSparePartsTab1 = (props: any) => {
               onChange={handleChangeContactPerson}
             />
           </Grid>
-        </Grid>
-        <Grid container spacing={2}>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Telephone No</TextBoxHeader>
+            <TextBoxHeader>Customer Name</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
-              onChange={handleChangeTelephoneNo}
-            />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <TextBoxHeader>Customer Address ID</TextBoxHeader>
-            <TextBox
-              id="outlined-basic"
-              variant="outlined"
-              placeholder="Text (default)"
-              sx={{ width: "99%" }}
-              onChange={handlChangeAddress}
+              onChange={handleChangeContactPerson}
             />
           </Grid>
         </Grid>
@@ -361,16 +348,49 @@ const CreateSparePartsTab1 = (props: any) => {
           sx={{ marginTop: "30px" }}
         />
         <Grid container spacing={2}>
-          <Grid item xs={6} md={3} spacing={12}>
-            <TextBoxHeader>Service Call ID</TextBoxHeader>
+          <Grid item xs={6} md={3}>
+            <TextBoxHeader>Remark</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
-              sx={{ width: "99%" }}
-              onChange={handleChangeServiceCallId}
+              sx={{ width: "415%" }}
+              onChange={handleChangeTelephoneNo}
             />
           </Grid>
+         
+        </Grid>
+
+        <Grid item xs={6} md={3}>
+            <TextBoxHeader>Content</TextBoxHeader>
+            <TextBox
+              id="outlined-basic"
+              variant="outlined"
+              placeholder="Text (default)"
+              sx={{ width: "400%" }}
+              onChange={handlChangeAddress}
+            />
+          </Grid>
+     
+        <Grid container spacing={2}>
+          
+        <Grid item xs={6} md={3}>
+            <TextBoxHeader>Secretary</TextBoxHeader>
+            <SelectInput
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                placeholder="Text (default)"
+                // label="Age"
+
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </SelectInput>
+          </Grid>
+
+                   
+
           {/*<Grid item xs={6} md={3}>*/}
           {/*  <TextBoxHeader>Status</TextBoxHeader>*/}
           {/*  <SelectBox*/}
@@ -385,18 +405,28 @@ const CreateSparePartsTab1 = (props: any) => {
           {/*    <MenuItem value={30}>Thirty</MenuItem>*/}
           {/*  </SelectBox>*/}
           {/*</Grid>*/}
-          <Grid item xs={6} md={3}>
-            <TextBoxHeader>Priority</TextBoxHeader>
-            <TextBox
-              id="outlined-basic"
-              variant="outlined"
-              placeholder="Text (default)"
-              sx={{ width: "99%" }}
-              onChange={handleChangePriority}
-            />
-          </Grid>
+          
         </Grid>
+
+        
       </Box>
+
+                  <br></br>
+      <Grid item xs={7} md={0.65}>
+      <Button
+                    variant="contained"
+                    className="ModalCommonButton"
+                     sx={{ width: "500%" }}
+                     //margin-left="2%"
+                    // margin-right:25%
+                    
+                      // onClick={post}
+                    >
+                      View Service Ticket Details
+        </Button>
+        </Grid>
+
+
     </>
   );
 };
