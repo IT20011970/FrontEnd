@@ -119,9 +119,9 @@ const CreateServiceCallModal1 = (props: any) => {
           <TextBoxHeader>Planned Start Date & Time</TextBoxHeader>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker
-              renderInput={(params) => <TextBox {...params} />}
+              renderInput={(params:any) => <TextBox {...params} />}
               value={date}
-              onChange={(newValue) => {
+              onChange={(newValue:any) => {
                 setDate(
                   new Date(newValue != null ? newValue.toString() : new Date())
                 );
@@ -142,9 +142,9 @@ const CreateServiceCallModal1 = (props: any) => {
           <TextBoxHeader>Planned End Date & Time</TextBoxHeader>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker
-              renderInput={(params) => <TextBox {...params} />}
+              renderInput={(params:any) => <TextBox {...params} />}
               value={date}
-              onChange={(newValue) => {
+              onChange={(newValue:any) => {
                 setDate(
                   new Date(newValue != null ? newValue.toString() : new Date())
                 );

@@ -114,17 +114,16 @@ const ModalTittle = styled("text")(({ theme }) => ({
 }));
 
 const CreateServiceCallModal1 = (props: any) => {
-   console.log(props.setNext)
   const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
   const [next,setnext]=useState("")
+  const [flag,setFlag]=useState("0")
   const [formInput, setFormInput] = useState({
     email: "a",
     password: "a",
   });
 
   useEffect (()=>{
-    console.log(props.valueNext)
       if(props.valueNext==="true"){
         setnext("true")
         handleValidation()
@@ -146,7 +145,7 @@ const CreateServiceCallModal1 = (props: any) => {
   }
 
  function handleValidation(){
-    console.log(fields)
+    console.log(typeof fields["ItemGroup"])
    // console.log(fields["MRF"])
    // let errors: any = {};
    let formIsValid = true;
@@ -254,7 +253,7 @@ const CreateServiceCallModal1 = (props: any) => {
              if(data.statusCode===404){
                setfields(fields)
                props.setfields({fields})
-               console.log(data)
+               console.log(data.statusCode)
              }
              else{
 
@@ -403,7 +402,39 @@ const CreateServiceCallModal1 = (props: any) => {
        seterrors(errors)
      }
       if(typeof fields["SerialNumber"] !== "string") {
-        errors["SerialNumber"] = "Please Enter SerialNumber ";
+        errors["SerialNumber"] = "Please Enter Serial Number ";
+        seterrors(errors)
+      }
+      if(typeof fields["ItemDescription"] !== "string") {
+        errors["ItemDescription"] = "Please Enter Item Description ";
+        seterrors(errors)
+      }
+      if(typeof fields["ItemGroup"] !== "string") {
+        errors["ItemGroup"] = "Please Enter Item Group ";
+        seterrors(errors)
+      }
+      if(typeof fields["CustomerID"] !== "string") {
+        errors["CustomerID"] = "Please Enter Customer ID ";
+        seterrors(errors)
+      }
+      if(typeof fields["CustomerName"] !== "string") {
+        errors["CustomerName"] = "Please Enter Customer Name ";
+        seterrors(errors)
+      }
+      if(typeof fields["ContactPerson"] !== "string") {
+        errors["ContactPerson"] = "Please Enter Contact Person ";
+        seterrors(errors)
+      }
+      if(typeof fields["TelephoneNo"] !== "string") {
+        errors["TelephoneNo"] = "Please Enter Telephone No ";
+        seterrors(errors)
+      }
+      if(typeof fields["AddressId"] !== "string") {
+        errors["AddressId"] = "Please Enter Address Id ";
+        seterrors(errors)
+      }
+      if(typeof fields["CustomerName"] !== "string") {
+        errors["CustomerName"] = "Please Enter Customer Name ";
         seterrors(errors)
       }
    }

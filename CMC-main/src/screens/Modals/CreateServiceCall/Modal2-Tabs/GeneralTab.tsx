@@ -273,10 +273,10 @@ const GeneralTab = (props: any) => {
             <TextBoxHeader>Created On</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                renderInput={(params) => <TextBox {...params} />}
+                renderInput={(params:any) => <TextBox {...params} />}
                 value={new Date()}
                // onChange={handleChangesetDateCreatedOn}
-                onChange={(newValue) => {
+                onChange={(newValue:any) => {
                   handleChangesetDateCreatedOn((newValue != null ? newValue.toString() : new Date())
                   );
                 }}
@@ -288,9 +288,9 @@ const GeneralTab = (props: any) => {
             <TextBoxHeader>Planned start Date & Time</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                renderInput={(params) => <TextBox {...params} />}
+                renderInput={(params:any) => <TextBox {...params} />}
                 value={new Date()}
-                onChange={(newValue) => {
+                onChange={(newValue:any) => {
                   handleChangesetPlanedStartDate((newValue != null ? newValue.toString() : new Date())
                   );
                 }}
@@ -302,9 +302,9 @@ const GeneralTab = (props: any) => {
             <TextBoxHeader>Estimated Duration</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                renderInput={(params) => <TextBox {...params} />}
+                renderInput={(params:any) => <TextBox {...params} />}
                 value={new Date()}
-                onChange={(newValue) => {
+                onChange={(newValue:any) => {
                   handleChangesetEstimatedDuration((newValue != null ? newValue.toString() : new Date())
                   );
                 }}
@@ -316,9 +316,9 @@ const GeneralTab = (props: any) => {
             <TextBoxHeader>Planned End Date & Time</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                renderInput={(params) => <TextBox {...params} />}
+                renderInput={(params:any) => <TextBox {...params} />}
                 value={new Date()}
-                onChange={(newValue) => {
+                onChange={(newValue:any) => {
                   handleChangesetPlanedEndDate((newValue != null ? newValue.toString() : new Date())
                   );
                 }}
@@ -330,9 +330,9 @@ const GeneralTab = (props: any) => {
             <TextBoxHeader>Actual Start Date</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                renderInput={(params) => <TextBox {...params} />}
+                renderInput={(params:any) => <TextBox {...params} />}
                 value={new Date()}
-                onChange={(newValue) => {
+                onChange={(newValue:any) => {
                   handleChangesetActualStartDate((newValue != null ? newValue.toString() : new Date())
                   );
                 }}
