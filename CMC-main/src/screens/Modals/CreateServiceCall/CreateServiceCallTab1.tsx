@@ -412,7 +412,7 @@ const CreateServiceCallModal1 = (props: any) => {
   // @ts-ignore
   return (
     <>
-    <form>
+    <form  className="needs-validation" noValidate>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={6} md={3}>
