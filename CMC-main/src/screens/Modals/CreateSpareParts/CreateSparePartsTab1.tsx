@@ -281,9 +281,9 @@ const CreateSparePartsTab1 = (props: any) => {
             <TextBoxHeader>Planned start Date</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                  renderInput={(params) => <TextBox {...params} />}
+                  renderInput={(params:any) => <TextBox {...params} />}
                   value={new Date()}
-                  onChange={(newValue) => {
+                  onChange={(newValue:any) => {
                     console.log((newValue != null ? newValue.toString() : new Date())
                     );
                   }}

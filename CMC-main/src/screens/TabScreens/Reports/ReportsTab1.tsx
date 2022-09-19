@@ -336,9 +336,9 @@ const ReportsTab1 = () => {
                     <Grid item xs={2} sx={{ pr: 3 }}>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <DateTimePicker
-                                renderInput={(params) => <TextBox {...params} />}
+                                renderInput={(params:any) => <TextBox {...params} />}
                                 value={new Date()}
-                                onChange={(newValue) => {
+                                onChange={(newValue:any) => {
                                     handleChangesetPlanedStartDate((newValue != null ? newValue.toString() : new Date())
                                     );
                                 }}
