@@ -458,7 +458,6 @@ const ReportsTab1 = () => {
                                         {row.ActualEndDate}
                                     </StyledTableCell>
 
-
                                 </StyledTableRow>
                             ))}
                             {/* {emptyRows > 0 && (
