@@ -437,6 +437,18 @@ const CreateServiceCallModal1 = (props: any) => {
         errors["CustomerName"] = "Please Enter Customer Name ";
         seterrors(errors)
       }
+      if(typeof fields["ServiceCallId"] !== "string") {
+        errors["ServiceCallId"] = "Please Enter ServiceCall Id";
+        seterrors(errors)
+      }
+      if(typeof fields["Status"] !== "string") {
+        errors["Status"] = "Please Enter Status ";
+        seterrors(errors)
+      }
+      if(typeof fields["Priority"] !== "string") {
+        errors["Priority"] = "Please Enter Priority ";
+        seterrors(errors)
+      }
    }
  }
 
