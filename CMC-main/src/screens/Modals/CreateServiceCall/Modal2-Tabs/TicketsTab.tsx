@@ -295,7 +295,7 @@ const TicketsTab = (props: any) => {
           </Grid>
         </Box>
 
-        <CreateNewTicketModal open={openModal} setOpen={setOpenModal} />
+        <CreateNewTicketModal props={props} open={openModal} setOpen={setOpenModal} />
       </Box>
   );
 };

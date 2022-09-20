@@ -198,7 +198,7 @@ const CreateServiceCallModal2 = (props: any) => {
           <GeneralTab p={props} />
         </TabPanel>
         <TabPanel value="2">
-          <TicketsTab />
+          <TicketsTab  props={props} />
         </TabPanel>
         <TabPanel value="3">
           <SolutionsTab />

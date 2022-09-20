@@ -27,6 +27,7 @@ import GeneralTab from "./CreateTicket/GeneralTab";
 import ContentTab from "./CreateTicket/ContentTab";
 import LinkedDocumentsTab from "./CreateTicket/LinkedDocumentsTab";
 import AttachmentsTab from "./CreateTicket/AttachmentsTab";
+import {useEffect, useState} from "react";
 
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
@@ -151,6 +152,7 @@ for (var i = 0; i < 5; i++) {
 }
 
 const CreateNewTicketModal = (props: any) => {
+  console.log(props.props.props.serviceCallData.fields.ServiceCallId)
   const { open, setOpen, tab } = props;
   const [age, setAge] = React.useState("");
   const handleOpen = () => setOpen(true);
@@ -161,6 +163,9 @@ const CreateNewTicketModal = (props: any) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [date, setDate] = React.useState(new Date());
+  const [fields, setfields] = useState<any>({});
+  const [errors,seterrors]=useState<any>({})
+
   const getTab = (index: string): string => {
     switch (index) {
       case "1":
@@ -219,6 +224,107 @@ const CreateNewTicketModal = (props: any) => {
     ]);
   };
 
+  function handleChangeField(e:any,f:any) {
+    fields[f] = e.target.value;
+    handleValidation()
+  }
+
+  function select(f:any) {
+    let field=fields
+    if(!fields[f])
+      field[f] = "0";
+    handleValidation()
+  }
+
+  useEffect (()=>{
+    fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
+    setfields(fields)
+  },[])
+
+  function handleValidation() {
+    console.log(fields)
+    console.log(typeof fields["TicketId"])
+    // console.log(fields["MRF"])
+    // let errors: any = {};
+    let formIsValid = true;
+    // console.log( typeof fields["Status"])
+    //  console.log( fields["Status"])
+
+   //TicketId
+    if (typeof fields["TicketId"] === "string") {
+      if (fields["TicketId"] === "") {
+        errors["TicketId"] = "Please Enter Ticket Id ";
+        seterrors(errors)
+      } else {
+        errors["TicketId"] = "good"
+        setfields(fields)
+        seterrors(errors)
+      }
+    }
+    //TicketType
+    if(typeof fields["TicketType"] !== "undefined"){
+      if (fields["TicketType"]==="0") {
+        errors["TicketType"] = "Please Enter Ticket Type";
+        seterrors(errors)
+      }
+      else{
+        errors["TicketType"] = "good"
+        setfields( fields )
+        seterrors(errors)
+      }
+    }
+    //Subject
+    if(typeof fields["Subject"] !== "undefined"){
+      if (fields["Subject"]==="0") {
+        errors["Subject"] = "Please Enter Subject";
+        seterrors(errors)
+      }
+      else{
+        errors["Subject"] = "good"
+        setfields( fields )
+        seterrors(errors)
+      }
+    }
+  }
+
+  function post(){
+    handleClose()
+    console.log(fields.fields)
+    console.log(fields)
+    const requestOptions ={
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        ServiceCallId: parseInt(fields["ServiceCallId"]),
+        serviceTicket: [
+          {
+            TicketId: fields["TicketId"],
+            TicketType: fields["TicketType"],
+            Subject: fields["Subject"],
+            AssignedTo: "string",
+            PlannedStartDate: "2021-01-23",
+            sparePart: [
+              {
+                SPReqId: 1,
+                TicketId: "",
+                ServiceCallId: "",
+                ServiceEngineer: "",
+                Secretary: "2021-01-23",
+                ItemDescription: "2021-01-23",
+                itemEntity:{
+                  MrfSerialNumber: "aaa",
+                  SerialNumber: "ssv",
+                  ItemDescription: "css",
+                  ItemGroup: "vss"
+                }
+              }
+            ]}
+        ]
+      })
+    };
+    fetch('http://localhost:3000/spare-parts',requestOptions)
+  }
+
   return (
     <Modal
       onClose={handleClose}
@@ -272,35 +378,40 @@ const CreateNewTicketModal = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
+                onChange={(e) => handleChangeField(e,"TicketId") }
+                onFocus={(e) => handleChangeField(e,"TicketId") }
               />
+              <span style={{color: "red"}}>{errors["TicketId"]}</span>
             </Grid>
             <Grid item xs={6} md={4}>
               <TextBoxHeader>Service Ticket Type</TextBoxHeader>
               <SelectInput
                 labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                // label="Age"
-                // onChange={handleChange}
+                id="demo-simple-select1"
+                defaultValue=""
+                onChange={(e) => handleChangeField(e,"TicketType") }
+                onFocus={ ()=>select("TicketType") }
               >
                 <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
                 <MenuItem value={30}>Thirty</MenuItem>
               </SelectInput>
+              <span style={{color: "red"}}>{errors["TicketType"]}</span>
             </Grid>
             <Grid item xs={6} md={4}>
               <TextBoxHeader>Subject</TextBoxHeader>
               <SelectInput
                 labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                // label="Age"
-                // onChange={handleChange}
+                id="demo-simple-select2"
+                defaultValue=""
+                onChange={(e) => handleChangeField(e,"Subject") }
+                onFocus={ ()=>select("Subject") }
               >
                 <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
                 <MenuItem value={30}>Thirty</MenuItem>
               </SelectInput>
+              <span style={{color: "red"}}>{errors["Subject"]}</span>
             </Grid>
           </Grid>
           <Divider
@@ -459,7 +570,7 @@ const CreateNewTicketModal = (props: any) => {
               <ModalButton
                 variant="contained"
                 className="ModalCommonButton"
-                onClick={handleClose}
+                onClick={post}
               >
                 Save
               </ModalButton>
