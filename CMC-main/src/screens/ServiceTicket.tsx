@@ -14,6 +14,7 @@ import Header from "./../components/Header";
 import ServiceCallTab1 from "./TabScreens/ServiceCall/ServiceCallTab1";
 import ServiceCallTab2 from "./TabScreens/ServiceCall/ServiceCallTab2";
 import "./../Styles/Styles.css";
+import ServiceTicketTab from "./TabScreens/ServiceTicket/ServiceTicketTab";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -50,7 +51,7 @@ const ServiceTicket = (props: any) => {
         >
           <TabPanel value={props.value} index={0}>
             <Header />
-            <ServiceCallTab1 />
+            <ServiceTicketTab />
           </TabPanel>
           <TabPanel value={props.value} index={1}>
             <Header />
