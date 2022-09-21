@@ -93,6 +93,48 @@ export type ServiceCallData2 = {
 
 };
 
+export type Ticket = {
+  TicketId: string,
+  TicketType: string,
+  Subject: string,
+  AssignedTo: string,
+  serviceCall: {
+    ServiceCallId: string,
+    Status: string,
+    Priority: string,
+    Subject: string,
+    Origin: string,
+    ProblemType: string,
+    InquiryType: string,
+    CreatedBy: string,
+    HandledBy: string,
+    Queue: string,
+    Secretary: string,
+    SalesAssistant: string,
+    CreatedOn: string,
+    PlanedStartDateTime: string,
+    EstimatedDutation: string,
+    PlanedEndDateTime: string,
+    ActualStartDate: string,
+    ActualEndDate: string,
+    customerEntity: {
+      CustomerId: string,
+      CustomeName: string,
+      ContactPerson: string,
+      TelephoneNo: string,
+      CustomerAddressId: string
+    },
+    itemEntity: {
+      ItemCode: string,
+      MrfSerialNumber: string,
+      SerialNumber: string,
+      ItemDescription: string,
+      ItemGroup: string
+    }
+  }
+}
+
+
 export type CreateServiceCallTicketData = {
   date: Date;
   time: string;
