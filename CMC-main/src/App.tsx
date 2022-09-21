@@ -11,6 +11,7 @@ import Graphic2 from "./images/img1.svg";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Login from "./Login";
 
 const useStyles = makeStyles({
     home: {
@@ -23,26 +24,9 @@ const useStyles = makeStyles({
 const App = () => {
     const classes = useStyles();
     return (
-        // <>
-        //   <Home />
-        // </>
         <Router>
             <Route exact path="/">
-                <Box className={classes.home}>
-                    <Grid container spacing={2} >
-                        <Grid item xs style=
-                            {{backgroundImage: `linear-gradient(135deg, #1167b090 10%, #445C77 80%), 
-            url(${Graphic2})`
-                            }}
-                        >
-                            <LoginHeader/>
-                            <LoginForm/>
-                        </Grid>
-                        <Grid item xs>
-                            <img src={Graphic1} alt="Neat Graphic"  />
-                        </Grid>
-                    </Grid>
-                </Box>
+                <Login/>
             </Route>
             <Route exact path="/Home">
                 <Home />

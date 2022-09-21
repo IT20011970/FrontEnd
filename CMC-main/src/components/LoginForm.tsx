@@ -8,6 +8,8 @@ import InputBase from '@mui/material/InputBase';
 import { Box } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import Home from "../screens/Home";
+import App from "../App";
+import Login from "../Login";
 
 const StyledLink = styled(Link)(({ theme }) => ({
     textDecoration: "none",
@@ -15,6 +17,12 @@ const StyledLink = styled(Link)(({ theme }) => ({
         textDecoration: "none",
     },
 }));
+
+
+const locationNav =()=>{// eslint-disable-next-line no-restricted-globals
+    location.href='/Home'
+}
+
 
 const LoginForm = () => {
 
@@ -42,18 +50,12 @@ const LoginForm = () => {
             />
         </Paper>
       <br />
-        <Link to="/Home">
-            <Button className="loginBtn" sx={{width: 410}} variant="contained" color="primary" onClick={<Home />} >
+            <Button className="loginBtn" sx={{width: 410}} variant="contained" color="primary" onClick={locationNav}>
                 Sign In
             </Button>
-        </Link>
+
     </Box>
 
-          <Switch>
-              <Route exact path="/Home">
-                  <Home />
-              </Route>
-          </Switch>
           </Router>
   );
 };
