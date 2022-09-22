@@ -22,15 +22,16 @@ const Login = () => {
         <Box className={classes.home}>
             <Grid container spacing={2} >
                 <Grid item xs style=
-                    {{backgroundImage: `linear-gradient(135deg, #1167b090 10%, #445C77 80%), 
-            url(${Graphic2})`
+                    {{backgroundImage: `linear-gradient(135deg, #1167b090 10%, #445C77 80%),  url(${Graphic2})`,
+                        backgroundSize: "cover",
                     }}
                 >
                     <LoginHeader/>
                     <LoginForm/>
                 </Grid>
-                <Grid item xs>
-                    <img src={Graphic1} alt="Neat Graphic"  />
+                <Grid item xs style=  {{backgroundImage: `url(${Graphic1})`,
+                    backgroundSize: "cover",
+                }}>
                 </Grid>
             </Grid>
         </Box>

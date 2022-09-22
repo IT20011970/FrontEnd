@@ -262,8 +262,7 @@ const CreateServiceCallModal1 = (props: any) => {
                fields["ContactPerson"] = data.ContactPerson
                fields["CustomerName"] = data.CustomeName
                fields["TelephoneNo"] = data.TelephoneNo
-               fields["AddressId"] = data.CustomeName
-               fields["CustomerName"] = data.CustomerAddressId
+               fields["AddressId"] = data.CustomerAddressId
 
                setfields(fields)
                // setfields( {CustomerID:data.CustomerId,ContactPerson:data.ContactPerson,CustomerName:data.CustomeName,TelephoneNo:data.TelephoneNo,AddressId:data.CustomerAddressId} )
@@ -481,9 +480,7 @@ const CreateServiceCallModal1 = (props: any) => {
               onChange={(e) => handleChange(e,"MRF") }
               onFocus={(e) => handleChange(e,"MRF") }
             />
-            {fields["ItemCode"]}
             <br/>
-            {fields.MRF}
             <span style={{ color: "red" }}>{errors["MRF"]}</span>
              </Grid>
           <Grid item xs={6} md={3}>

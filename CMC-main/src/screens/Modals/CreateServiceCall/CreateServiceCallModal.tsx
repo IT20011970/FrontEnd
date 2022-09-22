@@ -314,7 +314,6 @@ const CreateServiceCallModal = (props: any) => {
                   className="cancelButton"
                   onClick={handleClose}
                 >
-                  {fields.fields["MRF"]}
                   Cancel
                 </ModalButton>
               </Grid>

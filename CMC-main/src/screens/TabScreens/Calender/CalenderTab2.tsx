@@ -254,26 +254,6 @@ const CalenderTab2 = () => {
             <Grid item xs={6}>
               <Heading>Resource Calender</Heading>
             </Grid>
-            <Grid item xs={3} sx={{ pr: 3 }}>
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    placeholder="Search"
-                    inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
-            </Grid>
-            <Grid item xs={3}>
-              <RequestButton
-                  variant="contained"
-                  onClick={() => setOpenModal(true)}
-              >
-                Create Service Call
-              </RequestButton>
-            </Grid>
           </Grid>
         </Stack>
         <Container>

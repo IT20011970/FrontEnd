@@ -240,7 +240,7 @@ const ServiceTicketTab = () => {
         <Stack spacing={6} direction="row">
           <Grid container rowSpacing={1}>
             <Grid item xs={6}>
-              <Heading>Service Call</Heading>
+              <Heading>Service Ticket</Heading>
             </Grid>
             <Grid item xs={3} sx={{ pr: 3 }}>
               <Search>
