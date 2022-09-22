@@ -24,7 +24,8 @@ import TabPanel from "@mui/lab/TabPanel";
 import Header from "../../../components/Header";
 import "../../../Styles/Modal.css";
 import CreateSparePartsTab1 from "./CreateSparePartsTab1";
-
+import CreateSparePartsTab2 from "./CreateSparePartsTab2";
+import { useState } from "react";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -73,13 +74,14 @@ const TabName = styled("text")(({ theme }) => ({
   color: "#0091d5",
 }));
 
-const CreateServiceCallModal = (props: any) => {
-  console.log(props)
+const CreateSparePartsModal = (props: any) => {
+  // console.log(props)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setMainTabValue("1");
+    setNext("false")
   };
   const [mainTabValue, setMainTabValue] = React.useState("1");
   const [secondTabValue, setSecondTabValue] = React.useState("1");
@@ -116,27 +118,36 @@ const CreateServiceCallModal = (props: any) => {
   const [ActualEndDate, setActualEndDate] = React.useState("")
 
 
+  var [Next, setNext] = React.useState("")
+  const [allError,setError]=React.useState(true)
+  var [array2, setArray2] = useState([]);
+
   const  [Test, setTest] = React.useState("1");
   const  [Test1, setTest1] = React.useState("1");
+  const [fields, setfields] = useState<any>({fields:{}});
 
 
   const handleChange = (newValue: string) => {
     setMainTabValue(newValue);
+    setNext("true")
   };
 
   function post(){
+    console.log(fields.fields)
+    console.log(fields)
     const requestOptions ={
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        CustomerId: CustomerID,
-        CustomeName:CustomerName,
-        ContactPerson:ContactPerson,
-        TelephoneNo: TelephoneNo,
-        CustomerAddressId:Address,
+        CustomerId: parseInt(fields.fields.CustomerID),
+        CustomeName:fields.fields.CustomerName,
+        ContactPerson:fields.fields.ContactPerson,
+        TelephoneNo: fields.fields.TelephoneNo,
+        CustomerAddressId:fields.fields.d,
           serviceCalls: [
         {
-          Status:ChangeStatus,
+          ServiceCallId:parseInt(fields.fields.ServiceCallId),
+          Status:fields.fields.ChangeStatus,
           Priority:ChangePriority,
           Subject: Subject,
           Origin: Origin,
@@ -154,7 +165,8 @@ const CreateServiceCallModal = (props: any) => {
           ActualStartDate: ActualStartDate,
           ActualEndDate: ActualEndDate,
           itemEntity: {
-            MrfSerialNumber: ChangeMRF,
+            ItemCode:parseInt(fields.fields.ItemCode),
+            MrfSerialNumber:fields.fields.ChangeMRF,
             SerialNumber: ChangeSerialNumber,
             ItemDescription:ItemDescription ,
             ItemGroup:ItemGroup
@@ -208,12 +220,8 @@ const CreateServiceCallModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Spare Part Request{" "}
-            {mainTabValue == "2" && (
-              <>
-                <TabName>{tabName}</TabName>
-              </>
-            )}
+            Create Spare Part Request
+           
           </ModalTittle>
           <IconButton
             onClick={handleClose}
@@ -257,9 +265,8 @@ const CreateServiceCallModal = (props: any) => {
                   aria-label="lab API tabs example"
                   sx={{ marginLeft: "-40px" }}
                 >
-                  <Tab label="General" value="1" />
+                  <Tab label="Spare Part Request ID" value="1" />
                   
-                  <Tab label="Related Documents" value="9" />
                 </TabList>
               </Box>
             </TabContext>
@@ -283,7 +290,6 @@ const CreateServiceCallModal = (props: any) => {
           <Box sx={{ flexGrow: 1, p: 1 }}>
             <Grid container spacing={10}>
               {mainTabValue == "1" && <Grid item xs={8} md={10}></Grid>}
-              {mainTabValue == "2" && <Grid item xs={6} md={9}></Grid>}
               <Grid item xs={2} md={1}>
                 <ModalButton
                   variant="contained"
@@ -335,4 +341,4 @@ const CreateServiceCallModal = (props: any) => {
   );
 };
 
-export default CreateServiceCallModal;
+export default CreateSparePartsModal;
