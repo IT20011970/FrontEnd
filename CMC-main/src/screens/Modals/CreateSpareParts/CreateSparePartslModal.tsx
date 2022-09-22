@@ -208,12 +208,8 @@ const CreateServiceCallModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Spare Part Request{" "}
-            {mainTabValue == "2" && (
-              <>
-                <TabName>{tabName}</TabName>
-              </>
-            )}
+            Create Spare Part Request
+           
           </ModalTittle>
           <IconButton
             onClick={handleClose}
@@ -257,9 +253,8 @@ const CreateServiceCallModal = (props: any) => {
                   aria-label="lab API tabs example"
                   sx={{ marginLeft: "-40px" }}
                 >
-                  <Tab label="General" value="1" />
+                  <Tab label="Spare Part Request ID" value="1" />
                   
-                  <Tab label="Related Documents" value="9" />
                 </TabList>
               </Box>
             </TabContext>
@@ -283,7 +278,6 @@ const CreateServiceCallModal = (props: any) => {
           <Box sx={{ flexGrow: 1, p: 1 }}>
             <Grid container spacing={10}>
               {mainTabValue == "1" && <Grid item xs={8} md={10}></Grid>}
-              {mainTabValue == "2" && <Grid item xs={6} md={9}></Grid>}
               <Grid item xs={2} md={1}>
                 <ModalButton
                   variant="contained"

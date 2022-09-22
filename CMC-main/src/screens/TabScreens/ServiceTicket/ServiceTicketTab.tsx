@@ -237,13 +237,13 @@ const ServiceTicketTab = () => {
 
   return (
       <>
-        <Stack spacing={6} direction="row">
-          <Grid container rowSpacing={1}>
+        <Stack spacing={6} direction="row" sx={{ padding: "0px" }}>
+          <Grid container spacing={3}>
             <Grid item xs={6}>
-              <Heading>Service Call</Heading>
+              <Heading>Service Ticket</Heading>
             </Grid>
-            <Grid item xs={3} sx={{ pr: 3 }}>
-              <Search>
+            <Grid item xs={3} >
+              <Search sx={{ borderRadius: "4px" }}>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
