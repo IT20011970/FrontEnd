@@ -284,6 +284,43 @@ const CreateNewTicketModal = (props: any) => {
         setfields( fields )
         seterrors(errors)
       }
+      //Customer ID
+    if(typeof fields["CustomerID"] !== "undefined"){
+      if (fields["CustomerID"]==="0") {
+        errors["CustomerID"] = "Please Enter CustomerID";
+        seterrors(errors)
+      }
+      else{
+        errors["CustomerID"] = "good"
+        setfields( fields )
+        seterrors(errors)
+      }
+    }
+
+     //Contact Person
+     if(typeof fields["ContactPerson"] !== "undefined"){
+      if (fields["ContactPerson"]==="0") {
+        errors["ContactPerson"] = "Please Enter ContactPerson";
+        seterrors(errors)
+      }
+      else{
+        errors["ContactPerson"] = "good"
+        setfields( fields )
+        seterrors(errors)
+      }
+    }
+    //TelephoneNumber
+    if(typeof fields["TelephoneNumber"] !== "undefined"){
+      if (fields["TelephoneNumber"]==="0") {
+        errors["TelephoneNumber"] = "Please Enter Telephone Number";
+        seterrors(errors)
+      }
+      else{
+        errors["TelephoneNumber"] = "good"
+        setfields( fields )
+        seterrors(errors)
+      }
+    }
     }
   }
 
@@ -428,7 +465,10 @@ const CreateNewTicketModal = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
+                onChange={(e) => handleChangeField(e,"CustomerID") }
+                onFocus={ ()=>select("CustomerID") }
               />
+               <span style={{color: "red"}}>{errors["CustomerID"]}</span>
             </Grid>
             <Grid item xs={6} md={4}>
               <TextBoxHeader>Customer Name</TextBoxHeader>
@@ -444,12 +484,15 @@ const CreateNewTicketModal = (props: any) => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={age}
+                onChange={(e) => handleChangeField(e,"ContactPerson") }
+                onFocus={ ()=>select("ContactPerson") }
                 // onChange={handleChange}
               >
                 <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
                 <MenuItem value={30}>Thirty</MenuItem>
               </SelectInput>
+              <span style={{color: "red"}}>{errors["ContactPerson"]}</span>
             </Grid>
             <Grid item xs={6} md={4}>
               <TextBoxHeader>Telephone Number</TextBoxHeader>
@@ -457,7 +500,10 @@ const CreateNewTicketModal = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
+                onChange={(e) => handleChangeField(e,"TelephoneNumber") }
+                onFocus={ ()=>select("TelephoneNumber") }
               />
+                 <span style={{color: "red"}}>{errors["elephoneNumber"]}</span>
             </Grid>
           </Grid>
 
@@ -480,6 +526,8 @@ const CreateNewTicketModal = (props: any) => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={age}
+                onChange={(e) => handleChangeField(e,"ContactPerson") }
+                onFocus={ ()=>select("ContactPerson") }
                 // label="Age"
                 // onChange={handleChange}
               >
