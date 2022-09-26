@@ -22,7 +22,7 @@ import {
 import "./../../../Styles/Tabs.css";
 
 import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal";
-import {useEffect, useState} from "react";
+
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -199,7 +199,7 @@ const ServiceCallTab1 = () => {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [students, setStudents] =useState<any[]>([]);
+  const [data, setData] =React.useState([]);
 
   const emptyRows =
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -220,7 +220,15 @@ const ServiceCallTab1 = () => {
     setPage(0);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
+    getData()
+  });
+
+  function setOpenModalfunction(){
+    setOpenModal(true)
+  }
+
+  function getData (){
     const requestOptions = {
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
@@ -230,10 +238,10 @@ const ServiceCallTab1 = () => {
         .then(response=>{ return response.json()})
         .then(data=>{
           //console.log(data[3].Groups[1].students)
-         // console.log(data)
-         setStudents(data)
+         console.log(openModal)
+          setData(data)
         });
-  } )
+  }
 
   return (
       <>
@@ -257,7 +265,7 @@ const ServiceCallTab1 = () => {
             <Grid item xs={3}>
               <RequestButton
                   variant="contained"
-                  onClick={() => setOpenModal(true)}
+                  onClick={setOpenModalfunction}
               >
                 Create Service Call
               </RequestButton>
@@ -283,11 +291,11 @@ const ServiceCallTab1 = () => {
               </TableHead>
               <TableBody>
                 {(rowsPerPage > 0
-                        ? students.slice(
+                        ? data.slice(
                             page * rowsPerPage,
                             page * rowsPerPage + rowsPerPage
                         )
-                        : students
+                        : data
                 ).map(( row:ServiceCallData2, i: number) => (
                     <StyledTableRow key={row.ServiceCallId}>
                       <StyledTableCell

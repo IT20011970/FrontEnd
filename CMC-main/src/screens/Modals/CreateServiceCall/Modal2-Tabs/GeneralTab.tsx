@@ -74,8 +74,13 @@ const SelectInput = styled(Select)(({ theme }) => ({
 
 const GeneralTab = (props: any) => {
   const [age, setAge] = React.useState("");
-  const [setDate, setDateCreatedOn] = React.useState(new Date());
-  const [startDate, StartDateAndTime] = React.useState(new Date());
+  const [CreatedOn, setDateCreatedOn] = React.useState(new Date());
+  const [planedStartDate, setPlanedStartDate] = React.useState(new Date());
+  const [estimatedDate, setEstimatedDate] = React.useState(new Date());
+  const [plannedEndDate, setPlannedEndDate] = React.useState(new Date());
+  const [actualStartDate, setActualStartDate] = React.useState(new Date());
+  const [actualEndDate, setActualEndDate] = React.useState(new Date());
+
 
   const handleChangeSubject = (event: any) => {
     props.p.setSubject(event.target.value)
@@ -105,22 +110,28 @@ const GeneralTab = (props: any) => {
     props.p.setSalesAssistant(event.target.value)
   }
   const handleChangesetDateCreatedOn= (event:any) => {
+    setDateCreatedOn(event)
     props.p.setDateCreatedOn(event)
   }
+  const handleChangesetPlanedStartDate= (event:any) => {
+    setPlanedStartDate(event)
+    props.p.setPlanedStartDate(event)
+  }
   const handleChangesetEstimatedDuration= (event:any) => {
+    setEstimatedDate(event)
     props.p.setEstimatedDuration(event)
   }
   const handleChangesetPlanedEndDate= (event:any) => {
+    setPlannedEndDate(event)
     props.p.setPlanedEndDate(event)
   }
 
-  const handleChangesetPlanedStartDate= (event:any) => {
-    props.p.setPlanedStartDate(event)
-  }
   const handleChangesetActualStartDate= (event:any) => {
+    setActualStartDate(event)
     props.p.setActualStartDate(event)
   }
   const handleChangesetActualEndDate= (event:any) => {
+    setActualEndDate(event)
     props.p.setActualEndDate(event)
   }
 
@@ -148,9 +159,10 @@ const GeneralTab = (props: any) => {
               defaultValue=""
 
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={"Email"}>Email</MenuItem>
+              <MenuItem value={"Call"}>Call</MenuItem>
+              <MenuItem value={"Web"}>Web</MenuItem>
+              <MenuItem value={"Other"}>Other</MenuItem>
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
@@ -162,9 +174,11 @@ const GeneralTab = (props: any) => {
               defaultValue=""
               onChange={handleChangeProblemType}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={"Mechanical"}>Mechanical</MenuItem>
+              <MenuItem value={"Electrical"}>Electrical</MenuItem>
+              <MenuItem value={"Replacement"}>Replacement</MenuItem>
+              <MenuItem value={"Service"}>Service</MenuItem>
+              <MenuItem value={"Other"}>Other</MenuItem>
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
@@ -192,31 +206,21 @@ const GeneralTab = (props: any) => {
         <Grid container>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Created By</TextBoxHeader>
-            <SelectInput
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              // label="Age"
-              defaultValue=""
-              onChange={handleChangeCreatedBy}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </SelectInput>
+            <TextBox
+                id="outlined-basic1"
+                variant="outlined"
+                placeholder="Text (default)"
+                onChange={handleChangeCreatedBy}
+            />
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Handled By</TextBoxHeader>
-            <SelectInput
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              // label="Age"
-              defaultValue=""
-              onChange={handleChangeHandledBy}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </SelectInput>
+            <TextBox
+                id="outlined-basic1"
+                variant="outlined"
+                placeholder="Text (default)"
+                onChange={handleChangeHandledBy}
+            />
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Queue</TextBoxHeader>
@@ -227,9 +231,9 @@ const GeneralTab = (props: any) => {
               defaultValue=""
               onChange={handleChangeQueue}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={2}>3</MenuItem>
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
@@ -241,9 +245,13 @@ const GeneralTab = (props: any) => {
               defaultValue=""
               onChange={handleChangeSecretary}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={10001}>10001</MenuItem>
+              <MenuItem value={10002}>10002</MenuItem>
+              <MenuItem value={10003}>10003</MenuItem>
+              <MenuItem value={10004}>10004</MenuItem>
+              <MenuItem value={10005}>10005</MenuItem>
+              <MenuItem value={10006}>10006</MenuItem>
+              <MenuItem value={10007}>10007</MenuItem>
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
@@ -255,9 +263,14 @@ const GeneralTab = (props: any) => {
               defaultValue=""
                onChange={handleChangeSalesAssistant}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={10001}>10001</MenuItem>
+              <MenuItem value={10002}>10002</MenuItem>
+              <MenuItem value={10003}>10003</MenuItem>
+              <MenuItem value={10004}>10004</MenuItem>
+              <MenuItem value={10005}>10005</MenuItem>
+              <MenuItem value={10006}>10006</MenuItem>
+              <MenuItem value={10007}>10007</MenuItem>
+
             </SelectInput>
           </Grid>
         </Grid>
@@ -273,10 +286,10 @@ const GeneralTab = (props: any) => {
             <TextBoxHeader>Created On</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                renderInput={(params:any) => <TextBox {...params} />}
-                value={new Date()}
+                renderInput={(params) => <TextBox {...params} />}
+                value={CreatedOn}
                // onChange={handleChangesetDateCreatedOn}
-                onChange={(newValue:any) => {
+                onChange={(newValue) => {
                   handleChangesetDateCreatedOn((newValue != null ? newValue.toString() : new Date())
                   );
                 }}
@@ -289,7 +302,7 @@ const GeneralTab = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
-                value={new Date()}
+                value={planedStartDate}
                 onChange={(newValue:any) => {
                   handleChangesetPlanedStartDate((newValue != null ? newValue.toString() : new Date())
                   );
@@ -303,7 +316,7 @@ const GeneralTab = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
-                value={new Date()}
+                value={estimatedDate}
                 onChange={(newValue:any) => {
                   handleChangesetEstimatedDuration((newValue != null ? newValue.toString() : new Date())
                   );
@@ -317,7 +330,7 @@ const GeneralTab = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
-                value={new Date()}
+                value={plannedEndDate}
                 onChange={(newValue:any) => {
                   handleChangesetPlanedEndDate((newValue != null ? newValue.toString() : new Date())
                   );
@@ -331,7 +344,7 @@ const GeneralTab = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
-                value={new Date()}
+                value={actualStartDate}
                 onChange={(newValue:any) => {
                   handleChangesetActualStartDate((newValue != null ? newValue.toString() : new Date())
                   );
@@ -345,7 +358,7 @@ const GeneralTab = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params) => <TextBox {...params} />}
-                value={new Date()}
+                value={actualEndDate}
                 onChange={(newValue) => {
                   handleChangesetActualEndDate((newValue != null ? newValue.toString() : new Date())
                   );

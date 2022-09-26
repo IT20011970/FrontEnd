@@ -1,4 +1,5 @@
 import React from 'react'
+import LoginForm from "./LoginForm";
 
 const LoginHeader = () => {
   return (
@@ -6,8 +7,6 @@ const LoginHeader = () => {
         <h1 className="loginText">
           Welcome back <br /> to <span className="w600">CMC</span>
         </h1>
-
-        <h6 className="txt2">Sign In To Your Account</h6>
     </div>
   )
 }

@@ -237,7 +237,13 @@ const CreateNewTicketModal = (props: any) => {
   }
 
   useEffect (()=>{
+    console.log(props.props.props.serviceCallData.fields)
     fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
+    fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
+    fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
+    fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
+    fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
+    fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
     setfields(fields)
   },[])
 
@@ -428,6 +434,7 @@ const CreateNewTicketModal = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
+                value={fields["CustomerId"]}
               />
             </Grid>
             <Grid item xs={6} md={4}>
@@ -436,20 +443,17 @@ const CreateNewTicketModal = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
+                value={fields["CustomeName"]}
               />
             </Grid>
             <Grid item xs={6} md={4}>
               <TextBoxHeader>Contact Person</TextBoxHeader>
-              <SelectInput
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                // onChange={handleChange}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </SelectInput>
+              <TextBox
+                  id="outlined-basic"
+                  variant="outlined"
+                  placeholder="Text (default)"
+                  value={fields["ContactPerson"]}
+              />
             </Grid>
             <Grid item xs={6} md={4}>
               <TextBoxHeader>Telephone Number</TextBoxHeader>
@@ -457,6 +461,7 @@ const CreateNewTicketModal = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
+                value={fields["TelephoneNo"]}
               />
             </Grid>
           </Grid>
