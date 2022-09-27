@@ -233,7 +233,7 @@ const ServiceCallTab1 = () => {
          // console.log(data)
          setStudents(data)
         });
-  } )
+  },[] )
 
   return (
       <>

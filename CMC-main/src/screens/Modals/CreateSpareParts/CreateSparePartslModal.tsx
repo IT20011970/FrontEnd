@@ -24,7 +24,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import Header from "../../../components/Header";
 import "../../../Styles/Modal.css";
 import CreateSparePartsTab1 from "./CreateSparePartsTab1";
-import CreateSparePartsTab2 from "./CreateSparePartsTab2";
+import CreateSparePartsTab2 from "./CreateSparePartsTab1";
 import { useEffect, useState } from "react";
 
 const ModalButton = styled(Button)(({ theme }) => ({
