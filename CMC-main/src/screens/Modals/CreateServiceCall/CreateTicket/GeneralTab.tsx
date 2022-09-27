@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -85,11 +86,11 @@ const GeneralTabTicket = (props: any) => {
 
 
 
-    const handleChangesetDateCreatedOn= (event:any) => {
-      console.log(props)
-      setDateCreatedOn(event)
-        props.setCreatedOnDate(event)
-    }
+  const handleChangesetDateCreatedOn= (event:any) => {
+    console.log(props)
+    setDateCreatedOn(event)
+    props.setCreatedOnDate(event)
+  }
 
   const handleChangesetPlanedStartDate= (event:any) => {
     setPlanedStartDate(event)
@@ -118,112 +119,113 @@ const GeneralTabTicket = (props: any) => {
   }
 
   return (
-    <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container>
-          <Grid item xs={6} md={4}>
-            <TextBoxHeader>Created On</TextBoxHeader>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                  renderInput={(params) => <TextBox {...params} />}
-                  value={CreatedOn}
-                  // onChange={handleChangesetDateCreatedOn}
-                  onChange={(newValue) => {
-                    handleChangesetDateCreatedOn((newValue != null ? newValue.toString() : new Date())
-                    );
-                  }}
-                  className="dateTimePicker"
-              />
-            </LocalizationProvider>
+      <>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container>
+            <Grid item xs={6} md={4}>
+              <TextBoxHeader>Created On</TextBoxHeader>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                    renderInput={(params) => <TextBox {...params} />}
+                    value={CreatedOn}
+                    // onChange={handleChangesetDateCreatedOn}
+                    onChange={(newValue) => {
+                      handleChangesetDateCreatedOn((newValue != null ? newValue.toString() : new Date())
+                      );
+                    }}
+                    className="dateTimePicker"
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextBoxHeader>Planned Start Date & Time</TextBoxHeader>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                    renderInput={(params:any) => <TextBox {...params} />}
+                    value={planedStartDate}
+                    onChange={(newValue) => {
+                      handleChangesetPlanedStartDate((newValue != null ? newValue.toString() : new Date())
+                      );
+                    }}
+                    className="dateTimePicker"
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextBoxHeader>Estimated Duration</TextBoxHeader>
+              <SelectInput
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={age}
+                  // label="Age"
+                  onChange={handleChangesetEstimatedDuration}
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </SelectInput>
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextBoxHeader>Planned End Date & Time</TextBoxHeader>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                    renderInput={(params:any) => <TextBox {...params} />}
+                    value={plannedEndDate}
+                    onChange={(newValue) => {
+                      handleChangesetPlanedEndDate((newValue != null ? newValue.toString() : new Date())
+                      );
+                    }}
+                    className="dateTimePicker"
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextBoxHeader>Actual Start Date</TextBoxHeader>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                    renderInput={(params:any) => <TextBox {...params} />}
+                    value={actualStartDate}
+                    onChange={(newValue) => {
+                      handleChangesetActualStartDate((newValue != null ? newValue.toString() : new Date())
+                      );
+                    }}
+                    className="dateTimePicker"
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextBoxHeader>Actual End Date</TextBoxHeader>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                    renderInput={(params:any) => <TextBox {...params} />}
+                    value={actualEndDate}
+                    onChange={(newValue) => {
+                      handleChangesetActualEndDate((newValue != null ? newValue.toString() : new Date())
+                      );
+                    }}
+                    className="dateTimePicker"
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextBoxHeader>Contact Person</TextBoxHeader>
+              <SelectInput
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={age}
+                  // label="Age"
+                  onChange={handleChangesetContact}
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </SelectInput>
+            </Grid>
           </Grid>
-          <Grid item xs={6} md={4}>
-            <TextBoxHeader>Planned Start Date & Time</TextBoxHeader>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                renderInput={(params:any) => <TextBox {...params} />}
-                value={planedStartDate}
-                onChange={(newValue) => {
-                  handleChangesetPlanedStartDate((newValue != null ? newValue.toString() : new Date())
-                  );
-                }}
-                className="dateTimePicker"
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={6} md={4}>
-            <TextBoxHeader>Estimated Duration</TextBoxHeader>
-            <SelectInput
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              // label="Age"
-              onChange={handleChangesetEstimatedDuration}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </SelectInput>
-          </Grid>
-          <Grid item xs={6} md={4}>
-            <TextBoxHeader>Planned End Date & Time</TextBoxHeader>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                renderInput={(params:any) => <TextBox {...params} />}
-                value={plannedEndDate}
-                onChange={(newValue) => {
-                  handleChangesetPlanedEndDate((newValue != null ? newValue.toString() : new Date())
-                  );
-                }}
-                className="dateTimePicker"
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={6} md={4}>
-            <TextBoxHeader>Actual Start Date</TextBoxHeader>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                renderInput={(params:any) => <TextBox {...params} />}
-                value={actualStartDate}
-                onChange={(newValue) => {
-                  handleChangesetActualStartDate((newValue != null ? newValue.toString() : new Date())
-                  );
-                }}
-                className="dateTimePicker"
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={6} md={4}>
-            <TextBoxHeader>Actual End Date</TextBoxHeader>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                renderInput={(params:any) => <TextBox {...params} />}
-                value={actualEndDate}
-                onChange={(newValue) => {
-                  handleChangesetActualEndDate((newValue != null ? newValue.toString() : new Date())
-                  );
-                }}
-                className="dateTimePicker"
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={6} md={4}>
-            <TextBoxHeader>Contact Person</TextBoxHeader>
-            <SelectInput
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              // label="Age"
-              onChange={handleChangesetContact}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </SelectInput>
-          </Grid>
-        </Grid>
-      </Box>
-    </>
+        </Box>
+      </>
   );
 };
 
 export default GeneralTabTicket;
+
