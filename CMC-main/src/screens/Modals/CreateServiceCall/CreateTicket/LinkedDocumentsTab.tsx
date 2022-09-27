@@ -76,6 +76,7 @@ const SelectInput = styled(Select)(({ theme }) => ({
 const LinkedDocumentsTab = (props: any) => {
   const [age, setAge] = React.useState("");
   const [date, setDate] = React.useState(new Date());
+  console.log(props)
 
   return (
     <>

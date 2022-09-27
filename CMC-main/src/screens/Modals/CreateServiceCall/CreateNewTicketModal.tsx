@@ -166,7 +166,14 @@ const CreateNewTicketModal = (props: any) => {
   const [date, setDate] = React.useState(new Date());
   const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
-  const [CreatedOn, setCreatedOnDate] = React.useState("aa")
+  const [CreatedOn, setCreatedOnDate] = React.useState("")
+  const [planedStartDate, setDatePlanedStart] = React.useState("");
+  const [estimatedDate, setDateEstimated] = React.useState("");
+  const [plannedEndDate, setDatePlannedEnd] = React.useState("");
+  const [actualStartDate, setDateActualStart] = React.useState("");
+  const [actualEndDate, setDateActualEnd] = React.useState("");
+  const [Estimate, setEstimate] = React.useState("")
+  const [contact, setContact] = React.useState("")
 
   const getTab = (index: string): string => {
     switch (index) {
@@ -227,6 +234,7 @@ const CreateNewTicketModal = (props: any) => {
   };
 
   function handleChangeField(e:any,f:any) {
+    console.log(props)
     fields[f] = e.target.value;
     handleValidation()
   }
@@ -311,7 +319,13 @@ const CreateNewTicketModal = (props: any) => {
             TicketType: fields["TicketType"],
             Subject: fields["Subject"],
             AssignedTo: "string",
-            PlannedStartDate: "2021-01-23",
+            PlannedStartDate: planedStartDate,
+            PlannedEndDate: plannedEndDate ,
+            ActualStartDate: actualStartDate ,
+            CreatedOn:CreatedOn,
+            ActualEndDate: actualEndDate ,
+            EstimatedDuration: Estimate ,
+            ContactPerson: contact,
             sparePart: [
               {
                 SPReqId: 1,
@@ -333,6 +347,7 @@ const CreateNewTicketModal = (props: any) => {
     };
     fetch('http://localhost:3000/spare-parts',requestOptions)
   }
+  console.log(CreatedOn)
 
   return (
     <Modal
@@ -509,13 +524,13 @@ const CreateNewTicketModal = (props: any) => {
           <br />
           <TabContext value={tab}>
             <TabPanel value="1">
-              <GeneralTabTicket props={props}/>
+              <GeneralTabTicket/>
             </TabPanel>
             <TabPanel value="2">
               <ContentTab />
             </TabPanel>
             <TabPanel value="3">
-              <LinkedDocumentsTab />
+              <LinkedDocumentsTab/>
             </TabPanel>
             <TabPanel value="4">
               <AttachmentsTab />
@@ -546,7 +561,7 @@ const CreateNewTicketModal = (props: any) => {
         <Box>
           <TabContext value={value}>
             <TabPanel value="1">
-              <GeneralTab />
+              <GeneralTab setCreatedOnDate={setCreatedOnDate} setDateEstimated={setDateEstimated} setDatePlannedEnd={setDatePlannedEnd} setDatePlanedStart={setDatePlanedStart} setDateActualStart={setDateActualStart} setDateActualEnd={setDateActualEnd} setEstimate={setEstimate} setContact={setContact}/>
             </TabPanel>
             <TabPanel value="2">
               <ContentTab />

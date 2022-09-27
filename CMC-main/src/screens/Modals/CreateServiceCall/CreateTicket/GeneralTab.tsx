@@ -80,35 +80,42 @@ const GeneralTabTicket = (props: any) => {
   const [plannedEndDate, setPlannedEndDate] = React.useState(new Date());
   const [actualStartDate, setActualStartDate] = React.useState(new Date());
   const [actualEndDate, setActualEndDate] = React.useState(new Date());
+  const [estimate, setEstimation] = React.useState("");
+  const [contact, setContact] = React.useState("");
+
 
 
     const handleChangesetDateCreatedOn= (event:any) => {
       console.log(props)
       setDateCreatedOn(event)
-       // props.setCreatedOnDate("event")
+        props.setCreatedOnDate(event)
     }
 
-  // const handleChangesetPlanedStartDate= (event:any) => {
-  //   setPlanedStartDate(event)
-  //   props.p.setPlanedStartDate(event)
-  // }
-  // const handleChangesetEstimatedDuration= (event:any) => {
-  //   setEstimatedDate(event)
-  //   props.p.setEstimatedDuration(event)
-  // }
-  // const handleChangesetPlanedEndDate= (event:any) => {
-  //   setPlannedEndDate(event)
-  //   props.p.setPlanedEndDate(event)
-  // }
-  //
-  // const handleChangesetActualStartDate= (event:any) => {
-  //   setActualStartDate(event)
-  //   props.p.setActualStartDate(event)
-  // }
-  // const handleChangesetActualEndDate= (event:any) => {
-  //   setActualEndDate(event)
-  //   props.p.setActualEndDate(event)
-  // }
+  const handleChangesetPlanedStartDate= (event:any) => {
+    setPlanedStartDate(event)
+    props.setDatePlanedStart(event)
+  }
+  const handleChangesetEstimatedDuration= (event:any) => {
+    setEstimation(event.target.value)
+    props.setEstimate(event.target.value)
+  }
+  const handleChangesetPlanedEndDate= (event:any) => {
+    setPlannedEndDate(event)
+    props.setDatePlannedEnd(event)
+  }
+
+  const handleChangesetActualStartDate= (event:any) => {
+    setActualStartDate(event)
+    props.setDateActualStart(event)
+  }
+  const handleChangesetActualEndDate= (event:any) => {
+    setActualEndDate(event)
+    props.setDateActualEnd(event)
+  }
+  const handleChangesetContact= (event:any) => {
+    setContact(event.target.value)
+    props.setContact(event.target.value)
+  }
 
   return (
     <>
@@ -134,12 +141,9 @@ const GeneralTabTicket = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
-                value={date}
-                onChange={(newValue:any) => {
-                  setDate(
-                    new Date(
-                      newValue != null ? newValue.toString() : new Date()
-                    )
+                value={planedStartDate}
+                onChange={(newValue) => {
+                  handleChangesetPlanedStartDate((newValue != null ? newValue.toString() : new Date())
                   );
                 }}
                 className="dateTimePicker"
@@ -153,7 +157,7 @@ const GeneralTabTicket = (props: any) => {
               id="demo-simple-select"
               value={age}
               // label="Age"
-              // onChange={handleChange}
+              onChange={handleChangesetEstimatedDuration}
             >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
@@ -165,12 +169,9 @@ const GeneralTabTicket = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
-                value={date}
-                onChange={(newValue:any) => {
-                  setDate(
-                    new Date(
-                      newValue != null ? newValue.toString() : new Date()
-                    )
+                value={plannedEndDate}
+                onChange={(newValue) => {
+                  handleChangesetPlanedEndDate((newValue != null ? newValue.toString() : new Date())
                   );
                 }}
                 className="dateTimePicker"
@@ -182,12 +183,9 @@ const GeneralTabTicket = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
-                value={date}
-                onChange={(newValue:any) => {
-                  setDate(
-                    new Date(
-                      newValue != null ? newValue.toString() : new Date()
-                    )
+                value={actualStartDate}
+                onChange={(newValue) => {
+                  handleChangesetActualStartDate((newValue != null ? newValue.toString() : new Date())
                   );
                 }}
                 className="dateTimePicker"
@@ -199,12 +197,9 @@ const GeneralTabTicket = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
-                value={date}
-                onChange={(newValue:any) => {
-                  setDate(
-                    new Date(
-                      newValue != null ? newValue.toString() : new Date()
-                    )
+                value={actualEndDate}
+                onChange={(newValue) => {
+                  handleChangesetActualEndDate((newValue != null ? newValue.toString() : new Date())
                   );
                 }}
                 className="dateTimePicker"
@@ -218,7 +213,7 @@ const GeneralTabTicket = (props: any) => {
               id="demo-simple-select"
               value={age}
               // label="Age"
-              // onChange={handleChange}
+              onChange={handleChangesetContact}
             >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>

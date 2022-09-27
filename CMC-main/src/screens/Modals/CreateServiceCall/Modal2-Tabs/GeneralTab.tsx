@@ -83,6 +83,7 @@ const GeneralTab = (props: any) => {
 
 
   const handleChangeSubject = (event: any) => {
+    console.log(props)
     console.log(JSON.parse(localStorage.getItem('user') || '{}').email)
     props.p.setSubject(event.target.value)
   };
