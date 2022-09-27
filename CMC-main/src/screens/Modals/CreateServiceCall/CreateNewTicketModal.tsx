@@ -28,6 +28,7 @@ import ContentTab from "./CreateTicket/ContentTab";
 import LinkedDocumentsTab from "./CreateTicket/LinkedDocumentsTab";
 import AttachmentsTab from "./CreateTicket/AttachmentsTab";
 import {useEffect, useState} from "react";
+import GeneralTabTicket from "./CreateTicket/GeneralTab";
 
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
@@ -152,7 +153,7 @@ for (var i = 0; i < 5; i++) {
 }
 
 const CreateNewTicketModal = (props: any) => {
-  console.log(props.props.props.serviceCallData.fields.ServiceCallId)
+  // console.log(props.props.props.serviceCallData.fields.ServiceCallId)
   const { open, setOpen, tab } = props;
   const [age, setAge] = React.useState("");
   const handleOpen = () => setOpen(true);
@@ -165,6 +166,7 @@ const CreateNewTicketModal = (props: any) => {
   const [date, setDate] = React.useState(new Date());
   const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
+  const [CreatedOn, setCreatedOnDate] = React.useState("aa")
 
   const getTab = (index: string): string => {
     switch (index) {
@@ -237,15 +239,16 @@ const CreateNewTicketModal = (props: any) => {
   }
 
   useEffect (()=>{
-    console.log(props.props.props.serviceCallData.fields)
+    console.log(props.open)
     fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
     fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
     fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
     fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
     fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
     fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
+    fields["TicketId"]= Math.floor(Math.random()*1000000)
     setfields(fields)
-  },[])
+  },[props.open])
 
   function handleValidation() {
     console.log(fields)
@@ -384,6 +387,7 @@ const CreateNewTicketModal = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
+                value={ fields["TicketId"]}
                 onChange={(e) => handleChangeField(e,"TicketId") }
                 onFocus={(e) => handleChangeField(e,"TicketId") }
               />
@@ -505,7 +509,7 @@ const CreateNewTicketModal = (props: any) => {
           <br />
           <TabContext value={tab}>
             <TabPanel value="1">
-              <GeneralTab />
+              <GeneralTabTicket props={props}/>
             </TabPanel>
             <TabPanel value="2">
               <ContentTab />

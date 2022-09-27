@@ -53,8 +53,10 @@ const LoginForm = () => {
             .then(response=>{ return response.json()})
             .then(data=>{
                 console.log(data.id)
-                 if(data.id)
+                 if(data.id){
                      window.location.href='/Home'
+                     localStorage.setItem('user', JSON.stringify(data))
+                 }
                 else{
                      window.location.reload()
                      alert("Password Is Incorrect")

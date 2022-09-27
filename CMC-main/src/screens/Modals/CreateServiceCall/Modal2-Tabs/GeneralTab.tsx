@@ -83,6 +83,7 @@ const GeneralTab = (props: any) => {
 
 
   const handleChangeSubject = (event: any) => {
+    console.log(JSON.parse(localStorage.getItem('user') || '{}').email)
     props.p.setSubject(event.target.value)
   };
   const handleChangeOrigin = (event: any) => {
@@ -210,8 +211,10 @@ const GeneralTab = (props: any) => {
                 id="outlined-basic1"
                 variant="outlined"
                 placeholder="Text (default)"
+                value={JSON.parse(localStorage.getItem('user') || '{}').email}
                 onChange={handleChangeCreatedBy}
             />
+            {/*<span style={{fontWeight: 'bold'}}>{)} </span>*/}
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Handled By</TextBoxHeader>

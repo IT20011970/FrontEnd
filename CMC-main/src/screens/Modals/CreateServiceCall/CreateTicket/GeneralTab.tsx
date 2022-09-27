@@ -71,9 +71,44 @@ const SelectInput = styled(Select)(({ theme }) => ({
   },
 }));
 
-const GeneralTab = (props: any) => {
+const GeneralTabTicket = (props: any) => {
   const [age, setAge] = React.useState("");
   const [date, setDate] = React.useState(new Date());
+  const [CreatedOn, setDateCreatedOn] = React.useState(new Date());
+  const [planedStartDate, setPlanedStartDate] = React.useState(new Date());
+  const [estimatedDate, setEstimatedDate] = React.useState(new Date());
+  const [plannedEndDate, setPlannedEndDate] = React.useState(new Date());
+  const [actualStartDate, setActualStartDate] = React.useState(new Date());
+  const [actualEndDate, setActualEndDate] = React.useState(new Date());
+
+
+    const handleChangesetDateCreatedOn= (event:any) => {
+      console.log(props)
+      setDateCreatedOn(event)
+       // props.setCreatedOnDate("event")
+    }
+
+  // const handleChangesetPlanedStartDate= (event:any) => {
+  //   setPlanedStartDate(event)
+  //   props.p.setPlanedStartDate(event)
+  // }
+  // const handleChangesetEstimatedDuration= (event:any) => {
+  //   setEstimatedDate(event)
+  //   props.p.setEstimatedDuration(event)
+  // }
+  // const handleChangesetPlanedEndDate= (event:any) => {
+  //   setPlannedEndDate(event)
+  //   props.p.setPlanedEndDate(event)
+  // }
+  //
+  // const handleChangesetActualStartDate= (event:any) => {
+  //   setActualStartDate(event)
+  //   props.p.setActualStartDate(event)
+  // }
+  // const handleChangesetActualEndDate= (event:any) => {
+  //   setActualEndDate(event)
+  //   props.p.setActualEndDate(event)
+  // }
 
   return (
     <>
@@ -83,16 +118,14 @@ const GeneralTab = (props: any) => {
             <TextBoxHeader>Created On</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                renderInput={(params:any) => <TextBox {...params} />}
-                value={date}
-                onChange={(newValue:any) => {
-                  setDate(
-                    new Date(
-                      newValue != null ? newValue.toString() : new Date()
-                    )
-                  );
-                }}
-                className="dateTimePicker"
+                  renderInput={(params) => <TextBox {...params} />}
+                  value={CreatedOn}
+                  // onChange={handleChangesetDateCreatedOn}
+                  onChange={(newValue) => {
+                    handleChangesetDateCreatedOn((newValue != null ? newValue.toString() : new Date())
+                    );
+                  }}
+                  className="dateTimePicker"
               />
             </LocalizationProvider>
           </Grid>
@@ -198,4 +231,4 @@ const GeneralTab = (props: any) => {
   );
 };
 
-export default GeneralTab;
+export default GeneralTabTicket;

@@ -13,6 +13,7 @@ import SideBar from "./components/SideBar";
 import RightNav from "./components/RightNav";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CreateAccount from "./components/CreateAccountForm";
+import ForgetPassWord from "./components/ForgetPassword";
 
 const useStyles = makeStyles({
     home: {
@@ -53,6 +54,14 @@ const Login = () => {
                             <Route exact path="/Create">
                                 <CreateAccount/>
                             </Route>
+                            <Route exact path="/forget">
+                                <ForgetPassWord/>
+                            </Route>
+                            <Link to="/forget">
+                                <div className="Comp2">
+                                    <h6 className="txt2">Forget Password</h6>
+                                </div>
+                            </Link>
 
 
                         </Grid>

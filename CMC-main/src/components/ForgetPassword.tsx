@@ -29,7 +29,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
 // };
 // fetch('http://localhost:3000/service-calls/',requestOptions)
 
-const CreateAccount = () => {
+const ForgetPassWord = () => {
     const [username,setUserName] = React.useState("");
     const [passWord,setPassword]= React.useState("");
 
@@ -42,14 +42,14 @@ const CreateAccount = () => {
 
     function locationNav(){
         const requestOptions ={
-            method:'POST',
+            method:'PATCH',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({
                 email:username,
                 password:passWord
             })
         };
-        fetch('http://localhost:3000/auth/signup',requestOptions)
+        fetch('http://localhost:3000/auth/'+username,requestOptions)
             .then(response=>{ return response.json()})
             .then(data=>{
                 console.log(data.email)
@@ -57,7 +57,7 @@ const CreateAccount = () => {
                      window.location.href='/'
                 else{
                      window.location.href='/'
-                     alert("Registration Fail")
+                     alert("Reset Fail")
                  }
 
             });
@@ -91,7 +91,7 @@ const CreateAccount = () => {
         </Paper>
       <br />
             <Button className="loginBtn" sx={{width: 410}} variant="contained" color="primary" onClick={locationNav}>
-                Register
+                Reset
             </Button>
 
     </Box>
@@ -101,4 +101,4 @@ const CreateAccount = () => {
 };
 
 
-export default CreateAccount;
+export default ForgetPassWord;

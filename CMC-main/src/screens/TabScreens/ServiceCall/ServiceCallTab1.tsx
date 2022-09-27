@@ -238,7 +238,7 @@ const ServiceCallTab1 = () => {
         .then(response=>{ return response.json()})
         .then(data=>{
           //console.log(data[3].Groups[1].students)
-         console.log(openModal)
+         // console.log(openModal)
           setData(data)
         });
   }
