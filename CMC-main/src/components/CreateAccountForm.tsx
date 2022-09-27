@@ -29,7 +29,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
 // };
 // fetch('http://localhost:3000/service-calls/',requestOptions)
 
-const LoginForm = () => {
+const CreateAccount = () => {
     const [username,setUserName] = React.useState("");
     const [passWord,setPassword]= React.useState("");
 
@@ -49,27 +49,20 @@ const LoginForm = () => {
                 password:passWord
             })
         };
-        fetch('http://localhost:3000/auth/signin',requestOptions)
+        fetch('http://localhost:3000/auth/signup',requestOptions)
             .then(response=>{ return response.json()})
             .then(data=>{
-                console.log(data.id)
-                 if(data.id){
-                     window.location.href='/Home'
-                     localStorage.setItem('user', JSON.stringify(data))
-                 }
+                console.log(data.email)
+                 if(data.email)
+                     window.location.href='/'
                 else{
-                     window.location.reload()
-                     alert("Password Is Incorrect")
+                     window.location.href='/'
+                     alert("Registration Fail")
                  }
 
             });
     }
 
-// window.location.href='/Home'
-//
-//
-//
-//     console.log(passWord,username)
 
   return (
       <Router>
@@ -98,7 +91,7 @@ const LoginForm = () => {
         </Paper>
       <br />
             <Button className="loginBtn" sx={{width: 410}} variant="contained" color="primary" onClick={locationNav}>
-                Sign In
+                Register
             </Button>
 
     </Box>
@@ -108,4 +101,4 @@ const LoginForm = () => {
 };
 
 
-export default LoginForm;
+export default CreateAccount;

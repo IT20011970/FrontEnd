@@ -215,7 +215,7 @@ const SolutionsTab = (props: any) => {
                 )
               : rows
             ).map((row: CreateServiceCallTicketData, i: number) => (
-              <StyledTableRow key={Math.random()}>
+                <StyledTableRow key={Math.random()}>
                 <StyledTableCell
                   sx={{
                     borderLeft: "none",
@@ -235,42 +235,42 @@ const SolutionsTab = (props: any) => {
                     borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.engineer + Math.round(i * Math.random() * 100)}
+                  {row.engineer}
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
                     borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.priority + Math.round(i * Math.random() * 100)}
+                  {row.priority}
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
                     borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.plannedStart.toString().substring(0, 24)}
+                  {row.plannedStart.toString().substring(0, 24)+i}
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
                     borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.recurrence + Math.round(i * Math.random() * 100)}
+                  {row.recurrence}
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
                     borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.content + Math.round(i * Math.random() * 100)}
+                  {row.content}
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
                     borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.more + Math.round(i * Math.random() * 100)}
+                  {row.more}
                 </StyledTableCell>
               </StyledTableRow>
             ))}

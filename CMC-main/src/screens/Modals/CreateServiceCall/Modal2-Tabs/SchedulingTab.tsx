@@ -182,7 +182,7 @@ const CreateServiceCallModal1 = (props: any) => {
           </SelectInput>
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>MRF Serial Number</TextBoxHeader>
+          <TextBoxHeader>Street 1</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"
@@ -190,7 +190,7 @@ const CreateServiceCallModal1 = (props: any) => {
           />
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>Serial Number</TextBoxHeader>
+          <TextBoxHeader>Street 2</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"
@@ -198,7 +198,7 @@ const CreateServiceCallModal1 = (props: any) => {
           />
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>Item Description</TextBoxHeader>
+          <TextBoxHeader>Room</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"
@@ -206,7 +206,7 @@ const CreateServiceCallModal1 = (props: any) => {
           />
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>Item Code</TextBoxHeader>
+          <TextBoxHeader>State</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"
@@ -214,7 +214,7 @@ const CreateServiceCallModal1 = (props: any) => {
           />
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>MRF Serial Number</TextBoxHeader>
+          <TextBoxHeader>City</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"
@@ -222,15 +222,7 @@ const CreateServiceCallModal1 = (props: any) => {
           />
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>Serial Number</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>Item Description</TextBoxHeader>
+          <TextBoxHeader>Country</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"

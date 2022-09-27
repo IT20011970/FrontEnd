@@ -28,6 +28,7 @@ import ContentTab from "./CreateTicket/ContentTab";
 import LinkedDocumentsTab from "./CreateTicket/LinkedDocumentsTab";
 import AttachmentsTab from "./CreateTicket/AttachmentsTab";
 import {useEffect, useState} from "react";
+import GeneralTabTicket from "./CreateTicket/GeneralTab";
 
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
@@ -152,7 +153,7 @@ for (var i = 0; i < 5; i++) {
 }
 
 const CreateNewTicketModal = (props: any) => {
-  console.log(props.props.props.serviceCallData.fields.ServiceCallId)
+  // console.log(props.props.props.serviceCallData.fields.ServiceCallId)
   const { open, setOpen, tab } = props;
   const [age, setAge] = React.useState("");
   const handleOpen = () => setOpen(true);
@@ -165,6 +166,14 @@ const CreateNewTicketModal = (props: any) => {
   const [date, setDate] = React.useState(new Date());
   const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
+  const [CreatedOn, setCreatedOnDate] = React.useState("")
+  const [planedStartDate, setDatePlanedStart] = React.useState("");
+  const [estimatedDate, setDateEstimated] = React.useState("");
+  const [plannedEndDate, setDatePlannedEnd] = React.useState("");
+  const [actualStartDate, setDateActualStart] = React.useState("");
+  const [actualEndDate, setDateActualEnd] = React.useState("");
+  const [Estimate, setEstimate] = React.useState("")
+  const [contact, setContact] = React.useState("")
 
   const getTab = (index: string): string => {
     switch (index) {
@@ -225,6 +234,7 @@ const CreateNewTicketModal = (props: any) => {
   };
 
   function handleChangeField(e:any,f:any) {
+    console.log(props)
     fields[f] = e.target.value;
     handleValidation()
   }
@@ -237,9 +247,16 @@ const CreateNewTicketModal = (props: any) => {
   }
 
   useEffect (()=>{
+    console.log(props.open)
     fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
+    fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
+    fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
+    fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
+    fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
+    fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
+    fields["TicketId"]= Math.floor(Math.random()*1000000)
     setfields(fields)
-  },[])
+  },[props.open])
 
   function handleValidation() {
     console.log(fields)
@@ -284,43 +301,6 @@ const CreateNewTicketModal = (props: any) => {
         setfields( fields )
         seterrors(errors)
       }
-      //Customer ID
-    if(typeof fields["CustomerID"] !== "undefined"){
-      if (fields["CustomerID"]==="0") {
-        errors["CustomerID"] = "Please Enter CustomerID";
-        seterrors(errors)
-      }
-      else{
-        errors["CustomerID"] = "good"
-        setfields( fields )
-        seterrors(errors)
-      }
-    }
-
-     //Contact Person
-     if(typeof fields["ContactPerson"] !== "undefined"){
-      if (fields["ContactPerson"]==="0") {
-        errors["ContactPerson"] = "Please Enter ContactPerson";
-        seterrors(errors)
-      }
-      else{
-        errors["ContactPerson"] = "good"
-        setfields( fields )
-        seterrors(errors)
-      }
-    }
-    //TelephoneNumber
-    if(typeof fields["TelephoneNumber"] !== "undefined"){
-      if (fields["TelephoneNumber"]==="0") {
-        errors["TelephoneNumber"] = "Please Enter Telephone Number";
-        seterrors(errors)
-      }
-      else{
-        errors["TelephoneNumber"] = "good"
-        setfields( fields )
-        seterrors(errors)
-      }
-    }
     }
   }
 
@@ -339,7 +319,13 @@ const CreateNewTicketModal = (props: any) => {
             TicketType: fields["TicketType"],
             Subject: fields["Subject"],
             AssignedTo: "string",
-            PlannedStartDate: "2021-01-23",
+            PlannedStartDate: planedStartDate,
+            PlannedEndDate: plannedEndDate ,
+            ActualStartDate: actualStartDate ,
+            CreatedOn:CreatedOn,
+            ActualEndDate: actualEndDate ,
+            EstimatedDuration: Estimate ,
+            ContactPerson: contact,
             sparePart: [
               {
                 SPReqId: 1,
@@ -361,6 +347,7 @@ const CreateNewTicketModal = (props: any) => {
     };
     fetch('http://localhost:3000/spare-parts',requestOptions)
   }
+  console.log(CreatedOn)
 
   return (
     <Modal
@@ -415,6 +402,7 @@ const CreateNewTicketModal = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
+                value={ fields["TicketId"]}
                 onChange={(e) => handleChangeField(e,"TicketId") }
                 onFocus={(e) => handleChangeField(e,"TicketId") }
               />
@@ -465,10 +453,8 @@ const CreateNewTicketModal = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
-                onChange={(e) => handleChangeField(e,"CustomerID") }
-                onFocus={ ()=>select("CustomerID") }
+                value={fields["CustomerId"]}
               />
-               <span style={{color: "red"}}>{errors["CustomerID"]}</span>
             </Grid>
             <Grid item xs={6} md={4}>
               <TextBoxHeader>Customer Name</TextBoxHeader>
@@ -476,23 +462,17 @@ const CreateNewTicketModal = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
+                value={fields["CustomeName"]}
               />
             </Grid>
             <Grid item xs={6} md={4}>
               <TextBoxHeader>Contact Person</TextBoxHeader>
-              <SelectInput
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                onChange={(e) => handleChangeField(e,"ContactPerson") }
-                onFocus={ ()=>select("ContactPerson") }
-                // onChange={handleChange}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </SelectInput>
-              <span style={{color: "red"}}>{errors["ContactPerson"]}</span>
+              <TextBox
+                  id="outlined-basic"
+                  variant="outlined"
+                  placeholder="Text (default)"
+                  value={fields["ContactPerson"]}
+              />
             </Grid>
             <Grid item xs={6} md={4}>
               <TextBoxHeader>Telephone Number</TextBoxHeader>
@@ -500,10 +480,8 @@ const CreateNewTicketModal = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
-                onChange={(e) => handleChangeField(e,"TelephoneNumber") }
-                onFocus={ ()=>select("TelephoneNumber") }
+                value={fields["TelephoneNo"]}
               />
-                 <span style={{color: "red"}}>{errors["elephoneNumber"]}</span>
             </Grid>
           </Grid>
 
@@ -526,8 +504,6 @@ const CreateNewTicketModal = (props: any) => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={age}
-                onChange={(e) => handleChangeField(e,"ContactPerson") }
-                onFocus={ ()=>select("ContactPerson") }
                 // label="Age"
                 // onChange={handleChange}
               >
@@ -548,13 +524,13 @@ const CreateNewTicketModal = (props: any) => {
           <br />
           <TabContext value={tab}>
             <TabPanel value="1">
-              <GeneralTab />
+              <GeneralTabTicket/>
             </TabPanel>
             <TabPanel value="2">
               <ContentTab />
             </TabPanel>
             <TabPanel value="3">
-              <LinkedDocumentsTab />
+              <LinkedDocumentsTab/>
             </TabPanel>
             <TabPanel value="4">
               <AttachmentsTab />
@@ -585,7 +561,7 @@ const CreateNewTicketModal = (props: any) => {
         <Box>
           <TabContext value={value}>
             <TabPanel value="1">
-              <GeneralTab />
+              <GeneralTab setCreatedOnDate={setCreatedOnDate} setDateEstimated={setDateEstimated} setDatePlannedEnd={setDatePlannedEnd} setDatePlanedStart={setDatePlanedStart} setDateActualStart={setDateActualStart} setDateActualEnd={setDateActualEnd} setEstimate={setEstimate} setContact={setContact}/>
             </TabPanel>
             <TabPanel value="2">
               <ContentTab />

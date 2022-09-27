@@ -25,7 +25,7 @@ import CreateServiceCallTab1 from "./CreateServiceCallTab1";
 import CreateServiceCallTab2 from "./CreateServiceCallTab2";
 import Header from "../../../components/Header";
 import "../../../Styles/Modal.css";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -76,6 +76,10 @@ const TabName = styled("text")(({ theme }) => ({
 
 const CreateServiceCallModal = (props: any) => {
   const { open, setOpen } = props;
+  React.useEffect(() => {
+    props.setOpen(false)
+  },[]);
+
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -312,9 +316,8 @@ const CreateServiceCallModal = (props: any) => {
                 <ModalButton
                   variant="contained"
                   className="cancelButton"
-                  onClick={handleClose}
+                 // onClick={handleClose}
                 >
-                  {fields.fields["MRF"]}
                   Cancel
                 </ModalButton>
               </Grid>

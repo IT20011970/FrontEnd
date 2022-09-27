@@ -124,11 +124,13 @@ const CreateServiceCallModal1 = (props: any) => {
   });
 
   useEffect (()=>{
-      if(props.valueNext==="true"){
-        setnext("true")
-        handleValidation()
-      }
-  })
+    fields["ServiceCallId"]= Math.floor(Math.random()*1000000)
+    props.setfields({fields})
+    if(props.valueNext==="true"){
+      setnext("true")
+      handleValidation()
+    }
+  },[])
 
 
   function handleChange(e:any,f:any) {
@@ -153,16 +155,40 @@ const CreateServiceCallModal1 = (props: any) => {
    //  console.log( fields["Status"])
    //   //ItemCode
     if(typeof fields["ItemCode"] === "string"){
-        if (fields["ItemCode"]==="") {
-          errors["ItemCode"] = "Please Enter Item Code ";
-         seterrors(errors)
-        }
-       else{
-           errors["ItemCode"] = "good"
-           setfields( fields )
-             props.setfields({fields})
-           seterrors(errors)
-       }
+
+      if (fields["ItemCode"] === "") {
+        errors["ItemCode"] = "Please Enter Item Code";
+        seterrors(errors)
+      }  else {
+        errors["ItemCode"] = "good"
+        seterrors(errors)
+        const requestOptions = {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json'}
+        };
+        fetch('http://localhost:3000/service-calls/item/'+fields["ItemCode"],requestOptions)
+            .then(response=>{ return response.json()})
+            .then(data=>{
+              if(data.statusCode===404){
+                setfields(fields)
+                props.setfields({fields})
+              }
+              else{
+
+                 console.log(data)
+                fields["ItemCode"] = data.ItemCode
+                fields["MrfSerialNumber"] = data.MrfSerialNumber
+                fields["SerialNumber"] = data.SerialNumber
+                fields["ItemDescription"] = data.ItemDescription
+                fields["ItemGroup"] = data.ItemGroup
+                setfields(fields)
+                // setfields( {CustomerID:data.CustomerId,ContactPerson:data.ContactPerson,CustomerName:data.CustomeName,TelephoneNo:data.TelephoneNo,AddressId:data.CustomerAddressId} )
+                props.setfields({fields})
+              }
+
+            })
+      }
+
      }
 
   // MRF
@@ -262,8 +288,7 @@ const CreateServiceCallModal1 = (props: any) => {
                fields["ContactPerson"] = data.ContactPerson
                fields["CustomerName"] = data.CustomeName
                fields["TelephoneNo"] = data.TelephoneNo
-               fields["AddressId"] = data.CustomeName
-               fields["CustomerName"] = data.CustomerAddressId
+               fields["AddressId"] = data.CustomerAddressId
 
                setfields(fields)
                // setfields( {CustomerID:data.CustomerId,ContactPerson:data.ContactPerson,CustomerName:data.CustomeName,TelephoneNo:data.TelephoneNo,AddressId:data.CustomerAddressId} )
@@ -350,16 +375,20 @@ const CreateServiceCallModal1 = (props: any) => {
    }
   //ServiceCallId
    if(typeof fields["ServiceCallId"] === "string"){
-     if (fields["ServiceCallId"]==="") {
-       errors["ServiceCallId"] = "Please Enter ServiceCall Id ";
-       seterrors(errors)
-     }
-     else{
-       errors["ServiceCallId"] = "good"
-       setfields( fields )
-       props.setfields({fields})
-       seterrors(errors)
-     }
+     // fields["ServiceCallId"]= Math.floor(Math.random()*1000000)
+     // props.setfields({fields})
+     // errors["ServiceCallId"] = "good"
+     // if (fields["ServiceCallId"]==="") {
+     //   errors["ServiceCallId"] = "Please Enter ServiceCall Id ";
+     //   seterrors(errors)
+     // }
+     // else{
+     //   fields["ServiceCallId"]= Math.floor(Math.random()*1000000)
+     //   errors["ServiceCallId"] = "good"
+     //   setfields( fields )
+     //   props.setfields({fields})
+     //   seterrors(errors)
+     // }
    }
     //Status
    if(typeof fields["Status"] !== "undefined"){
@@ -380,10 +409,10 @@ const CreateServiceCallModal1 = (props: any) => {
        errors["Priority"] = "Please Enter Priority ";
        seterrors(errors)
      }
-     else if (!fields["Priority"].match(/^[a-zA-Z]+$/)) {
-       errors["Priority"] = "Only letters ";
-       seterrors(errors)
-     }
+     // else if (!fields["Priority"].match(/^[a-zA-Z]+$/)) {
+     //   errors["Priority"] = "Only letters ";
+     //   seterrors(errors)
+     // }
      else{
        errors["Priority"] = "good"
        setfields( fields )
@@ -392,7 +421,8 @@ const CreateServiceCallModal1 = (props: any) => {
      }
    }
    //Begin
-    if(next==="true") {
+   console.log(props.valueNext)
+    if(props.valueNext==="true") {
      if(typeof fields["ItemCode"] !== "string") {
        errors["ItemCode"] = "Please Enter Item Code ";
        seterrors(errors)
@@ -437,10 +467,10 @@ const CreateServiceCallModal1 = (props: any) => {
         errors["CustomerName"] = "Please Enter Customer Name ";
         seterrors(errors)
       }
-      if(typeof fields["ServiceCallId"] !== "string") {
-        errors["ServiceCallId"] = "Please Enter ServiceCall Id";
-        seterrors(errors)
-      }
+      // if(typeof fields["ServiceCallId"] !== "string") {
+      //   errors["ServiceCallId"] = "Please Enter ServiceCall Id";
+      //   seterrors(errors)
+      // }
       if(typeof fields["Status"] !== "string") {
         errors["Status"] = "Please Enter Status ";
         seterrors(errors)
@@ -465,6 +495,7 @@ const CreateServiceCallModal1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
+              value={fields["ItemCode"]}
               name="ItemCode"
               onChange={(e) => handleChange(e,"ItemCode") }
               onFocus={(e) => handleChange(e,"ItemCode") }
@@ -477,13 +508,12 @@ const CreateServiceCallModal1 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
+              value={fields["MrfSerialNumber"]}
               sx={{ width: "99%" }}
               onChange={(e) => handleChange(e,"MRF") }
               onFocus={(e) => handleChange(e,"MRF") }
             />
-            {fields["ItemCode"]}
             <br/>
-            {fields.MRF}
             <span style={{ color: "red" }}>{errors["MRF"]}</span>
              </Grid>
           <Grid item xs={6} md={3}>
@@ -492,6 +522,7 @@ const CreateServiceCallModal1 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
+              value={fields["SerialNumber"]}
               sx={{ width: "99%" }}
               onChange={(e) => handleChange(e,"SerialNumber") }
               onFocus={(e) => handleChange(e,"SerialNumber") }
@@ -504,6 +535,7 @@ const CreateServiceCallModal1 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
+              value={fields["ItemDescription"]}
               sx={{ width: "99%" }}
               onChange={(e) => handleChange(e,"ItemDescription") }
               onFocus={(e) => handleChange(e,"ItemDescription") }
@@ -517,6 +549,7 @@ const CreateServiceCallModal1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
+              value={fields["ItemGroup"]}
               onChange={(e) => handleChange(e,"ItemGroup") }
               onFocus={(e) => handleChange(e,"ItemGroup") }
             />
@@ -612,6 +645,7 @@ const CreateServiceCallModal1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
+              value={fields["ServiceCallId"]}
               onChange={(e) => handleChange(e,"ServiceCallId") }
               onFocus={(e) => handleChange(e,"ServiceCallId") }
             />
@@ -627,9 +661,8 @@ const CreateServiceCallModal1 = (props: any) => {
                 onChange={(e) => handleChange(e,"Status") }
                 onFocus={ select }
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={"Active"}>Active</MenuItem>
+              <MenuItem value={"InActive"}>InActive</MenuItem>
             </SelectBox>
             <span style={{color: "red"}}>{errors["Status"]}</span>
           </Grid>

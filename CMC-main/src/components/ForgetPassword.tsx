@@ -29,7 +29,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
 // };
 // fetch('http://localhost:3000/service-calls/',requestOptions)
 
-const LoginForm = () => {
+const ForgetPassWord = () => {
     const [username,setUserName] = React.useState("");
     const [passWord,setPassword]= React.useState("");
 
@@ -42,34 +42,27 @@ const LoginForm = () => {
 
     function locationNav(){
         const requestOptions ={
-            method:'POST',
+            method:'PATCH',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({
                 email:username,
                 password:passWord
             })
         };
-        fetch('http://localhost:3000/auth/signin',requestOptions)
+        fetch('http://localhost:3000/auth/'+username,requestOptions)
             .then(response=>{ return response.json()})
             .then(data=>{
-                console.log(data.id)
-                 if(data.id){
-                     window.location.href='/Home'
-                     localStorage.setItem('user', JSON.stringify(data))
-                 }
+                console.log(data.email)
+                 if(data.email)
+                     window.location.href='/'
                 else{
-                     window.location.reload()
-                     alert("Password Is Incorrect")
+                     window.location.href='/'
+                     alert("Reset Fail")
                  }
 
             });
     }
 
-// window.location.href='/Home'
-//
-//
-//
-//     console.log(passWord,username)
 
   return (
       <Router>
@@ -98,7 +91,7 @@ const LoginForm = () => {
         </Paper>
       <br />
             <Button className="loginBtn" sx={{width: 410}} variant="contained" color="primary" onClick={locationNav}>
-                Sign In
+                Reset
             </Button>
 
     </Box>
@@ -108,4 +101,4 @@ const LoginForm = () => {
 };
 
 
-export default LoginForm;
+export default ForgetPassWord;
