@@ -25,7 +25,7 @@ import Header from "../../../components/Header";
 import "../../../Styles/Modal.css";
 import CreateSparePartsTab1 from "./CreateSparePartsTab1";
 import CreateSparePartsTab2 from "./CreateSparePartsTab2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -182,10 +182,10 @@ const CreateSparePartsModal = (props: any) => {
   const getTab = (index: string): string => {
     switch (index) {
       case "1":
-        return "General";
+        return "Spare Part Request ID";
       
       default:
-        return "General";
+        return "Spare Part Request ID";
     }
   };
   const handleSecondTabChange = (event: any, newValue: string) => {
@@ -268,6 +268,8 @@ const CreateSparePartsModal = (props: any) => {
                   <Tab label="Spare Part Request ID" value="1" />
                   
                 </TabList>
+
+                
               </Box>
             </TabContext>
           )}
@@ -281,12 +283,14 @@ const CreateSparePartsModal = (props: any) => {
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              {/*<CreateServiceCallTab2 tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />*/}
+              <CreateSparePartsTab2 tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>
         <Divider />
+        
         <DialogActions>
+          
           <Box sx={{ flexGrow: 1, p: 1 }}>
             <Grid container spacing={10}>
               {mainTabValue == "1" && <Grid item xs={8} md={10}></Grid>}
@@ -308,6 +312,7 @@ const CreateSparePartsModal = (props: any) => {
                   >
                     Next
                   </ModalButton>
+                  
                 </Grid>
               )}
 

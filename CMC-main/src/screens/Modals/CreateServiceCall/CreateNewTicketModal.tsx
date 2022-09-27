@@ -115,14 +115,14 @@ const TextBox = styled(TextField)(({ theme }) => ({
 }));
 
 const createData = (
-  date: Date,
-  time: string,
-  engineer: string,
-  priority: string,
-  plannedStart: Date,
-  recurrence: string,
-  content: string,
-  more: string
+    date: Date,
+    time: string,
+    engineer: string,
+    priority: string,
+    plannedStart: Date,
+    recurrence: string,
+    content: string,
+    more: string
 ) => {
   return {
     date,
@@ -139,16 +139,16 @@ const createData = (
 const rows: any = [];
 for (var i = 0; i < 5; i++) {
   rows.push(
-    createData(
-      new Date(),
-      "10:23:14 AM",
-      "Engineer E",
-      "Priority P",
-      new Date(),
-      "Recurrence R",
-      "Content C",
-      "More M"
-    )
+      createData(
+          new Date(),
+          "10:23:14 AM",
+          "Engineer E",
+          "Priority P",
+          new Date(),
+          "Recurrence R",
+          "Content C",
+          "More M"
+      )
   );
 }
 
@@ -199,19 +199,19 @@ const CreateNewTicketModal = (props: any) => {
   // };
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+      page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   // Change the page displaying page to user clicked
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
+      event: React.MouseEvent<HTMLButtonElement> | null,
+      newPage: number
   ) => {
     setPage(newPage);
   };
 
   // Change the number of rows per page when user changes
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -221,14 +221,14 @@ const CreateNewTicketModal = (props: any) => {
     setTicketList([
       ...ticketList,
       createData(
-        new Date(),
-        "10:23:14 AM",
-        "Engineer E",
-        "Priority P",
-        new Date(),
-        "Recurrence R",
-        "Content C",
-        "More M"
+          new Date(),
+          "10:23:14 AM",
+          "Engineer E",
+          "Priority P",
+          new Date(),
+          "Recurrence R",
+          "Content C",
+          "More M"
       ),
     ]);
   };
@@ -267,7 +267,7 @@ const CreateNewTicketModal = (props: any) => {
     // console.log( typeof fields["Status"])
     //  console.log( fields["Status"])
 
-   //TicketId
+    //TicketId
     if (typeof fields["TicketId"] === "string") {
       if (fields["TicketId"] === "") {
         errors["TicketId"] = "Please Enter Ticket Id ";
@@ -350,259 +350,259 @@ const CreateNewTicketModal = (props: any) => {
   console.log(CreatedOn)
 
   return (
-    <Modal
-      onClose={handleClose}
-      aria-labelledby="customized-dialog-title"
-      open={open}
-      PaperProps={{ sx: { maxWidth: "65%", height: "90%" } }}
-      // maxWidth={"md"}
-      // disableBackdropClick
-      // disableEscapeKeyDown
-    >
-      <DialogTitle sx={{ m: 0, p: 2 }}>
-        <ModalTittle>
-          Create Ticket
-          {/* / <TabName>{tabName}</TabName> */}
-        </ModalTittle>
-        <IconButton
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          {/* <CloseIcon /> */}
-          <svg
-            width="24"
-            height="25"
-            viewBox="0 0 24 25"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+      <Modal
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={open}
+          PaperProps={{ sx: { maxWidth: "65%", height: "90%" } }}
+          // maxWidth={"md"}
+          // disableBackdropClick
+          // disableEscapeKeyDown
+      >
+        <DialogTitle sx={{ m: 0, p: 2 }}>
+          <ModalTittle>
+            Create Ticket
+            {/* / <TabName>{tabName}</TabName> */}
+          </ModalTittle>
+          <IconButton
+              onClick={handleClose}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
           >
-            <path
-              d="M16.064 8.81567C16.064 8.71255 15.9797 8.62817 15.8765 8.62817L14.3297 8.63521L12 11.4125L9.67263 8.63755L8.12341 8.63052C8.02029 8.63052 7.93591 8.71255 7.93591 8.81802C7.93591 8.86255 7.95232 8.90474 7.98044 8.93989L11.0297 12.5727L7.98044 16.2032C7.95212 16.2375 7.93641 16.2805 7.93591 16.3251C7.93591 16.4282 8.02029 16.5126 8.12341 16.5126L9.67263 16.5055L12 13.7282L14.3273 16.5032L15.8742 16.5102C15.9773 16.5102 16.0617 16.4282 16.0617 16.3227C16.0617 16.2782 16.0453 16.236 16.0172 16.2008L12.9726 12.5704L16.0219 8.93755C16.05 8.90474 16.064 8.86021 16.064 8.81567Z"
-              fill="black"
-            />
-            <path
-              d="M12 2.02344C6.20156 2.02344 1.5 6.725 1.5 12.5234C1.5 18.3219 6.20156 23.0234 12 23.0234C17.7984 23.0234 22.5 18.3219 22.5 12.5234C22.5 6.725 17.7984 2.02344 12 2.02344ZM12 21.2422C7.18594 21.2422 3.28125 17.3375 3.28125 12.5234C3.28125 7.70938 7.18594 3.80469 12 3.80469C16.8141 3.80469 20.7188 7.70938 20.7188 12.5234C20.7188 17.3375 16.8141 21.2422 12 21.2422Z"
-              fill="black"
-            />
-          </svg>
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
-        <Box sx={{ flexGrow: 1 }}>
-          <Header />
-          <Grid container>
-            <Grid item xs={6} md={4}>
-              <TextBoxHeader>Service Ticket ID</TextBoxHeader>
-              <TextBox
-                id="outlined-basic"
-                variant="outlined"
-                placeholder="Text (default)"
-                value={ fields["TicketId"]}
-                onChange={(e) => handleChangeField(e,"TicketId") }
-                onFocus={(e) => handleChangeField(e,"TicketId") }
-              />
-              <span style={{color: "red"}}>{errors["TicketId"]}</span>
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <TextBoxHeader>Service Ticket Type</TextBoxHeader>
-              <SelectInput
-                labelId="demo-simple-select-label"
-                id="demo-simple-select1"
-                defaultValue=""
-                onChange={(e) => handleChangeField(e,"TicketType") }
-                onFocus={ ()=>select("TicketType") }
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </SelectInput>
-              <span style={{color: "red"}}>{errors["TicketType"]}</span>
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <TextBoxHeader>Subject</TextBoxHeader>
-              <SelectInput
-                labelId="demo-simple-select-label"
-                id="demo-simple-select2"
-                defaultValue=""
-                onChange={(e) => handleChangeField(e,"Subject") }
-                onFocus={ ()=>select("Subject") }
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </SelectInput>
-              <span style={{color: "red"}}>{errors["Subject"]}</span>
-            </Grid>
-          </Grid>
-          <Divider
-            orientation="horizontal"
-            variant="middle"
-            flexItem
-            sx={{ marginTop: "30px" }}
-          />
-
-          <Grid container>
-            <Grid item xs={6} md={4}>
-              <TextBoxHeader>Customer ID</TextBoxHeader>
-              <TextBox
-                id="outlined-basic"
-                variant="outlined"
-                placeholder="Text (default)"
-                value={fields["CustomerId"]}
-              />
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <TextBoxHeader>Customer Name</TextBoxHeader>
-              <TextBox
-                id="outlined-basic"
-                variant="outlined"
-                placeholder="Text (default)"
-                value={fields["CustomeName"]}
-              />
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <TextBoxHeader>Contact Person</TextBoxHeader>
-              <TextBox
-                  id="outlined-basic"
-                  variant="outlined"
-                  placeholder="Text (default)"
-                  value={fields["ContactPerson"]}
-              />
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <TextBoxHeader>Telephone Number</TextBoxHeader>
-              <TextBox
-                id="outlined-basic"
-                variant="outlined"
-                placeholder="Text (default)"
-                value={fields["TelephoneNo"]}
-              />
-            </Grid>
-          </Grid>
-
-          <Divider
-            orientation="horizontal"
-            variant="middle"
-            flexItem
-            sx={{ marginTop: "30px", marginBottom: "10px" }}
-          />
-          <Grid container>
-            <Grid xs={12}>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Personal Ticket"
-              />
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <TextBoxHeader>Assigned To</TextBoxHeader>
-              <SelectInput
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                // label="Age"
-                // onChange={handleChange}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </SelectInput>
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <TextBoxHeader>Assigned By</TextBoxHeader>
-              <TextBox
-                id="outlined-basic"
-                variant="outlined"
-                placeholder="Text (default)"
-              />
-            </Grid>
-          </Grid>
-          <br />
-          <TabContext value={tab}>
-            <TabPanel value="1">
-              <GeneralTabTicket/>
-            </TabPanel>
-            <TabPanel value="2">
-              <ContentTab />
-            </TabPanel>
-            <TabPanel value="3">
-              <LinkedDocumentsTab/>
-            </TabPanel>
-            <TabPanel value="4">
-              <AttachmentsTab />
-            </TabPanel>
-          </TabContext>
-        </Box>
-        <TabContext value={value}>
-          <Box
-            sx={{
-              borderBottom: 1,
-              borderColor: "divider",
-            }}
-          >
-            <TabList
-              variant="scrollable"
-              scrollButtons
-              onChange={handleChange}
-              aria-label="lab API tabs example"
-              sx={{ marginLeft: "-40px" }}
+            {/* <CloseIcon /> */}
+            <svg
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
             >
-              <Tab label="General" value="1" />
-              <Tab label="Content" value="2" />
-              <Tab label="Linked Documents" value="3" />
-              <Tab label="Attachments" value="4" />
-            </TabList>
-          </Box>
-        </TabContext>
-        <Box>
-          <TabContext value={value}>
-            <TabPanel value="1">
-              <GeneralTab setCreatedOnDate={setCreatedOnDate} setDateEstimated={setDateEstimated} setDatePlannedEnd={setDatePlannedEnd} setDatePlanedStart={setDatePlanedStart} setDateActualStart={setDateActualStart} setDateActualEnd={setDateActualEnd} setEstimate={setEstimate} setContact={setContact}/>
-            </TabPanel>
-            <TabPanel value="2">
-              <ContentTab />
-            </TabPanel>
-            <TabPanel value="3">
-              <LinkedDocumentsTab />
-            </TabPanel>
-            <TabPanel value="4">
-              <AttachmentsTab />
-            </TabPanel>
-          </TabContext>
-        </Box>
-      </DialogContent>
-      <Divider />
-      <DialogActions>
-        <Box sx={{ flexGrow: 1, py: 1 }}>
-          <Grid container spacing={12}>
-            <Grid item xs={6} md={9.8}></Grid>
-            <Grid item xs={2} md={1}>
-              <ModalButton
-                variant="contained"
-                className="cancelButton"
-                onClick={handleClose}
-              >
-                Cancel
-              </ModalButton>
+              <path
+                  d="M16.064 8.81567C16.064 8.71255 15.9797 8.62817 15.8765 8.62817L14.3297 8.63521L12 11.4125L9.67263 8.63755L8.12341 8.63052C8.02029 8.63052 7.93591 8.71255 7.93591 8.81802C7.93591 8.86255 7.95232 8.90474 7.98044 8.93989L11.0297 12.5727L7.98044 16.2032C7.95212 16.2375 7.93641 16.2805 7.93591 16.3251C7.93591 16.4282 8.02029 16.5126 8.12341 16.5126L9.67263 16.5055L12 13.7282L14.3273 16.5032L15.8742 16.5102C15.9773 16.5102 16.0617 16.4282 16.0617 16.3227C16.0617 16.2782 16.0453 16.236 16.0172 16.2008L12.9726 12.5704L16.0219 8.93755C16.05 8.90474 16.064 8.86021 16.064 8.81567Z"
+                  fill="black"
+              />
+              <path
+                  d="M12 2.02344C6.20156 2.02344 1.5 6.725 1.5 12.5234C1.5 18.3219 6.20156 23.0234 12 23.0234C17.7984 23.0234 22.5 18.3219 22.5 12.5234C22.5 6.725 17.7984 2.02344 12 2.02344ZM12 21.2422C7.18594 21.2422 3.28125 17.3375 3.28125 12.5234C3.28125 7.70938 7.18594 3.80469 12 3.80469C16.8141 3.80469 20.7188 7.70938 20.7188 12.5234C20.7188 17.3375 16.8141 21.2422 12 21.2422Z"
+                  fill="black"
+              />
+            </svg>
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <Box sx={{ flexGrow: 1 }}>
+            <Header />
+            <Grid container>
+              <Grid item xs={6} md={4}>
+                <TextBoxHeader>Service Ticket ID</TextBoxHeader>
+                <TextBox
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                    value={ fields["TicketId"]}
+                    onChange={(e) => handleChangeField(e,"TicketId") }
+                    onFocus={(e) => handleChangeField(e,"TicketId") }
+                />
+                <span style={{color: "red"}}>{errors["TicketId"]}</span>
+              </Grid>
+              <Grid item xs={6} md={4}>
+                <TextBoxHeader>Service Ticket Type</TextBoxHeader>
+                <SelectInput
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select1"
+                    defaultValue=""
+                    onChange={(e) => handleChangeField(e,"TicketType") }
+                    onFocus={ ()=>select("TicketType") }
+                >
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </SelectInput>
+                <span style={{color: "red"}}>{errors["TicketType"]}</span>
+              </Grid>
+              <Grid item xs={6} md={4}>
+                <TextBoxHeader>Subject</TextBoxHeader>
+                <SelectInput
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select2"
+                    defaultValue=""
+                    onChange={(e) => handleChangeField(e,"Subject") }
+                    onFocus={ ()=>select("Subject") }
+                >
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </SelectInput>
+                <span style={{color: "red"}}>{errors["Subject"]}</span>
+              </Grid>
+            </Grid>
+            <Divider
+                orientation="horizontal"
+                variant="middle"
+                flexItem
+                sx={{ marginTop: "30px" }}
+            />
+
+            <Grid container>
+              <Grid item xs={6} md={4}>
+                <TextBoxHeader>Customer ID</TextBoxHeader>
+                <TextBox
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                    value={fields["CustomerId"]}
+                />
+              </Grid>
+              <Grid item xs={6} md={4}>
+                <TextBoxHeader>Customer Name</TextBoxHeader>
+                <TextBox
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                    value={fields["CustomeName"]}
+                />
+              </Grid>
+              <Grid item xs={6} md={4}>
+                <TextBoxHeader>Contact Person</TextBoxHeader>
+                <TextBox
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                    value={fields["ContactPerson"]}
+                />
+              </Grid>
+              <Grid item xs={6} md={4}>
+                <TextBoxHeader>Telephone Number</TextBoxHeader>
+                <TextBox
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                    value={fields["TelephoneNo"]}
+                />
+              </Grid>
             </Grid>
 
-            <Grid item xs={2} md={1}>
-              <ModalButton
-                variant="contained"
-                className="ModalCommonButton"
-                onClick={post}
-              >
-                Save
-              </ModalButton>
+            <Divider
+                orientation="horizontal"
+                variant="middle"
+                flexItem
+                sx={{ marginTop: "30px", marginBottom: "10px" }}
+            />
+            <Grid container>
+              <Grid xs={12}>
+                <FormControlLabel
+                    control={<Checkbox />}
+                    label="Personal Ticket"
+                />
+              </Grid>
+              <Grid item xs={6} md={4}>
+                <TextBoxHeader>Assigned To</TextBoxHeader>
+                <SelectInput
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    // label="Age"
+                    // onChange={handleChange}
+                >
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </SelectInput>
+              </Grid>
+              <Grid item xs={6} md={4}>
+                <TextBoxHeader>Assigned By</TextBoxHeader>
+                <TextBox
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
-      </DialogActions>
-    </Modal>
+            <br />
+            <TabContext value={tab}>
+              <TabPanel value="1">
+                <GeneralTabTicket/>
+              </TabPanel>
+              <TabPanel value="2">
+                <ContentTab />
+              </TabPanel>
+              <TabPanel value="3">
+                <LinkedDocumentsTab/>
+              </TabPanel>
+              <TabPanel value="4">
+                <AttachmentsTab />
+              </TabPanel>
+            </TabContext>
+          </Box>
+          <TabContext value={value}>
+            <Box
+                sx={{
+                  borderBottom: 1,
+                  borderColor: "divider",
+                }}
+            >
+              <TabList
+                  variant="scrollable"
+                  scrollButtons
+                  onChange={handleChange}
+                  aria-label="lab API tabs example"
+                  sx={{ marginLeft: "-40px" }}
+              >
+                <Tab label="General" value="1" />
+                <Tab label="Content" value="2" />
+                <Tab label="Linked Documents" value="3" />
+                <Tab label="Attachments" value="4" />
+              </TabList>
+            </Box>
+          </TabContext>
+          <Box>
+            <TabContext value={value}>
+              <TabPanel value="1">
+                <GeneralTab setCreatedOnDate={setCreatedOnDate} setDateEstimated={setDateEstimated} setDatePlannedEnd={setDatePlannedEnd} setDatePlanedStart={setDatePlanedStart} setDateActualStart={setDateActualStart} setDateActualEnd={setDateActualEnd} setEstimate={setEstimate} setContact={setContact}/>
+              </TabPanel>
+              <TabPanel value="2">
+                <ContentTab />
+              </TabPanel>
+              <TabPanel value="3">
+                <LinkedDocumentsTab />
+              </TabPanel>
+              <TabPanel value="4">
+                <AttachmentsTab />
+              </TabPanel>
+            </TabContext>
+          </Box>
+        </DialogContent>
+        <Divider />
+        <DialogActions>
+          <Box sx={{ flexGrow: 1, py: 1 }}>
+            <Grid container spacing={12}>
+              <Grid item xs={6} md={9.8}></Grid>
+              <Grid item xs={2} md={1}>
+                <ModalButton
+                    variant="contained"
+                    className="cancelButton"
+                    onClick={handleClose}
+                >
+                  Cancel
+                </ModalButton>
+              </Grid>
+
+              <Grid item xs={2} md={1}>
+                <ModalButton
+                    variant="contained"
+                    className="ModalCommonButton"
+                    onClick={post}
+                >
+                  Save
+                </ModalButton>
+              </Grid>
+            </Grid>
+          </Box>
+        </DialogActions>
+      </Modal>
   );
 };
 
