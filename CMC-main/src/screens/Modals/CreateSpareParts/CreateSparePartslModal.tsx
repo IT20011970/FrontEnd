@@ -124,7 +124,7 @@ const CreateSparePartsModal = (props: any) => {
 
   const  [Test, setTest] = React.useState("1");
   const  [Test1, setTest1] = React.useState("1");
-  const [fields, setfields] = useState<any>({fields:{}});
+  const [fields, setfieldsSpare] = useState<any>({fields:{}});
 
 
   const handleChange = (newValue: string) => {
@@ -138,43 +138,28 @@ const CreateSparePartsModal = (props: any) => {
     const requestOptions ={
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        CustomerId: parseInt(fields.fields.CustomerID),
-        CustomeName:fields.fields.CustomerName,
-        ContactPerson:fields.fields.ContactPerson,
-        TelephoneNo: fields.fields.TelephoneNo,
-        CustomerAddressId:fields.fields.d,
-          serviceCalls: [
-        {
-          ServiceCallId:parseInt(fields.fields.ServiceCallId),
-          Status:fields.fields.ChangeStatus,
-          Priority:ChangePriority,
-          Subject: Subject,
-          Origin: Origin,
-          ProblemType: ProblemType,
-          InquiryType: InquiryType,
-          CreatedBy: CreatedBy,
-          HandledBy: HandledBy,
-          Queue: Queue,
-          Secretary: Secretary,
-          SalesAssistant: SalesAssistant,
-          CreatedOn: CreatedOn,
-          PlanedStartDateTime: PlanedStartDate,
-          EstimatedDutation: EstimatedDuration,
-          PlanedEndDateTime: PlanedEndDate,
-          ActualStartDate: ActualStartDate,
-          ActualEndDate: ActualEndDate,
-          itemEntity: {
-            ItemCode:parseInt(fields.fields.ItemCode),
-            MrfSerialNumber:fields.fields.ChangeMRF,
-            SerialNumber: ChangeSerialNumber,
-            ItemDescription:ItemDescription ,
-            ItemGroup:ItemGroup
+      body:JSON.stringify(
+          {
+            TicketId: parseInt(fields.fields.TicketID),
+            sparePart: [
+              {
+                SPReqId: Math.floor(Math.random()*1000000),
+                Remark: fields.fields.Remark,
+                Content:fields.fields.Content,
+                Secretary: "2021-01-23",
+                ItemDescription: "2021-01-23",
+                itemEntity:{
+                  MrfSerialNumber: "aaa",
+                  SerialNumber: "ssv",
+                  ItemDescription: "css",
+                  ItemGroup: "vss"
+                }
+              }
+            ]
           }
-        }
-      ]})
+      )
     };
-    fetch('http://localhost:3000/SpareParts',requestOptions)
+    fetch('http://localhost:3000/spare-parts/create',requestOptions)
   }
   const sendDataToParent = (index: any) => {
     console.log(index);
@@ -279,7 +264,7 @@ const CreateSparePartsModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateSparePartsTab1 setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+              <CreateSparePartsTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
@@ -288,55 +273,54 @@ const CreateSparePartsModal = (props: any) => {
           </TabContext>
         </DialogContent>
         <Divider />
-        
+
         <DialogActions>
-          
           <Box sx={{ flexGrow: 1, p: 1 }}>
             <Grid container spacing={10}>
               {mainTabValue == "1" && <Grid item xs={8} md={10}></Grid>}
+              {mainTabValue == "2" && <Grid item xs={6} md={9}></Grid>}
               <Grid item xs={2} md={1}>
                 <ModalButton
-                  variant="contained"
-                  className="cancelButton"
-                  onClick={handleClose}
+                    variant="contained"
+                    className="cancelButton"
+                    // onClick={handleClose}
                 >
                   Cancel
                 </ModalButton>
               </Grid>
               {mainTabValue == "1" && (
-                <Grid item xs={2} md={1}>
-                  <ModalButton
-                    variant="contained"
-                    className="ModalCommonButton"
-                    onClick={() => handleChange("2")}
-                  >
-                    Next
-                  </ModalButton>
-                  
-                </Grid>
+                  <Grid item xs={2} md={1}>
+                    <ModalButton
+                        variant="contained"
+                        className="ModalCommonButton"
+                        onClick={() => handleChange("2")}
+                    >
+                      Next
+                    </ModalButton>
+                  </Grid>
               )}
 
               {mainTabValue == "2" && (
-                <>
-                  <Grid item xs={2} md={1}>
-                    <ModalButton
-                      variant="contained"
-                      className="cancelButton"
-                      onClick={() => handleChange("1")}
-                    >
-                      Back
-                    </ModalButton>
-                  </Grid>
-                  <Grid item xs={2} md={1}>
-                    <ModalButton
-                      variant="contained"
-                      className="ModalCommonButton"
-                      onClick={post}
-                    >
-                      Create
-                    </ModalButton>
-                  </Grid>
-                </>
+                  <>
+                    <Grid item xs={2} md={1}>
+                      <ModalButton
+                          variant="contained"
+                          className="cancelButton"
+                          onClick={() => handleChange("1")}
+                      >
+                        Back
+                      </ModalButton>
+                    </Grid>
+                    <Grid item xs={2} md={1}>
+                      <ModalButton
+                          variant="contained"
+                          className="ModalCommonButton"
+                          onClick={post}
+                      >
+                        Create
+                      </ModalButton>
+                    </Grid>
+                  </>
               )}
             </Grid>
           </Box>
