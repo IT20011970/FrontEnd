@@ -125,7 +125,6 @@ const CreateServiceCallModal = (props: any) => {
 
   function post(){
     console.log(fields.fields)
-    console.log(fields)
     const requestOptions ={
       method:'POST',
       headers:{'Content-Type':'application/json'},

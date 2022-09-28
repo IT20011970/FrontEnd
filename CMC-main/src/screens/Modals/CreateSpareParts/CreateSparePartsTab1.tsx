@@ -14,6 +14,7 @@ import "../../../Styles/Modal.css";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DateTimePicker from "@mui/lab/DateTimePicker";
+import {useState} from "react"
 
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
@@ -140,13 +141,15 @@ const CreateSparePartsTab1 = (props: any) => {
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const [age, setAge] = React.useState("");
   const [openModal, setOpenModal] = React.useState(false);
+  
+  const [fields, setfields] = useState<any>({});
+  const [errors,seterrors]=useState<any>({})
 
-  const handleChange = (event: any) => {
-    setAge(event.target.value);
-  };
+  // const handleChange = (event: any) => {
+  //   setAge(event.target.value);
+  // };
 
   const handleChangeItemCode = (event: any) => {
     props.setItemCode(event.target.value)
@@ -188,42 +191,167 @@ const CreateSparePartsTab1 = (props: any) => {
     props.setCustomerName(event.target.value)
   };
 
+  function handleChange(e:any,f:any) {
+    // let field=fields
+    fields[f] = e.target.value;
+    handleValidation()
+  }
 
-
-//   const stidRegex = RegExp(
-//     /^[0-9]{1,5}$/
-//   );
+  function handleValidation(){
+    console.log( typeof fields["TicketID"])
+    
+    // Ticket ID
+    if(typeof fields["TicketID"] === "string"){
   
-//   const formValid = formErrors =>{
-//     let valid = true;
+      if (fields["TicketID"] === "") {
+        errors["TicketID"] = "Please Enter Ticket ID";
+        seterrors(errors)
+      }  
+      else {
+        errors["TicketID"] = "good"
+        seterrors(errors)
+        const requestOptions = {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json'}
+        };
+        fetch('http://localhost:3000/spare-parts/'+fields["TicketID"],requestOptions)
+            .then(response=>{ return response.json()})
+            .then(data=>{
+              if(data.statusCode===404){
+                setfields(fields)
+                props.setfields({fields})
+              }
+              else{
+                console.log(data)
+                fields["TicketType"] = data.TicketType
+                fields["Subject"] = data.Subject
+                fields["ServiceCallId"] = data.serviceCall.ServiceCallId
+                fields["AssignedTo"] = data.AssignedTo
+                fields["ItemCode"] = data.serviceCall.itemEntity.ItemCode
+                fields["ItemDescription"] = data.serviceCall.itemEntity.ItemDescription
+                fields["CustomeName"] = data.serviceCall.customerEntity.CustomeName
+                setfields(fields)
+                // setfields( {CustomerID:data.CustomerId,ContactPerson:data.ContactPerson,CustomerName:data.CustomeName,TelephoneNo:data.TelephoneNo,AddressId:data.CustomerAddressId} )
+              }
 
-//     Object.values(formErrors).forEach(val => {
-//         val.length > 0 && (valid = false)
-//     });
-//     return valid;
-// };
+            })
+      }
+      
+      
+      
+    }
 
-//   handleInputChange = (e) => {
-//     const { name, value } = e.target;
+    //Remark
+    if(typeof fields["Remark"] === "string"){
+      if (fields["Remark"]==="") {
+        errors["Remark"] = "Please Enter Remark ";
+        seterrors(errors)
+      }
+      else if (!fields["Remark"].match(/^[a-zA-Z]+$/)) {
+        errors["Remark"] = "Only letters ";
+        seterrors(errors)
+      }
+      else{
+        errors["Remark"] = "good"
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
+    //Content
+    if(typeof fields["Content"] === "string"){
+      if (fields["Content"]==="") {
+        errors["Content"] = "Please Enter Content ";
+        seterrors(errors)
+      }
+      else if (!fields["Content"].match(/^[a-zA-Z]+$/)) {
+        errors["Content"] = "Only letters ";
+        seterrors(errors)
+      }
+      else{
+        errors["Content"] = "good"
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
+    //TicketType
+    if(typeof fields["TicketType"] === "string"){
+      if (fields["TicketType"]==="") {
+        errors["TicketType"] = "Please Enter Ticket Type ";
+        seterrors(errors)
+      }
+      else{
+        errors["TicketType"] = "good"
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
+    
+    //Begin
+    console.log(props.valueNext)
+    // if(props.valueNext==="true") {
+    //   if(typeof fields["ItemCode"] !== "string") {
+    //     errors["ItemCode"] = "Please Enter Item Code ";
+    //     seterrors(errors)
+    //   }
+    //   if(typeof fields["MRF"] !== "string") {
+    //     errors["MRF"] = "Please Enter MRF ";
+    //     seterrors(errors)
+    //   }
+    //   if(typeof fields["SerialNumber"] !== "string") {
+    //     errors["SerialNumber"] = "Please Enter Serial Number ";
+    //     seterrors(errors)
+    //   }
+    //   if(typeof fields["ItemDescription"] !== "string") {
+    //     errors["ItemDescription"] = "Please Enter Item Description ";
+    //     seterrors(errors)
+    //   }
+    //   if(typeof fields["ItemGroup"] !== "string") {
+    //     errors["ItemGroup"] = "Please Enter Item Group ";
+    //     seterrors(errors)
+    //   }
+    //   if(typeof fields["CustomerID"] !== "string") {
+    //     errors["CustomerID"] = "Please Enter Customer ID ";
+    //     seterrors(errors)
+    //   }
+    //   if(typeof fields["CustomerName"] !== "string") {
+    //     errors["CustomerName"] = "Please Enter Customer Name ";
+    //     seterrors(errors)
+    //   }
+    //   if(typeof fields["ContactPerson"] !== "string") {
+    //     errors["ContactPerson"] = "Please Enter Contact Person ";
+    //     seterrors(errors)
+    //   }
+    //   if(typeof fields["TelephoneNo"] !== "string") {
+    //     errors["TelephoneNo"] = "Please Enter Telephone No ";
+    //     seterrors(errors)
+    //   }
+    //   if(typeof fields["AddressId"] !== "string") {
+    //     errors["AddressId"] = "Please Enter Address Id ";
+    //     seterrors(errors)
+    //   }
+    //   if(typeof fields["CustomerName"] !== "string") {
+    //     errors["CustomerName"] = "Please Enter Customer Name ";
+    //     seterrors(errors)
+    //   }
+    //   // if(typeof fields["ServiceCallId"] !== "string") {
+    //   //   errors["ServiceCallId"] = "Please Enter ServiceCall Id";
+    //   //   seterrors(errors)
+    //   // }
+    //   if(typeof fields["Status"] !== "string") {
+    //     errors["Status"] = "Please Enter Status ";
+    //     seterrors(errors)
+    //   }
+    //   if(typeof fields["Priority"] !== "string") {
+    //     errors["Priority"] = "Please Enter Priority ";
+    //     seterrors(errors)
+    //   }
+    // }
+  }
 
-//     let formErrors = this.state.formErrors;
-
-//     switch(name){
-//         case "stid":
-//             formErrors.email = stidRegex.test(value) ? ""
-//             : "invalid email address";
-//             break;
-//             default:
-//               break;
-//     }
-
-//     this.setState({formErrors, [name]:value}, ()=>console.log(this.state));
-
-//     this.setState({
-//         ...this.state,
-//         [name]: value
-//     })
-//   }
+  
 
   return (
     <>
@@ -236,13 +364,13 @@ const CreateSparePartsTab1 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)" required
-              sx={{ width: "99%" }} 
-              onChange={handleChangeItemCode}
-            
-              // {formErrors.name.length != 10 && (
-              //   <span className="errorMessage">{formErrors.name}</span>
-              //   )} 
+              name="TicketId"
+              sx={{ width: "99%" }}
+              onChange={(e) => handleChange(e,"TicketID") }
+              onFocus={(e) => handleChange(e,"TicketID") }
+              
             />
+            <span style={{color: "red"}}>{errors["TicketID"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Service Ticket Type</TextBoxHeader>
@@ -250,22 +378,20 @@ const CreateSparePartsTab1 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
+              value={fields['TicketType']}
               sx={{ width: "99%" }}
-              onChange={handleChangeMRF}
             />
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Subject</TextBoxHeader>
-            <SelectInput
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                 variant="outlined"
+            <TextBox
+                id="outlined-basic"
+                variant="outlined"
                 placeholder="Text (default)"
-                  >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </SelectInput>
+                value={fields['Subject']}
+                sx={{ width: "99%" }}
+            />
+            <span style={{color: "red"}}>{errors["Subject"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Assigned To</TextBoxHeader>
@@ -274,8 +400,10 @@ const CreateSparePartsTab1 = (props: any) => {
                 variant="outlined"
                 placeholder="Text (default)"
                 sx={{ width: "99%" }}
+                value={fields['AssignedTo']}
                 onChange={handleChangeItemDescription}
             />
+            <span style={{color: "red"}}>{errors["AssignedTo"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Planned start Date</TextBoxHeader>
@@ -307,8 +435,10 @@ const CreateSparePartsTab1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
+              value={fields['ServiceCallId']}
               onChange={handleChangeCustomerID}
             />
+            <span style={{color: "red"}}>{errors["ServiceCallId"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Item Code</TextBoxHeader>
@@ -317,8 +447,10 @@ const CreateSparePartsTab1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
+              value={fields['ItemCode']}
               onChange={handleChangeCustomerName}
             />
+            <span style={{color: "red"}}>{errors["ItemCode"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Item Description</TextBoxHeader>
@@ -327,8 +459,10 @@ const CreateSparePartsTab1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
+              value={fields['ItemDescription']}
               onChange={handleChangeContactPerson}
             />
+            <span style={{color: "red"}}>{errors["ItemDescription"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Customer Name</TextBoxHeader>
@@ -337,8 +471,10 @@ const CreateSparePartsTab1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
+              value={fields['CustomeName']}
               onChange={handleChangeContactPerson}
             />
+            <span style={{color: "red"}}>{errors["CustomeName"]}</span>
           </Grid>
         </Grid>
         <Divider
@@ -355,8 +491,10 @@ const CreateSparePartsTab1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "415%" }}
-              onChange={handleChangeTelephoneNo}
+              onChange={(e) => handleChange(e,"Remark") }
+              onFocus={(e) => handleChange(e,"Remark") }
             />
+            <span style={{color: "red"}}>{errors["Remark"]}</span>
           </Grid>
          
         </Grid>
@@ -368,8 +506,10 @@ const CreateSparePartsTab1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "400%" }}
-              onChange={handlChangeAddress}
+              onChange={(e) => handleChange(e,"Content") }
+              onFocus={(e) => handleChange(e,"Content") }
             />
+          <span style={{color: "red"}}>{errors["Content"]}</span>
           </Grid>
      
         <Grid container spacing={2}>
@@ -380,13 +520,15 @@ const CreateSparePartsTab1 = (props: any) => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 placeholder="Text (default)"
-                // label="Age"
+                onChange={(e) => handleChange(e,"TicketType") }
+                onFocus={(e) => handleChange(e,"TicketType") }
 
             >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </SelectInput>
+          <span style={{color: "red"}}>{errors["TicketType"]}</span>
           </Grid>
 
                    
