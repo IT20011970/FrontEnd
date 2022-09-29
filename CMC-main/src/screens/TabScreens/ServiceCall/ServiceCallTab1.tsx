@@ -20,7 +20,7 @@ import {
   SparePartsRequestListData, ServiceCallData, ServiceCallData2,
 } from "../../../Types/Types";
 import "./../../../Styles/Tabs.css";
-
+import env from "react-dotenv"
 import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal";
 
 
@@ -192,6 +192,7 @@ for (var i = 0; i < 50; i++) {
 }
 
 const ServiceCallTab1 = () => {
+  console.log(process.env.React_App_youtube)
   //Modal
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -200,7 +201,7 @@ const ServiceCallTab1 = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] =React.useState([]);
-
+  const base_url = process.env.REACT_APP_API_URI
   const emptyRows =
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -233,8 +234,7 @@ const ServiceCallTab1 = () => {
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
     };
-
-    fetch('http://localhost:3000/service-calls/service',requestOptions)
+    fetch(process.env.React_App_BackendUrl+'/service-calls/service',requestOptions)
         .then(response=>{ return response.json()})
         .then(data=>{
           //console.log(data[3].Groups[1].students)
