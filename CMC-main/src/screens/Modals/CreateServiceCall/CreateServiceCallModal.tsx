@@ -315,7 +315,7 @@ const CreateServiceCallModal = (props: any) => {
                 <ModalButton
                   variant="contained"
                   className="cancelButton"
-                 // onClick={handleClose}
+                  onClick={handleClose}
                 >
                   Cancel
                 </ModalButton>

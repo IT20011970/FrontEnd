@@ -325,23 +325,8 @@ const CreateNewTicketModal = (props: any) => {
             CreatedOn:CreatedOn,
             ActualEndDate: actualEndDate ,
             EstimatedDuration: Estimate ,
-            ContactPerson: contact,
-            sparePart: [
-              {
-                SPReqId: 1,
-                TicketId: "",
-                ServiceCallId: "",
-                ServiceEngineer: "",
-                Secretary: "2021-01-23",
-                ItemDescription: "2021-01-23",
-                itemEntity:{
-                  MrfSerialNumber: "aaa",
-                  SerialNumber: "ssv",
-                  ItemDescription: "css",
-                  ItemGroup: "vss"
-                }
-              }
-            ]}
+            ContactPerson: contact
+           }
         ]
       })
     };
