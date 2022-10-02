@@ -12,6 +12,8 @@ import Box from "@mui/material/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./Login";
+import EmployeeService from "./api/api"
+import Service from "./api/api"
 
 const useStyles = makeStyles({
     home: {
@@ -24,6 +26,8 @@ const useStyles = makeStyles({
 const App = () => {
     const classes = useStyles();
     return (
+        <React.StrictMode>
+            <Service>
         <Router>
             <Route exact path="/">
                 <Login/>
@@ -32,6 +36,8 @@ const App = () => {
                 <Home />
             </Route>
         </Router>
+            </Service>
+        </React.StrictMode>
     );
 };
 

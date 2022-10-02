@@ -22,6 +22,8 @@ import {
 import "./../../../Styles/Tabs.css";
 import env from "react-dotenv"
 import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal";
+import {useContext, useRef} from "react"
+import {ServiceContext} from "../../../api/api"
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -192,7 +194,6 @@ for (var i = 0; i < 50; i++) {
 }
 
 const ServiceCallTab1 = () => {
-  console.log(process.env.React_App_youtube)
   //Modal
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -200,8 +201,9 @@ const ServiceCallTab1 = () => {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [data, setData] =React.useState([]);
-  const base_url = process.env.REACT_APP_API_URI
+  const [data, setData] =React.useState<ServiceCallData2[]>([]);
+  const Service =useContext(ServiceContext)
+  const employee =useRef<ServiceCallData2[]>([])
   const emptyRows =
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -230,17 +232,11 @@ const ServiceCallTab1 = () => {
   }
 
   function getData (){
-    const requestOptions = {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'}
-    };
-    fetch(process.env.React_App_BackendUrl+'/service-calls/service',requestOptions)
-        .then(response=>{ return response.json()})
-        .then(data=>{
-          //console.log(data[3].Groups[1].students)
-         // console.log(openModal)
-          setData(data)
-        });
+   if(Service !==undefined){
+     Service.getServiceCall().then((result)=>{
+       setData(result)
+     })
+   }
   }
 
   return (
@@ -249,6 +245,7 @@ const ServiceCallTab1 = () => {
           <Grid container rowSpacing={1}>
             <Grid item xs={6}>
               <Heading>Service Call</Heading>
+              
             </Grid>
             <Grid item xs={3} sx={{ pr: 3 }}>
               <Search>
