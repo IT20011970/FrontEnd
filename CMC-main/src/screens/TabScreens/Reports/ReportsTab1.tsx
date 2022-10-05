@@ -410,7 +410,7 @@ const ReportsTab1 = () => {
                                         {row.customerEntity.CustomeName}
                                     </StyledTableCell>
                                     <StyledTableCell>
-
+                                        {row.customerEntity.CustomerAddressId}
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         {row.customerEntity.ContactPerson}

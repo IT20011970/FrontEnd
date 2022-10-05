@@ -137,6 +137,9 @@ const ModalTittle = styled("text")(({ theme }) => ({
 }));
 
 const CreateSparePartsTab1 = (props: any) => {
+  React.useEffect(() => {
+ 
+  });
 
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
@@ -197,49 +200,89 @@ const CreateSparePartsTab1 = (props: any) => {
     handleValidation()
   }
 
+
+  function select(e:any,f:any) {
+    let field=fields
+    if(!fields[f])
+      field[f] = "0";
+    handleValidation()
+  }
+
   function handleValidation(){
-    console.log( typeof fields["TicketID"])
+    console.log(fields)
     
     // Ticket ID
-    if(typeof fields["TicketID"] === "string"){
-  
-      if (fields["TicketID"] === "") {
-        errors["TicketID"] = "Please Enter Ticket ID";
-        seterrors(errors)
-      }  
-      else {
-        errors["TicketID"] = "good"
-        seterrors(errors)
-        const requestOptions = {
-          method: 'GET',
-          headers: {'Content-Type': 'application/json'}
-        };
-        fetch('http://localhost:3000/spare-parts/'+fields["TicketID"],requestOptions)
-            .then(response=>{ return response.json()})
-            .then(data=>{
-              if(data.statusCode===404){
-                setfields(fields)
-                props.setfields({fields})
-              }
-              else{
-                console.log(data)
-                fields["TicketType"] = data.TicketType
-                fields["Subject"] = data.Subject
-                fields["ServiceCallId"] = data.serviceCall.ServiceCallId
-                fields["AssignedTo"] = data.AssignedTo
-                fields["ItemCode"] = data.serviceCall.itemEntity.ItemCode
-                fields["ItemDescription"] = data.serviceCall.itemEntity.ItemDescription
-                fields["CustomeName"] = data.serviceCall.customerEntity.CustomeName
-                setfields(fields)
-                // setfields( {CustomerID:data.CustomerId,ContactPerson:data.ContactPerson,CustomerName:data.CustomeName,TelephoneNo:data.TelephoneNo,AddressId:data.CustomerAddressId} )
-              }
+    // if(typeof fields["TicketID"] === "string"){
+    //
+    //   if (fields["TicketID"] === "") {
+    //     errors["TicketID"] = "Please Enter Ticket ID";
+    //     seterrors(errors)
+    //   }  
+    //   else {
+    //     errors["TicketID"] = "good"
+    //     seterrors(errors)
+    //     const requestOptions = {
+    //       method: 'GET',
+    //       headers: {'Content-Type': 'application/json'}
+    //     };
+    //     fetch('http://localhost:3000/spare-parts/'+fields["TicketID"],requestOptions)
+    //         .then(response=>{ return response.json()})
+    //         .then(data=>{
+    //           if(data.statusCode===404){
+    //             setfields(fields)
+    //             props.setfields({fields})
+    //           }
+    //           else{
+    //             console.log(data)
+    //             fields["TicketType"] = data.TicketType
+    //             fields["Subject"] = data.Subject
+    //             fields["ServiceCallId"] = data.serviceCall.ServiceCallId
+    //             fields["AssignedTo"] = data.AssignedTo
+    //             fields["ItemCode"] = data.serviceCall.itemEntity.ItemCode
+    //             fields["ItemDescription"] = data.serviceCall.itemEntity.ItemDescription
+    //             fields["CustomeName"] = data.serviceCall.customerEntity.CustomeName
+    //             setfields(fields)
+    //             props.setfields({fields})
+    //             // setfields( {CustomerID:data.CustomerId,ContactPerson:data.ContactPerson,CustomerName:data.CustomeName,TelephoneNo:data.TelephoneNo,AddressId:data.CustomerAddressId} )
+    //           }
+    //
+    //         })
+    //   }
+    // }
 
-            })
-      }
-      
-      
-      
+
+
+    if (fields["TicketID"] === "") {
+      errors["TicketID"] = "Please Enter Item Code";
+      seterrors(errors)
+    }  else {
+      errors["TicketID"] = "good"
+      seterrors(errors)
+      const requestOptions = {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+      };
+      fetch('http://localhost:3000/spare-parts/'+fields["TicketID"],requestOptions)
+          .then(response=>{ return response.json()})
+          .then(data=>{
+            if(data.statusCode===404){
+              setfields(fields)
+            }
+            else{
+              fields["TicketType"] = data.TicketType
+              fields["Subject"] = data.Subject
+              fields["ServiceCallId"] = data.serviceCall.ServiceCallId
+              fields["AssignedTo"] = data.AssignedTo
+              fields["ItemCode"] = data.serviceCall.itemEntity.ItemCode
+              fields["ItemDescription"] = data.serviceCall.itemEntity.ItemDescription
+              fields["CustomeName"] = data.serviceCall.customerEntity.CustomeName
+              setfields(fields)
+              console.log(fields)
+            }
+
+          })
     }
+
 
     //Remark
     if(typeof fields["Remark"] === "string"){
@@ -401,7 +444,7 @@ const CreateSparePartsTab1 = (props: any) => {
                 placeholder="Text (default)"
                 sx={{ width: "99%" }}
                 value={fields['AssignedTo']}
-                onChange={handleChangeItemDescription}
+               
             />
             <span style={{color: "red"}}>{errors["AssignedTo"]}</span>
           </Grid>
@@ -436,7 +479,6 @@ const CreateSparePartsTab1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               value={fields['ServiceCallId']}
-              onChange={handleChangeCustomerID}
             />
             <span style={{color: "red"}}>{errors["ServiceCallId"]}</span>
           </Grid>
@@ -448,7 +490,6 @@ const CreateSparePartsTab1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               value={fields['ItemCode']}
-              onChange={handleChangeCustomerName}
             />
             <span style={{color: "red"}}>{errors["ItemCode"]}</span>
           </Grid>
@@ -460,7 +501,6 @@ const CreateSparePartsTab1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               value={fields['ItemDescription']}
-              onChange={handleChangeContactPerson}
             />
             <span style={{color: "red"}}>{errors["ItemDescription"]}</span>
           </Grid>
@@ -472,7 +512,7 @@ const CreateSparePartsTab1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               value={fields['CustomeName']}
-              onChange={handleChangeContactPerson}
+             
             />
             <span style={{color: "red"}}>{errors["CustomeName"]}</span>
           </Grid>
@@ -524,9 +564,12 @@ const CreateSparePartsTab1 = (props: any) => {
                 onFocus={(e) => handleChange(e,"TicketType") }
 
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={"Gayan"}>Gayan</MenuItem>
+              <MenuItem value={"Dilini"}>Dilini</MenuItem>
+              <MenuItem value={"Poornima"}>Poornima</MenuItem>
+              <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
+              <MenuItem value={"Pawani"}>Pawani</MenuItem>
+              <MenuItem value={"Rasika"}>Rasika</MenuItem>
             </SelectInput>
           <span style={{color: "red"}}>{errors["TicketType"]}</span>
           </Grid>

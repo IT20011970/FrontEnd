@@ -214,6 +214,7 @@ const Dashboard = () => {
       <Header />
       <Stack spacing={6} direction="row">
         <AddButton
+            onClick={e=>window.location.href='/ServiceCall'}
           variant="contained"
           startIcon={
             <svg
@@ -238,6 +239,7 @@ const Dashboard = () => {
         </AddButton>
 
         <AddButton
+            onClick={e=>window.location.href='/ServiceTickets'}
           variant="contained"
           startIcon={
             <svg

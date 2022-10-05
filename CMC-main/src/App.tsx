@@ -35,6 +35,30 @@ const App = () => {
             <Route exact path="/Home">
                 <Home />
             </Route>
+            <Route exact path="/SpareParts">
+                <Home/>
+            </Route>
+            <Route exact path="/ServiceTickets">
+                <Home/>
+            </Route>
+            <Route exact path="/ServiceCall">
+                <Home/>
+            </Route>
+            <Route exact path="/Attendance">
+                <Home/>
+            </Route>
+            <Route exact path="/Reports">
+                <Home/>
+            </Route>
+            <Route exact path="/Administration">
+                <Home/>
+            </Route>
+            <Route exact path="/Masters">
+                <Home/>
+            </Route>
+            <Route exact path="/ResourceAllocation">
+                <Home/>
+            </Route>
         </Router>
             </Service>
         </React.StrictMode>

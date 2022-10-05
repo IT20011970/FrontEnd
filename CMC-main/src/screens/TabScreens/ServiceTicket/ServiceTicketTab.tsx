@@ -23,6 +23,7 @@ import "./../../../Styles/Tabs.css";
 
 import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal";
 import {useEffect, useState} from "react";
+import moment from "moment"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -279,7 +280,6 @@ const ServiceTicketTab = () => {
                   <StyledTableCell align="right">Customer ID</StyledTableCell>
                   <StyledTableCell align="right">Customer Name</StyledTableCell>
                   <StyledTableCell align="right">Contact Person</StyledTableCell>
-                  <StyledTableCell align="right">Location</StyledTableCell>
                   <StyledTableCell align="right">Created On</StyledTableCell>
                   <StyledTableCell align="right">Planed Start Date</StyledTableCell>
                   <StyledTableCell align="right">Planed End Date</StyledTableCell>
@@ -331,22 +331,19 @@ const ServiceTicketTab = () => {
                         {row.serviceCall.customerEntity.ContactPerson}
                       </StyledTableCell>
                       <StyledTableCell>
-
+                        {moment(row.serviceCall.CreatedOn).format("DD/MM/YYYY")}
                       </StyledTableCell>
                       <StyledTableCell>
-                        {row.serviceCall.CreatedOn}
+                        {moment(row.serviceCall.PlanedStartDateTime).format("DD/MM/YYYY")}
                       </StyledTableCell>
                       <StyledTableCell>
-                        {row.serviceCall.PlanedStartDateTime}
+                        {moment(row.serviceCall.PlanedEndDateTime).format("DD/MM/YYYY")}
                       </StyledTableCell>
                       <StyledTableCell>
-                        {row.serviceCall.PlanedEndDateTime}
+                        {moment(row.serviceCall.ActualStartDate).format("DD/MM/YYYY")}
                       </StyledTableCell>
                       <StyledTableCell>
-                        {row.serviceCall.ActualStartDate}
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        {row.serviceCall.ActualEndDate}
+                        {moment(row.serviceCall.ActualEndDate).format("DD/MM/YYYY")}
                       </StyledTableCell>
                     </StyledTableRow>
                 ))}

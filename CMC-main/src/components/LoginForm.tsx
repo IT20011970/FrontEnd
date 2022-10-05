@@ -93,6 +93,7 @@ const LoginForm = () => {
             <InputBase
                 sx={{ ml: 1, flex: 5 }}
                 placeholder="Enter Password"
+                type={passWord}
                 onChange={handleChangePassword}
             />
         </Paper>

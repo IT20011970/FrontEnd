@@ -18,7 +18,7 @@ import Table from "@mui/material/Table"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import TableBody from "@mui/material/TableBody"
-import {CreateServiceCallTicketData} from "../../../Types/Types"
+import { ArrayTab, CreateServiceCallTicketData, ExpensesData, ServiceCallData2} from "../../../Types/Types"
 import TableContainer from "@mui/material/TableContainer"
 import TableCell, {tableCellClasses} from "@mui/material/TableCell"
 
@@ -231,7 +231,14 @@ const CreateSparePartsTab1 = (props: any) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [ticketList, setTicketList] = React.useState([...rows]);
-
+  const [d, setData] =React.useState([]);
+  const [data1, setData1] =React.useState<ArrayTab[]>([]);
+  
+  console.log(data1)
+  React.useEffect(() => {
+    setData1(props.props)
+  });
+  
   const addNewTicket = () => {
     setTicketList([
       ...ticketList,
@@ -247,6 +254,8 @@ const CreateSparePartsTab1 = (props: any) => {
       ),
     ]);
   };
+
+  
 
   const handleChange = (event: any) => {
     setAge(event.target.value);
@@ -292,6 +301,7 @@ const CreateSparePartsTab1 = (props: any) => {
     props.setCustomerName(event.target.value)
   };
 
+ 
 
 
 //   const stidRegex = RegExp(
@@ -385,41 +395,35 @@ const CreateSparePartsTab1 = (props: any) => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {(rowsPerPage > 0
-                            ? ticketList.slice(
-                                page * rowsPerPage,
-                                page * rowsPerPage + rowsPerPage
-                            )
-                            : rows
-                    ).map((row: CreateServiceCallTicketData, i: number) => (
+                    {data1.map((row: ArrayTab, i: number) => (
                         <StyledTableRow key={Math.random()}>
                           <StyledTableCell
                               sx={{
                                 borderLeft: "none",
                               }}
                           >
-                            {row.date.toString().substring(0, 24)}
+                            {row.spid}
                           </StyledTableCell>
                           <StyledTableCell
                               sx={{
                                 borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                               }}
                           >
-                            {row.time}
+                            {row.description}
                           </StyledTableCell>
                           <StyledTableCell
                               sx={{
                                 borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                               }}
                           >
-                            {row.engineer}
+                            {row.remark}
                           </StyledTableCell>
                           <StyledTableCell
                               sx={{
                                 borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                               }}
                           >
-                            {row.priority}
+                            {row.quantity}
                           </StyledTableCell>
                           <StyledTableCell
                               sx={{
@@ -438,7 +442,7 @@ const CreateSparePartsTab1 = (props: any) => {
                                 borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                               }}
                           >
-                            {row.priority}
+                          
                           </StyledTableCell>
                        
                         </StyledTableRow>
@@ -617,15 +621,8 @@ const CreateSparePartsTab1 = (props: any) => {
               </Grid>
             </Grid>
           </Box>
-
-        
-          
         </Box>
-
         <br></br>
-        
-
-
       </>
   );
 };
