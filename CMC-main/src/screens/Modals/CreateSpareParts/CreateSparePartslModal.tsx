@@ -75,7 +75,7 @@ const TabName = styled("text")(({ theme }) => ({
 }));
 
 const CreateSparePartsModal = (props: any) => {
-  // console.log(props)
+   console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -268,7 +268,7 @@ const CreateSparePartsModal = (props: any) => {
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <CreateSparePartsTab2 tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              <CreateSparePartsTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>

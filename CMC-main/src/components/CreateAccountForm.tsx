@@ -53,8 +53,10 @@ const CreateAccount = () => {
             .then(response=>{ return response.json()})
             .then(data=>{
                 console.log(data.email)
-                 if(data.email)
+                 if(data.email){
+                     alert("User Account Created")
                      window.location.href='/'
+                 }
                 else{
                      window.location.href='/'
                      alert("Registration Fail")

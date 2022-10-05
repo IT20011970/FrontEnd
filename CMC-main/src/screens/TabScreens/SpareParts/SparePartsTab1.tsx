@@ -186,6 +186,10 @@ const SparePartsTab1 = () => {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [arry, setArray] = React.useState({});
+  
+  const arr =new Array();
+  
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -197,6 +201,15 @@ const SparePartsTab1 = () => {
   ) => {
     setPage(newPage);
   };
+  function getData(data:any){
+    arr.push(data)
+    console.log(arr)
+  }
+  
+  function open(){
+    setOpenModal(true) ;
+    setArray(arr)
+  }
 
   // Change the number of rows per page when user changes
   const handleChangeRowsPerPage = (
@@ -227,10 +240,9 @@ const SparePartsTab1 = () => {
           </Grid>
           <Grid item xs={3}>
             <RequestButton variant="contained" 
-                           onClick={() => setOpenModal(true)}>
+                           onClick={open}>
               Create Spare-Parts Request
             </RequestButton>
-          
           </Grid>
         </Grid>
       </Stack>
@@ -266,25 +278,25 @@ const SparePartsTab1 = () => {
                       borderLeft: "none",
                     }}
                   >
-                    {row.spid + Math.round(i * Math.random() * 100)}
+                    {row.spid}
                   </StyledTableCell>
                   <StyledTableCell>
-                    {row.description + Math.round(i * Math.random() * 100)}
+                    {row.description}
                   </StyledTableCell>
                   <StyledTableCell>
-                    {row.type + Math.round(i * Math.random() * 100)}
+                    {row.type}
                   </StyledTableCell>
                   <StyledTableCell>
-                    {row.remark + Math.round(i * Math.random() * 100)}
+                    {row.remark}
                   </StyledTableCell>
                   <StyledTableCell>
-                    {row.quantity + Math.round(i * Math.random() * 100)}
+                    {row.quantity}
                   </StyledTableCell>
                   <StyledTableCell>
-                    {row.attachment + Math.round(i * Math.random() * 100)}
+                    {row.attachment}
                   </StyledTableCell>
                   <StyledTableCell>
-                    <ControlButton disableRipple>
+                    <ControlButton disableRipple onClick={e=>getData(row)}>
                       <svg
                         width="21"
                         height="21"
@@ -333,7 +345,7 @@ const SparePartsTab1 = () => {
             ActionsComponent={TablePaginationActions}
           />
         </Stack>
-        <CreateSparePartslModal open={openModal} setOpen={setOpenModal} />
+        <CreateSparePartslModal arry={arry} open={openModal} setOpen={setOpenModal} />
       </Container>
     </>
   );

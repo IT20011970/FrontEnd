@@ -53,8 +53,10 @@ const ForgetPassWord = () => {
             .then(response=>{ return response.json()})
             .then(data=>{
                 console.log(data.email)
-                 if(data.email)
+                 if(data.email){
+                     alert("Passwoed Reset Successfully")
                      window.location.href='/'
+                 }
                 else{
                      window.location.href='/'
                      alert("Reset Fail")

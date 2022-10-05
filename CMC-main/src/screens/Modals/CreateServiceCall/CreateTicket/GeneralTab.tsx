@@ -216,9 +216,12 @@ const GeneralTabTicket = (props: any) => {
                   // label="Age"
                   onChange={handleChangesetContact}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={"Gayan"}>Gayan</MenuItem>
+                <MenuItem value={"Dilini"}>Dilini</MenuItem>
+                <MenuItem value={"Poornima"}>Poornima</MenuItem>
+                <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
+                <MenuItem value={"Pawani"}>Pawani</MenuItem>
+                <MenuItem value={"Rasika"}>Rasika</MenuItem>
               </SelectInput>
             </Grid>
           </Grid>

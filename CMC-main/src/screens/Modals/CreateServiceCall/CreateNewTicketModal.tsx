@@ -448,9 +448,9 @@ const CreateNewTicketModal = (props: any) => {
                     onChange={(e) => handleChangeField(e,"TicketType") }
                     onFocus={ ()=>select("TicketType") }
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={"Type 1"}>Type 1</MenuItem>
+                  <MenuItem value={"Type 2"}>Type 2</MenuItem>
+                  <MenuItem value={"Type 3"}>Type 3</MenuItem>
                 </SelectInput>
                 <span style={{color: "red"}}>{errors["TicketType"]}</span>
               </Grid>
@@ -463,9 +463,9 @@ const CreateNewTicketModal = (props: any) => {
                     onChange={(e) => handleChangeField(e,"Subject") }
                     onFocus={ ()=>select("Subject") }
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={"Subject S001"}>Subject S001</MenuItem>
+                  <MenuItem value={"Subject S002"}>Subject S002</MenuItem>
+                  <MenuItem value={"Subject S003"}>Subject S003</MenuItem>
                 </SelectInput>
                 <span style={{color: "red"}}>{errors["Subject"]}</span>
               </Grid>
@@ -538,9 +538,12 @@ const CreateNewTicketModal = (props: any) => {
                     defaultValue=""
                     onChange={(e) => handleChangeField(e,"AssignedTo") }
                 >
-                  <MenuItem value={"High"}>High</MenuItem>
-                  <MenuItem value={"Medium"}>Medium</MenuItem>
-                  <MenuItem value={"Low"}>Low</MenuItem>
+                  <MenuItem value={"Gayan"}>Gayan</MenuItem>
+                  <MenuItem value={"Dilini"}>Dilini</MenuItem>
+                  <MenuItem value={"Poornima"}>Poornima</MenuItem>
+                  <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
+                  <MenuItem value={"Pawani"}>Pawani</MenuItem>
+                  <MenuItem value={"Rasika"}>Rasika</MenuItem>
                 </SelectBox>
                 {/*<SelectInput*/}
                 {/*    labelId="demo-simple-select-labelqa"*/}

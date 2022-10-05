@@ -24,6 +24,8 @@ import env from "react-dotenv"
 import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal";
 import {useContext, useRef} from "react"
 import {ServiceContext} from "../../../api/api"
+import { format } from 'date-fns';
+import moment from "moment"
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -300,7 +302,7 @@ const ServiceCallTab1 = () => {
                             borderLeft: "none",
                           }}
                       >
-                        {row.ServiceCallId}
+                        {row.itemEntity.ItemCode}
                       </StyledTableCell>
                       <StyledTableCell>
                       {row.itemEntity.ItemDescription}
@@ -312,7 +314,7 @@ const ServiceCallTab1 = () => {
                       {row.Status}
                       </StyledTableCell>
                       <StyledTableCell>
-                        {row.CreatedOn}
+                        {moment(row.CreatedOn).format("DD/MM/YYYY")}
                       </StyledTableCell>
                       <StyledTableCell>
                         {row.Priority}

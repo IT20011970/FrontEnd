@@ -14,6 +14,7 @@ import RightNav from "./components/RightNav";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CreateAccount from "./components/CreateAccountForm";
 import ForgetPassWord from "./components/ForgetPassword";
+import {styled} from "@mui/material/styles"
 
 const useStyles = makeStyles({
     home: {
@@ -22,6 +23,13 @@ const useStyles = makeStyles({
         minHeight: "100vh",
     },
 });
+
+const StyledLink = styled(Link)(({ theme }) => ({
+    textDecoration: "none",
+    "&:focus, &:hover, &:visited, &:link, &:active": {
+        textDecoration: "none",
+    },
+}));
 
 const Login = () => {
     const classes = useStyles();
@@ -38,16 +46,11 @@ const Login = () => {
                             }}
                         >
                             <LoginHeader/>
-                            <Link to="/Create">
-                            <div className="Comp2" >
-                                <h6 className="txt2">Create new Account</h6>
-                            </div>
-                            </Link>
-                            <Link to="/">
+                            <StyledLink to="/">
                             <div className="Comp2">
                                 <h6 className="txt2">Sign In To Your Account</h6>
                             </div>
-                            </Link>
+                            </StyledLink>
                             <Route exact path="/">
                                 <LoginForm/>
                             </Route>
@@ -57,13 +60,26 @@ const Login = () => {
                             <Route exact path="/forget">
                                 <ForgetPassWord/>
                             </Route>
-                            <Link to="/forget">
-                                <div className="Comp2">
-                                    <h6 className="txt2">Forget Password</h6>
-                                </div>
-                            </Link>
-
-
+                            <Grid container spacing={3} style={{marginLeft:'15%',marginRight:'20%'}}>
+                                <Grid item xs={6} md={3}>
+                                    <StyledLink to="/forget">
+                                        <Route exact path="/">
+                                            <div className="Comp2">
+                                                <h6 className="txt2">Forget Password</h6>
+                                            </div>
+                                        </Route>
+                                    </StyledLink>
+                                </Grid>
+                                <Grid item xs={6} md={3}>
+                                    <StyledLink to="/Create">
+                                        <Route exact path="/">
+                                            <div className="Comp2" >
+                                                <h6 className="txt2">Create new Account</h6>
+                                            </div>
+                                        </Route>
+                                    </StyledLink>
+                                </Grid>
+                            </Grid>
                         </Grid>
                         <Grid item xs style=  {{backgroundImage: `url(${Graphic1})`,
                             backgroundSize: "cover",
