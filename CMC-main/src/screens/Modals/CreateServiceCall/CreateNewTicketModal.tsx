@@ -52,6 +52,27 @@ const SelectInput = styled(Select)(({ theme }) => ({
   },
 }));
 
+
+const SelectBox = styled(Select)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(0),
+  textAlign: "center",
+  boxShadow: "none",
+  fontFamily: "Montserrat",
+  fontSize: 14,
+  fontWeight: 400,
+  color: "#383838",
+  borderRadius: "4px",
+  height: "40px",
+  boxSizing: "content-box",
+  // "& .MuiSelect-select": {
+  //   borderRadius: "4px",
+  //   height: "40px",
+  //   width: "auto",
+  //   // padding: "10px",
+  // },
+}));
+
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
   height: "auto",
@@ -302,6 +323,30 @@ const CreateNewTicketModal = (props: any) => {
         seterrors(errors)
       }
     }
+  //Assigned To
+    if(typeof fields["AssignedTo"] !== "undefined"){
+      if (fields["AssignedTo"]==="0") {
+        errors["AssignedTo"] = "Please Enter Assign To";
+        seterrors(errors)
+      }
+      else{
+        errors["AssignedTo"] = "good"
+        setfields( fields )
+        seterrors(errors)
+      }
+    }
+    //Assigned By
+    if(typeof fields["AssignedBy"] !== "undefined"){
+      if (fields["AssignedBy"]==="0") {
+        errors["AssignedBy"] = "Please Enter Assigned By";
+        seterrors(errors)
+      }
+      else{
+        errors["AssignedBy"] = "good"
+        setfields( fields )
+        seterrors(errors)
+      }
+    }
   }
 
   function post(){
@@ -318,7 +363,8 @@ const CreateNewTicketModal = (props: any) => {
             TicketId: fields["TicketId"],
             TicketType: fields["TicketType"],
             Subject: fields["Subject"],
-            AssignedTo: "string",
+            AssignedTo: fields["AssignedTo"],
+            AssignedBY:fields["AssignedBy"],
             PlannedStartDate: planedStartDate,
             PlannedEndDate: plannedEndDate ,
             ActualStartDate: actualStartDate ,
@@ -485,25 +531,41 @@ const CreateNewTicketModal = (props: any) => {
               </Grid>
               <Grid item xs={6} md={4}>
                 <TextBoxHeader>Assigned To</TextBoxHeader>
-                <SelectInput
+                <SelectBox
                     labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    // label="Age"
-                    // onChange={handleChange}
+                    id="demo-simple-select1"
+                    sx={{ width: "99%" }}
+                    defaultValue=""
+                    onChange={(e) => handleChangeField(e,"AssignedTo") }
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </SelectInput>
+                  <MenuItem value={"High"}>High</MenuItem>
+                  <MenuItem value={"Medium"}>Medium</MenuItem>
+                  <MenuItem value={"Low"}>Low</MenuItem>
+                </SelectBox>
+                {/*<SelectInput*/}
+                {/*    labelId="demo-simple-select-labelqa"*/}
+                {/*    id="demo-simple-select32"*/}
+                {/*    value={age}*/}
+                {/*    defaultValue=""*/}
+                {/*    onChange={(e) => handleChangeField(e,"AssignedTo") }*/}
+                {/*>*/}
+                {/*  <MenuItem value={10}>Ten</MenuItem>*/}
+                {/*  <MenuItem value={20}>Twenty</MenuItem>*/}
+                {/*  <MenuItem value={30}>Thirty</MenuItem>*/}
+                {/*</SelectInput>*/}
+                <span style={{color: "red"}}>{errors["AssignedTo"]}</span>
               </Grid>
               <Grid item xs={6} md={4}>
                 <TextBoxHeader>Assigned By</TextBoxHeader>
                 <TextBox
-                    id="outlined-basic"
+                    id="outlined-basic4"
                     variant="outlined"
+                    value={fields["AssignedBy"]}
                     placeholder="Text (default)"
+                    onFocus={(e) => handleChangeField(e,"AssignedBy")}
+                    onChange={(e) => handleChangeField(e,"AssignedBy") }
                 />
+                <span style={{color: "red"}}>{errors["AssignedBy"]}</span>
               </Grid>
             </Grid>
             <br />
