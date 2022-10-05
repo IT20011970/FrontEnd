@@ -197,10 +197,6 @@ const CreateServiceCallModal1 = (props: any) => {
        errors["MRF"] = "Please Enter MRF ";
        seterrors(errors)
      }
-     else if (!fields["MRF"].match(/^[a-zA-Z]+$/)) {
-       errors["MRF"] = "Only letters ";
-       seterrors(errors)
-     }
      else{
        errors["MRF"] = "good"
        setfields( fields )
@@ -215,10 +211,6 @@ const CreateServiceCallModal1 = (props: any) => {
        errors["SerialNumber"] = "Please Enter Serial Number ";
        seterrors(errors)
      }
-     else if (!fields["SerialNumber"].match(/^[a-zA-Z]+$/)) {
-       errors["SerialNumber"] = "Only letters ";
-       seterrors(errors)
-     }
      else{
        errors["SerialNumber"] = "good"
        setfields( fields )
@@ -230,10 +222,6 @@ const CreateServiceCallModal1 = (props: any) => {
    if(typeof fields["ItemDescription"] === "string"){
      if (fields["ItemDescription"]==="") {
        errors["ItemDescription"] = "Please Enter Item Description ";
-       seterrors(errors)
-     }
-     else if (!fields["ItemDescription"].match(/^[a-zA-Z]+$/)) {
-       errors["ItemDescription"] = "Only letters ";
        seterrors(errors)
      }
      else{
@@ -304,10 +292,6 @@ const CreateServiceCallModal1 = (props: any) => {
        errors["CustomerName"] = "Please Enter Customer Name ";
        seterrors(errors)
      }
-     else if (!fields["CustomerName"].match(/^[a-zA-Z]+$/)) {
-       errors["CustomerName"] = "Only letters ";
-       seterrors(errors)
-     }
      else{
        errors["CustomerName"] = "good"
        setfields( fields )
@@ -319,10 +303,6 @@ const CreateServiceCallModal1 = (props: any) => {
    if(typeof fields["ContactPerson"] === "string"){
      if (fields["ContactPerson"]==="") {
        errors["ContactPerson"] = "Please Enter Contact Person ";
-       seterrors(errors)
-     }
-     else if (!fields["ContactPerson"].match(/^[a-zA-Z]+$/)) {
-       errors["ContactPerson"] = "Only letters ";
        seterrors(errors)
      }
      else{
@@ -360,10 +340,6 @@ const CreateServiceCallModal1 = (props: any) => {
    if(typeof fields["AddressId"] === "string"){
      if (fields["AddressId"]==="") {
        errors["AddressId"] = "Please Enter Address Id ";
-       seterrors(errors)
-     }
-     else if (!fields["AddressId"].match(/^[a-zA-Z]+$/)) {
-       errors["AddressId"] = "Only letters ";
        seterrors(errors)
      }
      else{
@@ -521,7 +497,6 @@ const CreateServiceCallModal1 = (props: any) => {
             <TextBox
               id="outlined-basic"
               variant="outlined"
-              placeholder="Text (default)"
               value={fields["SerialNumber"]}
               sx={{ width: "99%" }}
               onChange={(e) => handleChange(e,"SerialNumber") }
@@ -661,21 +636,25 @@ const CreateServiceCallModal1 = (props: any) => {
                 onChange={(e) => handleChange(e,"Status") }
                 onFocus={ select }
             >
-              <MenuItem value={"Active"}>Active</MenuItem>
-              <MenuItem value={"InActive"}>InActive</MenuItem>
+              <MenuItem value={"Pending"}>Pending</MenuItem>
+              <MenuItem value={"Complete"}>Complete</MenuItem>
+              <MenuItem value={"Hold"}>Hold</MenuItem>
             </SelectBox>
             <span style={{color: "red"}}>{errors["Status"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Priority</TextBoxHeader>
-            <TextBox
-              id="outlined-basic"
-              variant="outlined"
-              placeholder="Text (default)"
-              sx={{ width: "99%" }}
-              onChange={(e) => handleChange(e,"Priority") }
-              onFocus={(e) => handleChange(e,"Priority") }
-            />
+            <SelectBox
+                labelId="demo-simple-select-label"
+                id="demo-simple-select1"
+                sx={{ width: "99%" }}
+                defaultValue=""
+                onChange={(e) => handleChange(e,"Priority") }
+            >
+              <MenuItem value={"High"}>High</MenuItem>
+              <MenuItem value={"Medium"}>Medium</MenuItem>
+              <MenuItem value={"Low"}>Low</MenuItem>
+            </SelectBox>
             <span style={{color: "red"}}>{errors["Priority"]}</span>
           </Grid>
         </Grid>

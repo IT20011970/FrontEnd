@@ -185,17 +185,12 @@ const GeneralTab = (props: any) => {
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Inquiry Type</TextBoxHeader>
-            <SelectInput
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              // label="Age"
-              defaultValue=""
-              onChange={handleChangeInquiryType}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </SelectInput>
+            <TextBox
+                id="outlined-basic1"
+                variant="outlined"
+                placeholder="Text (default)"
+                onChange={handleChangeInquiryType}
+            />
           </Grid>
         </Grid>
         <Divider
@@ -249,13 +244,12 @@ const GeneralTab = (props: any) => {
               defaultValue=""
               onChange={handleChangeSecretary}
             >
-              <MenuItem value={10001}>10001</MenuItem>
-              <MenuItem value={10002}>10002</MenuItem>
-              <MenuItem value={10003}>10003</MenuItem>
-              <MenuItem value={10004}>10004</MenuItem>
-              <MenuItem value={10005}>10005</MenuItem>
-              <MenuItem value={10006}>10006</MenuItem>
-              <MenuItem value={10007}>10007</MenuItem>
+              <MenuItem value={"Gayan"}>Gayan</MenuItem>
+              <MenuItem value={"Dilini"}>Dilini</MenuItem>
+              <MenuItem value={"Poornima"}>Poornima</MenuItem>
+              <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
+              <MenuItem value={"Pawani"}>Pawani</MenuItem>
+              <MenuItem value={"Rasika"}>Rasika</MenuItem>
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
@@ -267,13 +261,12 @@ const GeneralTab = (props: any) => {
               defaultValue=""
                onChange={handleChangeSalesAssistant}
             >
-              <MenuItem value={10001}>10001</MenuItem>
-              <MenuItem value={10002}>10002</MenuItem>
-              <MenuItem value={10003}>10003</MenuItem>
-              <MenuItem value={10004}>10004</MenuItem>
-              <MenuItem value={10005}>10005</MenuItem>
-              <MenuItem value={10006}>10006</MenuItem>
-              <MenuItem value={10007}>10007</MenuItem>
+              <MenuItem value={"Gayan"}>Gayan</MenuItem>
+              <MenuItem value={"Dilini"}>Dilini</MenuItem>
+              <MenuItem value={"Poornima"}>Poornima</MenuItem>
+              <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
+              <MenuItem value={"Pawani"}>Pawani</MenuItem>
+              <MenuItem value={"Rasika"}>Rasika</MenuItem>
 
             </SelectInput>
           </Grid>

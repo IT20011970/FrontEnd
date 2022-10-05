@@ -138,7 +138,7 @@ const CreateServiceCallModal = (props: any) => {
         {
           ServiceCallId:parseInt(fields.fields.ServiceCallId),
           Status:fields.fields.Status,
-          Priority:fields.fields.ItemCode,
+          Priority:fields.fields.Priority,
           Subject: Subject,
           Origin: Origin,
           ProblemType: ProblemType,
