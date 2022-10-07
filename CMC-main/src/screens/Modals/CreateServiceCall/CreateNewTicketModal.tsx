@@ -294,7 +294,7 @@ const CreateNewTicketModal = (props: any) => {
         errors["TicketId"] = "Please Enter Ticket Id ";
         seterrors(errors)
       } else {
-        errors["TicketId"] = "good"
+        errors["TicketId"] = ""
         setfields(fields)
         seterrors(errors)
       }
@@ -306,7 +306,7 @@ const CreateNewTicketModal = (props: any) => {
         seterrors(errors)
       }
       else{
-        errors["TicketType"] = "good"
+        errors["TicketType"] = ""
         setfields( fields )
         seterrors(errors)
       }
@@ -318,7 +318,7 @@ const CreateNewTicketModal = (props: any) => {
         seterrors(errors)
       }
       else{
-        errors["Subject"] = "good"
+        errors["Subject"] = ""
         setfields( fields )
         seterrors(errors)
       }
@@ -330,7 +330,7 @@ const CreateNewTicketModal = (props: any) => {
         seterrors(errors)
       }
       else{
-        errors["AssignedTo"] = "good"
+        errors["AssignedTo"] = ""
         setfields( fields )
         seterrors(errors)
       }
@@ -342,7 +342,7 @@ const CreateNewTicketModal = (props: any) => {
         seterrors(errors)
       }
       else{
-        errors["AssignedBy"] = "good"
+        errors["AssignedBy"] = ""
         setfields( fields )
         seterrors(errors)
       }
@@ -378,7 +378,7 @@ const CreateNewTicketModal = (props: any) => {
     };
     fetch('http://localhost:3000/spare-parts',requestOptions)
   }
-  console.log(CreatedOn)
+ 
 
   return (
       <Modal

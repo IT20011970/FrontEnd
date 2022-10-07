@@ -160,7 +160,7 @@ const CreateServiceCallModal1 = (props: any) => {
         errors["ItemCode"] = "Please Enter Item Code";
         seterrors(errors)
       }  else {
-        errors["ItemCode"] = "good"
+        errors["ItemCode"] = ""
         seterrors(errors)
         const requestOptions = {
           method: 'GET',
@@ -198,7 +198,7 @@ const CreateServiceCallModal1 = (props: any) => {
        seterrors(errors)
      }
      else{
-       errors["MRF"] = "good"
+       errors["MRF"] = ""
        setfields( fields )
         props.setfields({fields})
        seterrors(errors)
@@ -212,7 +212,7 @@ const CreateServiceCallModal1 = (props: any) => {
        seterrors(errors)
      }
      else{
-       errors["SerialNumber"] = "good"
+       errors["SerialNumber"] = ""
        setfields( fields )
        props.setfields({fields})
        seterrors(errors)
@@ -225,7 +225,7 @@ const CreateServiceCallModal1 = (props: any) => {
        seterrors(errors)
      }
      else{
-       errors["ItemDescription"] = "good"
+       errors["ItemDescription"] = ""
        setfields( fields )
        props.setfields({fields})
        seterrors(errors)
@@ -242,7 +242,7 @@ const CreateServiceCallModal1 = (props: any) => {
        seterrors(errors)
      }
      else{
-       errors["ItemGroup"] = "good"
+       errors["ItemGroup"] = ""
        setfields( fields )
        props.setfields({fields})
        seterrors(errors)
@@ -255,7 +255,7 @@ const CreateServiceCallModal1 = (props: any) => {
        errors["CustomerID"] = "Please Enter Customer ID ";
        seterrors(errors)
      }  else {
-       errors["CustomerID"] = "good"
+       errors["CustomerID"] = ""
        seterrors(errors)
        const requestOptions = {
          method: 'GET',
@@ -293,7 +293,7 @@ const CreateServiceCallModal1 = (props: any) => {
        seterrors(errors)
      }
      else{
-       errors["CustomerName"] = "good"
+       errors["CustomerName"] = ""
        setfields( fields )
        props.setfields({fields})
        seterrors(errors)
@@ -306,7 +306,7 @@ const CreateServiceCallModal1 = (props: any) => {
        seterrors(errors)
      }
      else{
-       errors["ContactPerson"] = "good"
+       errors["ContactPerson"] = ""
        setfields( fields )
        props.setfields({fields})
        seterrors(errors)
@@ -325,7 +325,7 @@ const CreateServiceCallModal1 = (props: any) => {
        seterrors(errors)
      }
      else if (fields["TelephoneNo"].match(/^[0-9]{9}$/)) {
-       errors["TelephoneNo"] = "good";
+       errors["TelephoneNo"] = "";
        seterrors(errors)
      }
      else{
@@ -343,7 +343,7 @@ const CreateServiceCallModal1 = (props: any) => {
        seterrors(errors)
      }
      else{
-       errors["AddressId"] = "good"
+       errors["AddressId"] = ""
        setfields( fields )
        props.setfields({fields})
        seterrors(errors)
@@ -353,14 +353,14 @@ const CreateServiceCallModal1 = (props: any) => {
    if(typeof fields["ServiceCallId"] === "string"){
      // fields["ServiceCallId"]= Math.floor(Math.random()*1000000)
      // props.setfields({fields})
-     // errors["ServiceCallId"] = "good"
+     // errors["ServiceCallId"] = ""
      // if (fields["ServiceCallId"]==="") {
      //   errors["ServiceCallId"] = "Please Enter ServiceCall Id ";
      //   seterrors(errors)
      // }
      // else{
      //   fields["ServiceCallId"]= Math.floor(Math.random()*1000000)
-     //   errors["ServiceCallId"] = "good"
+     //   errors["ServiceCallId"] = ""
      //   setfields( fields )
      //   props.setfields({fields})
      //   seterrors(errors)
@@ -373,7 +373,7 @@ const CreateServiceCallModal1 = (props: any) => {
        seterrors(errors)
      }
      else{
-       errors["Status"] = "good"
+       errors["Status"] = ""
        setfields( fields )
        props.setfields({fields})
        seterrors(errors)
@@ -390,7 +390,7 @@ const CreateServiceCallModal1 = (props: any) => {
      //   seterrors(errors)
      // }
      else{
-       errors["Priority"] = "good"
+       errors["Priority"] = ""
        setfields( fields )
        props.setfields({fields})
        seterrors(errors)

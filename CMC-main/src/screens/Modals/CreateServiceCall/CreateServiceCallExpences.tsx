@@ -255,7 +255,7 @@ const Expences = (props: any) => {
                 errors["TicketId"] = "Please Enter Ticket Id ";
                 seterrors(errors)
             } else {
-                errors["TicketId"] = "good"
+                errors["TicketId"] = ""
                 setfields(fields)
                 seterrors(errors)
             }
@@ -266,7 +266,7 @@ const Expences = (props: any) => {
                 errors["TicketType"] = "Please Enter Ticket Type";
                 seterrors(errors)
             } else {
-                errors["TicketType"] = "good"
+                errors["TicketType"] = ""
                 setfields(fields)
                 seterrors(errors)
             }
@@ -277,7 +277,7 @@ const Expences = (props: any) => {
                 errors["Subject"] = "Please Enter Subject";
                 seterrors(errors)
             } else {
-                errors["Subject"] = "good"
+                errors["Subject"] = ""
                 setfields(fields)
                 seterrors(errors)
             }

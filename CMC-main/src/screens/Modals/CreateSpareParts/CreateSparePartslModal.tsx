@@ -146,8 +146,8 @@ const CreateSparePartsModal = (props: any) => {
                 SPReqId: Math.floor(Math.random()*1000000),
                 Remark: fields.fields.Remark,
                 Content:fields.fields.Content,
-                Secretary: "2021-01-23",
-                ItemDescription: "2021-01-23",
+                Secretary: "Gayan",
+                ItemDescription: fields.fields.ItemDescription,
                 itemEntity:{
                   MrfSerialNumber: "aaa",
                   SerialNumber: "ssv",

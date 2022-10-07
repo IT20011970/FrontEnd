@@ -219,7 +219,7 @@ const CreateSparePartsTab1 = (props: any) => {
     //     seterrors(errors)
     //   }  
     //   else {
-    //     errors["TicketID"] = "good"
+    //     errors["TicketID"] = ""
     //     seterrors(errors)
     //     const requestOptions = {
     //       method: 'GET',
@@ -256,7 +256,7 @@ const CreateSparePartsTab1 = (props: any) => {
       errors["TicketID"] = "Please Enter Item Code";
       seterrors(errors)
     }  else {
-      errors["TicketID"] = "good"
+      errors["TicketID"] = ""
       seterrors(errors)
       const requestOptions = {
         method: 'GET',
@@ -295,7 +295,7 @@ const CreateSparePartsTab1 = (props: any) => {
         seterrors(errors)
       }
       else{
-        errors["Remark"] = "good"
+        errors["Remark"] = ""
         setfields( fields )
         props.setfieldsSpare({fields})
         seterrors(errors)
@@ -312,20 +312,44 @@ const CreateSparePartsTab1 = (props: any) => {
         seterrors(errors)
       }
       else{
-        errors["Content"] = "good"
+        errors["Content"] = ""
         setfields( fields )
         props.setfieldsSpare({fields})
         seterrors(errors)
       }
     }
     //TicketType
+    if(typeof fields["Secretary"] === "string"){
+      if (fields["Secretary"]==="") {
+        errors["Secretary"] = "Please Enter Secretary ";
+        seterrors(errors)
+      }
+      else{
+        errors["Secretary"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
     if(typeof fields["TicketType"] === "string"){
       if (fields["TicketType"]==="") {
         errors["TicketType"] = "Please Enter Ticket Type ";
         seterrors(errors)
       }
       else{
-        errors["TicketType"] = "good"
+        errors["TicketType"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
+    if(typeof fields["ItemDescription"] === "string"){
+      if (fields["TicketType"]==="") {
+        errors["TicketType"] = "Please Enter Item Description";
+        seterrors(errors)
+      }
+      else{
+        errors["ItemDescription"] = ""
         setfields( fields )
         props.setfieldsSpare({fields})
         seterrors(errors)
@@ -501,6 +525,8 @@ const CreateSparePartsTab1 = (props: any) => {
               placeholder="Text (default)"
               sx={{ width: "99%" }}
               value={fields['ItemDescription']}
+              onChange={(e) => handleChange(e,"ItemDescription") }
+              onFocus={(e) => handleChange(e,"ItemDescription") }
             />
             <span style={{color: "red"}}>{errors["ItemDescription"]}</span>
           </Grid>
@@ -560,8 +586,8 @@ const CreateSparePartsTab1 = (props: any) => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 placeholder="Text (default)"
-                onChange={(e) => handleChange(e,"TicketType") }
-                onFocus={(e) => handleChange(e,"TicketType") }
+                onChange={(e) => handleChange(e,"Secretary") }
+                onFocus={(e) => handleChange(e,"Secretary") }
 
             >
               <MenuItem value={"Gayan"}>Gayan</MenuItem>
@@ -571,7 +597,7 @@ const CreateSparePartsTab1 = (props: any) => {
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
               <MenuItem value={"Rasika"}>Rasika</MenuItem>
             </SelectInput>
-          <span style={{color: "red"}}>{errors["TicketType"]}</span>
+          <span style={{color: "red"}}>{errors["Secretary"]}</span>
           </Grid>
 
                    
