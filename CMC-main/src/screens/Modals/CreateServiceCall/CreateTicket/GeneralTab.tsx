@@ -29,6 +29,28 @@ const TextBoxHeader = styled(Paper)(({ theme }) => ({
   marginTop: "17px",
 }));
 
+const SelectBox = styled(Select)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(0),
+  textAlign: "center",
+  boxShadow: "none",
+  fontFamily: "Montserrat",
+  fontSize: 14,
+  fontWeight: 400,
+  color: "#383838",
+  backgroundColor: "#FBFBFB",
+  width: "95%",
+  height: "40px",
+  borderRadius: "4px",
+  // minWidth: "250px",
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "4px",
+    height: "40px",
+    width: "auto",
+    // padding: "10px",
+  },
+}));
+
 const TextBox = styled(TextField)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(0),
@@ -52,7 +74,7 @@ const TextBox = styled(TextField)(({ theme }) => ({
 
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
-  padding: theme.spacing(1),
+  padding: theme.spacing(0),
   textAlign: "center",
   boxShadow: "none",
   fontFamily: "Montserrat",
@@ -153,17 +175,18 @@ const GeneralTabTicket = (props: any) => {
             </Grid>
             <Grid item xs={6} md={4}>
               <TextBoxHeader>Estimated Duration</TextBoxHeader>
-              <SelectInput
+              <SelectBox
                   labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
+                  id="demo-simple-select312"
                   // label="Age"
                   onChange={handleChangesetEstimatedDuration}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </SelectInput>
+                <MenuItem value={1}>1 Hrs</MenuItem>
+                <MenuItem value={2}>2 Hrs</MenuItem>
+                <MenuItem value={3}>3 Hrs</MenuItem>
+                <MenuItem value={4}>4 Hrs</MenuItem>
+                <MenuItem value={5}>5 Hrs</MenuItem>
+              </SelectBox>
             </Grid>
             <Grid item xs={6} md={4}>
               <TextBoxHeader>Planned End Date & Time</TextBoxHeader>
@@ -207,12 +230,12 @@ const GeneralTabTicket = (props: any) => {
                 />
               </LocalizationProvider>
             </Grid>
-            <Grid item xs={6} md={4}>
+            <Grid item xs={5} md={4}>
               <TextBoxHeader>Contact Person</TextBoxHeader>
-              <SelectInput
+              <SelectBox
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={age}
+                  // value={age}
                   // label="Age"
                   onChange={handleChangesetContact}
               >
@@ -222,7 +245,7 @@ const GeneralTabTicket = (props: any) => {
                 <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
                 <MenuItem value={"Pawani"}>Pawani</MenuItem>
                 <MenuItem value={"Rasika"}>Rasika</MenuItem>
-              </SelectInput>
+              </SelectBox>
             </Grid>
           </Grid>
         </Box>

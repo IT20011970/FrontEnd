@@ -128,7 +128,7 @@ const TicketsTab = (props: any) => {
           // console.log(data)
           setStudents(data)
         });
-  } )
+  } ,[])
 
   const emptyRows =
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;

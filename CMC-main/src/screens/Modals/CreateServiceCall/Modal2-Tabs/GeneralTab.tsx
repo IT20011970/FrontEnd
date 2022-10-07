@@ -146,7 +146,6 @@ const GeneralTab = (props: any) => {
             <TextBox
               id="outlined-basic"
               variant="outlined"
-              placeholder="Text (default)"
               sx={{ width: "99%" }}
               onChange={handleChangeSubject}
             />
@@ -188,7 +187,6 @@ const GeneralTab = (props: any) => {
             <TextBox
                 id="outlined-basic1"
                 variant="outlined"
-                placeholder="Text (default)"
                 onChange={handleChangeInquiryType}
             />
           </Grid>
@@ -206,7 +204,6 @@ const GeneralTab = (props: any) => {
             <TextBox
                 id="outlined-basic1"
                 variant="outlined"
-                placeholder="Text (default)"
                 value={JSON.parse(localStorage.getItem('user') || '{}').email}
                 onChange={handleChangeCreatedBy}
             />
@@ -217,7 +214,6 @@ const GeneralTab = (props: any) => {
             <TextBox
                 id="outlined-basic1"
                 variant="outlined"
-                placeholder="Text (default)"
                 onChange={handleChangeHandledBy}
             />
           </Grid>
@@ -230,9 +226,12 @@ const GeneralTab = (props: any) => {
               defaultValue=""
               onChange={handleChangeQueue}
             >
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={2}>3</MenuItem>
+              <MenuItem value={"Gayan"}>Gayan</MenuItem>
+              <MenuItem value={"Dilini"}>Dilini</MenuItem>
+              <MenuItem value={"Poornima"}>Poornima</MenuItem>
+              <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
+              <MenuItem value={"Pawani"}>Pawani</MenuItem>
+              <MenuItem value={"Rasika"}>Rasika</MenuItem>
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>

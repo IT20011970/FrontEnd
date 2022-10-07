@@ -29,6 +29,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import TextField from "@mui/material/TextField";
+import moment from "moment"
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -419,16 +420,16 @@ const ReportsTab2 = () => {
                                         {row.serviceCall.Priority}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {row.serviceCall.PlanedStartDateTime}
+                                        {moment(row.serviceCall.PlanedStartDateTime).format("DD/MM/YYYY")}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {row.serviceCall.PlanedEndDateTime}
+                                        {moment(row.serviceCall.PlanedEndDateTime).format("DD/MM/YYYY")}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {row.serviceCall.ActualStartDate}
+                                        {moment(row.serviceCall.ActualStartDate).format("DD/MM/YYYY")}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {row.serviceCall.ActualEndDate}
+                                        {moment(row.serviceCall.ActualEndDate).format("DD/MM/YYYY")}
                                     </StyledTableCell>
                                   
                                 </StyledTableRow>
