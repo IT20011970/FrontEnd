@@ -220,7 +220,7 @@ const SparePartsTab2 = () => {
           <Grid item xs={6}>
             <Heading>Spare Parts</Heading>
           </Grid>
-          <Grid item xs={6} >
+          <Grid item xs={3} >
             <Search sx={{ borderRadius: "4px" }}>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -233,7 +233,11 @@ const SparePartsTab2 = () => {
             </Search>
             
           </Grid>
-          
+          <Grid item xs={3}>
+            <RequestButton variant="contained"  >
+               Create a Service Call
+            </RequestButton>
+          </Grid>
         </Grid>
       </Stack>
       <Container>
@@ -241,14 +245,15 @@ const SparePartsTab2 = () => {
           <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>SP Req ID</StyledTableCell>
+                <StyledTableCell>Item Code</StyledTableCell>
                 <StyledTableCell align="right">
-                  Ticket ID 
+                  Item Description
                 </StyledTableCell>
-                <StyledTableCell align="right">Service Call</StyledTableCell>
-                <StyledTableCell align="right">Service Engineer</StyledTableCell>
-                <StyledTableCell align="right">Secretary</StyledTableCell>
-                <StyledTableCell align="right">Item Description</StyledTableCell>
+                <StyledTableCell align="right">Customer</StyledTableCell>
+                <StyledTableCell align="right">Status</StyledTableCell>
+                <StyledTableCell align="right">Created Date</StyledTableCell>
+                <StyledTableCell align="right">Priority</StyledTableCell>
+                <StyledTableCell align="right">Subject</StyledTableCell>
                 <StyledTableCell align="right"></StyledTableCell>
               </TableRow>
             </TableHead>
@@ -283,7 +288,9 @@ const SparePartsTab2 = () => {
                   <StyledTableCell>
                     {row.priority + Math.round(i * Math.random() * 100)}
                   </StyledTableCell>
-                
+                  <StyledTableCell>
+                    {row.subject + Math.round(i * Math.random() * 100)}
+                  </StyledTableCell>
                   <StyledTableCell>
                     <Stack
                       direction="row"
