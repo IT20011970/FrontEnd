@@ -200,6 +200,13 @@ export type Ticket = {
   }
 }
 
+export type DropdownUsers ={
+
+  UserCode: number,
+  UserName: string,
+  Value: string
+
+}
 
 export type CreateServiceCallTicketData = {
   date: Date;

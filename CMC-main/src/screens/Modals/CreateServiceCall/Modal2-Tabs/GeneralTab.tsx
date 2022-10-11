@@ -14,6 +14,9 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import "../../../../Styles/Modal.css";
+import {useEffect, useState} from "react"
+import {DropdownUsers, Ticket} from "../../../../Types/Types"
+import moment from "moment"
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -80,8 +83,22 @@ const GeneralTab = (props: any) => {
   const [plannedEndDate, setPlannedEndDate] = React.useState(new Date());
   const [actualStartDate, setActualStartDate] = React.useState(new Date());
   const [actualEndDate, setActualEndDate] = React.useState(new Date());
+  const [students, setStudents] =useState<any[]>([]);
+  
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    };
 
-
+    fetch('http://localhost:3000/service-calls/drop',requestOptions)
+        .then(response=>{ return response.json()})
+        .then(data=>{
+          //console.log(data[3].Groups[1].students)
+          // console.log(data)
+          setStudents(data)
+        });
+  },[] )
   const handleChangeSubject = (event: any) => {
     console.log(props)
     console.log(JSON.parse(localStorage.getItem('user') || '{}').email)
@@ -226,6 +243,7 @@ const GeneralTab = (props: any) => {
               defaultValue=""
               onChange={handleChangeQueue}
             >
+              
               <MenuItem value={"Gayan"}>Gayan</MenuItem>
               <MenuItem value={"Dilini"}>Dilini</MenuItem>
               <MenuItem value={"Poornima"}>Poornima</MenuItem>
@@ -260,13 +278,9 @@ const GeneralTab = (props: any) => {
               defaultValue=""
                onChange={handleChangeSalesAssistant}
             >
-              <MenuItem value={"Gayan"}>Gayan</MenuItem>
-              <MenuItem value={"Dilini"}>Dilini</MenuItem>
-              <MenuItem value={"Poornima"}>Poornima</MenuItem>
-              <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
-              <MenuItem value={"Pawani"}>Pawani</MenuItem>
-              <MenuItem value={"Rasika"}>Rasika</MenuItem>
-
+              {students.map(( row:DropdownUsers, i: number) => (
+              <MenuItem value={row.Value}>{row.UserName}</MenuItem>
+              ))}
             </SelectInput>
           </Grid>
         </Grid>
