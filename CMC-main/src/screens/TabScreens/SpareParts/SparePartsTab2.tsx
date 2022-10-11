@@ -254,11 +254,11 @@ const SparePartsTab2 = () => {
             </Search>
             
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <RequestButton variant="contained"  >
                Create a Service Call
             </RequestButton>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Stack>
       <Container>

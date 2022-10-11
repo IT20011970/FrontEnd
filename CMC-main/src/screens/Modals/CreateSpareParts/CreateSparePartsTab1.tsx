@@ -430,7 +430,7 @@ const CreateSparePartsTab1 = (props: any) => {
               // name="stid"
               id="outlined-basic"
               variant="outlined"
-              placeholder="Text (default)" required
+              placeholder="Text (default)"
               name="TicketId"
               sx={{ width: "99%" }}
               onChange={(e) => handleChange(e,"TicketID") }
@@ -447,6 +447,7 @@ const CreateSparePartsTab1 = (props: any) => {
               placeholder="Text (default)"
               value={fields['TicketType']}
               sx={{ width: "99%" }}
+              
             />
           </Grid>
           <Grid item xs={6} md={3}>
@@ -632,8 +633,10 @@ const CreateSparePartsTab1 = (props: any) => {
                     // margin-right:25%
                     
                       // onClick={post}
+                      onClick={()=>window.location.href='/ServiceTickets'}
                     >
                       View Service Ticket Details
+                      
         </Button>
         </Grid>
 

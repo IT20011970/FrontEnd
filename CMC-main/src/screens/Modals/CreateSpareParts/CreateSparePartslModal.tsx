@@ -26,6 +26,7 @@ import "../../../Styles/Modal.css";
 import CreateSparePartsTab1 from "./CreateSparePartsTab1";
 import CreateSparePartsTab2 from "./CreateSparePartsTab2";
 import { useEffect, useState } from "react";
+import { Alert, DialogContentText } from "@mui/material";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -131,8 +132,32 @@ const CreateSparePartsModal = (props: any) => {
     setMainTabValue(newValue);
     setNext("true")
   };
+  
+    
+  // const handleClickToOpen = () => {
+  //   setOpen(true);
+  // };
+  
+  // const handleToClose = () => {
+  //   setOpen(false);
+  // };
+
+  
+    // const [open, setOpen] = React.useState(false);
+    
+    // const handleClickToOpen = () => {
+    //   setOpen(true);
+    // };
+    
+    // const handleToClose = () => {
+    //   setOpen(false);
+    // };
+  
+  
+  
 
   function post(){
+    
     console.log(fields.fields)
     console.log(fields)
     const requestOptions ={
@@ -147,6 +172,7 @@ const CreateSparePartsModal = (props: any) => {
                 Remark: fields.fields.Remark,
                 Content:fields.fields.Content,
                 Secretary: "Gayan",
+                // Secretary:fields.fields.Secretary,
                 ItemDescription: fields.fields.ItemDescription,
                 itemEntity:{
                   MrfSerialNumber: "aaa",
@@ -160,6 +186,8 @@ const CreateSparePartsModal = (props: any) => {
       )
     };
     fetch('http://localhost:3000/spare-parts/create',requestOptions)
+    alert("Spare parts request successfully created")
+    
   }
   const sendDataToParent = (index: any) => {
     console.log(index);
@@ -167,10 +195,10 @@ const CreateSparePartsModal = (props: any) => {
   const getTab = (index: string): string => {
     switch (index) {
       case "1":
-        return "Spare Part Request ID";
+        return "";
       
       default:
-        return "Spare Part Request ID";
+        return "";
     }
   };
   const handleSecondTabChange = (event: any, newValue: string) => {
@@ -283,7 +311,7 @@ const CreateSparePartsModal = (props: any) => {
                 <ModalButton
                     variant="contained"
                     className="cancelButton"
-                    // onClick={handleClose}
+                    onClick={handleClose}
                 >
                   Cancel
                 </ModalButton>
@@ -312,13 +340,17 @@ const CreateSparePartsModal = (props: any) => {
                       </ModalButton>
                     </Grid>
                     <Grid item xs={2} md={1}>
+
                       <ModalButton
                           variant="contained"
                           className="ModalCommonButton"
                           onClick={post}
                       >
                         Create
+                    
                       </ModalButton>
+                      
+                         
                     </Grid>
                   </>
               )}

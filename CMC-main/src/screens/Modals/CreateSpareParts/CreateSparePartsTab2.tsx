@@ -342,6 +342,7 @@ const CreateSparePartsTab1 = (props: any) => {
   return (
       <>
         <Box sx={{ flexGrow: 1 }}>
+          Spare Part Request ID
               <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
                 <Table
                     sx={{ minWidth: 500, boxShadow: "none" }}
@@ -471,6 +472,9 @@ const CreateSparePartsTab1 = (props: any) => {
               flexItem
               sx={{ marginTop: "30px" }}
           />
+
+
+          <h2>Add Additional Spare Parts</h2> 
 
           <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
             <Table
