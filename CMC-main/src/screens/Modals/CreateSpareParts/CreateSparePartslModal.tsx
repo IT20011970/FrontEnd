@@ -278,7 +278,7 @@ const CreateSparePartsModal = (props: any) => {
                   aria-label="lab API tabs example"
                   sx={{ marginLeft: "-40px" }}
                 >
-                  <Tab label="Spare Part Request ID" value="1" />
+                  <Tab label="" value="1" />
                   
                 </TabList>
 

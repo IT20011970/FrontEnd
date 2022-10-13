@@ -136,7 +136,7 @@ const ModalTittle = styled("text")(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const CreateSparePartsTab1 = (props: any) => {
+const AdministrationTab2 = (props: any) => {
   React.useEffect(() => {
  
   });
@@ -290,7 +290,7 @@ const CreateSparePartsTab1 = (props: any) => {
         errors["Remark"] = "Please Enter Remark ";
         seterrors(errors)
       }
-      else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
+      else if (!fields["Remark"].match(/^[a-zA-Z]+$/)) {
         errors["Remark"] = "Only letters ";
         seterrors(errors)
       }
@@ -307,7 +307,7 @@ const CreateSparePartsTab1 = (props: any) => {
         errors["Content"] = "Please Enter Content ";
         seterrors(errors)
       }
-      else if (!fields["Content"].match(/^[a-zA-Z\s]+$/)) {
+      else if (!fields["Content"].match(/^[a-zA-Z]+$/)) {
         errors["Content"] = "Only letters ";
         seterrors(errors)
       }
@@ -343,7 +343,6 @@ const CreateSparePartsTab1 = (props: any) => {
         seterrors(errors)
       }
     }
-    //
     if(typeof fields["ItemDescription"] === "string"){
       if (fields["TicketType"]==="") {
         errors["TicketType"] = "Please Enter Item Description";
@@ -356,7 +355,6 @@ const CreateSparePartsTab1 = (props: any) => {
         seterrors(errors)
       }
     }
-    
     
     //Begin
     console.log(props.valueNext)
@@ -647,4 +645,4 @@ const CreateSparePartsTab1 = (props: any) => {
   );
 };
 
-export default CreateSparePartsTab1;
+export default AdministrationTab2;

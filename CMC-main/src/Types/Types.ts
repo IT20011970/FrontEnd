@@ -1,4 +1,5 @@
 import {string} from "prop-types"
+import { ReactNode } from "react";
 
 export type TablePaginationActionsProps = {
   count: number;
@@ -30,6 +31,7 @@ export type SparePartsRequestListData = {
 };
 
 export type Sparepart = {
+  [x: string]: ReactNode;
   SPReqId: string,
   Remark: string,
   Content: string,

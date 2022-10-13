@@ -11,12 +11,34 @@ import Home from "../screens/Home";
 import App from "../App";
 import Login from "../Login";
 import {da} from "date-fns/locale";
+import MenuItem from "@mui/material/MenuItem"
+import Select from "@mui/material/Select"
 
 const StyledLink = styled(Link)(({ theme }) => ({
     textDecoration: "none",
     "&:focus, &:hover, &:visited, &:link, &:active": {
         textDecoration: "none",
     },
+}));
+
+const SelectBox = styled(Select)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(0),
+    textAlign: "center",
+    boxShadow: "none",
+    fontFamily: "Montserrat",
+    fontSize: 14,
+    fontWeight: 400,
+    color: "#383838",
+    borderRadius: "4px",
+    height: "40px",
+    boxSizing: "content-box",
+    // "& .MuiSelect-select": {
+    //   borderRadius: "4px",
+    //   height: "40px",
+    //   width: "auto",
+    //   // padding: "10px",
+    // },
 }));
 
 // const requestOptions ={
@@ -32,7 +54,9 @@ const StyledLink = styled(Link)(({ theme }) => ({
 const CreateAccount = () => {
     const [username,setUserName] = React.useState("");
     const [passWord,setPassword]= React.useState("");
-
+    const [fields, setfields] = useState<any>({});
+    const [errors,seterrors]=useState<any>({})
+    
     const handleChangeLogin = (event: any) => {
         setUserName(event.target.value)
     }
@@ -40,30 +64,80 @@ const CreateAccount = () => {
         setPassword(event.target.value)
     }
 
+    function handleChange(e:any,f:any) {
+        // let field=fields
+        fields[f] = e.target.value;
+        setfields(fields)
+      //  handleValidation()
+    }
+    function select() {
+        let field=fields
+        if(!fields["Status"])
+            field["Status"] = "0";
+        // setfields({Status:"0"})
+      //  handleValidation()
+    }
+
+
+    function handleValidation() {
+        console.log(typeof fields["ItemGroup"])
+        // console.log(fields["MRF"])
+        // let errors: any = {};
+        let formIsValid = true;
+        // console.log( typeof fields["Status"])
+        //  console.log( fields["Status"])
+        //   //ItemCode
+
+
+        // MRF
+        if (typeof fields["MRF"] === "string") {
+            if (fields["MRF"] === "") {
+                errors["MRF"] = "Please Enter MRF ";
+                seterrors(errors)
+            } else {
+                errors["MRF"] = ""
+                setfields(fields)
+                seterrors(errors)
+            }
+        }
+
+    }
+
     function locationNav(){
+        console.log(fields)
         const requestOptions ={
             method:'POST',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({
-                email:username,
-                password:passWord
+                Id: parseInt(fields["usertype"]),
+                user:[ {
+                    id:Math.floor(Math.random()*1000000) ,
+                    NIC: fields["nic"] ,
+                    ContactNumber: fields["contactnumber"] ,
+                    Status: "1" ,
+                    login:{
+                        UserName:fields["username"],
+                        Password:fields["password"],
+                        Status:1,
+                        DeviceId:"1"
+                    }
+
+                }
+                ]
+
             })
         };
         fetch('http://localhost:3000/auth/signup',requestOptions)
             .then(response=>{ return response.json()})
             .then(data=>{
-                console.log(data.email)
-                 if(data.email){
-                     alert("User Account Created")
-                     window.location.href='/'
-                 }
-                else{
-                     window.location.href='/'
-                     alert("Registration Fail")
-                 }
+                console.log(data)
 
             });
     }
+    
+    
+    
+    
 
 
   return (
@@ -76,11 +150,50 @@ const CreateAccount = () => {
             <PersonIcon />
             <InputBase
                 sx={{ ml: 1, flex: 5 }}
-                placeholder="Enter Username"
-                onChange={handleChangeLogin}
+                placeholder="Enter NIC"
+                onChange={(e) => handleChange(e,"nic") }
             />
         </Paper>
-        <Paper className="password"
+        <Paper className="username"
+               component="form"
+               sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+        >
+            <PersonIcon />
+            <InputBase
+                sx={{ ml: 1, flex: 5 }}
+                placeholder="Enter Contact Number"
+                onChange={(e) => handleChange(e,"contactnumber") }
+            />
+        </Paper>
+        <Paper className="username"
+               component="form"
+               sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+        >
+            <PersonIcon />
+            <InputBase
+                sx={{ ml: 1, flex: 5 }}
+                placeholder="Enter Username"
+                onChange={(e) => handleChange(e,"username") }
+            />
+        </Paper>
+        <Paper className="username"
+               component="form"
+               sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+        >
+            <PersonIcon />
+            <SelectBox
+                labelId="demo-simple-select-label"
+                id="demo-simple-select1"
+                sx={{ width: "99%" }}
+                placeholder="Select User Type"
+                onChange={(e) => handleChange(e,"usertype") }
+            >
+                <MenuItem value={1}>Admin</MenuItem>
+                <MenuItem value={2}>Medium</MenuItem>
+                <MenuItem value={3}>Low</MenuItem>
+            </SelectBox>
+        </Paper>
+        <Paper className="Password"
             component="form"
             sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
             >
@@ -88,7 +201,7 @@ const CreateAccount = () => {
             <InputBase
                 sx={{ ml: 1, flex: 5 }}
                 placeholder="Enter Password"
-                onChange={handleChangePassword}
+                onChange={(e) => handleChange(e,"password") }
             />
         </Paper>
       <br />
