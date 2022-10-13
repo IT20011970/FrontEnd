@@ -21,11 +21,14 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import CreateServiceCallTab1 from "./CreateServiceCallTab1";
-import CreateServiceCallTab2 from "./CreateServiceCallTab2";
 import Header from "../../../components/Header";
 import "../../../Styles/Modal.css";
-import {useEffect, useState} from "react";
+
+import { useEffect, useState } from "react";
+import { Alert, DialogContentText } from "@mui/material";
+import AdmistrationTab1 from "../../TabScreens/Adminstration/Administrationtab1"
+import AdministrationTab2 from "./AdministrationTab2"
+import AdministrationTab1 from "./AdministrationTab1"
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -74,12 +77,9 @@ const TabName = styled("text")(({ theme }) => ({
   color: "#0091d5",
 }));
 
-const CreateServiceCallModal = (props: any) => {
+const AdministrationModel = (props: any) => {
+   console.log(props.arry)
   const { open, setOpen } = props;
-  React.useEffect(() => {
-    props.setOpen(false)
-  },[]);
-
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -89,9 +89,21 @@ const CreateServiceCallModal = (props: any) => {
   const [mainTabValue, setMainTabValue] = React.useState("1");
   const [secondTabValue, setSecondTabValue] = React.useState("1");
   const [tabName, setTabName] = React.useState("General");
-  //child 1
 
-  //child 2
+  const [ItemCode, setItemCode] = React.useState("");
+  const [ChangeMRF, setChangeMRF] = React.useState("");
+  const [ChangeSerialNumber, setIChangeSerialNumber] = React.useState("");
+  const [ItemDescription, setItemDescription] = React.useState("");
+  const [ItemGroup, setItemGroup] = React.useState("");
+  const [CustomerID, setCustomerID] = React.useState("");
+  const [CustomerName, setCustomerName] = React.useState("");
+  const [ContactPerson, setContactPerson] = React.useState("");
+  const [TelephoneNo, setTelephoneNo] = React.useState("");
+  const [ChangeStatus, setChangeStatus] = React.useState("");
+  const [ChangeServiceCallId, setChangeServiceCallId] = React.useState("");
+  const [ChangePriority, setChangePriority] = React.useState("");
+  const [Address, setAddress] = React.useState("");
+
   const [Subject, setSubject] = React.useState("");
   const [Origin, setOrigin] = React.useState("");
   const [ProblemType, setProblemType] = React.useState("");
@@ -108,114 +120,108 @@ const CreateServiceCallModal = (props: any) => {
   const [ActualStartDate, setActualStartDate] = React.useState("")
   const [ActualEndDate, setActualEndDate] = React.useState("")
 
+
   var [Next, setNext] = React.useState("")
   const [allError,setError]=React.useState(true)
   var [array2, setArray2] = useState([]);
 
   const  [Test, setTest] = React.useState("1");
   const  [Test1, setTest1] = React.useState("1");
-  const [fields, setfields] = useState<any>({fields:{}});
+  const [fields, setfieldsSpare] = useState<any>({fields:{}});
 
 
-  const handleChange = async (newValue: string) => {
-    // if(ChangeMRF&&ChangeSerialNumber&&ItemDescription&&ItemGroup&&CustomerID&&CustomerName&&ContactPerson&&TelephoneNo&&ChangeStatus&&ChangePriority&&Address)
-       setMainTabValue(newValue);
-       setNext("true")
+  const handleChange = (newValue: string) => {
+    setMainTabValue(newValue);
+    setNext("true")
   };
+  
+    
+  // const handleClickToOpen = () => {
+  //   setOpen(true);
+  // };
+  
+  // const handleToClose = () => {
+  //   setOpen(false);
+  // };
+
+  
+    // const [open, setOpen] = React.useState(false);
+    
+    // const handleClickToOpen = () => {
+    //   setOpen(true);
+    // };
+    
+    // const handleToClose = () => {
+    //   setOpen(false);
+    // };
+  
+  
+  
 
   function post(){
+    
     console.log(fields.fields)
+    console.log(fields)
     const requestOptions ={
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        CustomerId: parseInt(fields.fields.CustomerID),
-        CustomeName:fields.fields.CustomerName,
-        ContactPerson:fields.fields.ContactPerson,
-        TelephoneNo: fields.fields.TelephoneNo,
-        CustomerAddressId:fields.fields.AddressId,
-          serviceCalls: [
-        {
-          ServiceCallId:parseInt(fields.fields.ServiceCallId),
-          Status:fields.fields.Status,
-          Priority:fields.fields.Priority,
-          Subject: Subject,
-          Origin: Origin,
-          ProblemType: ProblemType,
-          InquiryType: InquiryType,
-          CreatedBy: CreatedBy,
-          HandledBy: HandledBy,
-          Queue: Queue,
-          Secretary: Secretary,
-          SalesAssistant: SalesAssistant,
-          CreatedOn: CreatedOn,
-          PlanedStartDateTime: PlanedStartDate,
-          EstimatedDutation: EstimatedDuration,
-          PlanedEndDateTime: PlanedEndDate,
-          ActualStartDate: ActualStartDate,
-          ActualEndDate: ActualEndDate,
-          itemEntity: {
-            ItemCode:parseInt(fields.fields.ItemCode),
-            MrfSerialNumber: fields.fields.MRF,
-            SerialNumber: fields.fields.SerialNumber,
-            ItemDescription:fields.fields.ItemDescription ,
-            ItemGroup:fields.fields.ItemGroup
+      body:JSON.stringify(
+          {
+            TicketId: parseInt(fields.fields.TicketID),
+            sparePart: [
+              {
+                SPReqId: Math.floor(Math.random()*1000000),
+                Remark: fields.fields.Remark,
+                Content:fields.fields.Content,
+                Secretary: "Gayan",
+                // Secretary:fields.fields.Secretary,
+                ItemDescription: fields.fields.ItemDescription,
+                itemEntity:{
+                  MrfSerialNumber: "aaa",
+                  SerialNumber: "ssv",
+                  ItemDescription: "css",
+                  ItemGroup: "vss"
+                }
+              }
+            ]
           }
-        }
-      ]})
+      )
     };
-    fetch('http://localhost:3000/service-calls/',requestOptions)
+    fetch('http://localhost:3000/spare-parts/create',requestOptions)
+    alert("Spare parts request successfully created")
+    
   }
   const sendDataToParent = (index: any) => {
-    //console.log(index);
+    console.log(index);
   };
   const getTab = (index: string): string => {
     switch (index) {
       case "1":
-        return "General";
-      case "2":
-        return "Ticket";
-      case "3":
-        return "Solutions";
-      case "4":
-        return "Remarks";
-      case "5":
-        return "Scheduling";
-      case "6":
-        return "Expenses";
-      case "7":
-        return "Resolution";
-      case "8":
-        return "History";
-      case "9":
-        return "Related Documents";
+        return "";
+      
       default:
-        return "General";
+        return "";
     }
   };
   const handleSecondTabChange = (event: any, newValue: string) => {
     setSecondTabValue(newValue);
     setTabName(getTab(newValue));
   };
-  // console.log(fields.fields.MRF)
-  // console.log(field["ItemCode"])
-  // console.log(fields["ItemCode"])
-  // console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
-  // console.log(Subject, Origin,
-  // ProblemType,
-  // InquiryType,
-  // CreatedBy,
-  // HandledBy,
-  // Queue,
-  // Secretary,
-  // SalesAssistant,
-  //     CreatedOn,
-  // EstimatedDuration,
-  // PlanedEndDate,
-  // PlanedStartDate,
-  // ActualStartDate,
-  // ActualEndDate)
-  //console.log(allError)
+  console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
+  console.log(Subject, Origin,
+  ProblemType,
+  InquiryType,
+  CreatedBy,
+  HandledBy,
+  Queue,
+  Secretary,
+  SalesAssistant,
+      CreatedOn,
+  EstimatedDuration,
+  PlanedEndDate,
+  PlanedStartDate,
+  ActualStartDate,
+  ActualEndDate)
   return (
     <>
       <Modal
@@ -229,12 +235,8 @@ const CreateServiceCallModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Service Call{" "}
-            {mainTabValue == "2" && (
-              <>
-                <TabName>{tabName}</TabName>
-              </>
-            )}
+            Create Spare Part Request
+           
           </ModalTittle>
           <IconButton
             onClick={handleClose}
@@ -278,16 +280,11 @@ const CreateServiceCallModal = (props: any) => {
                   aria-label="lab API tabs example"
                   sx={{ marginLeft: "-40px" }}
                 >
-                  <Tab label="General" value="1" />
-                  <Tab label="Tickets" value="2" />
-                  <Tab label="Solutions" value="3" />
-                  <Tab label="Remarks" value="4" />
-                  <Tab label="Scheduling" value="5" />
-                  <Tab label="Expenses" value="6" />
-                  <Tab label="Resolution" value="7" />
-                  <Tab label="History" value="8" />
-                  <Tab label="Related Documents" value="9" />
+                  <Tab label="Spare Part Request ID" value="1" />
+                  
                 </TabList>
+
+                
               </Box>
             </TabContext>
           )}
@@ -297,71 +294,67 @@ const CreateServiceCallModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateServiceCallTab1 sendDataToParent={sendDataToParent}  setfields={setfields}  valueNext={Next}  setNext={setNext}/>
+              <AdministrationTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <CreateServiceCallTab2 serviceCallData={fields} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              <AdministrationTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>
         <Divider />
+
         <DialogActions>
           <Box sx={{ flexGrow: 1, p: 1 }}>
             <Grid container spacing={10}>
               {mainTabValue == "1" && <Grid item xs={8} md={10}></Grid>}
-              {mainTabValue == "2" && <Grid item xs={8} md={8}></Grid>}
+              {mainTabValue == "2" && <Grid item xs={6} md={9}></Grid>}
               <Grid item xs={2} md={1}>
                 <ModalButton
-                  variant="contained"
-                  className="cancelButton"
-                  onClick={handleClose}
+                    variant="contained"
+                    className="cancelButton"
+                    onClick={handleClose}
                 >
                   Cancel
                 </ModalButton>
               </Grid>
               {mainTabValue == "1" && (
-                <Grid item xs={2} md={1}>
-                  <ModalButton
-                    variant="contained"
-                    className="ModalCommonButton"
-                    onClick={() => handleChange("2")}
-                  >
-                    Next
-                  </ModalButton>
-                </Grid>
-              )}
-
-              {mainTabValue == "2" && (
-                <>
-                  <Grid item xs={2} md={1}>
-                    <ModalButton
-                      variant="contained"
-                      className="cancelButton"
-                      onClick={() => handleChange("1")}
-                    >
-                      Back
-                    </ModalButton>
-                  </Grid>
                   <Grid item xs={2} md={1}>
                     <ModalButton
                         variant="contained"
                         className="ModalCommonButton"
-                        onClick={post}
+                        onClick={() => handleChange("2")}
                     >
-                      Create
+                      Next
                     </ModalButton>
                   </Grid>
-                  <Grid item xs={2} md={1}>
-                    <ModalButton
-                      variant="contained"
-                      className="ModalCommonButton"
-                      onClick={post}
-                    >
-                      SAP
-                    </ModalButton>
-                  </Grid>
-                </>
+              )}
+
+              {mainTabValue == "2" && (
+                  <>
+                    <Grid item xs={2} md={1}>
+                      <ModalButton
+                          variant="contained"
+                          className="cancelButton"
+                          onClick={() => handleChange("1")}
+                      >
+                        Back
+                      </ModalButton>
+                    </Grid>
+                    <Grid item xs={2} md={1}>
+
+                      <ModalButton
+                          variant="contained"
+                          className="ModalCommonButton"
+                          onClick={post}
+                      >
+                        Create
+                    
+                      </ModalButton>
+                      
+                         
+                    </Grid>
+                  </>
               )}
             </Grid>
           </Box>
@@ -371,4 +364,4 @@ const CreateServiceCallModal = (props: any) => {
   );
 };
 
-export default CreateServiceCallModal;
+export default AdministrationModel;

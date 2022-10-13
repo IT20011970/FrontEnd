@@ -456,17 +456,13 @@ const CreateNewTicketModal = (props: any) => {
               </Grid>
               <Grid item xs={6} md={4}>
                 <TextBoxHeader>Subject</TextBoxHeader>
-                <SelectInput
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select2"
-                    defaultValue=""
+                <TextBox
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
                     onChange={(e) => handleChangeField(e,"Subject") }
-                    onFocus={ ()=>select("Subject") }
-                >
-                  <MenuItem value={"Subject S001"}>Subject S001</MenuItem>
-                  <MenuItem value={"Subject S002"}>Subject S002</MenuItem>
-                  <MenuItem value={"Subject S003"}>Subject S003</MenuItem>
-                </SelectInput>
+                    onFocus={(e) => handleChangeField(e,"Subject") }
+                />
                 <span style={{color: "red"}}>{errors["Subject"]}</span>
               </Grid>
             </Grid>

@@ -45,15 +45,20 @@ const LoginForm = () => {
             method:'POST',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({
-                email:username,
-                password:passWord
+                Id: 1,
+                Description:"string",
+                Status:1,
+                login:{
+                    UserName:username,
+                    Password:passWord,
+                }
             })
         };
         fetch('http://localhost:3000/auth/signin',requestOptions)
             .then(response=>{ return response.json()})
             .then(data=>{
-                console.log(data.id)
-                 if(data.id){
+                console.log(data.Id)
+                 if(data.Id){
                      window.location.href='/Home'
                      localStorage.setItem('user', JSON.stringify(data))
                  }
