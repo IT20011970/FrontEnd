@@ -208,6 +208,23 @@ export type DropdownUsers ={
 
 }
 
+export type DropdownOrigins ={
+
+  OriginCode: number,
+  OriginName: string,
+  OriginValue: string
+
+}
+
+export type DropdownProblemTypes ={
+
+  ProblemTypeCode: number,
+  ProblemTypeName: string,
+  ProblemTypeValue: string
+
+}
+
+
 export type CreateServiceCallTicketData = {
   date: Date;
   time: string;

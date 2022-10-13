@@ -15,7 +15,7 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import "../../../../Styles/Modal.css";
 import {useEffect, useState} from "react"
-import {DropdownUsers, Ticket} from "../../../../Types/Types"
+import {DropdownOrigins, DropdownProblemTypes, DropdownUsers, Ticket} from "../../../../Types/Types"
 import moment from "moment"
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
@@ -84,6 +84,8 @@ const GeneralTab = (props: any) => {
   const [actualStartDate, setActualStartDate] = React.useState(new Date());
   const [actualEndDate, setActualEndDate] = React.useState(new Date());
   const [students, setStudents] =useState<any[]>([]);
+  const [originDropDown, setOriginDropDown] =useState<any[]>([]);
+  const [problemTypeDropDown, setProblemTypeDropDown] =useState<any[]>([]);
   
   useEffect(() => {
     const requestOptions = {
@@ -99,6 +101,37 @@ const GeneralTab = (props: any) => {
           setStudents(data)
         });
   },[] )
+
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    };
+
+    fetch('http://localhost:3000/service-calls/origindrop',requestOptions)
+        .then(response=>{ return response.json()})
+        .then(data=>{
+          //console.log(data[3].Groups[1].students)
+          // console.log(data)
+          setOriginDropDown(data)
+        });
+  },[] )
+
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    };
+
+    fetch('http://localhost:3000/service-calls/problemTypedrop',requestOptions)
+        .then(response=>{ return response.json()})
+        .then(data=>{
+          //console.log(data[3].Groups[1].students)
+          // console.log(data)
+          setProblemTypeDropDown(data)
+        });
+  },[] )
+
   const handleChangeSubject = (event: any) => {
     console.log(props)
     console.log(JSON.parse(localStorage.getItem('user') || '{}').email)
@@ -177,10 +210,13 @@ const GeneralTab = (props: any) => {
               defaultValue=""
 
             >
-              <MenuItem value={"Email"}>Email</MenuItem>
+              {originDropDown.map(( row:DropdownOrigins, i: number) => (
+              <MenuItem value={row.OriginValue}>{row.OriginName}</MenuItem>
+              ))}
+              {/* <MenuItem value={"Email"}>Email</MenuItem>
               <MenuItem value={"Call"}>Call</MenuItem>
               <MenuItem value={"Web"}>Web</MenuItem>
-              <MenuItem value={"Other"}>Other</MenuItem>
+              <MenuItem value={"Other"}>Other</MenuItem> */}
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
@@ -192,11 +228,14 @@ const GeneralTab = (props: any) => {
               defaultValue=""
               onChange={handleChangeProblemType}
             >
-              <MenuItem value={"Mechanical"}>Mechanical</MenuItem>
+              {problemTypeDropDown.map(( row:DropdownProblemTypes, i: number) => (
+              <MenuItem value={row.ProblemTypeValue}>{row.ProblemTypeName}</MenuItem>
+              ))}
+              {/* <MenuItem value={"Mechanical"}>Mechanical</MenuItem>
               <MenuItem value={"Electrical"}>Electrical</MenuItem>
               <MenuItem value={"Replacement"}>Replacement</MenuItem>
               <MenuItem value={"Service"}>Service</MenuItem>
-              <MenuItem value={"Other"}>Other</MenuItem>
+              <MenuItem value={"Other"}>Other</MenuItem> */}
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
@@ -243,13 +282,16 @@ const GeneralTab = (props: any) => {
               defaultValue=""
               onChange={handleChangeQueue}
             >
-              
-              <MenuItem value={"Gayan"}>Gayan</MenuItem>
+              {students.map(( row:DropdownUsers, i: number) => (
+              <MenuItem value={row.Value}>{row.UserName}</MenuItem>
+              ))}
+
+              {/* <MenuItem value={"Gayan"}>Gayan</MenuItem>
               <MenuItem value={"Dilini"}>Dilini</MenuItem>
               <MenuItem value={"Poornima"}>Poornima</MenuItem>
               <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
-              <MenuItem value={"Rasika"}>Rasika</MenuItem>
+              <MenuItem value={"Rasika"}>Rasika</MenuItem> */}
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
@@ -261,12 +303,16 @@ const GeneralTab = (props: any) => {
               defaultValue=""
               onChange={handleChangeSecretary}
             >
-              <MenuItem value={"Gayan"}>Gayan</MenuItem>
+              {students.map(( row:DropdownUsers, i: number) => (
+              <MenuItem value={row.Value}>{row.UserName}</MenuItem>
+              ))}
+
+              {/* <MenuItem value={"Gayan"}>Gayan</MenuItem>
               <MenuItem value={"Dilini"}>Dilini</MenuItem>
               <MenuItem value={"Poornima"}>Poornima</MenuItem>
               <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
-              <MenuItem value={"Rasika"}>Rasika</MenuItem>
+              <MenuItem value={"Rasika"}>Rasika</MenuItem> */}
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
