@@ -290,7 +290,7 @@ const CreateSparePartsTab1 = (props: any) => {
         errors["Remark"] = "Please Enter Remark ";
         seterrors(errors)
       }
-      else if (!fields["Remark"].match(/^[a-zA-Z]+$/)) {
+      else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
         errors["Remark"] = "Only letters ";
         seterrors(errors)
       }
@@ -307,7 +307,7 @@ const CreateSparePartsTab1 = (props: any) => {
         errors["Content"] = "Please Enter Content ";
         seterrors(errors)
       }
-      else if (!fields["Content"].match(/^[a-zA-Z]+$/)) {
+      else if (!fields["Content"].match(/^[a-zA-Z\s]+$/)) {
         errors["Content"] = "Only letters ";
         seterrors(errors)
       }
@@ -343,6 +343,7 @@ const CreateSparePartsTab1 = (props: any) => {
         seterrors(errors)
       }
     }
+    //
     if(typeof fields["ItemDescription"] === "string"){
       if (fields["TicketType"]==="") {
         errors["TicketType"] = "Please Enter Item Description";
@@ -355,6 +356,7 @@ const CreateSparePartsTab1 = (props: any) => {
         seterrors(errors)
       }
     }
+    
     
     //Begin
     console.log(props.valueNext)

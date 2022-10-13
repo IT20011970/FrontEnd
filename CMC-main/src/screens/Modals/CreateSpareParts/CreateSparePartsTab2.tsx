@@ -18,7 +18,7 @@ import Table from "@mui/material/Table"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import TableBody from "@mui/material/TableBody"
-import { ArrayTab, CreateServiceCallTicketData, ExpensesData, ServiceCallData2} from "../../../Types/Types"
+import { ArrayTab, CreateServiceCallTicketData, ExpensesData, ServiceCallData2, SparePartInventoryData} from "../../../Types/Types"
 import TableContainer from "@mui/material/TableContainer"
 import TableCell, {tableCellClasses} from "@mui/material/TableCell"
 
@@ -528,14 +528,19 @@ const CreateSparePartsTab1 = (props: any) => {
                             page * rowsPerPage + rowsPerPage
                         )
                         : rows
-                ).map((row: CreateServiceCallTicketData, i: number) => (
+                ).map((row: SparePartInventoryData, i: number) => (
                     <StyledTableRow key={Math.random()}>
-                      <StyledTableCell
+                         <StyledTableCell
                           sx={{
-                            borderLeft: "none",
+                            borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                           }}
                       >
-                        {row.date.toString().substring(0, 24)}
+                        <TextBox
+                            id="outlined-basic"
+                            variant="outlined"
+                            placeholder="Text (default)"
+                            sx={{ width: "99%",backgroundColor: 'white' }}
+                        />
                       </StyledTableCell>
                       <StyledTableCell
                           sx={{
@@ -597,13 +602,7 @@ const CreateSparePartsTab1 = (props: any) => {
                             sx={{ width: "99%",backgroundColor: 'white' }}
                         />
                       </StyledTableCell>
-                      <StyledTableCell
-                          sx={{
-                            borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                          }}
-                      >
-                        {row.priority}
-                      </StyledTableCell>
+                      
 
                     </StyledTableRow>
                 ))}
