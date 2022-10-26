@@ -157,6 +157,18 @@ export type ServiceCallData2 = {
 
 };
 
+export type CustomerList = {
+  label:string;
+}
+
+export type Item={
+  ItemCode: string
+  ItemDescription: string
+  ItemGroup: string
+  MrfSerialNumber: string
+  SerialNumber: string
+}
+
 export type Ticket = {
   TicketId: string,
   TicketType: string,
