@@ -169,17 +169,11 @@ const CreateServiceCallModal1 = (props: any) => {
       <Grid container spacing={2}>
         <Grid item xs={6} md={3}>
           <TextBoxHeader>Address ID</TextBoxHeader>
-          <SelectInput
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={age}
-            // label="Age"
-            // onChange={handleChange}
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </SelectInput>
+          <TextBox
+              id="outlined-basic"
+              variant="outlined"
+              placeholder="Text (default)"
+          />
         </Grid>
         <Grid item xs={6} md={3}>
           <TextBoxHeader>Street 1</TextBoxHeader>

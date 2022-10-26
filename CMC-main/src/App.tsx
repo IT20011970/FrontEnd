@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./Login";
 import EmployeeService from "./api/api"
 import Service from "./api/api"
+import ForgetPassWord from "./components/ForgetPassword"
 
 const useStyles = makeStyles({
     home: {
@@ -58,6 +59,9 @@ const App = () => {
             </Route>
             <Route exact path="/ResourceAllocation">
                 <Home/>
+            </Route>
+            <Route exact path="/forget">
+                <Login/>
             </Route>
         </Router>
             </Service>

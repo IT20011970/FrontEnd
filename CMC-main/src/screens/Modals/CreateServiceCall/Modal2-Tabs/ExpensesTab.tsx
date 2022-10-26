@@ -15,7 +15,7 @@ import { CreateServiceCallTicketData } from "../../../../Types/Types";
 import "../../../../Styles/Modal.css";
 import "../../../../Styles/ServiceCall.css";
 
-import CreateNewTicketModal from "../CreateNewTicketModal";
+import CreateNewTicketModal from "../CreateTicket";
 import Expences from "../CreateServiceCallExpences";
 
 const ModalButton = styled(Button)(({ theme }) => ({

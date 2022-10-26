@@ -13,6 +13,11 @@ import Login from "../Login";
 import {da} from "date-fns/locale";
 import MenuItem from "@mui/material/MenuItem"
 import Select from "@mui/material/Select"
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const StyledLink = styled(Link)(({ theme }) => ({
     textDecoration: "none",
@@ -56,6 +61,7 @@ const CreateAccount = () => {
     const [passWord,setPassword]= React.useState("");
     const [fields, setfields] = useState<any>({});
     const [errors,seterrors]=useState<any>({})
+    const [open, setOpen] = React.useState(false);
     
     const handleChangeLogin = (event: any) => {
         setUserName(event.target.value)
@@ -121,25 +127,32 @@ const CreateAccount = () => {
                         Status:1,
                         DeviceId:"1"
                     }
-
                 }
                 ]
-
             })
         };
         fetch('http://localhost:3000/auth/signup',requestOptions)
             .then(response=>{ return response.json()})
             .then(data=>{
-                console.log(data)
+                 console.log(data.Id)
+                if(data.Id){
+                    setOpen(true)
+                    window.location.href='/'
+                }else{
+                    setOpen(true)
+                }
 
             });
     }
     
-    
-    
-    
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
 
-
+    const handleClose = () => {
+        setOpen(false);
+    };
+    
   return (
       <Router>
     <Box className="Comp2" >
@@ -181,6 +194,17 @@ const CreateAccount = () => {
                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
         >
             <PersonIcon />
+            <InputBase
+                sx={{ ml: 1, flex: 5 }}
+                placeholder="Enter Email"
+                onChange={(e) => handleChange(e,"email") }
+            />
+        </Paper>
+        <Paper className="username"
+               component="form"
+               sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+        >
+            <PersonIcon />
             <SelectBox
                 labelId="demo-simple-select-label"
                 id="demo-simple-select1"
@@ -208,6 +232,26 @@ const CreateAccount = () => {
             <Button className="loginBtn" sx={{width: 410}} variant="contained" color="primary" onClick={locationNav}>
                 Register
             </Button>
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">
+                {"Success !"}
+                <hr/>
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Your User Account is Successfully Created !
+                </DialogContentText>
+            </DialogContent>
+            <hr/>
+            <DialogActions>
+                <Button onClick={handleClose}>Ok</Button>
+            </DialogActions>
+        </Dialog>
 
     </Box>
 

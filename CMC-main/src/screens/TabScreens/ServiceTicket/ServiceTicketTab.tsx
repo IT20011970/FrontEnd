@@ -21,9 +21,10 @@ import {
 } from "../../../Types/Types";
 import "./../../../Styles/Tabs.css";
 
-import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal";
+import CreateNewTicketModal from "../../Modals/CreatetTicket/CreateNewTicketModal";
 import {useEffect, useState} from "react";
 import moment from "moment"
+
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -231,10 +232,10 @@ const ServiceTicketTab = () => {
         .then(response=>{ return response.json()})
         .then(data=>{
           //console.log(data[3].Groups[1].students)
-         // console.log(data)
+         console.log(data)
          setStudents(data)
         });
-  } )
+  } ,)
 
   return (
       <>
@@ -382,8 +383,8 @@ const ServiceTicketTab = () => {
             />
           </Stack>
         </Container>
-
-        <CreateServiceCallModal open={openModal} setOpen={setOpenModal} />
+        <CreateNewTicketModal open={openModal} setOpen={setOpenModal} />
+        {/*<CreateServiceCallModal open={openModal} setOpen={setOpenModal} />*/}
       </>
   );
 };
