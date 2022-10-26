@@ -23,10 +23,12 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Header from "../../../components/Header";
 import "../../../Styles/Modal.css";
-import CreateSparePartsTab1 from "./CreateSparePartsTab1";
-import CreateSparePartsTab2 from "./CreateSparePartsTab2";
+
 import { useEffect, useState } from "react";
 import { Alert, DialogContentText } from "@mui/material";
+
+import AttendanceTab1 from "./AttendanceTab1";
+import AttendanceTab2 from "./AttendanceTab2";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -75,7 +77,7 @@ const TabName = styled("text")(({ theme }) => ({
   color: "#0091d5",
 }));
 
-const CreateSparePartsModal = (props: any) => {
+const AttendanceModel = (props: any) => {
    console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
@@ -174,6 +176,12 @@ const CreateSparePartsModal = (props: any) => {
                 Secretary: "Gayan",
                 // Secretary:fields.fields.Secretary,
                 ItemDescription: fields.fields.ItemDescription,
+                itemEntity:{
+                  MrfSerialNumber: "aaa",
+                  SerialNumber: "ssv",
+                  ItemDescription: "css",
+                  ItemGroup: "vss"
+                }
               }
             ]
           }
@@ -272,7 +280,7 @@ const CreateSparePartsModal = (props: any) => {
                   aria-label="lab API tabs example"
                   sx={{ marginLeft: "-40px" }}
                 >
-                  <Tab label="" value="1" />
+                  <Tab label="Spare Part Request ID" value="1" />
                   
                 </TabList>
 
@@ -286,11 +294,11 @@ const CreateSparePartsModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateSparePartsTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+              <AttendanceTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <CreateSparePartsTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              <AttendanceTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>
@@ -356,4 +364,4 @@ const CreateSparePartsModal = (props: any) => {
   );
 };
 
-export default CreateSparePartsModal;
+export default AttendanceModel;

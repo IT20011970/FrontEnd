@@ -272,6 +272,7 @@ const SparePartsTab2 = () => {
                 <StyledTableCell align="right">Service Engineer</StyledTableCell>
                 <StyledTableCell align="right">Secratary</StyledTableCell>
                 <StyledTableCell align="right">Item Description</StyledTableCell>
+                <StyledTableCell align="right">Requested Qty</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -304,6 +305,9 @@ const SparePartsTab2 = () => {
                   </StyledTableCell>
                   <StyledTableCell>
                     {row.ItemDescription }
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    {row.ReqQty }
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

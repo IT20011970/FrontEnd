@@ -197,7 +197,7 @@ const CreateServiceCallModal = (props: any) => {
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         CustomerId: parseInt(fields.fields.CustomerID),
-        CustomeName:fields.fields.CustomerName,
+        CustomeName:"fields.fields.CustomerName",
         ContactPerson:fields.fields.ContactPerson,
         TelephoneNo: fields.fields.TelephoneNo,
         CustomerAddressId:fields.fields.AddressId,

@@ -38,6 +38,7 @@ import ServiceTicket from "../screens/ServiceTicket";
 import Calender from "../screens/Calender";
 import Reports from "../screens/Reports";
 import Administration from "../screens/Administration"
+import Attendance from "../screens/Attendance";
 
 const useStyles = makeStyles({
   topNavIcon: {
@@ -808,6 +809,9 @@ const SideBar = () => {
               </Route>
               <Route exact path="/Administration">
                 <Administration value={value} />
+              </Route>
+              <Route exact path="/Attendance">
+                <Attendance value={value} />
               </Route>
             </Switch>
           </Box>
