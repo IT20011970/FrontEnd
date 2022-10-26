@@ -28,9 +28,8 @@ import "../../../Styles/Modal.css";
 import {useEffect, useState} from "react";
 import DialogContentText from "@mui/material/DialogContentText"
 import CreateNewTicketModal from "./CreateTicket"
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepButton from '@mui/material/StepButton';
+import EditServiceCallTab1 from "./EditServiceCallTab1"
+import EditServiceCallTab2 from "./EditServiceCallTab2"
 
 
 const ModalButton = styled(Button)(({ theme }) => ({
@@ -79,24 +78,24 @@ const TabName = styled("text")(({ theme }) => ({
   fontWeight: 500,
   color: "#0091d5",
 }));
-const steps = ['Fill Form 1', 'Fill Form 2', 'Create Form','Create Ticket'];
 
-const CreateServiceCallModal = (props: any) => {
+const EditServiceCallModal = (props: any) => {
+ //   console.log(props.dataUpdate)
   const { open, setOpen } = props;
   React.useEffect(() => {
    props.setOpen(false)
+   // console.log(props.dataUpdate)
    // setselectTabValue(false)
   },[]);
 
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setActiveStep(0)
     setMainTabValue("1");
     setNext("false");
     setSecondTabValue("1")
-    setselectTabValue(1)
-    createTicket(0)
+    setselectTabValue(false)
+    
   };
   const [mainTabValue, setMainTabValue] = React.useState("1");
   const [secondTabValue, setSecondTabValue] = React.useState("1");
@@ -119,10 +118,9 @@ const CreateServiceCallModal = (props: any) => {
   const [PlanedStartDate, setPlanedStartDate] = React.useState("")
   const [ActualStartDate, setActualStartDate] = React.useState("")
   const [ActualEndDate, setActualEndDate] = React.useState("")
-  const [selectTabValue, setselectTabValue] = React.useState(2);
+  const [selectTabValue, setselectTabValue] = React.useState(false);
   
   var [Next, setNext] = React.useState("")
-  const [ticket, createTicket] = React.useState(0)
   const [allError,setError]=React.useState(true)
   var [array2, setArray2] = useState([]);
 
@@ -131,10 +129,6 @@ const CreateServiceCallModal = (props: any) => {
   const [fields, setfields] = useState<any>({fields:{}});
   const [openmsg, setOpenmsg] = React.useState(false);
   const [openModal, setOpenModal] = React.useState(false);
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [completed, setCompleted] = React.useState<{
-    [k: number]: boolean;
-  }>({});
   
   const handleClosemsg = () => {
     setOpenmsg(false);
@@ -145,59 +139,15 @@ const CreateServiceCallModal = (props: any) => {
        setMainTabValue(newValue);
        setNext("true")
   };
-  const totalSteps = () => {
-    return steps.length;
-  };
 
-  const completedSteps = () => {
-    return Object.keys(completed).length;
-  };
-
-  const isLastStep = () => {
-    return activeStep === totalSteps() - 1;
-  };
-
-  const allStepsCompleted = () => {
-    return completedSteps() === totalSteps();
-  };
-
-  const handleNext = () => {
-    const newActiveStep =
-        isLastStep() && !allStepsCompleted()
-            ? // It's the last step, but not all steps have been completed,
-              // find the first step that has been completed
-            steps.findIndex((step, i) => !(i in completed))
-            : activeStep + 1;
-    setActiveStep(newActiveStep);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleStep = (step: number) => () => {
-    setActiveStep(step);
-  };
-
-  const handleComplete = () => {
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
-    handleNext();
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-    setCompleted({});
-  };
   function post(){
-    console.log(fields.fields)
+   console.log(fields.fields)
     const requestOptions ={
-      method:'POST',
+      method:'PUT',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         CustomerId: parseInt(fields.fields.CustomerID),
-        CustomeName:"fields.fields.CustomerName",
+        CustomeName:fields.fields.CustomerName,
         ContactPerson:fields.fields.ContactPerson,
         TelephoneNo: fields.fields.TelephoneNo,
         CustomerAddressId:fields.fields.AddressId,
@@ -215,13 +165,13 @@ const CreateServiceCallModal = (props: any) => {
           Queue: Queue,
           Secretary: Secretary,
           SalesAssistant: SalesAssistant,
-          CreatedOn: CreatedOn,
           PlanedStartDateTime: PlanedStartDate,
           EstimatedDutation: EstimatedDuration,
           PlanedEndDateTime: PlanedEndDate,
           ActualStartDate: ActualStartDate,
           ActualEndDate: ActualEndDate,
           itemEntity: {
+            Id:parseInt(props.dataUpdate.itemEntity.Id),
             ItemCode:fields.fields.ItemCode,
             MrfSerialNumber: fields.fields.MRF,
             SerialNumber: fields.fields.SerialNumber,
@@ -232,11 +182,10 @@ const CreateServiceCallModal = (props: any) => {
       ]})
     };
     console.log(requestOptions)
-    fetch('http://localhost:3000/service-calls/',requestOptions)
-    setselectTabValue(2)
+    fetch('http://localhost:3000/service-calls/a/'+ parseInt(fields.fields.CustomerID),requestOptions)
+    setselectTabValue(true)
     setOpenmsg(true)
     setOpenModal(true)
-    handleNext()
   }
   const sendDataToParent = (index: any) => {
     //console.log(index);
@@ -303,65 +252,10 @@ const CreateServiceCallModal = (props: any) => {
           <ModalTittle>
             Create Service Call{" "}
             {mainTabValue == "2" && (
-                <>
-                  <TabName>{tabName}</TabName>
-                </>
+              <>
+                <TabName>{tabName}</TabName>
+              </>
             )}
-            <Stepper nonLinear activeStep={activeStep}>
-              {steps.map((label, index) => (
-                  <Step key={label} completed={completed[index]}>
-                    <StepButton color="inherit" onClick={handleStep(index)}>
-                      {label}
-                    </StepButton>
-                  </Step>
-              ))}
-            </Stepper>
-            <div>
-              {
-                allStepsCompleted() ? (
-                    <React.Fragment>
-                      <Typography sx={{ mt: 2, mb: 1 }}>
-                        All steps completed - you&apos;re finished
-                      </Typography>
-                      <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                        <Box sx={{ flex: '1 1 auto' }} />
-                        <Button onClick={handleReset}>Reset</Button>
-                      </Box>
-                    </React.Fragment>
-                ) : (
-                    <React.Fragment>
-                      {/*<Typography sx={{ mt: 2, mb: 1, py: 1 }}>*/}
-                      {/*  Step {activeStep + 1}*/}
-                      {/*</Typography>*/}
-                      {/*<Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>*/}
-                      {/*  <Button*/}
-                      {/*      color="inherit"*/}
-                      {/*      disabled={activeStep === 0}*/}
-                      {/*      onClick={handleBack}*/}
-                      {/*      sx={{ mr: 1 }}*/}
-                      {/*  >*/}
-                      {/*    Back*/}
-                      {/*  </Button>*/}
-                      {/*  <Box sx={{ flex: '1 1 auto' }} />*/}
-                      {/*  <Button onClick={handleNext} sx={{ mr: 1 }}>*/}
-                      {/*    Next*/}
-                      {/*  </Button>*/}
-                      {/*  {activeStep !== steps.length &&*/}
-                      {/*  (completed[activeStep] ? (*/}
-                      {/*      <Typography variant="caption" sx={{ display: 'inline-block' }}>*/}
-                      {/*        Step {activeStep + 1} already completed*/}
-                      {/*      </Typography>*/}
-                      {/*  ) : (*/}
-                      {/*      <Button onClick={handleComplete}>*/}
-                      {/*        {completedSteps() === totalSteps() - 1*/}
-                      {/*            ? 'Finish'*/}
-                      {/*            : 'Complete Step'}*/}
-                      {/*      </Button>*/}
-                      {/*  ))}*/}
-                      {/*</Box>*/}
-                    </React.Fragment>
-                )}
-            </div>
           </ModalTittle>
           <IconButton
             onClick={handleClose}
@@ -406,14 +300,14 @@ const CreateServiceCallModal = (props: any) => {
                   sx={{ marginLeft: "-40px" }}
                 >
                         <Tab  label="General" value="1" />
-                  {selectTabValue ==2   &&   <Tab label="Tickets" value="2" /> }
-                  {ticket ==3   &&   <Tab label="Solutions" value="3" />}
-                  {ticket ==3   &&   <Tab label="Remarks" value="4" />}
-                  {ticket ==3   &&   <Tab label="Scheduling" value="5" />}
-                  {ticket ==3   &&   <Tab label="Expenses" value="6" />}
-                  {ticket ==3   &&   <Tab label="Resolution" value="7" />}
-                  {ticket ==3   &&   <Tab label="History" value="8" />}
-                  {ticket ==3   &&   <Tab label="Related Documents" value="9" />}
+                  {selectTabValue ==true   &&   <Tab label="Tickets" value="2" /> }
+                  {selectTabValue ==true   &&   <Tab label="Solutions" value="3" />}
+                  {selectTabValue ==true   &&   <Tab label="Remarks" value="4" />}
+                  {selectTabValue ==true   &&   <Tab label="Scheduling" value="5" />}
+                  {selectTabValue ==true   &&   <Tab label="Expenses" value="6" />}
+                  {selectTabValue ==true   &&   <Tab label="Resolution" value="7" />}
+                  {selectTabValue ==true   &&   <Tab label="History" value="8" />}
+                  {selectTabValue ==true   &&   <Tab label="Related Documents" value="9" />}
                 </TabList>
               </Box>
             </TabContext>
@@ -423,11 +317,11 @@ const CreateServiceCallModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateServiceCallTab1 sendDataToParent={sendDataToParent}  setfields={setfields}  valueNext={Next}  setNext={setNext}/>
+              <EditServiceCallTab1 dataUpdate={props.dataUpdate} sendDataToParent={sendDataToParent}  setfields={setfields}  valueNext={Next}  setNext={setNext}/>
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <CreateServiceCallTab2 createTicket={createTicket} serviceCallData={fields} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              <EditServiceCallTab2 dataUpdate={props.dataUpdate} serviceCallData={fields} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>
@@ -467,13 +361,12 @@ const CreateServiceCallModal = (props: any) => {
                   Cancel
                 </ModalButton>
               </Grid>
-              
               {mainTabValue == "1" && (
                 <Grid item xs={2} md={1}>
                   <ModalButton
                     variant="contained"
                     className="ModalCommonButton"
-                    onClick={(event) => {handleChange("2");handleNext()}}
+                    onClick={() => handleChange("2")}
                   >
                     Next
                   </ModalButton>
@@ -482,15 +375,11 @@ const CreateServiceCallModal = (props: any) => {
 
               {mainTabValue == "2" && (
                 <>
-                  {/*new*/}
                   <Grid item xs={2} md={1}>
                     <ModalButton
                       variant="contained"
                       className="cancelButton"
-                      onClick={(e) => {
-                        handleChange("1")
-                        handleBack()
-                      }}
+                      onClick={() => handleChange("1")}
                     >
                       Back
                     </ModalButton>
@@ -501,7 +390,7 @@ const CreateServiceCallModal = (props: any) => {
                         className="ModalCommonButton"
                         onClick={post}
                     >
-                      Create
+                      Update
                     </ModalButton>
                   </Grid>
                   <Grid item xs={2} md={1}>
@@ -525,4 +414,4 @@ const CreateServiceCallModal = (props: any) => {
   );
 };
 
-export default CreateServiceCallModal;
+export default EditServiceCallModal;

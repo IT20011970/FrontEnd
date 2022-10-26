@@ -26,6 +26,7 @@ import {useContext, useRef} from "react"
 import {ServiceContext} from "../../../api/api"
 import { format } from 'date-fns';
 import moment from "moment"
+import EditServiceCallModal from "../../Modals/CreateServiceCall/EditServiceCallModal"
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -198,11 +199,13 @@ for (var i = 0; i < 50; i++) {
 const ServiceCallTab1 = () => {
   //Modal
   const [openModal, setOpenModal] = React.useState(false);
-
+  const [repeat, setRepeat] = React.useState("a");
+  const [openEditModal, setOpenEditModal] = React.useState(false);
   const [searchInput, setSearchInput] = React.useState("");
-
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  // const [dataUpdate, setDataUpdate] =React.useState<ServiceCallData2[]>({});
+   const [dataUpdate, setDataUpdate] = React.useState({});
   const [data, setData] =React.useState<ServiceCallData2[]>([]);
   const Service =useContext(ServiceContext)
   const employee =useRef<ServiceCallData2[]>([])
@@ -230,16 +233,28 @@ const ServiceCallTab1 = () => {
   });
 
   function setOpenModalfunction(){
+    setRepeat("b")
     setOpenModal(true)
   }
-
+  
+  function setOpenEditModalFunction(data:any){
+    setRepeat("b")
+    setDataUpdate(data)
+    console.log(dataUpdate)
+    setOpenEditModal(true)
+  }
   function getData (){
    if(Service !==undefined){
      Service.getServiceCall().then((result)=>{
        setData(result)
+       // console.log(result)
      })
    }
   }
+
+  // function getDataUpdate(data:any){
+  //   setDataUpdate(data)
+  // }
 
   return (
       <>
@@ -247,7 +262,6 @@ const ServiceCallTab1 = () => {
           <Grid container rowSpacing={1}>
             <Grid item xs={6}>
               <Heading>Service Call</Heading>
-              
             </Grid>
             <Grid item xs={3} sx={{ pr: 3 }}>
               <Search>
@@ -277,9 +291,7 @@ const ServiceCallTab1 = () => {
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Item Code</StyledTableCell>
-                  <StyledTableCell align="right">
-                    Item Description
-                  </StyledTableCell>
+                  <StyledTableCell align="right">Item Description</StyledTableCell>
                   <StyledTableCell align="right">Customer</StyledTableCell>
                   <StyledTableCell align="right">Status</StyledTableCell>
                   <StyledTableCell align="right">Created Date</StyledTableCell>
@@ -341,7 +353,7 @@ const ServiceCallTab1 = () => {
                               <path d="M20.3046 10.2769C19.5327 8.28033 18.1928 6.55372 16.4503 5.31043C14.7078 4.06715 12.6392 3.36169 10.5002 3.28125C8.36117 3.36169 6.29259 4.06715 4.55012 5.31043C2.80766 6.55372 1.46769 8.28033 0.695834 10.2769C0.643706 10.4211 0.643706 10.5789 0.695834 10.7231C1.46769 12.7197 2.80766 14.4463 4.55012 15.6896C6.29259 16.9329 8.36117 17.6383 10.5002 17.7188C12.6392 17.6383 14.7078 16.9329 16.4503 15.6896C18.1928 14.4463 19.5327 12.7197 20.3046 10.7231C20.3567 10.5789 20.3567 10.4211 20.3046 10.2769ZM10.5002 14.7656C9.65655 14.7656 8.83183 14.5155 8.13036 14.0467C7.42888 13.578 6.88214 12.9118 6.55929 12.1324C6.23643 11.3529 6.15196 10.4953 6.31655 9.66782C6.48114 8.84037 6.8874 8.08031 7.48396 7.48375C8.08051 6.88719 8.84058 6.48093 9.66803 6.31634C10.4955 6.15175 11.3532 6.23622 12.1326 6.55908C12.912 6.88193 13.5782 7.42867 14.0469 8.13015C14.5157 8.83162 14.7658 9.65634 14.7658 10.5C14.7641 11.6308 14.3141 12.7148 13.5145 13.5143C12.715 14.3139 11.631 14.7639 10.5002 14.7656Z" />
                             </svg>
                           </ControlButton>
-                          <ControlButton disableRipple>
+                          <ControlButton disableRipple onClick={e=>setOpenEditModalFunction(row)}>
                             <svg
                                 width="16"
                                 height="17"
@@ -391,8 +403,8 @@ const ServiceCallTab1 = () => {
             />
           </Stack>
         </Container>
-
         <CreateServiceCallModal open={openModal} setOpen={setOpenModal} />
+        <EditServiceCallModal dataUpdate={dataUpdate} open={openEditModal} setOpen={setOpenEditModal}/>
       </>
   );
 };

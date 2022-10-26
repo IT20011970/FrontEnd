@@ -398,24 +398,24 @@ const Expences = (props: any) => {
                                 </Grid>
 
                             </Grid>
-                            <Grid container>
-                                <Grid item xs={6}>
-                                    <TextBoxHeader>Service Call ID</TextBoxHeader>
-                                    <TextBox
-                                        id="outlined-basic"
-                                        variant="outlined"
-                                        placeholder="Text (default)"
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextBoxHeader>Expense Type</TextBoxHeader>
-                                    <TextBox
-                                        id="outlined-basic"
-                                        variant="outlined"
-                                        placeholder="Text (default)"
-                                    />
-                                </Grid>
-                            </Grid>
+                            {/*<Grid container>*/}
+                            {/*    <Grid item xs={6}>*/}
+                            {/*        <TextBoxHeader>Service Call ID</TextBoxHeader>*/}
+                            {/*        <TextBox*/}
+                            {/*            id="outlined-basic"*/}
+                            {/*            variant="outlined"*/}
+                            {/*            placeholder="Text (default)"*/}
+                            {/*        />*/}
+                            {/*    </Grid>*/}
+                            {/*    <Grid item xs={6}>*/}
+                            {/*        <TextBoxHeader>Expense Type</TextBoxHeader>*/}
+                            {/*        <TextBox*/}
+                            {/*            id="outlined-basic"*/}
+                            {/*            variant="outlined"*/}
+                            {/*            placeholder="Text (default)"*/}
+                            {/*        />*/}
+                            {/*    </Grid>*/}
+                            {/*</Grid>*/}
                             <Grid container>
                                 <Grid item xs={6} >
                                     <TextBoxHeader>Service Call ID</TextBoxHeader>

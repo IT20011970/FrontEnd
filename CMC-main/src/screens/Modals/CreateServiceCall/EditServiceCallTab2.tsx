@@ -29,6 +29,7 @@ import RemarksTab from "./Modal2-Tabs/RemarksTab";
 import SchedulingTab from "./Modal2-Tabs/SchedulingTab";
 import ExpensesTab from "./Modal2-Tabs/ExpensesTab";
 import Divider from "@mui/material/Divider"
+import GeneralTab2 from "./Modal2-Tabs/GeneralTab2"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -115,7 +116,7 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const CreateServiceCallModal2 = (props: any) => {
+const EditServiceCallTab2 = (props: any) => {
   const { open, setOpen, tab } = props;
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -197,29 +198,29 @@ const CreateServiceCallModal2 = (props: any) => {
     <Box>
         <TabContext value={tab}>
           <TabPanel value="1">
-            <GeneralTab p={props} />
+            <GeneralTab2 p={props} dataUpdate={props.dataUpdate.dataUpdate} />
           </TabPanel>
-          <TabPanel value="2">
-            <TicketsTab createTicket={props} props={props} />
-          </TabPanel>
-          <TabPanel value="3">
-            <SolutionsTab/>
-          </TabPanel>
-          <TabPanel value="4">
-            <RemarksTab />
-          </TabPanel>
-          <TabPanel value="5">
-            <SchedulingTab />
-          </TabPanel>
-          <TabPanel value="6">
-            <ExpensesTab props={props}/>
-          </TabPanel>
-          <TabPanel value="7">Resolution</TabPanel>
-          <TabPanel value="8">History</TabPanel>
-          <TabPanel value="9">Related Documents</TabPanel>
+          {/*<TabPanel value="2">*/}
+          {/*  <TicketsTab  props={props} />*/}
+          {/*</TabPanel>*/}
+          {/*<TabPanel value="3">*/}
+          {/*  <SolutionsTab/>*/}
+          {/*</TabPanel>*/}
+          {/*<TabPanel value="4">*/}
+          {/*  <RemarksTab />*/}
+          {/*</TabPanel>*/}
+          {/*<TabPanel value="5">*/}
+          {/*  <SchedulingTab />*/}
+          {/*</TabPanel>*/}
+          {/*<TabPanel value="6">*/}
+          {/*  <ExpensesTab props={props}/>*/}
+          {/*</TabPanel>*/}
+          {/*<TabPanel value="7">Resolution</TabPanel>*/}
+          {/*<TabPanel value="8">History</TabPanel>*/}
+          {/*<TabPanel value="9">Related Documents</TabPanel>*/}
         </TabContext>
     </Box>
   );
 };
 
-export default CreateServiceCallModal2;
+export default EditServiceCallTab2;

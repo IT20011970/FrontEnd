@@ -15,7 +15,7 @@ import {CreateServiceCallTicketData, Ticket} from "../../../../Types/Types"
 import "../../../../Styles/Modal.css";
 import "../../../../Styles/ServiceCall.css";
 
-import CreateNewTicketModal from "../CreateNewTicketModal";
+import CreateNewTicketModal from "../CreateTicket";
 import {useEffect, useState} from "react"
 import moment from "moment"
 
@@ -249,7 +249,10 @@ const TicketsTab = (props: any) => {
               <ModalButton
                   variant="contained"
                   className="ModalCommonButton"
-                  onClick={() => setOpenModal(true)}
+                  onClick={() => {
+                    setOpenModal(true);
+                    props.createTicket.createTicket("3")
+                  }}
                   sx={{ width: "250px", mt: 2 }}
               >
                 Create New Ticket
@@ -257,8 +260,7 @@ const TicketsTab = (props: any) => {
             </Grid>
           </Grid>
         </Box>
-
-        <CreateNewTicketModal props={props} open={openModal} setOpen={setOpenModal} />
+        <CreateNewTicketModal  props={props} open={openModal} setOpen={setOpenModal} />
       </Box>
   );
 };

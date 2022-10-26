@@ -174,7 +174,7 @@ for (var i = 0; i < 5; i++) {
 }
 
 const CreateNewTicketModal = (props: any) => {
-  // console.log(props.props.props.serviceCallData.fields.ServiceCallId)
+  //console.log(props.props.props.serviceCallData.fields.ServiceCallId)
   const { open, setOpen, tab } = props;
   const [age, setAge] = React.useState("");
   const handleOpen = () => setOpen(true);
@@ -267,17 +267,17 @@ const CreateNewTicketModal = (props: any) => {
     handleValidation()
   }
 
-  useEffect (()=>{
-    console.log(props.open)
-    fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
-    fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
-    fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
-    fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
-    fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
-    fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
-    fields["TicketId"]= Math.floor(Math.random()*1000000)
-    setfields(fields)
-  },[props.open])
+  // useEffect (()=>{
+  //   console.log(props.open)
+  //   fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
+  //   fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
+  //   fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
+  //   fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
+  //   fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
+  //   fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
+  //   fields["TicketId"]= Math.floor(Math.random()*1000000)
+  //   setfields(fields)
+  // },[props.open])
 
   function handleValidation() {
     console.log(fields)
@@ -378,7 +378,7 @@ const CreateNewTicketModal = (props: any) => {
     };
     fetch('http://localhost:3000/spare-parts',requestOptions)
   }
- 
+
 
   return (
       <Modal
@@ -648,7 +648,7 @@ const CreateNewTicketModal = (props: any) => {
             </Grid>
           </Box>
         </DialogActions>
-      </Modal>
+     </Modal>
   );
 };
 

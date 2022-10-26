@@ -17,7 +17,6 @@ import {useEffect, useState} from "react";
 import MuiMenuItem from "@material-ui/core/MenuItem";
 import {ServiceContext} from "../../../api/api"
 import {CustomerList, Item, ServiceCallData2} from "../../../Types/Types"
-import {FormLabel} from "@mui/material"
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -144,7 +143,8 @@ const ModalTittle = styled("text")(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const CreateServiceCallModal1 = (props: any) => {
+const EditServiceCallTab1 = (props: any) => {
+ // console.log(props.dataUpdate)
   const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
   const [next,setnext]=useState("")
@@ -183,8 +183,19 @@ const CreateServiceCallModal1 = (props: any) => {
   useEffect (()=>{
    // arr.push("sss")
     //setArray("sss")
-    console.log(fields)
-    fields["ServiceCallId"]= Math.floor(Math.random()*1000000)
+    console.log(props.dataUpdate.ServiceCallId)
+    fields["ServiceCallId"]= props.dataUpdate.ServiceCallId
+    fields["ItemCode"] = props.dataUpdate.itemEntity.ItemCode
+    fields["MrfSerialNumber"] = props.dataUpdate.itemEntity.MrfSerialNumber
+    fields["SerialNumber"] = props.dataUpdate.itemEntity.SerialNumber
+    fields["ItemDescription"] = props.dataUpdate.itemEntity.ItemDescription
+    fields["ItemGroup"] = props.dataUpdate.itemEntity.ItemGroup
+    fields["CustomerID"] = props.dataUpdate.customerEntity.CustomerId
+    fields["CustomerName"]=props.dataUpdate.customerEntity.CustomeName
+    fields["ContactPerson"] = props.dataUpdate.customerEntity.ContactPerson
+    fields["TelephoneNo"] = props.dataUpdate.customerEntity.TelephoneNo
+    fields["AddressId"] = props.dataUpdate.customerEntity.CustomerAddressId
+    fields["Status"] = props.dataUpdate.Status
     props.setfields({fields})
     if(props.valueNext==="true"){
       setnext("true")
@@ -229,7 +240,7 @@ const CreateServiceCallModal1 = (props: any) => {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
       };
-      fetch('http://localhost:3000/service-calls/name/'+ fields["CustomerName"],requestOptions)
+      fetch('http://localhost:3000/service-calls/name/',requestOptions)
           .then(response=>{ return response.json()})
           .then(data=>{
             console.log(data)
@@ -279,7 +290,7 @@ const CreateServiceCallModal1 = (props: any) => {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
       };
-      fetch('http://localhost:3000/service-calls/itemName/' + fields["ItemDescription"], requestOptions)
+      fetch('http://localhost:3000/service-calls/itemName1/' , requestOptions)
           .then(response => {
             return response.json()
           })
@@ -343,30 +354,30 @@ const CreateServiceCallModal1 = (props: any) => {
       }  else {
         errors["ItemCode"] = ""
         seterrors(errors)
-        const requestOptions = {
-          method: 'GET',
-          headers: {'Content-Type': 'application/json'}
-        };
-        fetch('http://localhost:3000/service-calls/item/'+fields["ItemCode"],requestOptions)
-            .then(response=>{ return response.json()})
-            .then(data=>{
-              if(data.error==="NotFound"){
-                setfields(fields)
-                props.setfields({fields})
-              }
-              else{
-                 console.log(data)
-                fields["ItemCode"] = data.ItemCode
-                fields["MrfSerialNumber"] = data.MrfSerialNumber
-                fields["SerialNumber"] = data.SerialNumber
-                fields["ItemDescription"] = data.ItemDescription
-                fields["ItemGroup"] = data.ItemGroup
-                setfields(fields)
-                // setfields( {CustomerID:data.CustomerId,ContactPerson:data.ContactPerson,CustomerName:data.CustomeName,TelephoneNo:data.TelephoneNo,AddressId:data.CustomerAddressId} )
-                props.setfields({fields})
-              }
+        // const requestOptions = {
+        //   method: 'GET',
+        //   headers: {'Content-Type': 'application/json'}
+        // };
+        // fetch('http://localhost:3000/service-calls/item/',requestOptions)
+        //     .then(response=>{ return response.json()})
+        //     .then(data=>{
+        //       if(data.error==="NotFound"){
+        //         setfields(fields)
+        //         props.setfields({fields})
+        //       }
+        //       else{
+        //          console.log(data)
+        //         fields["ItemCode"] = data.ItemCode
+        //         fields["MrfSerialNumber"] = data.MrfSerialNumber
+        //         fields["SerialNumber"] = data.SerialNumber
+        //         fields["ItemDescription"] = data.ItemDescription
+        //         fields["ItemGroup"] = data.ItemGroup
+        //         setfields(fields)
+        //         // setfields( {CustomerID:data.CustomerId,ContactPerson:data.ContactPerson,CustomerName:data.CustomeName,TelephoneNo:data.TelephoneNo,AddressId:data.CustomerAddressId} )
+        //         props.setfields({fields})
+        //       }
 
-            })
+          //  })
       }
 
      }
@@ -644,7 +655,7 @@ const CreateServiceCallModal1 = (props: any) => {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Customer Name <span style={{color:'red'}}>*</span></TextBoxHeader>
+            <TextBoxHeader>Customer Name</TextBoxHeader>
             <Autocomplete
                 id="combo-box-demo"
                 disablePortal
@@ -653,10 +664,10 @@ const CreateServiceCallModal1 = (props: any) => {
                 renderInput={(params) => <TextBox
                     {...params}
                     variant="outlined"
-                    // value={fields["CustomerName"]}
+                     value={fields["CustomerName"]}
                      onChange={(e) => handleChange(e,"CustomerName")}
                  //   onFocus={(e) => handleChange(e,"CustomerName")}
-                      placeholder="Text (default)"
+                      placeholder={fields["CustomerName"]}
                     sx={{ width: "99%" ,input: {
                         height: '0rem',
                       },}}
@@ -673,11 +684,9 @@ const CreateServiceCallModal1 = (props: any) => {
             <span style={{color: "red"}}>{errors["CustomerName"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Customer ID <span style={{color:'red'}}>*</span></TextBoxHeader>
+            <TextBoxHeader>Customer ID</TextBoxHeader>
             <TextBox
-                InputLabelProps={{ required: false }}
-                required={true}
-               id="outlined-basic2"
+              id="outlined-basic2"
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "99%" }}
@@ -685,11 +694,10 @@ const CreateServiceCallModal1 = (props: any) => {
               onChange={(e) => handleChange(e,"CustomerID") }
               onFocus={(e) => handleChange(e,"CustomerID") }
                 />
-           
             <span style={{color: "red"}}>{errors["CustomerID"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Contact Person <span style={{color:'red'}}>*</span></TextBoxHeader>
+            <TextBoxHeader>Contact Person</TextBoxHeader>
             <TextBox
               id="outlined-basic3"
               variant="outlined"
@@ -748,7 +756,7 @@ const CreateServiceCallModal1 = (props: any) => {
                     // value={fields["CustomerName"]}
                      onChange={(e) => handleChange(e,"ItemDescription")}
                     //   onFocus={(e) => handleChange(e,"CustomerName")}
-                    placeholder="Text (default)"
+                    placeholder={fields["ItemDescription"]}
                     sx={{ width: "99%" ,input: {
                         height: '0rem',
                       },}}
@@ -819,6 +827,7 @@ const CreateServiceCallModal1 = (props: any) => {
             <span style={{color: "red"}}>{errors["ItemGroup"]}</span>
           </Grid>
         </Grid>
+        
         <Divider
           orientation="horizontal"
           variant="middle"
@@ -875,4 +884,4 @@ const CreateServiceCallModal1 = (props: any) => {
   );
 };
 
-export default CreateServiceCallModal1;
+export default EditServiceCallTab1;

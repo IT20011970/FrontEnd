@@ -45,8 +45,8 @@ const ForgetPassWord = () => {
             method:'PATCH',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({
-                email:username,
-                password:passWord
+                UserName:username,
+                Password:passWord
             })
         };
         fetch('http://localhost:3000/auth/'+username,requestOptions)
