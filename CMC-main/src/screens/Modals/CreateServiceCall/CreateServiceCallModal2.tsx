@@ -334,7 +334,7 @@ const CreateServiceCallModal2 = (props: any) => {
             >
               <Tab label="General" value="1" />
               <Tab label="Tickets" value="2" />
-              <Tab label="Solutions" value="3" />
+              <Tab label="AddSolutions" value="3" />
               <Tab label="Remarks" value="4" />
               <Tab label="Scheduling" value="5" />
               <Tab label="Expenses" value="6" />
@@ -364,7 +364,7 @@ const CreateServiceCallModal2 = (props: any) => {
               >
                 <Tab label="General" value="1" />
                 <Tab label="Tickets" value="2" />
-                <Tab label="Solutions" value="3" />
+                <Tab label="AddSolutions" value="3" />
                 <Tab label="Remarks" value="4" />
                 <Tab label="Scheduling" value="5" />
                 <Tab label="Expenses" value="6" />

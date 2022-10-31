@@ -59,6 +59,9 @@ const Login = () => {
         setfields(fields)
         //  handleValidation()
     }
+    React.useEffect(()=>{
+            localStorage.setItem('log',"N")
+    },[])
     function forget(){
         console.log(fields)
          let otp=Math.floor(Math.random()*1000000)

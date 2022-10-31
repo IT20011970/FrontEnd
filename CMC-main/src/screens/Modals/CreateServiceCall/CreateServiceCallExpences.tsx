@@ -28,6 +28,9 @@ import ContentTab from "./CreateTicket/ContentTab";
 import LinkedDocumentsTab from "./CreateTicket/LinkedDocumentsTab";
 import AttachmentsTab from "./CreateTicket/AttachmentsTab";
 import {useEffect, useState} from "react";
+import DateTimePicker from "@mui/lab/DateTimePicker"
+import LocalizationProvider from "@mui/lab/LocalizationProvider"
+import AdapterDateFns from "@mui/lab/AdapterDateFns"
 
 const SelectInput = styled(Select)(({theme}) => ({
     ...theme.typography.body2,
@@ -164,7 +167,8 @@ const Expences = (props: any) => {
     const [date, setDate] = React.useState(new Date());
     const [fields, setfields] = useState<any>({});
     const [errors, seterrors] = useState<any>({})
-
+    const [CreatedOn, setDateCreatedOn] = React.useState(new Date());
+    
     const getTab = (index: string): string => {
         switch (index) {
             case "1":
@@ -179,6 +183,10 @@ const Expences = (props: any) => {
                 return "General";
         }
     };
+
+    const handleChangesetDateCreatedOn= (event:any) => {
+        setDateCreatedOn(event)
+    }
 
     const handleChange = (event: any, newValue: any) => {
         setValue(newValue);
@@ -241,47 +249,67 @@ const Expences = (props: any) => {
     }, [])
 
     function handleValidation() {
-        console.log(fields)
-        console.log(typeof fields["TicketId"])
-        // console.log(fields["MRF"])
-        // let errors: any = {};
-        let formIsValid = true;
-        // console.log( typeof fields["Status"])
-        //  console.log( fields["Status"])
+      
 
-        //TicketId
-        if (typeof fields["TicketId"] === "string") {
-            if (fields["TicketId"] === "") {
-                errors["TicketId"] = "Please Enter Ticket Id ";
+        //expire
+        if (typeof fields["expire"] === "string") {
+            if (fields["expire"] === "") {
+                errors["expire"] = "Please Enter expire ";
                 seterrors(errors)
             } else {
-                errors["TicketId"] = ""
+                errors["expire"] = ""
                 setfields(fields)
                 seterrors(errors)
             }
         }
-        //TicketType
-        if (typeof fields["TicketType"] !== "undefined") {
-            if (fields["TicketType"] === "0") {
-                errors["TicketType"] = "Please Enter Ticket Type";
+        //ExpenseType
+        if (typeof fields["Expense"] !== "string") {
+            if (fields["Expense"] === "") {
+                errors["Expense"] = "Please Enter Expense Type";
                 seterrors(errors)
             } else {
-                errors["TicketType"] = ""
+                errors["Expense"] = ""
                 setfields(fields)
                 seterrors(errors)
             }
         }
-        //Subject
-        if (typeof fields["Subject"] !== "undefined") {
-            if (fields["Subject"] === "0") {
-                errors["Subject"] = "Please Enter Subject";
+        //createdBy
+        if (typeof fields["createdBy"] !== "string") {
+            if (fields["createdBy"] === "") {
+                errors["createdBy"] = "Please Enter createdBy";
                 seterrors(errors)
             } else {
-                errors["Subject"] = ""
+                errors["createdBy"] = ""
                 setfields(fields)
                 seterrors(errors)
             }
         }
+
+        //amount
+        if (typeof fields["amount"] !== "string") {
+            if (fields["amount"] === "") {
+                errors["amount"] = "Please Enter amount";
+                seterrors(errors)
+            } else {
+                errors["amount"] = ""
+                setfields(fields)
+                seterrors(errors)
+            }
+        }
+    //Remarks
+        if (typeof fields["Remarks"] !== "string") {
+            if (fields["Remarks"] === "") {
+                errors["Remarks"] = "Please Enter Remarks";
+                seterrors(errors)
+            } else {
+                errors["Remarks"] = ""
+                setfields(fields)
+                seterrors(errors)
+            }
+        }
+
+
+
     }
 
     function post() {
@@ -292,34 +320,16 @@ const Expences = (props: any) => {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                serviceTicket: [
-                    {
-                        TicketId: fields["TicketId"],
-                        TicketType: fields["TicketType"],
-                        Subject: fields["Subject"],
-                        AssignedTo: "string",
-                        PlannedStartDate: "2021-01-23",
-                        sparePart: [
-                            {
-                                SPReqId: 1,
-                                TicketId: "",
-                                ServiceCallId: "",
-                                ServiceEngineer: "",
-                                Secretary: "2021-01-23",
-                                ItemDescription: "2021-01-23",
-                                itemEntity: {
-                                    MrfSerialNumber: "aaa",
-                                    SerialNumber: "ssv",
-                                    ItemDescription: "css",
-                                    ItemGroup: "vss"
-                                }
-                            }
-                        ]
-                    }
-                ]
+                        Id: 1,
+                        CreatedDate:CreatedOn,
+                        DateExpire:fields["expire"],
+                        ExpenseType:fields["Expense"],
+                        CreatedBy:fields["createdBy"],
+                        Amount:fields["amount"],
+                        Remark:fields["Remarks"]
             })
         };
-        fetch('http://localhost:3000/spare-parts', requestOptions)
+        fetch('http://localhost:3000/service-calls/expences', requestOptions)
     }
 
     return (
@@ -369,17 +379,20 @@ const Expences = (props: any) => {
                 <Box sx={{flexGrow: 1}}>
                     <Header/>
                             <Grid container>
-
                                 <Grid item xs={6}>
                                     <TextBoxHeader>Created Date</TextBoxHeader>
-                                    <TextBox
-                                        id="outlined-basic"
-                                        variant="outlined"
-                                        placeholder="Text (default)"
-                                        onChange={(e) => handleChangeField(e, "TicketId")}
-                                        onFocus={(e) => handleChangeField(e, "TicketId")}
-                                    />
-                                    <span style={{color: "red"}}>{errors["TicketId"]}</span>
+                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                        <DateTimePicker
+                                            renderInput={(params) => <TextBox {...params} />}
+                                            value={CreatedOn}
+                                            // onChange={handleChangesetDateCreatedOn}
+                                            onChange={(newValue) => {
+                                                handleChangesetDateCreatedOn((newValue != null ? newValue.toString() : new Date())
+                                                );
+                                            }}
+                                            className="dateTimePicker"
+                                        />
+                                    </LocalizationProvider>
                                 </Grid>
                                 <Grid item xs={6}>
                                     <TextBoxHeader>Date relevant to expire</TextBoxHeader>
@@ -387,35 +400,17 @@ const Expences = (props: any) => {
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select1"
                                         defaultValue=""
-                                        onChange={(e) => handleChangeField(e, "TicketType")}
-                                        onFocus={() => select("TicketType")}
+                                        onChange={(e) => handleChangeField(e, "expire")}
+                                        onFocus={() => select("expire")}
                                     >
                                         <MenuItem value={10}>Ten</MenuItem>
                                         <MenuItem value={20}>Twenty</MenuItem>
                                         <MenuItem value={30}>Thirty</MenuItem>
                                     </SelectInput>
-                                    <span style={{color: "red"}}>{errors["TicketType"]}</span>
+                                    <span style={{color: "red"}}>{errors["expire"]}</span>
                                 </Grid>
 
                             </Grid>
-                            {/*<Grid container>*/}
-                            {/*    <Grid item xs={6}>*/}
-                            {/*        <TextBoxHeader>Service Call ID</TextBoxHeader>*/}
-                            {/*        <TextBox*/}
-                            {/*            id="outlined-basic"*/}
-                            {/*            variant="outlined"*/}
-                            {/*            placeholder="Text (default)"*/}
-                            {/*        />*/}
-                            {/*    </Grid>*/}
-                            {/*    <Grid item xs={6}>*/}
-                            {/*        <TextBoxHeader>Expense Type</TextBoxHeader>*/}
-                            {/*        <TextBox*/}
-                            {/*            id="outlined-basic"*/}
-                            {/*            variant="outlined"*/}
-                            {/*            placeholder="Text (default)"*/}
-                            {/*        />*/}
-                            {/*    </Grid>*/}
-                            {/*</Grid>*/}
                             <Grid container>
                                 <Grid item xs={6} >
                                     <TextBoxHeader>Service Call ID</TextBoxHeader>
@@ -431,9 +426,30 @@ const Expences = (props: any) => {
                                         id="outlined-basic"
                                         variant="outlined"
                                         placeholder="Text (default)"
+                                        onChange={(e) => handleChangeField(e, "Expense")}
                                     />
                                 </Grid>
                             </Grid>
+                    <Grid container>
+                        <Grid item xs={6} >
+                            <TextBoxHeader>Created By</TextBoxHeader>
+                            <TextBox
+                                id="outlined-basic"
+                                variant="outlined"
+                                placeholder="Text (default)"
+                                onChange={(e) => handleChangeField(e, "createdBy")}
+                            />
+                        </Grid>
+                        <Grid item xs={6} >
+                            <TextBoxHeader>Amount</TextBoxHeader>
+                            <TextBox
+                                id="outlined-basic"
+                                variant="outlined"
+                                placeholder="Text (default)"
+                                onChange={(e) => handleChangeField(e, "amount")}
+                            />
+                        </Grid>
+                    </Grid>
 
                             <TextBoxHeader>Remarks</TextBoxHeader>
                             <TextField
@@ -443,6 +459,7 @@ const Expences = (props: any) => {
                                 rows={8}
                                 sx={{width: "100%"}}
                                 placeholder="Textarea (default)"
+                                onChange={(e) => handleChangeField(e, "Remarks")}
                                 // defaultValue="Default Value"
                             />
 

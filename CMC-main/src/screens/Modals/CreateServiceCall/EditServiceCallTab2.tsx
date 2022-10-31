@@ -134,7 +134,7 @@ const EditServiceCallTab2 = (props: any) => {
   //     case "2":
   //       return "Ticket";
   //     case "3":
-  //       return "Solutions";
+  //       return "AddSolutions";
   //     case "4":
   //       return "Remarks";
   //     case "5":

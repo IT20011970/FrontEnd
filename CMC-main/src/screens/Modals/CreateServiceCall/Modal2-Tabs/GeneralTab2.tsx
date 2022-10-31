@@ -52,6 +52,29 @@ const TextBox = styled(TextField)(({ theme }) => ({
   },
 }));
 
+const SelectBox = styled(Select)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "left",
+  boxShadow: "none",
+  fontFamily: "Montserrat",
+  fontSize: 14,
+  fontWeight: 400,
+  color: "#383838",
+  backgroundColor: "#FBFBFB",
+  width: "95%",
+  height: "40px",
+  borderRadius: "4px",
+  // minWidth: "250px",
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "4px",
+    height: "40px",
+    width: "auto",
+    // padding: "10px",
+  },
+}));
+
+
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
@@ -75,40 +98,47 @@ const SelectInput = styled(Select)(({ theme }) => ({
 }));
 
 
-const GeneralTab = (props: any) => {
+const GeneralTab2 = (props: any) => {
    // console.log(props.p.dataUpdate.CreatedOn)
-  const [age, setAge] = React.useState('Call');
-  const [CreatedOn, setDateCreatedOn] = React.useState(new Date());
-  const [planedStartDate, setPlanedStartDate] = React.useState(new Date());
+  const [age, setAge] = React.useState('');
+ // const [CreatedOn, setDateCreatedOn] = React.useState(new Date());
+ // const [planedStartDate, setPlanedStartDate] = React.useState(new Date());
   const [estimatedDate, setEstimatedDate] = React.useState(new Date());
-  const [plannedEndDate, setPlannedEndDate] = React.useState(new Date());
+  //const [plannedEndDate, setPlannedEndDate] = React.useState(new Date());
   const [actualStartDate, setActualStartDate] = React.useState(new Date());
   const [actualEndDate, setActualEndDate] = React.useState(new Date());
   const [students, setStudents] =useState<any[]>([]);
-  const [fields,setFields]=useState<any>({Origin:'Call'});
+  const [fields,setFields]=useState<any>({Origin:'',ProblemType:'',InquiryType:'',Secretary:'',SalesAssistant:'',Queue:'',CreatedBy:'',HandledBy:'',planedStartDate:'',plannedEndDate:'',CreatedOn:'',Subject:''});
   useEffect(() => {
-    setDateCreatedOn(new Date(props.p.dataUpdate.CreatedOn))
-    setPlanedStartDate(new Date(props.p.dataUpdate.PlanedStartDateTime))
-    setPlannedEndDate(new Date(props.p.dataUpdate.PlanedEndDateTime))
+    //setDateCreatedOn(new Date(props.p.dataUpdate.CreatedOn))
+    // setPlanedStartDate(new Date(props.p.dataUpdate.PlanedStartDateTime))
+   // setPlannedEndDate(new Date(props.p.dataUpdate.PlanedEndDateTime))
     setEstimatedDate(new Date(props.p.dataUpdate.EstimatedDutation))
     setActualStartDate(new Date(props.p.dataUpdate.ActualStartDate))
     setActualEndDate(new Date(props.p.dataUpdate.ActualEndDate))
-    props.p.setDateCreatedOn(CreatedOn)
-    props.p.setPlanedStartDate(planedStartDate)
+    //props.p.setDateCreatedOn(CreatedOn)
+    // props.p.setPlanedStartDate(planedStartDate)
     props.p.setEstimatedDuration(estimatedDate)
-    props.p.setPlanedEndDate(plannedEndDate)
+    //props.p.setPlanedEndDate(plannedEndDate)
     props.p.setActualStartDate(actualStartDate)
     props.p.setActualEndDate(actualEndDate)
-    console.log(props.p.dataUpdate.Origin)
+    console.log(props.p.dataUpdate)
+    
+    fields["planedStartDate"] = new Date(props.p.dataUpdate.PlanedStartDateTime)
+    fields['plannedEndDate']= new Date(props.p.dataUpdate.PlanedEndDateTime)
+    fields['CreatedOn']= new Date(props.p.dataUpdate.CreatedOn)
     fields["Origin"] = props.p.dataUpdate.Origin
-    fields["ProblemType"] =props.p.ProblemType
-    fields["InquiryType"] = props.p.InquiryType
-    fields["CreatedBy"] = props.p.CreatedBy
-    fields["HandledBy"] = props.p.HandledBy
-    fields["Queue"] = props.p.Queue
-    fields["Secretary"] = props.p.Secretary
-    fields["SalesAssistant"] =props.p.SalesAssistant
+    fields["ProblemType"] =props.p.dataUpdate.ProblemType
+    fields["InquiryType"] = props.p.dataUpdate.InquiryType
+    fields["CreatedBy"] = props.p.dataUpdate.CreatedBy
+    fields["HandledBy"] = props.p.dataUpdate.HandledBy
+    fields["Queue"] = props.p.dataUpdate.Queue
+    fields["Secretary"] = props.p.dataUpdate.Secretary
+    fields["SalesAssistant"] =props.p.dataUpdate.SalesAssistant
+    fields["Subject"] =props.p.dataUpdate.Subject
+    
     setFields(fields)
+    props.p.setfields2({fields})
     console.log(fields)
     const requestOptions = {
       method: 'GET',
@@ -123,6 +153,51 @@ const GeneralTab = (props: any) => {
           setStudents(data)
         });
   },[] )
+
+
+  function handleChange(e:any,f:any) {
+    fields[f] = e.target.value;
+    handleValidation()
+  }
+
+  // function select(e:any,f:any) {
+  //   let field=fields
+  //   if(!fields[f])
+  //     field[f] = "0";
+  //   // setfields({Status:"0"})
+  //   handleValidation()
+  // }
+
+  function handleValidation(){
+ 
+    if(typeof fields["Subject"] === "string"){
+      if (fields["Subject"] === "") {
+      }  else {
+        setFields( fields )
+        props.p.setfields2({fields})
+      }
+    }
+
+    if(typeof fields["InquiryType"] === "string"){
+      if (fields["InquiryType"] === "") {
+      }  else {
+        setFields( fields )
+        props.p.setfields2({fields})
+      }
+    }
+
+    if(typeof fields["CreatedBy"] === "string"){
+      if (fields["CreatedBy"] === "") {
+      }  else {
+        setFields( fields )
+        props.p.setfields2({fields})
+      }
+    }
+
+    
+  }
+  
+  
   const handleChangeSubject = (event: any) => {
     console.log(props)
     console.log(JSON.parse(localStorage.getItem('user') || '{}').email)
@@ -130,9 +205,12 @@ const GeneralTab = (props: any) => {
   };
   const handleChangeOrigin = (event: any) => {
     fields["Origin"] = event.target.value
-    props.p.setOrigin(event.target.value)
     setFields(fields)
+    props.p.setOrigin(event.target.value)
+    
   };
+  
+  
   const handleChangeProblemType = (event: any) => {
     fields["ProblemType"] = event.target.value
     props.p.setProblemType(event.target.value)
@@ -169,11 +247,11 @@ const GeneralTab = (props: any) => {
     setFields(fields)
   }
   const handleChangesetDateCreatedOn= (event:any) => {
-    setDateCreatedOn(event)
+   // setDateCreatedOn(event)
     props.p.setDateCreatedOn(event)
   }
   const handleChangesetPlanedStartDate= (event:any) => {
-    setPlanedStartDate(event)
+    // setPlanedStartDate(event)
     props.p.setPlanedStartDate(event)
   }
   const handleChangesetEstimatedDuration= (event:any) => {
@@ -181,7 +259,7 @@ const GeneralTab = (props: any) => {
     props.p.setEstimatedDuration(event)
   }
   const handleChangesetPlanedEndDate= (event:any) => {
-    setPlannedEndDate(event)
+  //  setPlannedEndDate(event)
     console.log(Date.now() - +(new Date("2013-02-20T12:01:04.753Z")))
     props.p.setPlanedEndDate(event)
   }
@@ -205,49 +283,52 @@ const GeneralTab = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               sx={{ width: "99%" }}
-              onChange={handleChangeSubject}
+              value={fields.Subject}
+              onChange={(e) => handleChange(e,"Subject")}
             />
           </Grid>
           <Grid item xs={6} md={3}>
-            {fields.Origin}
             <TextBoxHeader>Origin</TextBoxHeader>
-            <SelectInput
+            <SelectBox
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              onChange={handleChangeOrigin}
               // label="Age"
+              defaultValue=""
               value={fields.Origin}
+              onChange={(e) => handleChange(e,"Origin")}
               // defaultValue={fields["Origin"]}
             >
               <MenuItem value={"Email"}>Email</MenuItem>
               <MenuItem value={'Call'}>Call</MenuItem>
               <MenuItem value={"Web"}>Web</MenuItem>
               <MenuItem value={"Other"}>Other</MenuItem>
-            </SelectInput>
+            </SelectBox>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Problem Type</TextBoxHeader>
-            <SelectInput
-              labelId="demo-simple-select-label"
+            <SelectBox
+              labelId="demo-simple-select-label2"
               id="demo-simple-select"
               // label="Age"
+             // defaultValue={fields["ProblemType"]}
               defaultValue=""
-              value={fields["ProblemType"]}
-              onChange={handleChangeProblemType}
+              value={fields.ProblemType}
+              onChange={(e) => handleChange(e,"ProblemType")}
             >
               <MenuItem value={"Mechanical"}>Mechanical</MenuItem>
               <MenuItem value={"Electrical"}>Electrical</MenuItem>
               <MenuItem value={"Replacement"}>Replacement</MenuItem>
               <MenuItem value={"Service"}>Service</MenuItem>
               <MenuItem value={"Other"}>Other</MenuItem>
-            </SelectInput>
+            </SelectBox>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Inquiry Type</TextBoxHeader>
             <TextBox
                 id="outlined-basic1"
                 variant="outlined"
-                onChange={handleChangeInquiryType}
+                value={fields.InquiryType}
+                onChange={(e) => handleChange(e,"InquiryType")}
             />
           </Grid>
         </Grid>
@@ -264,19 +345,20 @@ const GeneralTab = (props: any) => {
             <TextBox
                 id="outlined-basic1"
                 variant="outlined"
-                value={JSON.parse(localStorage.getItem('user') || '{}').email}
-                onChange={handleChangeCreatedBy}
+                value={fields.CreatedBy}
+                onChange={(e) => handleChange(e,"CreatedBy")}
             />
             {/*<span style={{fontWeight: 'bold'}}>{)} </span>*/}
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Handled By</TextBoxHeader>
-            <SelectInput
+            <SelectBox
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 // label="Age"
                 defaultValue=""
-                onChange={handleChangeHandledBy}
+                value={fields.HandledBy}
+                onChange={(e) => handleChange(e,"HandledBy")}
             >
               <MenuItem value={"Gayan"}>Gayan</MenuItem>
               <MenuItem value={"Dilini"}>Dilini</MenuItem>
@@ -284,16 +366,17 @@ const GeneralTab = (props: any) => {
               <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
               <MenuItem value={"Rasika"}>Rasika</MenuItem>
-            </SelectInput>
+            </SelectBox>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Cluster Head</TextBoxHeader>
-            <SelectInput
+            <SelectBox
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 // label="Age"
                 defaultValue=""
-                 onChange={handleChangeQueue}
+                value={fields.Queue}
+                onChange={(e) => handleChange(e,"Queue")}
             >
               <MenuItem value={"Gayan"}>Gayan</MenuItem>
               <MenuItem value={"Dilini"}>Dilini</MenuItem>
@@ -301,16 +384,17 @@ const GeneralTab = (props: any) => {
               <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
               <MenuItem value={"Rasika"}>Rasika</MenuItem>
-            </SelectInput>
+            </SelectBox>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Secretary</TextBoxHeader>
-            <SelectInput
+            <SelectBox
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               // label="Age"
               defaultValue=""
-              onChange={handleChangeSecretary}
+              value={fields.Secretary}
+              onChange={(e) => handleChange(e,"Secretary")}
             >
               <MenuItem value={"Gayan"}>Gayan</MenuItem>
               <MenuItem value={"Dilini"}>Dilini</MenuItem>
@@ -318,21 +402,22 @@ const GeneralTab = (props: any) => {
               <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
               <MenuItem value={"Rasika"}>Rasika</MenuItem>
-            </SelectInput>
+            </SelectBox>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Sales Assistant</TextBoxHeader>
-            <SelectInput
+            <SelectBox
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               // label="Age"
               defaultValue=""
-               onChange={handleChangeSalesAssistant}
+              value={fields.SalesAssistant}
+              onChange={(e) => handleChange(e,"SalesAssistant")}
             >
               {students.map(( row:DropdownUsers, i: number) => (
               <MenuItem value={row.Value}>{row.UserName}</MenuItem>
               ))}
-            </SelectInput>
+            </SelectBox>
           </Grid>
         </Grid>
 
@@ -348,7 +433,7 @@ const GeneralTab = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params) => <TextBox {...params} />}
-                value={CreatedOn}
+                value={fields["CreatedOn"]}
                // onChange={handleChangesetDateCreatedOn}
                 onChange={(newValue) => {
                   handleChangesetDateCreatedOn((newValue != null ? newValue.toString() : new Date())
@@ -363,7 +448,7 @@ const GeneralTab = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
-                value={planedStartDate}
+                value={fields["planedStartDate"]}
                 onChange={(newValue:any) => {
                   handleChangesetPlanedStartDate((newValue != null ? newValue.toString() : new Date())
                   );
@@ -377,7 +462,7 @@ const GeneralTab = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
-                value={plannedEndDate}
+                value={fields['plannedEndDate']}
                 onChange={(newValue:any) => {
                   handleChangesetPlanedEndDate((newValue != null ? newValue.toString() : new Date())
                   );
@@ -436,4 +521,4 @@ const GeneralTab = (props: any) => {
   );
 };
 
-export default GeneralTab;
+export default GeneralTab2;

@@ -127,6 +127,7 @@ const EditServiceCallModal = (props: any) => {
   const  [Test, setTest] = React.useState("1");
   const  [Test1, setTest1] = React.useState("1");
   const [fields, setfields] = useState<any>({fields:{}});
+  const [fields2, setfields2] = useState<any>({fields:{}});
   const [openmsg, setOpenmsg] = React.useState(false);
   const [openModal, setOpenModal] = React.useState(false);
   
@@ -139,6 +140,7 @@ const EditServiceCallModal = (props: any) => {
        setMainTabValue(newValue);
        setNext("true")
   };
+  // console.log(fields2)
 
   function post(){
    console.log(fields.fields)
@@ -156,20 +158,17 @@ const EditServiceCallModal = (props: any) => {
           ServiceCallId:parseInt(fields.fields.ServiceCallId),
           Status:fields.fields.Status,
           Priority:fields.fields.Priority,
-          Subject: Subject,
-          Origin: Origin,
-          ProblemType: ProblemType,
-          InquiryType: InquiryType,
-          CreatedBy: CreatedBy,
-          HandledBy: HandledBy,
-          Queue: Queue,
-          Secretary: Secretary,
-          SalesAssistant: SalesAssistant,
-          PlanedStartDateTime: PlanedStartDate,
-          EstimatedDutation: EstimatedDuration,
-          PlanedEndDateTime: PlanedEndDate,
-          ActualStartDate: ActualStartDate,
-          ActualEndDate: ActualEndDate,
+          Subject: fields2.fields.Subject,
+          Origin: fields2.fields.Origin,
+          ProblemType: fields2.fields.ProblemType,
+          InquiryType: fields2.fields.InquiryType,
+          CreatedBy: fields2.fields.CreatedBy,
+          HandledBy: fields2.fields.HandledBy,
+          Queue: fields2.fields.Queue,
+          Secretary: fields2.fields.Secretary,
+          SalesAssistant: fields2.fields.SalesAssistant,
+          PlanedStartDateTime: fields2.fields.planedStartDate,
+          PlanedEndDateTime: fields2.fields.plannedEndDate,
           itemEntity: {
             Id:parseInt(props.dataUpdate.itemEntity.Id),
             ItemCode:fields.fields.ItemCode,
@@ -301,7 +300,7 @@ const EditServiceCallModal = (props: any) => {
                 >
                         <Tab  label="General" value="1" />
                   {selectTabValue ==true   &&   <Tab label="Tickets" value="2" /> }
-                  {selectTabValue ==true   &&   <Tab label="Solutions" value="3" />}
+                  {selectTabValue ==true   &&   <Tab label="AddSolutions" value="3" />}
                   {selectTabValue ==true   &&   <Tab label="Remarks" value="4" />}
                   {selectTabValue ==true   &&   <Tab label="Scheduling" value="5" />}
                   {selectTabValue ==true   &&   <Tab label="Expenses" value="6" />}
@@ -321,7 +320,7 @@ const EditServiceCallModal = (props: any) => {
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <EditServiceCallTab2 dataUpdate={props.dataUpdate} serviceCallData={fields} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              <EditServiceCallTab2 dataUpdate={props.dataUpdate} setfields2={setfields2} serviceCallData={fields} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>

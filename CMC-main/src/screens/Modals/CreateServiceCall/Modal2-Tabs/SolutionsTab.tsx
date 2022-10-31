@@ -11,9 +11,15 @@ import TablePagination from "@mui/material/TablePagination";
 import TableHead from "@mui/material/TableHead";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-import { CreateServiceCallTicketData } from "../../../../Types/Types";
+import {CreateServiceCallTicketData, ServiceCallData2, Solutions} from "../../../../Types/Types"
 import "../../../../Styles/Modal.css";
 import "../../../../Styles/ServiceCall.css";
+import CreateServiceCallTab2 from "../CreateServiceCallTab2"
+import CreateNewTicketModal from "../CreateTicket"
+import AddSolutions from "../AddSolutions"
+import {useContext, useRef} from "react"
+import {ServiceContext} from "../../../../api/api"
+import {string} from "prop-types"
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "85px",
@@ -106,7 +112,11 @@ const SolutionsTab = (props: any) => {
   const [ticketList, setTicketList] = React.useState([...rows]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const [openModal, setOpenModal] = React.useState(false);
+  const Service =useContext(ServiceContext)
+  const employee =useRef<ServiceCallData2[]>([])
+  const [data, setData] =React.useState<Solutions[]>([]);
+  
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -124,6 +134,18 @@ const SolutionsTab = (props: any) => {
     setPage(0);
   };
 
+  React.useEffect(() => {
+    getData()
+  });
+  
+  function getData (){
+    if(Service !==undefined){
+      Service.getSolutions().then((result)=>{
+        setData(result)
+         console.log(result)
+      })
+    }
+  }
   const addNewTicket = () => {
     setTicketList([
       ...ticketList,
@@ -154,123 +176,89 @@ const SolutionsTab = (props: any) => {
                   borderLeft: "none",
                 }}
               >
-                Date
+                Id
               </StyledTableCell>
               <StyledTableCell
                 sx={{
                   borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                 }}
               >
-                Time
+                Solution
               </StyledTableCell>
               <StyledTableCell
                 sx={{
                   borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                 }}
               >
-                Engineer
+                CreatedOn
               </StyledTableCell>
               <StyledTableCell
                 sx={{
                   borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                 }}
               >
-                Priority
+                Owner
               </StyledTableCell>
               <StyledTableCell
                 sx={{
                   borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                 }}
               >
-                Planned Start
+                Status
               </StyledTableCell>
               <StyledTableCell
                 sx={{
                   borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                 }}
               >
-                Recurrence
-              </StyledTableCell>
-              <StyledTableCell
-                sx={{
-                  borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                }}
-              >
-                Content
-              </StyledTableCell>
-              <StyledTableCell
-                sx={{
-                  borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                }}
-              >
-                More
+                HandledBy
               </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
-              ? ticketList.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-              : rows
-            ).map((row: CreateServiceCallTicketData, i: number) => (
+            {data.map((row: Solutions, i: number) => (
                 <StyledTableRow key={Math.random()}>
                 <StyledTableCell
                   sx={{
-                    borderLeft: "none",
+                    borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.date.toString().substring(0, 24)}
+                  {row.Id}
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
                     borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.time}
+                  {row.Solution}
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
                     borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.engineer}
+                  {row.CreatedOn}
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
                     borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.priority}
+                  {row.Owner}
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
                     borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.plannedStart.toString().substring(0, 24)+i}
+                  {row.Status}
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
                     borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                   }}
                 >
-                  {row.recurrence}
-                </StyledTableCell>
-                <StyledTableCell
-                  sx={{
-                    borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                  }}
-                >
-                  {row.content}
-                </StyledTableCell>
-                <StyledTableCell
-                  sx={{
-                    borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                  }}
-                >
-                  {row.more}
+                  {row.HandledBy}
                 </StyledTableCell>
               </StyledTableRow>
             ))}
@@ -284,7 +272,10 @@ const SolutionsTab = (props: any) => {
             <ModalButton
               variant="contained"
               className="ModalCommonButton"
-              onClick={addNewTicket}
+              // onClick={addNewTicket}
+              onClick={() => {
+                setOpenModal(true);
+              }}
               sx={{ width: "300px", mt: 2 }}
             >
               Add Recommended Solution
@@ -292,7 +283,8 @@ const SolutionsTab = (props: any) => {
           </Grid>
         </Grid>
       </Box>
-    </Box>
+      <AddSolutions  props={props} open={openModal} setOpen={setOpenModal} />
+      </Box>
   );
 };
 
