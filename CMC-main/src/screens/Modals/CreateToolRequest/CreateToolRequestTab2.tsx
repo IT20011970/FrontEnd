@@ -220,7 +220,7 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const CreateSparePartsTab1 = (props: any) => {
+const CreateToolRequestTab1 = (props: any) => {
 
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
@@ -632,4 +632,4 @@ const CreateSparePartsTab1 = (props: any) => {
   );
 };
 
-export default CreateSparePartsTab1;
+export default CreateToolRequestTab1;
