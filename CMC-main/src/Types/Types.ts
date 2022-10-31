@@ -233,6 +233,15 @@ export type CreateServiceCallTicketData = {
   more: string;
 };
 
+export type Solutions = {
+  Id: number,
+  Solution: string,
+  CreatedOn: Date,
+  Owner: string,
+  Status: string,
+  HandledBy: string
+};
+
 export type ArrayTab ={
   attachment:string;
   description:string;

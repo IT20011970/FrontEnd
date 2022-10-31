@@ -61,6 +61,7 @@ const LoginForm = () => {
                  if(data.Id){
                      window.location.href='/Home'
                      localStorage.setItem('user', JSON.stringify(data))
+                     localStorage.setItem('log',"y")
                  }
                 else{
                      window.location.reload()
