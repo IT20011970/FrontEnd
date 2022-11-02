@@ -30,6 +30,8 @@ import SchedulingTab from "./Modal2-Tabs/SchedulingTab";
 import ExpensesTab from "./Modal2-Tabs/ExpensesTab";
 import Divider from "@mui/material/Divider"
 import History from "./Modal2-Tabs/History"
+import Resolution from "./Modal2-Tabs/Resolution"
+import RelatedDocuments from "./Modal2-Tabs/RelatedDocuments"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -215,9 +217,9 @@ const CreateServiceCallModal2 = (props: any) => {
           <TabPanel value="6">
             <ExpensesTab props={props}/>
           </TabPanel>
-          <TabPanel value="7">Resolution</TabPanel>
+          <TabPanel value="7"><Resolution/></TabPanel>
           <TabPanel value="8"><History props={props}/></TabPanel>
-          <TabPanel value="9">Related Documents</TabPanel>
+          <TabPanel value="9"><RelatedDocuments/></TabPanel>
         </TabContext>
     </Box>
   );
