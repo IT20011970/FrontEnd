@@ -10,6 +10,7 @@ export  interface IService{
     getSolutions():Promise<Solutions[]>
     addSolutions(Data:any):Promise<Solutions[]>
     addSchedule(Data:any):Promise<any[]>
+    getServiceCallDocuments():Promise<ServiceCallData2[]>
 }
 
 export const ServiceContext =createContext<IService|undefined>(undefined)
@@ -23,6 +24,18 @@ const Service:FC =({children}:any)=>{
                 headers: {'Content-Type': 'application/json'}
             };
             const data = fetch(process.env.React_App_BackendUrl + '/service-calls/service', requestOptions)
+                .then(response => {
+                    return response.json()
+                })
+
+            return data
+        },
+        async getServiceCallDocuments(): Promise<ServiceCallData2[]> {
+            const requestOptions = {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            };
+            const data = fetch(process.env.React_App_BackendUrl + '/service-calls/service-documents', requestOptions)
                 .then(response => {
                     return response.json()
                 })
