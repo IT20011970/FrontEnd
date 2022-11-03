@@ -61,6 +61,7 @@ const LoginForm = () => {
                  if(data.Id){
                      window.location.href='/Home'
                      localStorage.setItem('user', JSON.stringify(data))
+                     localStorage.setItem('log',"y")
                  }
                 else{
                      window.location.reload()
@@ -102,6 +103,7 @@ const LoginForm = () => {
                 onChange={handleChangePassword}
             />
         </Paper>
+        
       <br />
             <Button className="loginBtn" sx={{width: 410}} variant="contained" color="primary" onClick={locationNav}>
                 Sign In

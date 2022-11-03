@@ -55,7 +55,7 @@ const TextBox = styled(TextField)(({ theme }) => ({
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  textAlign: "center",
+  textAlign: "left",
   boxShadow: "none",
   fontFamily: "Montserrat",
   fontSize: 14,
@@ -175,6 +175,7 @@ const GeneralTab = (props: any) => {
   }
   const handleChangesetPlanedEndDate= (event:any) => {
     setPlannedEndDate(event)
+    console.log(Date.now() - +(new Date("2013-02-20T12:01:04.753Z")))
     props.p.setPlanedEndDate(event)
   }
 
@@ -267,31 +268,34 @@ const GeneralTab = (props: any) => {
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Handled By</TextBoxHeader>
-            <TextBox
-                id="outlined-basic1"
-                variant="outlined"
-                onChange={handleChangeHandledBy}
-            />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <TextBoxHeader>Queue</TextBoxHeader>
             <SelectInput
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              // label="Age"
-              defaultValue=""
-              onChange={handleChangeQueue}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                // label="Age"
+                defaultValue=""
+                onChange={handleChangeHandledBy}
             >
-              {students.map(( row:DropdownUsers, i: number) => (
-              <MenuItem value={row.Value}>{row.UserName}</MenuItem>
-              ))}
-
-              {/* <MenuItem value={"Gayan"}>Gayan</MenuItem>
+              <MenuItem value={"Gayan"}>Gayan</MenuItem>
               <MenuItem value={"Dilini"}>Dilini</MenuItem>
               <MenuItem value={"Poornima"}>Poornima</MenuItem>
               <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
-              <MenuItem value={"Rasika"}>Rasika</MenuItem> */}
+              <MenuItem value={"Rasika"}>Rasika</MenuItem>
+            </SelectInput>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <TextBoxHeader>Cluster Head</TextBoxHeader>
+            <SelectInput
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                // label="Age"
+                defaultValue=""
+                // onChange={handleChangeSecretary}
+            >
+
+              {students.map(( row:DropdownUsers, i: number) => (
+              <MenuItem value={row.Value}>{row.UserName}</MenuItem>
+              ))}
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
@@ -368,20 +372,6 @@ const GeneralTab = (props: any) => {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Estimated Duration</TextBoxHeader>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                renderInput={(params:any) => <TextBox {...params} />}
-                value={estimatedDate}
-                onChange={(newValue:any) => {
-                  handleChangesetEstimatedDuration((newValue != null ? newValue.toString() : new Date())
-                  );
-                }}
-                className="dateTimePicker"
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={6} md={3}>
             <TextBoxHeader>Planned End Date & Time</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
@@ -396,11 +386,26 @@ const GeneralTab = (props: any) => {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={6} md={3}>
+            <TextBoxHeader>Estimated Duration</TextBoxHeader>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                  renderInput={(params:any) => <TextBox {...params} />}
+                  value={estimatedDate}
+                  onChange={(newValue:any) => {
+                    handleChangesetEstimatedDuration((newValue != null ? newValue.toString() : new Date())
+                    );
+                  }}
+                  className="dateTimePicker"
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={6} md={3}>
             <TextBoxHeader>Actual Start Date</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
                 value={actualStartDate}
+                disabled={true}
                 onChange={(newValue:any) => {
                   handleChangesetActualStartDate((newValue != null ? newValue.toString() : new Date())
                   );
@@ -415,6 +420,7 @@ const GeneralTab = (props: any) => {
               <DateTimePicker
                 renderInput={(params) => <TextBox {...params} />}
                 value={actualEndDate}
+                disabled={true}
                 onChange={(newValue) => {
                   handleChangesetActualEndDate((newValue != null ? newValue.toString() : new Date())
                   );

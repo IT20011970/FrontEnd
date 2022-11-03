@@ -208,6 +208,7 @@ const GeneralTabTicket = (props: any) => {
                 <DateTimePicker
                     renderInput={(params:any) => <TextBox {...params} />}
                     value={actualStartDate}
+                    disabled={true}
                     onChange={(newValue) => {
                       handleChangesetActualStartDate((newValue != null ? newValue.toString() : new Date())
                       );
@@ -222,6 +223,7 @@ const GeneralTabTicket = (props: any) => {
                 <DateTimePicker
                     renderInput={(params:any) => <TextBox {...params} />}
                     value={actualEndDate}
+                    disabled={true}
                     onChange={(newValue) => {
                       handleChangesetActualEndDate((newValue != null ? newValue.toString() : new Date())
                       );
@@ -232,20 +234,34 @@ const GeneralTabTicket = (props: any) => {
             </Grid>
             <Grid item xs={5} md={4}>
               <TextBoxHeader>Contact Person</TextBoxHeader>
-              <SelectBox
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  // value={age}
-                  // label="Age"
+              <TextBox
+                  id="outlined-basic"
+                  variant="outlined"
+                  placeholder="Text (default)"
                   onChange={handleChangesetContact}
-              >
-                <MenuItem value={"Gayan"}>Gayan</MenuItem>
-                <MenuItem value={"Dilini"}>Dilini</MenuItem>
-                <MenuItem value={"Poornima"}>Poornima</MenuItem>
-                <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
-                <MenuItem value={"Pawani"}>Pawani</MenuItem>
-                <MenuItem value={"Rasika"}>Rasika</MenuItem>
-              </SelectBox>
+              />
+              {/*<SelectBox*/}
+              {/*    labelId="demo-simple-select-label"*/}
+              {/*    id="demo-simple-select"*/}
+              {/*    // value={age}*/}
+              {/*    // label="Age"*/}
+              {/*    onChange={handleChangesetContact}*/}
+              {/*>*/}
+              {/*  <MenuItem value={"Gayan"}>Gayan</MenuItem>*/}
+              {/*  <MenuItem value={"Dilini"}>Dilini</MenuItem>*/}
+              {/*  <MenuItem value={"Poornima"}>Poornima</MenuItem>*/}
+              {/*  <MenuItem value={"Rukshan"}>Rukshan</MenuItem>*/}
+              {/*  <MenuItem value={"Pawani"}>Pawani</MenuItem>*/}
+              {/*  <MenuItem value={"Rasika"}>Rasika</MenuItem>*/}
+              {/*</SelectBox>*/}
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextBoxHeader>Mobile</TextBoxHeader>
+              <TextBox
+                  id="outlined-basic"
+                  variant="outlined"
+                  placeholder="Text (default)"
+              />
             </Grid>
           </Grid>
         </Box>

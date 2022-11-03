@@ -174,12 +174,6 @@ const CreateSparePartsModal = (props: any) => {
                 Secretary: "Gayan",
                 // Secretary:fields.fields.Secretary,
                 ItemDescription: fields.fields.ItemDescription,
-                itemEntity:{
-                  MrfSerialNumber: "aaa",
-                  SerialNumber: "ssv",
-                  ItemDescription: "css",
-                  ItemGroup: "vss"
-                }
               }
             ]
           }

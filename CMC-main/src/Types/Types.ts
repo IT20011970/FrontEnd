@@ -268,7 +268,6 @@ export type Solutions = {
   HandledBy: string
 };
 
-
 export type ArrayTab ={
   attachment:string;
   description:string;

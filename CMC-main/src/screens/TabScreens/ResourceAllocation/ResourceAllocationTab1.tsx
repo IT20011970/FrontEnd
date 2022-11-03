@@ -37,6 +37,9 @@ import Header from "../../../components/Header";
 import SparePartsTab2 from "../SpareParts/SparePartsTab2";
 import ResourceAllocationSubTab1 from "./ResourceAllocationSubTab1";
 import ResourceAllocationSubTab2 from "./ResourceAllocationSubTab2";
+//import createVehicleRequestModel from "./createVehicleRequestModal";
+import CreateSparePartsModal from "../../Modals/CreateSpareParts/CreateSparePartslModal";
+import CreateToolRequestModal from "../../Modals/CreateToolRequest/CreateToolRequestModal";
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -232,7 +235,7 @@ const ResourceAllocationTab1 = () => {
                             </SearchIconWrapper>
                             <StyledInputBase
                                 onChange={(e) => setSearchInput(e.target.value)}
-                                placeholder="Searchâ€¦"
+                                placeholder="Search"
                                 inputProps={{ "aria-label": "search" }}
                             />
                         </Search>
@@ -242,7 +245,7 @@ const ResourceAllocationTab1 = () => {
                             variant="contained"
                             onClick={() => setOpenModal(true)}
                         >
-                            Create Vehicle Request
+                            Create Tool Request
                         </RequestButton>
                     </Grid>
                 </Grid>
@@ -296,7 +299,7 @@ const ResourceAllocationTab1 = () => {
             </Container>
 
 
-            <CreateServiceCallModal open={openModal} setOpen={setOpenModal} />
+            <CreateToolRequestModal open={openModal} setOpen={setOpenModal} />
         </>
     );
 };
