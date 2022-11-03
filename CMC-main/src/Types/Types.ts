@@ -159,6 +159,18 @@ export type ServiceCallData2 = {
 
 };
 
+export type CustomerList = {
+  label:string;
+}
+
+export type Item={
+  ItemCode: string
+  ItemDescription: string
+  ItemGroup: string
+  MrfSerialNumber: string
+  SerialNumber: string
+}
+
 export type Ticket = {
   TicketId: string,
   TicketType: string,
@@ -226,6 +238,15 @@ export type DropdownProblemTypes ={
 
 }
 
+export type UserRoleTypes ={
+
+  Id: number,
+  Description: string,
+  RoleDescription: string,
+  Status: number
+
+}
+
 
 export type CreateServiceCallTicketData = {
   date: Date;
@@ -237,6 +258,16 @@ export type CreateServiceCallTicketData = {
   content: string;
   more: string;
 };
+
+export type Solutions = {
+  Id: number,
+  Solution: string,
+  CreatedOn: Date,
+  Owner: string,
+  Status: string,
+  HandledBy: string
+};
+
 
 export type ArrayTab ={
   attachment:string;

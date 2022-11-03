@@ -21,17 +21,14 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import Header from "../../../components/Header";
-import "../../../Styles/Modal.css";
+import "../../../../Styles/Modal.css";
 
 import { useEffect, useState } from "react";
 import { Alert, DialogContentText } from "@mui/material";
-import AdmistrationTab1 from "../../TabScreens/Adminstration/Administrationtab1"
-import AdministrationTab2 from "./AdministrationTab2"
-import AdministrationTab1 from "./AdministrationTab1"
-import AdministrationTab3 from "./AdministrationTab3";
-import AdministrationTab4 from "./AdministrationTab4";
-
+//import AdmistrationTab1 from "../../TabScreens/Adminstration/Administrationtab1"
+import AdministrationMasterTab1 from "./AdministrationMasterTab1";
+import AdministrationMasterTab2 from "./AdministrationMasterTab2";
+import Header from "../../../../components/Header";
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
   height: "auto",
@@ -79,7 +76,7 @@ const TabName = styled("text")(({ theme }) => ({
   color: "#0091d5",
 }));
 
-const AdministrationModel = (props: any) => {
+const AdministrationMasterModel = (props: any) => {
    console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
@@ -237,7 +234,7 @@ const AdministrationModel = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Manage User Roles
+            Manage Masters
            
           </ModalTittle>
           <IconButton
@@ -282,8 +279,10 @@ const AdministrationModel = (props: any) => {
                   aria-label="lab API tabs example"
                   sx={{ marginLeft: "-40px" }}
                 >
-                  <Tab label="User Role" value="1" />
-                  <Tab label="Manage User" value="2" />
+                  <Tab label="Add Origin Type" value="1" />
+                  <Tab label="Add Problem Type" value="2" />
+                  {/* <Tab label="" value="3" />
+                  <Tab label="" value="4" /> */}
                   
                 </TabList>
 
@@ -297,7 +296,7 @@ const AdministrationModel = (props: any) => {
           <TabContext value={secondTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <AdministrationTab3   />
+              <AdministrationMasterTab1   />
             </TabPanel> 
             <TabPanel value="3" sx={{ p: 0 }}>
               <Header />
@@ -305,7 +304,7 @@ const AdministrationModel = (props: any) => {
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <AdministrationTab4   />
+              <AdministrationMasterTab2   />
               {/* <AdministrationTab3 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} /> */}
             </TabPanel>
           </TabContext>
@@ -325,4 +324,4 @@ const AdministrationModel = (props: any) => {
   );
 };
 
-export default AdministrationModel;
+export default AdministrationMasterModel;

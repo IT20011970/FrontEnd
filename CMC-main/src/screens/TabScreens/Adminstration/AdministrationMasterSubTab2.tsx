@@ -195,7 +195,7 @@ const createData = (
 //     );
 // }
 
-const AdmistrationTab1 = () => {
+const AdministrationMasterSubTab2 = () => {
     const [searchInput, setSearchInput] = React.useState("");
     const [openModal, setOpenModal] = React.useState(false);
     const [openView, setOpenView] = React.useState(false);
@@ -216,7 +216,7 @@ const getData = async() => {
         headers: {'Content-Type': 'application/json'}
     };
 
-    fetch('http://localhost:3000/user-role-controller/get',requestOptions)
+    fetch('http://localhost:3000/origin-type-controller/get',requestOptions)
         .then(response=>{ return response.json()})
         .then(data=>{
            console.log(data)
@@ -256,30 +256,7 @@ const getData = async() => {
         <>
             <Stack spacing={6} direction="row">
                 <Grid container rowSpacing={1}>
-                    <Grid item xs={6}>
-                        <Heading>Administration</Heading>
-
-                    </Grid>
-                    <Grid item xs={3} sx={{ pr: 3 }}>
-                        <Search>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                onChange={(e) => setSearchInput(e.target.value)}
-                                placeholder="Search…"
-                                inputProps={{ "aria-label": "search" }}
-                            />
-                        </Search>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <RequestButton
-                            variant="contained"
-                            onClick={setOpenModalfunction}
-                        >
-                            Enable / Disable Role
-                        </RequestButton>
-                    </Grid>
+                    
                 </Grid>
             </Stack>
             <Container>
@@ -287,9 +264,9 @@ const getData = async() => {
                     <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
                         <TableHead>
                             <TableRow >
-                                <StyledTableCell sx={{ align: "center" }}>User Role</StyledTableCell>
-                                <StyledTableCell sx={{ textAlign: "center" }}>User Role Description</StyledTableCell>
-                                <StyledTableCell sx={{ textAlign: "center" }}>User Role Status</StyledTableCell>
+                                <StyledTableCell sx={{ align: "center" }}>Problem Type</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "center" }}>Problem Type Description</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "center" }}>Actions</StyledTableCell>
                                 
                             </TableRow>
                         </TableHead>
@@ -315,14 +292,6 @@ const getData = async() => {
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         {row.RoleDescription }
-                                    </StyledTableCell>
-                                    <StyledTableCell
-                                        sx={{
-                                            borderLeft: "none",
-                                            textAlign: "center"
-                                        }}
-                                    >
-                                        <i>{row.Status == 0 ? 'Disabled' : 'Enabled' }</i>
                                     </StyledTableCell>
                                     
                                     
@@ -369,4 +338,4 @@ const getData = async() => {
     );
 };
 
-export default AdmistrationTab1;
+export default AdministrationMasterSubTab2;

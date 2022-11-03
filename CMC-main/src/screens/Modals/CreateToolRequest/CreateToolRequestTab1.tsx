@@ -136,7 +136,7 @@ const ModalTittle = styled("text")(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const AdministrationTab1 = (props: any) => {
+const CreateToolRequestTab1 = (props: any) => {
   React.useEffect(() => {
  
   });
@@ -290,7 +290,7 @@ const AdministrationTab1 = (props: any) => {
         errors["Remark"] = "Please Enter Remark ";
         seterrors(errors)
       }
-      else if (!fields["Remark"].match(/^[a-zA-Z]+$/)) {
+      else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
         errors["Remark"] = "Only letters ";
         seterrors(errors)
       }
@@ -307,7 +307,7 @@ const AdministrationTab1 = (props: any) => {
         errors["Content"] = "Please Enter Content ";
         seterrors(errors)
       }
-      else if (!fields["Content"].match(/^[a-zA-Z]+$/)) {
+      else if (!fields["Content"].match(/^[a-zA-Z\s]+$/)) {
         errors["Content"] = "Only letters ";
         seterrors(errors)
       }
@@ -343,6 +343,7 @@ const AdministrationTab1 = (props: any) => {
         seterrors(errors)
       }
     }
+    //
     if(typeof fields["ItemDescription"] === "string"){
       if (fields["TicketType"]==="") {
         errors["TicketType"] = "Please Enter Item Description";
@@ -355,6 +356,7 @@ const AdministrationTab1 = (props: any) => {
         seterrors(errors)
       }
     }
+    
     
     //Begin
     console.log(props.valueNext)
@@ -422,10 +424,10 @@ const AdministrationTab1 = (props: any) => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 2 }}>
         <Grid container spacing={2}>
-          {/* <Grid item xs={6} md={3}>
-            <TextBoxHeader>Service Ticket ID</TextBoxHeader>
+          <Grid item xs={6} md={4}>
+            <TextBoxHeader>Tool ID</TextBoxHeader>
             <TextBox
               // name="stid"
               id="outlined-basic"
@@ -438,9 +440,9 @@ const AdministrationTab1 = (props: any) => {
               
             />
             <span style={{color: "red"}}>{errors["TicketID"]}</span>
-          </Grid> */}
-          {/* <Grid item xs={6} md={3}>
-            <TextBoxHeader>Service Ticket Type</TextBoxHeader>
+          </Grid>
+          <Grid item xs={6} md={4}>
+            <TextBoxHeader>Tool Group</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -450,8 +452,8 @@ const AdministrationTab1 = (props: any) => {
               
             />
           </Grid>
-          <Grid item xs={6} md={3}>
-            <TextBoxHeader>Subject</TextBoxHeader>
+          <Grid item xs={6} md={4}>
+            <TextBoxHeader>Tool Request ID</TextBoxHeader>
             <TextBox
                 id="outlined-basic"
                 variant="outlined"
@@ -461,20 +463,89 @@ const AdministrationTab1 = (props: any) => {
             />
             <span style={{color: "red"}}>{errors["Subject"]}</span>
           </Grid>
-          <Grid item xs={6} md={3}>
-            <TextBoxHeader>Assigned To</TextBoxHeader>
+          
+          
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={6} md={4}>
+            <TextBoxHeader>Tool Description</TextBoxHeader>
+            <TextBox
+              // name="stid"
+              id="outlined-basic"
+              variant="outlined"
+              placeholder="Text (default)"
+              name="TicketId"
+              sx={{ width: "99%" }}
+              onChange={(e) => handleChange(e,"TicketID") }
+              onFocus={(e) => handleChange(e,"TicketID") }
+              
+            />
+            <span style={{color: "red"}}>{errors["TicketID"]}</span>
+          </Grid>
+          <Grid item xs={6} md={4}>
+            <TextBoxHeader>Serial No</TextBoxHeader>
+            <TextBox
+              id="outlined-basic"
+              variant="outlined"
+              placeholder="Text (default)"
+              value={fields['TicketType']}
+              sx={{ width: "99%" }}
+              
+            />
+          </Grid>
+          <Grid item xs={6} md={4}>
+            <TextBoxHeader>Tool Request Status</TextBoxHeader>
             <TextBox
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
+                value={fields['Subject']}
                 sx={{ width: "99%" }}
-                value={fields['AssignedTo']}
-               
             />
-            <span style={{color: "red"}}>{errors["AssignedTo"]}</span>
+            <span style={{color: "red"}}>{errors["Subject"]}</span>
           </Grid>
-          <Grid item xs={6} md={3}>
-            <TextBoxHeader>Planned start Date</TextBoxHeader>
+          
+          
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={6} md={4}>
+            <TextBoxHeader>Tool Type</TextBoxHeader>
+            <TextBox
+              // name="stid"
+              id="outlined-basic"
+              variant="outlined"
+              placeholder="Text (default)"
+              name="TicketId"
+              sx={{ width: "99%" }}
+              onChange={(e) => handleChange(e,"TicketID") }
+              onFocus={(e) => handleChange(e,"TicketID") }
+              
+            />
+            <span style={{color: "red"}}>{errors["TicketID"]}</span>
+          </Grid>
+          <Grid item xs={6} md={0.65}>
+            <TextBoxHeader>.</TextBoxHeader>
+            <Button
+                    variant="contained"
+                    className="ModalCommonButton"
+                     sx={{ width: "500%" }}
+                     //margin-left="2%"
+                    // margin-right:25%
+                    
+                      // onClick={post}
+                      onClick={()=>window.location.href='/ServiceTickets'}
+                    >
+                      Check Tool Calender
+                      
+        </Button>
+          </Grid>
+                   
+          
+        </Grid>
+
+        <Grid container spacing={2}>
+          <Grid item xs={6} md={4}>
+          <TextBoxHeader>Created Date & Time</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                   renderInput={(params:any) => <TextBox {...params} />}
@@ -487,7 +558,69 @@ const AdministrationTab1 = (props: any) => {
               />
             </LocalizationProvider>
           </Grid>
+          <Grid item xs={6} md={8}>
+          <TextBoxHeader>Remark</TextBoxHeader>
+            <TextField
+                                id="outlined-multiline-static"
+                                // label="Multiline"
+                                multiline
+                                rows={2}
+                                sx={{width: "100%"}}
+                                placeholder="Textarea (default)"
+                                // defaultValue="Default Value"
+                            />
+          </Grid>
+          
+                        
+          
         </Grid>
+        <Grid item xs={6} md={3}>
+            <TextBoxHeader>Request Date & Time</TextBoxHeader>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                  renderInput={(params:any) => <TextBox {...params} />}
+                  value={new Date()}
+                  onChange={(newValue:any) => {
+                    console.log((newValue != null ? newValue.toString() : new Date())
+                    );
+                  }}
+                  className="dateTimePicker"
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <TextBoxHeader>No of Days</TextBoxHeader>
+            <SelectInput
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                placeholder="Text (default)"
+                onChange={(e) => handleChange(e,"Secretary") }
+                onFocus={(e) => handleChange(e,"Secretary") }
+
+            >
+              <MenuItem value={"1"}>1</MenuItem>
+              <MenuItem value={"2"}>2</MenuItem>
+              <MenuItem value={"3"}>3</MenuItem>
+              <MenuItem value={"4"}>4</MenuItem>
+              <MenuItem value={"5"}>5</MenuItem>
+              <MenuItem value={"6"}>6</MenuItem>
+            </SelectInput>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <TextBoxHeader>Handover Date & Time</TextBoxHeader>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                  renderInput={(params:any) => <TextBox {...params} />}
+                  value={new Date()}
+                  onChange={(newValue:any) => {
+                    console.log((newValue != null ? newValue.toString() : new Date())
+                    );
+                  }}
+                  className="dateTimePicker"
+              />
+            </LocalizationProvider>
+          </Grid>
+          
         <Divider
           orientation="horizontal"
           variant="middle"
@@ -564,9 +697,9 @@ const AdministrationTab1 = (props: any) => {
             <span style={{color: "red"}}>{errors["Remark"]}</span>
           </Grid>
          
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid item xs={6} md={3}>
+        <Grid item xs={6} md={3}>
             <TextBoxHeader>Content</TextBoxHeader>
             <TextBox
               id="outlined-basic"
@@ -581,7 +714,7 @@ const AdministrationTab1 = (props: any) => {
      
         <Grid container spacing={2}>
           
-        <Grid item xs={6} md={3}>
+        {/* <Grid item xs={6} md={3}>
             <TextBoxHeader>Secretary</TextBoxHeader>
             <SelectInput
                 labelId="demo-simple-select-label"
@@ -638,6 +771,7 @@ const AdministrationTab1 = (props: any) => {
                       View Service Ticket Details
                       
         </Button>
+        
         </Grid> */}
 
 
@@ -645,4 +779,4 @@ const AdministrationTab1 = (props: any) => {
   );
 };
 
-export default AdministrationTab1;
+export default CreateToolRequestTab1;

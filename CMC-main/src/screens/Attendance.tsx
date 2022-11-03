@@ -11,9 +11,11 @@ import { styled } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Header from "./../components/Header";
+import ServiceCallTab1 from "./TabScreens/ServiceCall/ServiceCallTab1";
+import ServiceCallTab2 from "./TabScreens/ServiceCall/ServiceCallTab2";
 import "./../Styles/Styles.css";
-import Administrationtab1 from "./TabScreens/Adminstration/Administrationtab1"
-import AdministrationMaster from "./TabScreens/Adminstration/AdministrationMaster";
+import Attendancetab1 from "./TabScreens/Attendance/Attendancetab1";
+
 
 const TabPanel = (props: any) => {
     const { children, value, index, ...other } = props;
@@ -31,7 +33,7 @@ const TabPanel = (props: any) => {
     );
 };
 
-const Administration = (props: any) => {
+const Attendance = (props: any) => {
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
 
@@ -50,11 +52,11 @@ const Administration = (props: any) => {
                 >
                     <TabPanel value={props.value} index={0}>
                         <Header />
-                        <Administrationtab1 />
+                        <Attendancetab1 />
                     </TabPanel>
                     <TabPanel value={props.value} index={1}>
                         <Header />
-                        <AdministrationMaster />
+                        <Attendancetab1 />
                     </TabPanel>
                 </SwipeableViews>
             </Box>
@@ -62,4 +64,4 @@ const Administration = (props: any) => {
     );
 };
 
-export default Administration;
+export default Attendance;

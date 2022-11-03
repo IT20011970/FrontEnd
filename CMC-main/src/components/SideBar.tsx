@@ -467,6 +467,27 @@ const SideBar = () => {
                   </AppBar>
                 </Box>
               </Route>
+              <Route exact path="/Administration">
+                <Box className="TabBox">
+                  <AppBar position="static">
+                    <Tabs
+                        TabIndicatorProps={{
+                          style: {
+                            backgroundColor: "#0091D5",
+                            height: "6px",
+                          },
+                        }}
+                        value={value}
+                        onChange={handleChange}
+                        textColor="inherit"
+                        variant="fullWidth"
+                    >
+                      <Tab label="Manage User Roles" {...a11yProps(0)} />
+                      <Tab label="Masters" {...a11yProps(1)} />
+                    </Tabs>
+                  </AppBar>
+                </Box>
+              </Route>
             </Switch>
           </AppBar>
           {renderMobileMenu}

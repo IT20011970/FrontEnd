@@ -202,7 +202,7 @@ const CreateSparePartsModal = (props: any) => {
     }
   };
   const handleSecondTabChange = (event: any, newValue: string) => {
-    setSecondTabValue(newValue);
+    //setSecondT(abValue(newValue);
     setTabName(getTab(newValue));
   };
   console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)

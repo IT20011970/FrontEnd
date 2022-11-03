@@ -23,14 +23,10 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Header from "../../../components/Header";
 import "../../../Styles/Modal.css";
-
+import CreateToolRequestTab1 from"./CreateToolRequestTab1";
+import CreateToolRequestTab2 from "./CreateToolRequestTab2";
 import { useEffect, useState } from "react";
 import { Alert, DialogContentText } from "@mui/material";
-import AdmistrationTab1 from "../../TabScreens/Adminstration/Administrationtab1"
-import AdministrationTab2 from "./AdministrationTab2"
-import AdministrationTab1 from "./AdministrationTab1"
-import AdministrationTab3 from "./AdministrationTab3";
-import AdministrationTab4 from "./AdministrationTab4";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -79,7 +75,7 @@ const TabName = styled("text")(({ theme }) => ({
   color: "#0091d5",
 }));
 
-const AdministrationModel = (props: any) => {
+const CreateToolRequestModal = (props: any) => {
    console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
@@ -237,7 +233,7 @@ const AdministrationModel = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Manage User Roles
+            Create Tool Request
            
           </ModalTittle>
           <IconButton
@@ -267,7 +263,7 @@ const AdministrationModel = (props: any) => {
               />
             </svg>
           </IconButton>
-          {mainTabValue == "1" && (
+          {mainTabValue == "2" && (
             <TabContext value={secondTabValue}>
               <Box
                 sx={{
@@ -282,8 +278,7 @@ const AdministrationModel = (props: any) => {
                   aria-label="lab API tabs example"
                   sx={{ marginLeft: "-40px" }}
                 >
-                  <Tab label="User Role" value="1" />
-                  <Tab label="Manage User" value="2" />
+                  <Tab label="" value="1" />
                   
                 </TabList>
 
@@ -292,31 +287,73 @@ const AdministrationModel = (props: any) => {
             </TabContext>
           )}
         </DialogTitle>
-        {secondTabValue == "1" } 
+        {mainTabValue == "1" && <Divider />}
         <DialogContent>
-          <TabContext value={secondTabValue}>
+          <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <AdministrationTab3   />
-            </TabPanel> 
-            <TabPanel value="3" sx={{ p: 0 }}>
-              <Header />
-              
+              <CreateToolRequestTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <AdministrationTab4   />
-              {/* <AdministrationTab3 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} /> */}
+              <CreateToolRequestTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>
-        
+        <Divider />
 
         <DialogActions>
           <Box sx={{ flexGrow: 1, p: 1 }}>
             <Grid container spacing={10}>
               {mainTabValue == "1" && <Grid item xs={8} md={10}></Grid>}
               {mainTabValue == "2" && <Grid item xs={6} md={9}></Grid>}
+              <Grid item xs={2} md={1}>
+                <ModalButton
+                    variant="contained"
+                    className="cancelButton"
+                    onClick={handleClose}
+                >
+                  Cancel
+                </ModalButton>
+              </Grid>
+              {mainTabValue == "1" && (
+                  <Grid item xs={2} md={1}>
+                    <ModalButton
+                        variant="contained"
+                        className="ModalCommonButton"
+                        onClick={() => handleChange("2")}
+                    >
+                      Next
+                    </ModalButton>
+                  </Grid>
+              )}
+
+              {mainTabValue == "2" && (
+                  <>
+                    <Grid item xs={2} md={1}>
+                      <ModalButton
+                          variant="contained"
+                          className="cancelButton"
+                          onClick={() => handleChange("1")}
+                      >
+                        Back
+                      </ModalButton>
+                    </Grid>
+                    <Grid item xs={2} md={1}>
+
+                      <ModalButton
+                          variant="contained"
+                          className="ModalCommonButton"
+                          onClick={post}
+                      >
+                        Create
+                    
+                      </ModalButton>
+                      
+                         
+                    </Grid>
+                  </>
+              )}
             </Grid>
           </Box>
         </DialogActions>
@@ -325,4 +362,4 @@ const AdministrationModel = (props: any) => {
   );
 };
 
-export default AdministrationModel;
+export default CreateToolRequestModal;
