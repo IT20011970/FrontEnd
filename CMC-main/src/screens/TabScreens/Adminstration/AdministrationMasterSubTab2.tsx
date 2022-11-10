@@ -6,6 +6,11 @@ import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import { Alert, DialogContentText } from "@mui/material";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,7 +20,9 @@ import TableHead from "@mui/material/TableHead";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import Pagination from "@mui/material/Pagination";
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
+    DropdownProblemTypes,
     TablePaginationActionsProps,
     UserRoleTypes,
 } from "./../../../Types/Types";
@@ -23,7 +30,8 @@ import "./../../../Styles/Tabs.css";
 import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal"
 import AdministrationModel from "../../Modals/Administration/AdministrationModel"
 import { useState } from "preact/hooks";
-import ViewUserRoleSpecific from "../../Modals/Administration/ViewUserRoleSpecific";
+import { red } from "@material-ui/core/colors";
+// import ViewOriginsSpecific from "../../Modals/Administration/ViewSpecific/ViewOriginsSpecific";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -201,7 +209,7 @@ const AdministrationMasterSubTab2 = () => {
     const [openView, setOpenView] = React.useState(false);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+    const [openmsg, setOpenmsg] = React.useState(false);
     const [rows, setRows] = React.useState([]);
 
 React.useEffect(() => {
@@ -216,7 +224,7 @@ const getData = async() => {
         headers: {'Content-Type': 'application/json'}
     };
 
-    fetch('http://localhost:3000/origin-type-controller/get',requestOptions)
+    fetch('http://localhost:3000/problem-type-controller/get',requestOptions)
         .then(response=>{ return response.json()})
         .then(data=>{
            console.log(data)
@@ -225,12 +233,35 @@ const getData = async() => {
 
 }
 
+const deleteData = async(id: any) => {
+
+    const requestOptions = {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'}
+    };
+
+    console.log(id);
+    
+
+    await fetch(`http://localhost:3000/problem-type-controller/delete/${id}`,requestOptions)
+        .then(response=>{ return response.json()})
+        .then(data=>{
+            getData();
+        });
+        setOpenmsg(true)
+
+}
+
+const handleClosemsg = () => {
+    setOpenmsg(false);
+  }; 
     
     
     function setOpenModalfunction(){
         setOpenModal(true)
     }
     function setOpenViewfunction(){
+       
         setOpenView(true)
     }
     const emptyRows =
@@ -264,9 +295,9 @@ const getData = async() => {
                     <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
                         <TableHead>
                             <TableRow >
-                                <StyledTableCell sx={{ align: "center" }}>Problem Type</StyledTableCell>
+                                <StyledTableCell sx={{ align: 'center' }}>Problem Type</StyledTableCell>
                                 <StyledTableCell sx={{ textAlign: "center" }}>Problem Type Description</StyledTableCell>
-                                <StyledTableCell sx={{ textAlign: "center" }}>Actions</StyledTableCell>
+                                <StyledTableCell sx={{ align: 'center' }}>Actions</StyledTableCell>
                                 
                             </TableRow>
                         </TableHead>
@@ -277,8 +308,8 @@ const getData = async() => {
                                         page * rowsPerPage + rowsPerPage
                                     )
                                     : rows
-                            ).map((row: UserRoleTypes, i: number) => (
-                                <StyledTableRow key={row.Id}>
+                            ).map((row: DropdownProblemTypes, i: number) => (
+                                <StyledTableRow key={row.ProblemTypeCode}>
                                     {/* <StyledTableCell
                                         sx={{
                                             borderLeft: "none",
@@ -288,12 +319,32 @@ const getData = async() => {
                                         {row.Id }
                                     </StyledTableCell> */}
                                     <StyledTableCell>
-                                        {row.Description }
+                                        {row.ProblemTypeName }
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {row.RoleDescription }
+                                        {row.ProblemTypeValue }
                                     </StyledTableCell>
-                                    
+                                    <Stack
+                                        direction="row"
+                                        justifyContent="center"
+                                        alignItems="flex-start"
+                                        spacing={0}
+                                    >
+                                    <ControlButton disableRipple>
+                                        <svg
+                                            width="16"
+                                            height="17"
+                                            viewBox="0 0 16 17"
+                                            className="controlButton"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                        <path d="M15.36 14.98H0.64C0.286 14.98 0 15.266 0 15.62V16.34C0 16.428 0.072 16.5 0.16 16.5H15.84C15.928 16.5 16 16.428 16 16.34V15.62C16 15.266 15.714 14.98 15.36 14.98ZM2.914 13.3C2.954 13.3 2.994 13.296 3.034 13.29L6.398 12.7C6.438 12.692 6.476 12.674 6.504 12.644L14.982 4.166C15.0005 4.1475 15.0153 4.12552 15.0253 4.10133C15.0353 4.07713 15.0405 4.05119 15.0405 4.025C15.0405 3.99881 15.0353 3.97287 15.0253 3.94867C15.0153 3.92448 15.0005 3.9025 14.982 3.884L11.658 0.558C11.62 0.52 11.57 0.5 11.516 0.5C11.462 0.5 11.412 0.52 11.374 0.558L2.896 9.036C2.866 9.066 2.848 9.102 2.84 9.142L2.25 12.506C2.23054 12.6131 2.2375 12.7234 2.27025 12.8273C2.30301 12.9311 2.36059 13.0254 2.438 13.102C2.57 13.23 2.736 13.3 2.914 13.3Z" />
+                                        </svg>
+                                    </ControlButton>
+                                    <ControlButton disableRipple onClick={() => deleteData(row.ProblemTypeCode)}>
+                                        <DeleteIcon sx={{ color: red[500] }}/>
+                                    </ControlButton>
+                                    </Stack>
                                     
                                 </StyledTableRow>
                             ))}
@@ -332,7 +383,28 @@ const getData = async() => {
                     />
                 </Stack>
             </Container>
-            <AdministrationModel open={openModal} setOpen={setOpenModal} />
+            {/*msg*/}
+            <Dialog
+                    open={openmsg}
+                    onClose={handleClosemsg}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                <DialogTitle id="alert-dialog-title">
+                    {"Success !"}
+                    <hr/>
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                    Problem Type Deleted Successfully !
+                    </DialogContentText>
+                </DialogContent>
+                <hr/>
+                <DialogActions>
+                    <Button onClick={handleClosemsg}>Ok</Button>
+                </DialogActions>
+                </Dialog>
+            {/* <ViewOriginsSpecific open={openView} setOpen={setOpenView} /> */}
             
         </>
     );

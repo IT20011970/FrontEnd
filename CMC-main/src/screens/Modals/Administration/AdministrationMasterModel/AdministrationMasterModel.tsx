@@ -77,7 +77,7 @@ const TabName = styled("text")(({ theme }) => ({
 }));
 
 const AdministrationMasterModel = (props: any) => {
-   console.log(props.arry)
+  //  console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -119,6 +119,7 @@ const AdministrationMasterModel = (props: any) => {
   const [ActualStartDate, setActualStartDate] = React.useState("")
   const [ActualEndDate, setActualEndDate] = React.useState("")
 
+  const [openmsg, setOpenmsg] = React.useState(false);
 
   var [Next, setNext] = React.useState("")
   const [allError,setError]=React.useState(true)
@@ -134,7 +135,10 @@ const AdministrationMasterModel = (props: any) => {
     setNext("true")
   };
   
-    
+  const handleClosemsg = () => {
+    setOpenmsg(false);
+  };  
+
   // const handleClickToOpen = () => {
   //   setOpen(true);
   // };
@@ -188,6 +192,7 @@ const AdministrationMasterModel = (props: any) => {
     };
     fetch('http://localhost:3000/spare-parts/create',requestOptions)
     alert("Spare parts request successfully created")
+    setOpenmsg(true)
     
   }
   const sendDataToParent = (index: any) => {
@@ -206,21 +211,21 @@ const AdministrationMasterModel = (props: any) => {
     setSecondTabValue(newValue);
     setTabName(getTab(newValue));
   };
-  console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
-  console.log(Subject, Origin,
-  ProblemType,
-  InquiryType,
-  CreatedBy,
-  HandledBy,
-  Queue,
-  Secretary,
-  SalesAssistant,
-      CreatedOn,
-  EstimatedDuration,
-  PlanedEndDate,
-  PlanedStartDate,
-  ActualStartDate,
-  ActualEndDate)
+  // console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
+  // console.log(Subject, Origin,
+  // ProblemType,
+  // InquiryType,
+  // CreatedBy,
+  // HandledBy,
+  // Queue,
+  // Secretary,
+  // SalesAssistant,
+  //     CreatedOn,
+  // EstimatedDuration,
+  // PlanedEndDate,
+  // PlanedStartDate,
+  // ActualStartDate,
+  // ActualEndDate)
   return (
     <>
       <Modal
@@ -310,6 +315,27 @@ const AdministrationMasterModel = (props: any) => {
           </TabContext>
         </DialogContent>
         
+        {/*msg*/}
+        <Dialog
+            open={openmsg}
+            onClose={handleClosemsg}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Success !"}
+            <hr/>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Service call is Successfully Created !
+            </DialogContentText>
+          </DialogContent>
+          <hr/>
+          <DialogActions>
+            <Button onClick={handleClosemsg}>Ok</Button>
+          </DialogActions>
+        </Dialog>
 
         <DialogActions>
           <Box sx={{ flexGrow: 1, p: 1 }}>

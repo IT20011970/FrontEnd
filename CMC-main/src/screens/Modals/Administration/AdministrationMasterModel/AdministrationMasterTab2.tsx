@@ -3,6 +3,10 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import { Alert, DialogContentText } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -153,6 +157,7 @@ const AdministrationMasterTab2 = (props: any) => {
   const [errors,seterrors]=useState<any>({})
   const [mainTabValue, setMainTabValue] = React.useState("1");
   //const [Description, setDescription] = React.useState("");
+  const [openmsg, setOpenmsg] = React.useState(false);
   
   // const handleChange = (event: any) => {
   //   setAge(event.target.value);
@@ -162,6 +167,10 @@ const AdministrationMasterTab2 = (props: any) => {
     setMainTabValue(newValue);
     
   };
+
+  const handleClosemsg = () => {
+    setOpenmsg(false);
+  };  
 
   // const handleChangeItemCode = (event: any) => {
   //   props.setItemCode(event.target.value)
@@ -256,17 +265,17 @@ const AdministrationMasterTab2 = (props: any) => {
   }
 
 
-  const [Description, setDescription] = React.useState("");
-  const [RoleDescription, setRoleDescription] = React.useState("");
+  const [ProblemTypeName, setProblemTypeName] = React.useState("");
+  const [ProblemTypeValue, setProblemTypeValue] = React.useState("");
 
   
-  const onChangeRole = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDescription(e.target.value);
+  const onChangeProblem = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProblemTypeName(e.target.value);
     console.log(e.target.value);
   }
 
-  const onChangeDesc = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRoleDescription(e.target.value );
+  const onChangeProblemDesc = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProblemTypeValue(e.target.value );
     console.log(e.target.value);
     
   }
@@ -281,17 +290,15 @@ const AdministrationMasterTab2 = (props: any) => {
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         //UserRoleId: ,
-            Description: Description ,
-            RoleDescription: RoleDescription,
-            Status: "1"
-           
+            ProblemTypeName: ProblemTypeName ,
+            ProblemTypeValue: ProblemTypeValue
         
       })
     };
     console.log(JSON.parse(requestOptions.body));
     
-    fetch('http://localhost:3000/user-role-controller/post',requestOptions)
-    alert("User Role Type Added Successfully.")
+    fetch('http://localhost:3000/problem-type-controller/post',requestOptions)
+    setOpenmsg(true)
     
   }
 
@@ -321,7 +328,7 @@ const AdministrationMasterTab2 = (props: any) => {
               name="User Role"
               sx={{ width: "99%" }}
               //onChange={(e) => handleChange(e,"User Role") }
-              onChange={onChangeRole}
+              onChange={onChangeProblem}
               
             />
             </Grid>
@@ -340,7 +347,7 @@ const AdministrationMasterTab2 = (props: any) => {
               placeholder="Text (default)"
               name=""
               sx={{ width: "99%" }}
-              onChange={onChangeDesc}
+              onChange={onChangeProblemDesc}
             />
             </Grid></Grid>
 
@@ -353,7 +360,7 @@ const AdministrationMasterTab2 = (props: any) => {
                     className="ModalCommonButton"
                      sx={{ width: "70%" }}
                      type='submit'
-                     //onClick={post}
+                     onClick={post}
                     >
                       Submit
                       
@@ -372,12 +379,27 @@ const AdministrationMasterTab2 = (props: any) => {
                 
 
       </Box>
-
-                  
-      
-        
-
-
+          {/*msg*/}
+        <Dialog
+            open={openmsg}
+            onClose={handleClosemsg}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Success !"}
+            <hr/>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Problem Type Added Successfully !
+            </DialogContentText>
+          </DialogContent>
+          <hr/>
+          <DialogActions>
+            <Button onClick={handleClosemsg}>Ok</Button>
+          </DialogActions>
+        </Dialog>
     </>
   );
 };

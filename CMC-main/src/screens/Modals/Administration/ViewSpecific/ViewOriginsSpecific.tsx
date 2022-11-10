@@ -3,10 +3,6 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import { Alert, DialogContentText } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -18,7 +14,7 @@ import "../../../../Styles/Modal.css";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DateTimePicker from "@mui/lab/DateTimePicker";
-// import AdmistrationTab3 from "../Administration/AdministrationTab3"
+//import AdmistrationTab3 from "../Administration/AdministrationTab3"
 import {useState} from "react"
 // import AdministrationTab3 from "../Administration/AdministrationTab3";
 // import AdministrationModel from "./AdministrationModel";
@@ -135,7 +131,7 @@ const ModalTittle = styled("text")(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const AdministrationMasterTab1 = (props: any) => {
+const ViewOriginsSpecific = (props: any) => {
 
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
@@ -157,7 +153,6 @@ const AdministrationMasterTab1 = (props: any) => {
   const [errors,seterrors]=useState<any>({})
   const [mainTabValue, setMainTabValue] = React.useState("1");
   //const [Description, setDescription] = React.useState("");
-  const [openmsg, setOpenmsg] = React.useState(false);
   
   // const handleChange = (event: any) => {
   //   setAge(event.target.value);
@@ -167,10 +162,6 @@ const AdministrationMasterTab1 = (props: any) => {
     setMainTabValue(newValue);
     
   };
-
-  const handleClosemsg = () => {
-    setOpenmsg(false);
-  };  
 
   // const handleChangeItemCode = (event: any) => {
   //   props.setItemCode(event.target.value)
@@ -265,17 +256,17 @@ const AdministrationMasterTab1 = (props: any) => {
   }
 
 
-  const [OriginName, setOriginName] = React.useState("");
-  const [OriginValue, setOriginValue] = React.useState("");
+  const [Description, setDescription] = React.useState("");
+  const [RoleDescription, setRoleDescription] = React.useState("");
 
   
-  const onChangeOrigin = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOriginName(e.target.value);
+  const onChangeRole = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(e.target.value);
     console.log(e.target.value);
   }
 
-  const onChangeOriginValue= (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOriginValue(e.target.value );
+  const onChangeDesc = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRoleDescription(e.target.value );
     console.log(e.target.value);
     
   }
@@ -290,16 +281,17 @@ const AdministrationMasterTab1 = (props: any) => {
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         //UserRoleId: ,
-            OriginName: OriginName ,
-            OriginValue: OriginValue,
+            Description: Description ,
+            RoleDescription: RoleDescription,
+            Status: "1"
            
         
       })
     };
     console.log(JSON.parse(requestOptions.body));
     
-    fetch('http://localhost:3000/origin-type-controller/post',requestOptions)
-    setOpenmsg(true)
+    fetch('http://localhost:3000/user-role-controller/post',requestOptions)
+    alert("User Role Type Added Successfully.")
     
   }
 
@@ -312,13 +304,13 @@ const AdministrationMasterTab1 = (props: any) => {
       <Box sx={{ flexGrow: 1 }}>
         
         {/* {mainTabValue == "2" && (
-              <AdministrationTab3 />
+               <AdministrationTab3 />
               )} */}
 
 {mainTabValue == "1" && (
         <Grid container spacing={2} >
           <Grid item xs={4} md={2} >
-            <TextBoxHeader>Origin Type</TextBoxHeader>
+            <TextBoxHeader>User Role</TextBoxHeader>
           </Grid>
           <Grid item xs={8} md={6} mb={2}>
             <TextBox
@@ -329,7 +321,7 @@ const AdministrationMasterTab1 = (props: any) => {
               name="User Role"
               sx={{ width: "99%" }}
               //onChange={(e) => handleChange(e,"User Role") }
-              onChange={onChangeOrigin}
+              onChange={onChangeRole}
               
             />
             </Grid>
@@ -338,7 +330,7 @@ const AdministrationMasterTab1 = (props: any) => {
             <br></br>
           <Grid container spacing={1} ml={1} mb={2}>
             <Grid item xs={4} md={2} >
-            <TextBoxHeader>Description</TextBoxHeader>
+            <TextBoxHeader>Role Description</TextBoxHeader>
           </Grid>
           <Grid item xs={8} md={6} mb={2}>
             <TextBox
@@ -348,26 +340,13 @@ const AdministrationMasterTab1 = (props: any) => {
               placeholder="Text (default)"
               name=""
               sx={{ width: "99%" }}
-              onChange={onChangeOriginValue}
+              onChange={onChangeDesc}
             />
             </Grid></Grid>
 
             <br></br>
             
-            <Grid container spacing={1} ml={1} md={8.7}>         
-          <Grid item xs={4} md={4} ml={61}>
-      <Button
-                    variant="contained"
-                    className="ModalCommonButton"
-                     sx={{ width: "70%" }}
-                     type='submit'
-                     onClick={post}
-                    >
-                      Submit
-                      
-        </Button>
-        </Grid>
-        </Grid>
+            
         
 
             <span style={{color: "red"}}>{errors["TicketID"]}</span>
@@ -380,31 +359,15 @@ const AdministrationMasterTab1 = (props: any) => {
                 
 
       </Box>
-      {/*msg*/}
-      <Dialog
-            open={openmsg}
-            onClose={handleClosemsg}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Success !"}
-            <hr/>
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Origin Type Created Successfully !
-            </DialogContentText>
-          </DialogContent>
-          <hr/>
-          <DialogActions>
-            <Button onClick={handleClosemsg}>Ok</Button>
-          </DialogActions>
-        </Dialog>
+
+                  
+      
+        
+
 
     </>
   );
 };
 
 
-export default AdministrationMasterTab1;
+export default ViewOriginsSpecific;

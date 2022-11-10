@@ -3,6 +3,10 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import { DialogContentText } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -207,6 +211,11 @@ const AdministrationTab3 = (props: any) => {
   const [roleId, setRoleId] = React.useState(0);
   const [desc, setDesc] = React.useState('');
   const [selectsStatus, setSelectedStatus] = React.useState('');
+  const [openmsg, setOpenmsg] = React.useState(false);
+
+  const handleClosemsg = () => {
+    setOpenmsg(false);
+  }; 
 
   function handleChange(e:any,f:any) {
 
@@ -244,8 +253,7 @@ const AdministrationTab3 = (props: any) => {
         .then(data=>{
           console.log(data);
         });
-        alert("User Role Type Changed Successfully.");
-
+        setOpenmsg(true)
 
   }
 
@@ -330,7 +338,27 @@ const AdministrationTab3 = (props: any) => {
         
         </Grid>
         
-
+        {/*msg*/}
+        <Dialog
+            open={openmsg}
+            onClose={handleClosemsg}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Success !"}
+            <hr/>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              User Role Type Changed Successfully !
+            </DialogContentText>
+          </DialogContent>
+          <hr/>
+          <DialogActions>
+            <Button onClick={handleClosemsg}>Ok</Button>
+          </DialogActions>
+        </Dialog>
 
     </>
   );
