@@ -136,7 +136,7 @@ const SolutionsTab = (props: any) => {
 
   React.useEffect(() => {
     getData()
-  });
+  },[]);
   
   function getData (){
     if(Service !==undefined){

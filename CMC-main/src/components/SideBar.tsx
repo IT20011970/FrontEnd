@@ -375,7 +375,7 @@ const SideBar = () => {
                         textColor="inherit"
                         variant="fullWidth"
                     >
-                      <Tab label="Service Call" {...a11yProps(0)} />
+                      <Tab label="Service Call123" {...a11yProps(0)} />
                       <Tab label="Service call Documents" {...a11yProps(1)} />
                     </Tabs>
                   </AppBar>

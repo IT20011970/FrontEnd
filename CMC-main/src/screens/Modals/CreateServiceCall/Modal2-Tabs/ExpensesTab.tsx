@@ -11,12 +11,14 @@ import TablePagination from "@mui/material/TablePagination";
 import TableHead from "@mui/material/TableHead";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-import { CreateServiceCallTicketData } from "../../../../Types/Types";
+import {CreateServiceCallTicketData, ExpencesType} from "../../../../Types/Types";
 import "../../../../Styles/Modal.css";
 import "../../../../Styles/ServiceCall.css";
 
 import CreateNewTicketModal from "../CreateTicket";
 import Expences from "../CreateServiceCallExpences";
+import {useContext} from "react";
+import {ServiceContext} from "../../../../api/api";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "85px",
@@ -106,13 +108,14 @@ for (var i = 0; i < 5; i++) {
 }
 
 const ExpencesTab = (props: any) => {
+  console.log(props)
   //Modal
   const [openModal, setOpenModal] = React.useState(false);
 
   const [ticketList, setTicketList] = React.useState([...rows]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const Service =useContext(ServiceContext)
   const emptyRows =
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -129,6 +132,19 @@ const ExpencesTab = (props: any) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  React.useEffect(() => {
+    getData()
+  });
+
+  function getData (){
+    if(Service !==undefined){
+      Service.getExpences().then((result)=>{
+          setTicketList(result)
+         console.log(result)
+      })
+    }
+  }
 
   const addNewTicket = () => {
     setTicketList([
@@ -157,7 +173,7 @@ const ExpencesTab = (props: any) => {
                       borderLeft: "none",
                     }}
                 >
-                  Ticket ID
+                   ID
                 </StyledTableCell>
                 <StyledTableCell
                     sx={{
@@ -171,14 +187,14 @@ const ExpencesTab = (props: any) => {
                       borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                     }}
                 >
-                  Actual Start Date
+                    Created Date
                 </StyledTableCell>
                 <StyledTableCell
                     sx={{
                       borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                     }}
                 >
-                  Actual End Date
+                    End Date
                 </StyledTableCell>
                 <StyledTableCell
                     sx={{
@@ -196,42 +212,42 @@ const ExpencesTab = (props: any) => {
                           page * rowsPerPage + rowsPerPage
                       )
                       : rows
-              ).map((row: CreateServiceCallTicketData, i: number) => (
+              ).map((row: ExpencesType, i: number) => (
                   <StyledTableRow key={Math.random()}>
                     <StyledTableCell
                         sx={{
                           borderLeft: "none",
                         }}
                     >
-                      {row.date.toString().substring(0, 24)}
+                      {row.Id}
                     </StyledTableCell>
                     <StyledTableCell
                         sx={{
                           borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                         }}
                     >
-                      {row.time}
+                      {row.CreatedBy}
                     </StyledTableCell>
                     <StyledTableCell
                         sx={{
                           borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                         }}
                     >
-                      {row.engineer}
+                      {row.CreatedDate}
                     </StyledTableCell>
                     <StyledTableCell
                         sx={{
                           borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                         }}
                     >
-                      {row.priority}
+                      {row.DateExpire}
                     </StyledTableCell>
                     <StyledTableCell
                         sx={{
                           borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                         }}
                     >
-                      {row.plannedStart.toString().substring(0, 24)}
+                      {row.Remark}
                     </StyledTableCell>
                   </StyledTableRow>
               ))}

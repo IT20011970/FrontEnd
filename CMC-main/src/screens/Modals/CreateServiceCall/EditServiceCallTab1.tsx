@@ -166,6 +166,7 @@ const EditServiceCallTab1 = (props: any) => {
   //   getData()
   // });
 
+
   function getData (){
     if(Service !==undefined){
       Service.getCustomerList().then((result)=>{
@@ -183,7 +184,7 @@ const EditServiceCallTab1 = (props: any) => {
   useEffect (()=>{
    // arr.push("sss")
     //setArray("sss")
-    console.log(props.dataUpdate.ServiceCallId)
+    console.log("ssss"+props.dataUpdate.ItemCode)
     fields["ServiceCallId"]= props.dataUpdate.ServiceCallId
     fields["ItemCode"] = props.dataUpdate.itemEntity.ItemCode
     fields["MrfSerialNumber"] = props.dataUpdate.itemEntity.MrfSerialNumber
@@ -391,7 +392,7 @@ const EditServiceCallTab1 = (props: any) => {
      else{
        errors["MRF"] = ""
        setfields( fields )
-        props.setfields({fields})
+        // props.setfields({fields})
        seterrors(errors)
      }
    }

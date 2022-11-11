@@ -128,7 +128,7 @@ for (var i = 0; i < 5; i++) {
 }
 
 const ScheduluingTab = (props: any) => {
-  // console.log(props.props.serviceCallData.fields.ServiceCallId)
+  console.log(props)
   const [age, setAge] = React.useState("");
   const [date, setDate] = React.useState(new Date());
   const [fields, setfields] = useState<any>({})
@@ -158,7 +158,7 @@ const ScheduluingTab = (props: any) => {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker
               renderInput={(params:any) => <TextBox {...params} />}
-              value={date}
+              value={fields["PlanedStart"]}
               onChange={(newValue) => {
                 handleChangeField((newValue != null ? newValue.toString() : new Date()),"PlanedStart");
               }}
@@ -179,7 +179,7 @@ const ScheduluingTab = (props: any) => {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
-                value={date}
+                value={fields["PlanedEnd"]}
                 onChange={(newValue) => {
                   handleChangeField((newValue != null ? newValue.toString() : new Date()),"PlanedEnd");
                 }}
@@ -230,6 +230,7 @@ const ScheduluingTab = (props: any) => {
           <TextBox
               id="outlined-basic"
               variant="outlined"
+              value={props.props.serviceCallData.fields.ServiceCallId}
               placeholder="Text (default)"
           />
         </Grid>
