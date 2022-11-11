@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from "@mui/material/Box";
 import "./Styles/Home.css";
 import Grid from "@mui/material/Grid";
-import Graphic2 from "./images/img1.svg";
+import Graphic2 from "./images/img.jpg";
 import LoginHeader from "./components/LoginHeader";
 import LoginForm from "./components/LoginForm";
 import Graphic1 from "./images/img2.svg";

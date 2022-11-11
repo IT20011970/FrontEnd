@@ -171,6 +171,16 @@ export type Item={
   SerialNumber: string
 }
 
+export type ExpencesType={
+  Id: string,
+  CreatedDate: Date,
+  DateExpire: string,
+  ExpenseType: string,
+  CreatedBy: string,
+  Amount: string,
+  Remark: string
+}
+
 export type Ticket = {
   TicketId: string,
   TicketType: string,

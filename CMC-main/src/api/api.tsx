@@ -1,6 +1,6 @@
 import {createContext, FC} from "react"
 import * as React from "react"
-import {CustomerList, Item, ServiceCallData2, Solutions} from "../Types/Types"
+import {CustomerList, ExpencesType, Item, ServiceCallData2, Solutions} from "../Types/Types"
 import {now} from "moment"
 
 export  interface IService{
@@ -11,6 +11,8 @@ export  interface IService{
     addSolutions(Data:any):Promise<Solutions[]>
     addSchedule(Data:any):Promise<any[]>
     getServiceCallDocuments():Promise<ServiceCallData2[]>
+    getExpences():Promise<ExpencesType[]>
+    passValue(Data:any):Promise<any[]>
 }
 
 export const ServiceContext =createContext<IService|undefined>(undefined)
@@ -75,6 +77,18 @@ const Service:FC =({children}:any)=>{
                 })
             return data
         },
+
+        async getExpences(): Promise<ExpencesType[]> {
+            const requestOptions = {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            };
+            const data = fetch('http://localhost:3000/service-calls/getExpences', requestOptions)
+                .then(response => {
+                    return response.json()
+                })
+            return data
+        },
         
         async addSolutions(Data:any): Promise<Solutions[]> {
             console.log(Data)
@@ -96,6 +110,11 @@ const Service:FC =({children}:any)=>{
                    })
             return data
             },
+        async passValue(Data:any): Promise<any[]> {
+            console.log(Data)
+           var Data1=Data;
+            return Data1
+        },
         async addSchedule(Data:any): Promise<any[]> {
             console.log(Data)
             const requestOptions = {
