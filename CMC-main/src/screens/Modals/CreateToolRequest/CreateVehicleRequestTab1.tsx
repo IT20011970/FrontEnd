@@ -151,7 +151,7 @@ const ModalTittle = styled("text")(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const CreateToolRequestTab1 = (props: any) => {
+const CreateVehicleRequestTab1 = (props: any) => {
   React.useEffect(() => {
  
   });
@@ -442,7 +442,7 @@ const CreateToolRequestTab1 = (props: any) => {
       <Box sx={{ flexGrow: 2 }}>
         <Grid container spacing={2}>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool ID</TextBoxHeader>
+            <TextBoxHeader>Vehicle ID</TextBoxHeader>
             <TextBox
               // name="stid"
               id="outlined-basic"
@@ -457,7 +457,7 @@ const CreateToolRequestTab1 = (props: any) => {
             <span style={{color: "red"}}>{errors["TicketID"]}</span>
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool Group</TextBoxHeader>
+            <TextBoxHeader>Vehicle Group</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -468,7 +468,7 @@ const CreateToolRequestTab1 = (props: any) => {
             />
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool Request ID</TextBoxHeader>
+            <TextBoxHeader>Vehicle Request ID</TextBoxHeader>
             <TextBox
                 id="outlined-basic"
                 variant="outlined"
@@ -483,7 +483,7 @@ const CreateToolRequestTab1 = (props: any) => {
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool Description</TextBoxHeader>
+            <TextBoxHeader>Vehicle Description</TextBoxHeader>
             <TextBox
               // name="stid"
               id="outlined-basic"
@@ -498,7 +498,7 @@ const CreateToolRequestTab1 = (props: any) => {
             <span style={{color: "red"}}>{errors["TicketID"]}</span>
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Serial No</TextBoxHeader>
+            <TextBoxHeader>Vehicle No</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -509,7 +509,7 @@ const CreateToolRequestTab1 = (props: any) => {
             />
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool Request Status</TextBoxHeader>
+            <TextBoxHeader>Vehicle Request Status</TextBoxHeader>
             <TextBox
                 id="outlined-basic"
                 variant="outlined"
@@ -524,7 +524,7 @@ const CreateToolRequestTab1 = (props: any) => {
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool Type</TextBoxHeader>
+            <TextBoxHeader>Vehicle Type</TextBoxHeader>
             <TextBox
               // name="stid"
               id="outlined-basic"
@@ -841,4 +841,4 @@ const CreateToolRequestTab1 = (props: any) => {
   );
 };
 
-export default CreateToolRequestTab1;
+export default CreateVehicleRequestTab1;

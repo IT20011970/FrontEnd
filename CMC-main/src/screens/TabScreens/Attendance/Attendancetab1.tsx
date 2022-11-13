@@ -365,8 +365,8 @@ const AttendanceTab1 = () => {
                                 <StyledTableCell align="right">Date</StyledTableCell>
                                 <StyledTableCell align="right">Start Time 1</StyledTableCell>
                                 <StyledTableCell align="right">End Time 1</StyledTableCell>
-                                <StyledTableCell align="right">Start Time 1</StyledTableCell>
-                                <StyledTableCell align="right">End Time 1</StyledTableCell>
+                                {/* <StyledTableCell align="right">Start Time 1</StyledTableCell>
+                                <StyledTableCell align="right">End Time 1</StyledTableCell> */}
                                 <StyledTableCell align="right">Total Hrs.</StyledTableCell>
                                 <StyledTableCell align="right">OT Hrs.</StyledTableCell>
                                 <StyledTableCell align="right"></StyledTableCell>
@@ -400,12 +400,12 @@ const AttendanceTab1 = () => {
                                     <StyledTableCell>
                                         {row.createdDate.toString().substring(0, 24)}
                                     </StyledTableCell>
-                                    <StyledTableCell>
+                                    {/* <StyledTableCell>
                                         {row.priority + Math.round(i * Math.random() * 100)}
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         {row.subject + Math.round(i * Math.random() * 100)}
-                                    </StyledTableCell>
+                                    </StyledTableCell> */}
                                     <StyledTableCell>
                                         {row.subject + Math.round(i * Math.random() * 100)}
                                     </StyledTableCell>

@@ -228,7 +228,7 @@ const ResourceAllocationTab1 = () => {
                     <Grid item xs={6}>
                         <Heading>Resource Allocation</Heading>
                     </Grid>
-                    <Grid item xs={3} sx={{ pr: 3 }}>
+                    {/* <Grid item xs={3} sx={{ pr: 3 }}>
                         <Search>
                             <SearchIconWrapper>
                                 <SearchIcon />
@@ -239,15 +239,15 @@ const ResourceAllocationTab1 = () => {
                                 inputProps={{ "aria-label": "search" }}
                             />
                         </Search>
-                    </Grid>
-                    <Grid item xs={3}>
+                    </Grid> */}
+                    {/* <Grid item xs={3}>
                         <RequestButton
                             variant="contained"
                             onClick={() => setOpenModal(true)}
                         >
                             Create Tool Request
                         </RequestButton>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Stack>
             <br/>
