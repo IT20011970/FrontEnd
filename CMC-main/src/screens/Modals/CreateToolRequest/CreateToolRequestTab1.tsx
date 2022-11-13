@@ -746,7 +746,7 @@ const CreateToolRequestTab1 = (props: any) => {
           sx={{ marginTop: "30px" }}
         />
         <Grid container spacing={2}>
-          <Grid item xs={6} md={3}>
+          {/* <Grid item xs={6} md={3}>
             <TextBoxHeader>Remark</TextBoxHeader>
             <TextBox
               id="outlined-basic"
@@ -757,12 +757,12 @@ const CreateToolRequestTab1 = (props: any) => {
               onFocus={(e) => handleChange(e,"Remark") }
             />
             <span style={{color: "red"}}>{errors["Remark"]}</span>
-          </Grid>
+          </Grid> */}
          
         </Grid>
 
         <Grid item xs={6} md={3}>
-            <TextBoxHeader>Content</TextBoxHeader>
+            {/* <TextBoxHeader>Content</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -770,7 +770,7 @@ const CreateToolRequestTab1 = (props: any) => {
               sx={{ width: "400%" }}
               onChange={(e) => handleChange(e,"Content") }
               onFocus={(e) => handleChange(e,"Content") }
-            />
+            /> */}
           <span style={{color: "red"}}>{errors["Content"]}</span>
           </Grid>
      

@@ -344,7 +344,7 @@ const CreateSparePartsTab1 = (props: any) => {
       <>
         <Box sx={{ flexGrow: 1 }}>
         <Grid item xs={6} md={3}>
-            <TextBoxHeader>Service Ticket ID</TextBoxHeader>
+            <TextBoxHeader>Service Ticket Type</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
