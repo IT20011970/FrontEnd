@@ -82,11 +82,11 @@ const TabName = styled("text")(({ theme }) => ({
 const EditServiceCallModal = (props: any) => {
  //   console.log(props.dataUpdate)
   const { open, setOpen } = props;
-  React.useEffect(() => {
-   props.setOpen(false)
-   // console.log(props.dataUpdate)
-   // setselectTabValue(false)
-  },[]);
+  // React.useEffect(() => {
+  //  props.setOpen(false)
+  //  // console.log(props.dataUpdate)
+  //  // setselectTabValue(false)
+  // },[]);
 
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {

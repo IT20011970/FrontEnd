@@ -289,7 +289,7 @@ const CreateServiceCallModal1 = (props: any) => {
             if (data.error) {
               console.log(data)
               fields["ItemCode"] = ""
-              fields["MrfSerialNumber"] = ""
+              fields["MRF"] = ""
               fields["SerialNumber"] = ""
               fields["ItemDescription"] = ""
               fields["ItemGroup"] = ""
@@ -299,7 +299,9 @@ const CreateServiceCallModal1 = (props: any) => {
             } else {
                console.log(data)
               fields["ItemCode"] = data.ItemCode
-              fields["MrfSerialNumber"] = data.MrfSerialNumber
+              if(fields["MRF"]==""||!fields["MRF"])
+              fields["MRF"] = data.MrfSerialNumber
+              if(fields["SerialNumber"]==""||!fields["SerialNumber"])
               fields["SerialNumber"] = data.SerialNumber
               fields["ItemDescription"] = data.ItemDescription
               fields["ItemGroup"] = data.ItemGroup
@@ -312,7 +314,7 @@ const CreateServiceCallModal1 = (props: any) => {
     }
     else {
       fields["ItemCode"] = ""
-      fields["MrfSerialNumber"] = ""
+      fields["MRF"] = ""
       fields["SerialNumber"] = ""
       fields["ItemDescription"] = ""
       fields["ItemGroup"] = ""
@@ -357,7 +359,9 @@ const CreateServiceCallModal1 = (props: any) => {
               else{
                  console.log(data)
                 fields["ItemCode"] = data.ItemCode
-                fields["MrfSerialNumber"] = data.MrfSerialNumber
+                if(fields["MRF"]==""||!fields["MRF"])
+                fields["MRF"] = data.MrfSerialNumber
+                if(fields["SerialNumber"]==""||!fields["SerialNumber"])
                 fields["SerialNumber"] = data.SerialNumber
                 fields["ItemDescription"] = data.ItemDescription
                 fields["ItemGroup"] = data.ItemGroup
@@ -503,7 +507,7 @@ const CreateServiceCallModal1 = (props: any) => {
        errors["TelephoneNo"] = "Please Enter Telephone No";
        seterrors(errors)
      }
-     else if (fields["TelephoneNo"].match(/^[0-9]{9}$/)) {
+     else if (fields["TelephoneNo"].match(/^[0-9]{10}$/)) {
        errors["TelephoneNo"] = "";
        seterrors(errors)
      }
@@ -785,7 +789,7 @@ const CreateServiceCallModal1 = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
-                value={fields["MrfSerialNumber"]}
+                value={fields["MRF"]}
                 sx={{ width: "99%" }}
                 onChange={(e) => handleChange(e,"MRF") }
                 onFocus={(e) => handleChange(e,"MRF") }
