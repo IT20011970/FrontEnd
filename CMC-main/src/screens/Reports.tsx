@@ -15,6 +15,7 @@ import ServiceCallTab1 from "./TabScreens/ServiceCall/ServiceCallTab1";
 import ServiceCallTab2 from "./TabScreens/ServiceCall/ServiceCallTab2";
 import "./../Styles/Styles.css";
 import ReportsTab1 from "./TabScreens/Reports/ReportsTab1";
+import ReportsTab2 from "./TabScreens/Reports/ReportsTab2"
 
 const TabPanel = (props: any) => {
     const { children, value, index, ...other } = props;
@@ -55,7 +56,7 @@ const Reports = (props: any) => {
                     </TabPanel>
                     <TabPanel value={props.value} index={1}>
                         <Header />
-                        <ServiceCallTab2 />
+                        <ReportsTab2 />
                     </TabPanel>
                 </SwipeableViews>
             </Box>

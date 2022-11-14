@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import Button from "@mui/material/Button";
@@ -10,6 +10,7 @@ import { styled, useTheme } from "@mui/material/styles";
 import Home from "../screens/Home";
 import App from "../App";
 import Login from "../Login";
+import {da} from "date-fns/locale";
 
 const StyledLink = styled(Link)(({ theme }) => ({
     textDecoration: "none",
@@ -18,13 +19,63 @@ const StyledLink = styled(Link)(({ theme }) => ({
     },
 }));
 
-
-const locationNav =()=>{// eslint-disable-next-line no-restricted-globals
-    location.href='/Home'
-}
-
+// const requestOptions ={
+//     method:'POST',
+//     headers:{'Content-Type':'application/json'},
+//     body:JSON.stringify({
+//         email:username,
+//         password:passWord
+//     })
+// };
+// fetch('http://localhost:3000/service-calls/',requestOptions)
 
 const LoginForm = () => {
+    const [username,setUserName] = React.useState("");
+    const [passWord,setPassword]= React.useState("");
+
+    const handleChangeLogin = (event: any) => {
+        setUserName(event.target.value)
+    }
+    const handleChangePassword = (event: any) => {
+        setPassword(event.target.value)
+    }
+
+    function locationNav(){
+        const requestOptions ={
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+                Id: 1,
+                Description:"string",
+                Status:1,
+                login:{
+                    UserName:username,
+                    Password:passWord,
+                }
+            })
+        };
+        fetch('http://localhost:3000/auth/signin',requestOptions)
+            .then(response=>{ return response.json()})
+            .then(data=>{
+                console.log(data.Id)
+                 if(data.Id){
+                     window.location.href='/Home'
+                     localStorage.setItem('user', JSON.stringify(data))
+                     localStorage.setItem('log',"y")
+                 }
+                else{
+                     window.location.reload()
+                     alert("Password Is Incorrect")
+                 }
+
+            });
+    }
+
+// window.location.href='/Home'
+//
+//
+//
+//     console.log(passWord,username)
 
   return (
       <Router>
@@ -37,6 +88,7 @@ const LoginForm = () => {
             <InputBase
                 sx={{ ml: 1, flex: 5 }}
                 placeholder="Enter Username"
+                onChange={handleChangeLogin}
             />
         </Paper>
         <Paper className="password"
@@ -47,8 +99,11 @@ const LoginForm = () => {
             <InputBase
                 sx={{ ml: 1, flex: 5 }}
                 placeholder="Enter Password"
+                type={passWord}
+                onChange={handleChangePassword}
             />
         </Paper>
+        
       <br />
             <Button className="loginBtn" sx={{width: 410}} variant="contained" color="primary" onClick={locationNav}>
                 Sign In

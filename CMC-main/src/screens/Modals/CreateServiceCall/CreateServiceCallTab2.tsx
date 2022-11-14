@@ -28,6 +28,10 @@ import SolutionsTab from "./Modal2-Tabs/SolutionsTab";
 import RemarksTab from "./Modal2-Tabs/RemarksTab";
 import SchedulingTab from "./Modal2-Tabs/SchedulingTab";
 import ExpensesTab from "./Modal2-Tabs/ExpensesTab";
+import Divider from "@mui/material/Divider"
+import History from "./Modal2-Tabs/History"
+import Resolution from "./Modal2-Tabs/Resolution"
+import RelatedDocuments from "./Modal2-Tabs/RelatedDocuments"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -124,6 +128,7 @@ const CreateServiceCallModal2 = (props: any) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [date, setDate] = React.useState(new Date());
+  const [selectTabValue, setMainTabValue] = React.useState("1");
   // const getTab = (index: string): string => {
   //   switch (index) {
   //     case "1":
@@ -131,7 +136,7 @@ const CreateServiceCallModal2 = (props: any) => {
   //     case "2":
   //       return "Ticket";
   //     case "3":
-  //       return "Solutions";
+  //       return "AddSolutions";
   //     case "4":
   //       return "Remarks";
   //     case "5":
@@ -193,29 +198,29 @@ const CreateServiceCallModal2 = (props: any) => {
   };
   return (
     <Box>
-      <TabContext value={tab}>
-        <TabPanel value="1">
-          <GeneralTab p={props} />
-        </TabPanel>
-        <TabPanel value="2">
-          <TicketsTab  props={props} />
-        </TabPanel>
-        <TabPanel value="3">
-          <SolutionsTab />
-        </TabPanel>
-        <TabPanel value="4">
-          <RemarksTab />
-        </TabPanel>
-        <TabPanel value="5">
-          <SchedulingTab />
-        </TabPanel>
-        <TabPanel value="6">
-          <ExpensesTab />
-        </TabPanel>
-        <TabPanel value="7">Resolution</TabPanel>
-        <TabPanel value="8">History</TabPanel>
-        <TabPanel value="9">Related Documents</TabPanel>
-      </TabContext>
+        <TabContext value={tab}>
+          <TabPanel value="1">
+            <GeneralTab p={props} />
+          </TabPanel>
+          <TabPanel value="2">
+            <TicketsTab createTicket={props} props={props} />
+          </TabPanel>
+          <TabPanel value="3">
+            <SolutionsTab/>
+          </TabPanel>
+          <TabPanel value="4">
+            <RemarksTab />
+          </TabPanel>
+          <TabPanel value="5">
+            <SchedulingTab props={props}/>
+          </TabPanel>
+          <TabPanel value="6">
+            <ExpensesTab props={props}/>
+          </TabPanel>
+          <TabPanel value="7"><Resolution/></TabPanel>
+          <TabPanel value="8"><History props={props}/></TabPanel>
+          <TabPanel value="9"><RelatedDocuments/></TabPanel>
+        </TabContext>
     </Box>
   );
 };

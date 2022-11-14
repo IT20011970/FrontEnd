@@ -37,6 +37,8 @@ import ResourceAllocation from "../screens/ResourceAllocation";
 import ServiceTicket from "../screens/ServiceTicket";
 import Calender from "../screens/Calender";
 import Reports from "../screens/Reports";
+import Administration from "../screens/Administration"
+import Attendance from "../screens/Attendance";
 
 const useStyles = makeStyles({
   topNavIcon: {
@@ -466,6 +468,27 @@ const SideBar = () => {
                   </AppBar>
                 </Box>
               </Route>
+              <Route exact path="/Administration">
+                <Box className="TabBox">
+                  <AppBar position="static">
+                    <Tabs
+                        TabIndicatorProps={{
+                          style: {
+                            backgroundColor: "#0091D5",
+                            height: "6px",
+                          },
+                        }}
+                        value={value}
+                        onChange={handleChange}
+                        textColor="inherit"
+                        variant="fullWidth"
+                    >
+                      <Tab label="Manage User Roles" {...a11yProps(0)} />
+                      <Tab label="Masters" {...a11yProps(1)} />
+                    </Tabs>
+                  </AppBar>
+                </Box>
+              </Route>
             </Switch>
           </AppBar>
           {renderMobileMenu}
@@ -804,6 +827,12 @@ const SideBar = () => {
               </Route>
               <Route exact path="/Reports">
                 <Reports value={value} />
+              </Route>
+              <Route exact path="/Administration">
+                <Administration value={value} />
+              </Route>
+              <Route exact path="/Attendance">
+                <Attendance value={value} />
               </Route>
             </Switch>
           </Box>

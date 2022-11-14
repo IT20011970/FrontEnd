@@ -15,7 +15,7 @@ import ServiceCallTab1 from "./TabScreens/ServiceCall/ServiceCallTab1";
 import ServiceCallTab2 from "./TabScreens/ServiceCall/ServiceCallTab2";
 import "./../Styles/Styles.css";
 import ReportsTab1 from "./TabScreens/Reports/ReportsTab1";
-import MastersTab1 from "./TabScreens/Masters/MastersTab1";
+
 
 const TabPanel = (props: any) => {
     const { children, value, index, ...other } = props;
@@ -52,7 +52,7 @@ const Masters = (props: any) => {
                 >
                     <TabPanel value={props.value} index={0}>
                         <Header />
-                        <MastersTab1 />
+                        <ServiceCallTab1/>
                     </TabPanel>
                     <TabPanel value={props.value} index={1}>
                         <Header />

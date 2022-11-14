@@ -14,6 +14,9 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import "../../../../Styles/Modal.css";
 import "../../../../Styles/ServiceCall.css";
+import Button from "@mui/material/Button"
+import {useContext, useState} from "react"
+import {ServiceContext} from "../../../../api/api"
 
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
@@ -70,6 +73,22 @@ const TextBox = styled(TextField)(({ theme }) => ({
   },
 }));
 
+const ModalButton = styled(Button)(({ theme }) => ({
+  width: "90px",
+  height: "auto",
+  borderRadius: "2px",
+  marginTop:"45px",
+  marginLeft:"45px",
+  cursor: "pointer",
+  fontFamily: "Montserrat",
+  fontSize: "14px",
+  fontWeight: 600,
+  float: "left",
+  padding: "7px",
+  boxShadow: "none",
+}));
+
+
 const createData = (
   date: Date,
   time: string,
@@ -108,29 +127,46 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const CreateServiceCallModal1 = (props: any) => {
+const ScheduluingTab = (props: any) => {
+  console.log(props)
   const [age, setAge] = React.useState("");
   const [date, setDate] = React.useState(new Date());
-
+  const [fields, setfields] = useState<any>({})
+  const Service =useContext(ServiceContext)
+  
+  function handleChangeField(event:any,data:any) {
+    fields[data] = event;
+    console.log(fields)
+    setfields(fields)
+  }
+  function post(){
+    fields['ServiceCallId']=props.props.serviceCallData.fields.ServiceCallId
+    setfields(fields)
+    console.log(fields)
+    if(Service !==undefined){
+     Service.addSchedule(fields).then((result)=>{
+       console.log(result)
+     })
+    }
+  }
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} sx={{ marginTop: "-30px" }}>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={4} md={4}>
           <TextBoxHeader>Planned Start Date & Time</TextBoxHeader>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker
               renderInput={(params:any) => <TextBox {...params} />}
-              value={date}
-              onChange={(newValue:any) => {
-                setDate(
-                  new Date(newValue != null ? newValue.toString() : new Date())
-                );
+              value={fields["PlanedStart"]}
+              onChange={(newValue) => {
+                handleChangeField((newValue != null ? newValue.toString() : new Date()),"PlanedStart");
               }}
               className="dateTimePicker"
             />
           </LocalizationProvider>
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={4} md={4}>
           <TextBoxHeader>Estimated Duration</TextBoxHeader>
           <TextBox
             id="outlined-basic"
@@ -138,21 +174,43 @@ const CreateServiceCallModal1 = (props: any) => {
             placeholder="Text (default)"
           />
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={4} md={4}>
           <TextBoxHeader>Planned End Date & Time</TextBoxHeader>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker
-              renderInput={(params:any) => <TextBox {...params} />}
-              value={date}
-              onChange={(newValue:any) => {
-                setDate(
-                  new Date(newValue != null ? newValue.toString() : new Date())
-                );
-              }}
-              className="dateTimePicker"
+                renderInput={(params:any) => <TextBox {...params} />}
+                value={fields["PlanedEnd"]}
+                onChange={(newValue) => {
+                  handleChangeField((newValue != null ? newValue.toString() : new Date()),"PlanedEnd");
+                }}
+                className="dateTimePicker"
             />
           </LocalizationProvider>
         </Grid>
+      </Grid>
+      <Grid container spacing={2} sx={{ marginTop: "-30px" }}>
+      <Grid item xs={2} md={4}>
+        <ModalButton
+            variant="contained"
+            className="ModalCommonButton"
+            sx={{ width: "300px"}}
+             onClick={post}
+        >
+          Add Schedule
+        </ModalButton>
+      </Grid>
+        <Grid item xs={8} md={4}></Grid>
+      <Grid item xs={2} md={4}>
+        <ModalButton
+            variant="contained"
+            className="ModalCommonButton"
+            disabled={true}
+            sx={{ width: "300px"}}
+            // onClick={post}
+        >
+         View Schedule
+        </ModalButton>
+      </Grid>
       </Grid>
       <Divider
         orientation="horizontal"
@@ -169,20 +227,15 @@ const CreateServiceCallModal1 = (props: any) => {
       <Grid container spacing={2}>
         <Grid item xs={6} md={3}>
           <TextBoxHeader>Address ID</TextBoxHeader>
-          <SelectInput
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={age}
-            // label="Age"
-            // onChange={handleChange}
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </SelectInput>
+          <TextBox
+              id="outlined-basic"
+              variant="outlined"
+              value={props.props.serviceCallData.fields.ServiceCallId}
+              placeholder="Text (default)"
+          />
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>MRF Serial Number</TextBoxHeader>
+          <TextBoxHeader>Street 1</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"
@@ -190,7 +243,7 @@ const CreateServiceCallModal1 = (props: any) => {
           />
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>Serial Number</TextBoxHeader>
+          <TextBoxHeader>Street 2</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"
@@ -198,7 +251,7 @@ const CreateServiceCallModal1 = (props: any) => {
           />
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>Item Description</TextBoxHeader>
+          <TextBoxHeader>Room</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"
@@ -206,7 +259,7 @@ const CreateServiceCallModal1 = (props: any) => {
           />
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>Item Code</TextBoxHeader>
+          <TextBoxHeader>State</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"
@@ -214,7 +267,7 @@ const CreateServiceCallModal1 = (props: any) => {
           />
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>MRF Serial Number</TextBoxHeader>
+          <TextBoxHeader>City</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"
@@ -222,15 +275,7 @@ const CreateServiceCallModal1 = (props: any) => {
           />
         </Grid>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>Serial Number</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>Item Description</TextBoxHeader>
+          <TextBoxHeader>Country</TextBoxHeader>
           <TextBox
             id="outlined-basic"
             variant="outlined"
@@ -242,4 +287,4 @@ const CreateServiceCallModal1 = (props: any) => {
   );
 };
 
-export default CreateServiceCallModal1;
+export default ScheduluingTab;

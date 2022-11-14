@@ -207,11 +207,6 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const navigationService =()=>{// eslint-disable-next-line no-restricted-globals
-location.href='/ServiceCall'
-}
-
-
 const Dashboard = () => {
 
   return (
@@ -219,6 +214,7 @@ const Dashboard = () => {
       <Header />
       <Stack spacing={6} direction="row">
         <AddButton
+            onClick={e=>window.location.href='/ServiceCall'}
           variant="contained"
           startIcon={
             <svg
@@ -238,12 +234,12 @@ const Dashboard = () => {
               />
             </svg>
           }
-          onClick={navigationService}
         >
           Create Service Call
         </AddButton>
 
         <AddButton
+            onClick={e=>window.location.href='/ServiceTickets'}
           variant="contained"
           startIcon={
             <svg

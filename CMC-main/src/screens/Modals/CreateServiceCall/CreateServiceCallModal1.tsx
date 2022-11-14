@@ -296,9 +296,10 @@ const CreateServiceCallModal1 = (props: any) => {
                   value={age}
                   onChange={handleChange}
                 >
+                  
                   <MenuItem value={10}>Ten</MenuItem>
                   <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem> 
                 </SelectBox>
               </Grid>
               <Grid item xs={6} md={3}>

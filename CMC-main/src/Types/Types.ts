@@ -1,3 +1,6 @@
+import {string} from "prop-types"
+import { ReactNode } from "react";
+
 export type TablePaginationActionsProps = {
   count: number;
   page: number;
@@ -27,6 +30,69 @@ export type SparePartsRequestListData = {
   subject: string;
 };
 
+export type Sparepart = {
+  [x: string]: ReactNode;
+  SPReqId: string,
+  Remark: string,
+  Content: string,
+  Secretary: string,
+  ItemDescription: string,
+  ServiceTicketEntity: {
+    TicketId: string,
+    TicketType: string,
+    Subject: string,
+    AssignedTo: string,
+    AssignedBY: string,
+    EstimatedDuration: string,
+    ContactPerson: string,
+    PlannedStartDate: string,
+    PlannedEndDate: string,
+    ActualStartDate: string,
+    ActualEndDate: string,
+    CreatedOn: string,
+    serviceCall: {
+      ServiceCallId: string,
+      Status: string,
+      Priority: string,
+      Subject: string,
+      Origin: string,
+      ProblemType: string,
+      InquiryType: string,
+      CreatedBy: string,
+      HandledBy: string,
+      Queue: string,
+      Secretary: string,
+      SalesAssistant: string,
+      CreatedOn: string,
+      PlanedStartDateTime: string,
+      EstimatedDutation: string,
+      PlanedEndDateTime: string,
+      ActualStartDate: string,
+      ActualEndDate: string,
+      customerEntity: {
+        CustomerId: string,
+        CustomeName: string,
+        ContactPerson: string,
+        TelephoneNo: string,
+        CustomerAddressId: string
+      },
+      itemEntity: {
+        ItemCode: string,
+        MrfSerialNumber: string,
+        SerialNumber: string,
+        ItemDescriptio: string,
+        ItemGroup: string
+      }
+    }
+    "itemEntity": {
+      "ItemCode": 12,
+      "MrfSerialNumber": "aaa",
+      "SerialNumber": "ssv",
+      "ItemDescription": "css",
+      "ItemGroup": "vss"
+    }
+  };
+}
 export type ServiceTicketData = {
   itemCode: string;
   description: string;
@@ -61,7 +127,7 @@ export type ServiceCallData2 = {
   ActualEndDate: string
   ActualStartDate: string
   CreatedBy: string
-  CreatedOn: string
+  CreatedOn: Date
   EstimatedDutation: string
   HandledBy: string
   InquiryType: string
@@ -93,11 +159,35 @@ export type ServiceCallData2 = {
 
 };
 
+export type CustomerList = {
+  label:string;
+}
+
+export type Item={
+  ItemCode: string
+  ItemDescription: string
+  ItemGroup: string
+  MrfSerialNumber: string
+  SerialNumber: string
+}
+
+export type ExpencesType={
+  Id: string,
+  CreatedDate: Date,
+  DateExpire: string,
+  ExpenseType: string,
+  CreatedBy: string,
+  Amount: string,
+  Remark: string
+}
+
 export type Ticket = {
   TicketId: string,
   TicketType: string,
   Subject: string,
   AssignedTo: string,
+  CreatedOn:string
+  PlannedStartDate:string
   serviceCall: {
     ServiceCallId: string,
     Status: string,
@@ -134,6 +224,40 @@ export type Ticket = {
   }
 }
 
+export type DropdownUsers ={
+
+  UserCode: number,
+  UserName: string,
+  Value: string
+
+}
+
+export type DropdownOrigins ={
+
+  OriginCode: number,
+  OriginName: string,
+  OriginValue: string
+
+}
+
+export type DropdownProblemTypes ={
+
+  ProblemTypeCode: number,
+  ProblemTypeName: string,
+  ProblemTypeValue: string,
+  Status: number
+
+}
+
+export type UserRoleTypes ={
+
+  Id: number,
+  Description: string,
+  RoleDescription: string,
+  Status: number
+
+}
+
 
 export type CreateServiceCallTicketData = {
   date: Date;
@@ -145,6 +269,24 @@ export type CreateServiceCallTicketData = {
   content: string;
   more: string;
 };
+
+export type Solutions = {
+  Id: number,
+  Solution: string,
+  CreatedOn: Date,
+  Owner: string,
+  Status: string,
+  HandledBy: string
+};
+
+export type ArrayTab ={
+  attachment:string;
+  description:string;
+  quantity:string;
+  spid:string;
+  type:string;
+  remark:string;
+}
 
 export type ExpensesData = {
   date: Date;

@@ -29,6 +29,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import TextField from "@mui/material/TextField";
+import moment from "moment"
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -410,7 +411,7 @@ const ReportsTab1 = () => {
                                         {row.customerEntity.CustomeName}
                                     </StyledTableCell>
                                     <StyledTableCell>
-
+                                        {row.customerEntity.CustomerAddressId}
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         {row.customerEntity.ContactPerson}
@@ -446,16 +447,16 @@ const ReportsTab1 = () => {
                                         {row.SalesAssistant}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {row.PlanedStartDateTime}
+                                        {moment(row.PlanedStartDateTime).format("DD/MM/YYYY")}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {row.PlanedEndDateTime}
+                                        {moment(row.PlanedEndDateTime).format("DD/MM/YYYY")}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {row.ActualStartDate}
+                                        {moment(row.ActualStartDate).format("DD/MM/YYYY")}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {row.ActualEndDate}
+                                        {moment(row.ActualEndDate).format("DD/MM/YYYY")}
                                     </StyledTableCell>
 
                                 </StyledTableRow>

@@ -37,6 +37,9 @@ import Header from "../../../components/Header";
 import SparePartsTab2 from "../SpareParts/SparePartsTab2";
 import ResourceAllocationSubTab1 from "./ResourceAllocationSubTab1";
 import ResourceAllocationSubTab2 from "./ResourceAllocationSubTab2";
+//import createVehicleRequestModel from "./createVehicleRequestModal";
+import CreateSparePartsModal from "../../Modals/CreateSpareParts/CreateSparePartslModal";
+import CreateToolRequestModal from "../../Modals/CreateToolRequest/CreateToolRequestModal";
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -225,26 +228,26 @@ const ResourceAllocationTab1 = () => {
                     <Grid item xs={6}>
                         <Heading>Resource Allocation</Heading>
                     </Grid>
-                    <Grid item xs={3} sx={{ pr: 3 }}>
+                    {/* <Grid item xs={3} sx={{ pr: 3 }}>
                         <Search>
                             <SearchIconWrapper>
                                 <SearchIcon />
                             </SearchIconWrapper>
                             <StyledInputBase
                                 onChange={(e) => setSearchInput(e.target.value)}
-                                placeholder="Searchâ€¦"
+                                placeholder="Search"
                                 inputProps={{ "aria-label": "search" }}
                             />
                         </Search>
-                    </Grid>
-                    <Grid item xs={3}>
+                    </Grid> */}
+                    {/* <Grid item xs={3}>
                         <RequestButton
                             variant="contained"
                             onClick={() => setOpenModal(true)}
                         >
-                            Create Vehicle Request
+                            Create Tool Request
                         </RequestButton>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Stack>
             <br/>
@@ -296,7 +299,7 @@ const ResourceAllocationTab1 = () => {
             </Container>
 
 
-            <CreateServiceCallModal open={openModal} setOpen={setOpenModal} />
+            <CreateToolRequestModal open={openModal} setOpen={setOpenModal} />
         </>
     );
 };

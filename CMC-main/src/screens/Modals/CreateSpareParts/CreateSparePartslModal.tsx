@@ -26,6 +26,7 @@ import "../../../Styles/Modal.css";
 import CreateSparePartsTab1 from "./CreateSparePartsTab1";
 import CreateSparePartsTab2 from "./CreateSparePartsTab2";
 import { useEffect, useState } from "react";
+import { Alert, DialogContentText } from "@mui/material";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -75,7 +76,7 @@ const TabName = styled("text")(({ theme }) => ({
 }));
 
 const CreateSparePartsModal = (props: any) => {
-  // console.log(props)
+   console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -124,57 +125,63 @@ const CreateSparePartsModal = (props: any) => {
 
   const  [Test, setTest] = React.useState("1");
   const  [Test1, setTest1] = React.useState("1");
-  const [fields, setfields] = useState<any>({fields:{}});
+  const [fields, setfieldsSpare] = useState<any>({fields:{}});
 
 
   const handleChange = (newValue: string) => {
     setMainTabValue(newValue);
     setNext("true")
   };
+  
+    
+  // const handleClickToOpen = () => {
+  //   setOpen(true);
+  // };
+  
+  // const handleToClose = () => {
+  //   setOpen(false);
+  // };
+
+  
+    // const [open, setOpen] = React.useState(false);
+    
+    // const handleClickToOpen = () => {
+    //   setOpen(true);
+    // };
+    
+    // const handleToClose = () => {
+    //   setOpen(false);
+    // };
+  
+  
+  
 
   function post(){
+    
     console.log(fields.fields)
     console.log(fields)
     const requestOptions ={
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        CustomerId: parseInt(fields.fields.CustomerID),
-        CustomeName:fields.fields.CustomerName,
-        ContactPerson:fields.fields.ContactPerson,
-        TelephoneNo: fields.fields.TelephoneNo,
-        CustomerAddressId:fields.fields.d,
-          serviceCalls: [
-        {
-          ServiceCallId:parseInt(fields.fields.ServiceCallId),
-          Status:fields.fields.ChangeStatus,
-          Priority:ChangePriority,
-          Subject: Subject,
-          Origin: Origin,
-          ProblemType: ProblemType,
-          InquiryType: InquiryType,
-          CreatedBy: CreatedBy,
-          HandledBy: HandledBy,
-          Queue: Queue,
-          Secretary: Secretary,
-          SalesAssistant: SalesAssistant,
-          CreatedOn: CreatedOn,
-          PlanedStartDateTime: PlanedStartDate,
-          EstimatedDutation: EstimatedDuration,
-          PlanedEndDateTime: PlanedEndDate,
-          ActualStartDate: ActualStartDate,
-          ActualEndDate: ActualEndDate,
-          itemEntity: {
-            ItemCode:parseInt(fields.fields.ItemCode),
-            MrfSerialNumber:fields.fields.ChangeMRF,
-            SerialNumber: ChangeSerialNumber,
-            ItemDescription:ItemDescription ,
-            ItemGroup:ItemGroup
+      body:JSON.stringify(
+          {
+            TicketId: parseInt(fields.fields.TicketID),
+            sparePart: [
+              {
+                SPReqId: Math.floor(Math.random()*1000000),
+                Remark: fields.fields.Remark,
+                Content:fields.fields.Content,
+                Secretary: "Gayan",
+                // Secretary:fields.fields.Secretary,
+                ItemDescription: fields.fields.ItemDescription,
+              }
+            ]
           }
-        }
-      ]})
+      )
     };
-    fetch('http://localhost:3000/SpareParts',requestOptions)
+    fetch('http://localhost:3000/spare-parts/create',requestOptions)
+    alert("Spare parts request successfully created")
+    
   }
   const sendDataToParent = (index: any) => {
     console.log(index);
@@ -182,14 +189,14 @@ const CreateSparePartsModal = (props: any) => {
   const getTab = (index: string): string => {
     switch (index) {
       case "1":
-        return "Spare Part Request ID";
+        return "";
       
       default:
-        return "Spare Part Request ID";
+        return "";
     }
   };
   const handleSecondTabChange = (event: any, newValue: string) => {
-    setSecondTabValue(newValue);
+    //setSecondT(abValue(newValue);
     setTabName(getTab(newValue));
   };
   console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
@@ -265,7 +272,7 @@ const CreateSparePartsModal = (props: any) => {
                   aria-label="lab API tabs example"
                   sx={{ marginLeft: "-40px" }}
                 >
-                  <Tab label="Spare Part Request ID" value="1" />
+                  <Tab label="" value="1" />
                   
                 </TabList>
 
@@ -279,64 +286,67 @@ const CreateSparePartsModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateSparePartsTab1 setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+              <CreateSparePartsTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <CreateSparePartsTab2 tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              <CreateSparePartsTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>
         <Divider />
-        
+
         <DialogActions>
-          
           <Box sx={{ flexGrow: 1, p: 1 }}>
             <Grid container spacing={10}>
               {mainTabValue == "1" && <Grid item xs={8} md={10}></Grid>}
+              {mainTabValue == "2" && <Grid item xs={6} md={9}></Grid>}
               <Grid item xs={2} md={1}>
                 <ModalButton
-                  variant="contained"
-                  className="cancelButton"
-                  onClick={handleClose}
+                    variant="contained"
+                    className="cancelButton"
+                    onClick={handleClose}
                 >
                   Cancel
                 </ModalButton>
               </Grid>
               {mainTabValue == "1" && (
-                <Grid item xs={2} md={1}>
-                  <ModalButton
-                    variant="contained"
-                    className="ModalCommonButton"
-                    onClick={() => handleChange("2")}
-                  >
-                    Next
-                  </ModalButton>
-                  
-                </Grid>
+                  <Grid item xs={2} md={1}>
+                    <ModalButton
+                        variant="contained"
+                        className="ModalCommonButton"
+                        onClick={() => handleChange("2")}
+                    >
+                      Next
+                    </ModalButton>
+                  </Grid>
               )}
 
               {mainTabValue == "2" && (
-                <>
-                  <Grid item xs={2} md={1}>
-                    <ModalButton
-                      variant="contained"
-                      className="cancelButton"
-                      onClick={() => handleChange("1")}
-                    >
-                      Back
-                    </ModalButton>
-                  </Grid>
-                  <Grid item xs={2} md={1}>
-                    <ModalButton
-                      variant="contained"
-                      className="ModalCommonButton"
-                      onClick={post}
-                    >
-                      Create
-                    </ModalButton>
-                  </Grid>
-                </>
+                  <>
+                    <Grid item xs={2} md={1}>
+                      <ModalButton
+                          variant="contained"
+                          className="cancelButton"
+                          onClick={() => handleChange("1")}
+                      >
+                        Back
+                      </ModalButton>
+                    </Grid>
+                    <Grid item xs={2} md={1}>
+
+                      <ModalButton
+                          variant="contained"
+                          className="ModalCommonButton"
+                          onClick={post}
+                      >
+                        Create
+                    
+                      </ModalButton>
+                      
+                         
+                    </Grid>
+                  </>
               )}
             </Grid>
           </Box>
