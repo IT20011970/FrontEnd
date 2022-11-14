@@ -21,13 +21,14 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import Header from "../../../components/Header";
-import "../../../Styles/Modal.css";
-import CreateSparePartsTab1 from "./CreateSparePartsTab1";
-import CreateSparePartsTab2 from "./CreateSparePartsTab2";
+import "../../../../Styles/Modal.css";
+
 import { useEffect, useState } from "react";
 import { Alert, DialogContentText } from "@mui/material";
-
+//import AdmistrationTab1 from "../../TabScreens/Adminstration/Administrationtab1"
+import AdministrationMasterTab1 from "./AdministrationMasterTab1";
+import AdministrationMasterTab2 from "./AdministrationMasterTab2";
+import Header from "../../../../components/Header";
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
   height: "auto",
@@ -75,8 +76,8 @@ const TabName = styled("text")(({ theme }) => ({
   color: "#0091d5",
 }));
 
-const CreateSparePartsModal = (props: any) => {
-   console.log(props.arry)
+const AdministrationMasterModel = (props: any) => {
+  //  console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -118,6 +119,7 @@ const CreateSparePartsModal = (props: any) => {
   const [ActualStartDate, setActualStartDate] = React.useState("")
   const [ActualEndDate, setActualEndDate] = React.useState("")
 
+  const [openmsg, setOpenmsg] = React.useState(false);
 
   var [Next, setNext] = React.useState("")
   const [allError,setError]=React.useState(true)
@@ -133,7 +135,10 @@ const CreateSparePartsModal = (props: any) => {
     setNext("true")
   };
   
-    
+  const handleClosemsg = () => {
+    setOpenmsg(false);
+  };  
+
   // const handleClickToOpen = () => {
   //   setOpen(true);
   // };
@@ -174,6 +179,12 @@ const CreateSparePartsModal = (props: any) => {
                 Secretary: "Gayan",
                 // Secretary:fields.fields.Secretary,
                 ItemDescription: fields.fields.ItemDescription,
+                itemEntity:{
+                  MrfSerialNumber: "aaa",
+                  SerialNumber: "ssv",
+                  ItemDescription: "css",
+                  ItemGroup: "vss"
+                }
               }
             ]
           }
@@ -181,6 +192,7 @@ const CreateSparePartsModal = (props: any) => {
     };
     fetch('http://localhost:3000/spare-parts/create',requestOptions)
     alert("Spare parts request successfully created")
+    setOpenmsg(true)
     
   }
   const sendDataToParent = (index: any) => {
@@ -196,24 +208,24 @@ const CreateSparePartsModal = (props: any) => {
     }
   };
   const handleSecondTabChange = (event: any, newValue: string) => {
-    //setSecondT(abValue(newValue);
+    setSecondTabValue(newValue);
     setTabName(getTab(newValue));
   };
-  console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
-  console.log(Subject, Origin,
-  ProblemType,
-  InquiryType,
-  CreatedBy,
-  HandledBy,
-  Queue,
-  Secretary,
-  SalesAssistant,
-      CreatedOn,
-  EstimatedDuration,
-  PlanedEndDate,
-  PlanedStartDate,
-  ActualStartDate,
-  ActualEndDate)
+  // console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
+  // console.log(Subject, Origin,
+  // ProblemType,
+  // InquiryType,
+  // CreatedBy,
+  // HandledBy,
+  // Queue,
+  // Secretary,
+  // SalesAssistant,
+  //     CreatedOn,
+  // EstimatedDuration,
+  // PlanedEndDate,
+  // PlanedStartDate,
+  // ActualStartDate,
+  // ActualEndDate)
   return (
     <>
       <Modal
@@ -227,7 +239,7 @@ const CreateSparePartsModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Spare Part Request
+            Manage Masters
            
           </ModalTittle>
           <IconButton
@@ -257,7 +269,7 @@ const CreateSparePartsModal = (props: any) => {
               />
             </svg>
           </IconButton>
-          {mainTabValue == "2" && (
+          {mainTabValue == "1" && (
             <TabContext value={secondTabValue}>
               <Box
                 sx={{
@@ -272,7 +284,10 @@ const CreateSparePartsModal = (props: any) => {
                   aria-label="lab API tabs example"
                   sx={{ marginLeft: "-40px" }}
                 >
-                  <Tab label="" value="1" />
+                  <Tab label="Add Origin Type" value="1" />
+                  <Tab label="Add Problem Type" value="2" />
+                  {/* <Tab label="" value="3" />
+                  <Tab label="" value="4" /> */}
                   
                 </TabList>
 
@@ -281,73 +296,52 @@ const CreateSparePartsModal = (props: any) => {
             </TabContext>
           )}
         </DialogTitle>
-        {mainTabValue == "1" && <Divider />}
+        {secondTabValue == "1" } 
         <DialogContent>
-          <TabContext value={mainTabValue}>
+          <TabContext value={secondTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateSparePartsTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+              <AdministrationMasterTab1   />
+            </TabPanel> 
+            <TabPanel value="3" sx={{ p: 0 }}>
+              <Header />
+              
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <CreateSparePartsTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              <AdministrationMasterTab2   />
+              {/* <AdministrationTab3 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} /> */}
             </TabPanel>
           </TabContext>
         </DialogContent>
-        <Divider />
+        
+        {/*msg*/}
+        <Dialog
+            open={openmsg}
+            onClose={handleClosemsg}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Success !"}
+            <hr/>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Service call is Successfully Created !
+            </DialogContentText>
+          </DialogContent>
+          <hr/>
+          <DialogActions>
+            <Button onClick={handleClosemsg}>Ok</Button>
+          </DialogActions>
+        </Dialog>
 
         <DialogActions>
           <Box sx={{ flexGrow: 1, p: 1 }}>
             <Grid container spacing={10}>
               {mainTabValue == "1" && <Grid item xs={8} md={10}></Grid>}
               {mainTabValue == "2" && <Grid item xs={6} md={9}></Grid>}
-              <Grid item xs={2} md={1}>
-                <ModalButton
-                    variant="contained"
-                    className="cancelButton"
-                    onClick={handleClose}
-                >
-                  Cancel
-                </ModalButton>
-              </Grid>
-              {mainTabValue == "1" && (
-                  <Grid item xs={2} md={1}>
-                    <ModalButton
-                        variant="contained"
-                        className="ModalCommonButton"
-                        onClick={() => handleChange("2")}
-                    >
-                      Next
-                    </ModalButton>
-                  </Grid>
-              )}
-
-              {mainTabValue == "2" && (
-                  <>
-                    <Grid item xs={2} md={1}>
-                      <ModalButton
-                          variant="contained"
-                          className="cancelButton"
-                          onClick={() => handleChange("1")}
-                      >
-                        Back
-                      </ModalButton>
-                    </Grid>
-                    <Grid item xs={2} md={1}>
-
-                      <ModalButton
-                          variant="contained"
-                          className="ModalCommonButton"
-                          onClick={post}
-                      >
-                        Create
-                    
-                      </ModalButton>
-                      
-                         
-                    </Grid>
-                  </>
-              )}
             </Grid>
           </Box>
         </DialogActions>
@@ -356,4 +350,4 @@ const CreateSparePartsModal = (props: any) => {
   );
 };
 
-export default CreateSparePartsModal;
+export default AdministrationMasterModel;

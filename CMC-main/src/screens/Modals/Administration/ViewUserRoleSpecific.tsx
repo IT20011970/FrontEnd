@@ -66,7 +66,12 @@ const SelectBox = styled(Select)(({ theme }) => ({
   borderRadius: "4px",
   height: "40px",
   boxSizing: "content-box",
-
+//   // "& .MuiSelect-select": {
+//   //   borderRadius: "4px",
+//   //   height: "40px",
+//   //   width: "auto",
+//   //   // padding: "10px",
+//   // },
 }));
 
 const SelectInput = styled(Select)(({ theme }) => ({
@@ -112,6 +117,11 @@ const Modal = styled(Dialog)(({ theme }) => ({
   },
 }));
 
+// const ModalTittle = styled("text")(({ theme }) => ({
+//   fontFamily: "Montserrat",
+//   fontSize: 24,
+//   fontWeight: 700,
+// }));
 
 const style = {
   position: "absolute",
@@ -131,7 +141,7 @@ const ModalTittle = styled("text")(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const AdministrationTab2 = (props: any) => {
+const ViewUserRoleSpecific = (props: any) => {
 
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
@@ -163,98 +173,27 @@ const AdministrationTab2 = (props: any) => {
     
   };
 
-  // const handleChangeItemCode = (event: any) => {
-  //   props.setItemCode(event.target.value)
-  // };
-  // const handleChangeMRF = (event: any) => {
-  //   props.setChangeMRF(event.target.value)
-  // };
-  // const handleChangeSerialNumber = (event: any) => {
-  //   props.setIChangeSerialNumber(event.target.value)
-  // };
-  // const handleChangeItemDescription = (event: any) => {
-  //   props.setItemDescription(event.target.value)
-  // };
-  // const handleChangeItemGroup = (event: any) => {
-  //   props.setItemGroup(event.target.value)
-  // };
-  // const handleChangeCustomerID = (event: any) => {
-  //   props.setCustomerID(event.target.value)
-  // };
-  // const handleChangeContactPerson = (event: any) => {
-  //   props.setContactPerson(event.target.value)
-  // };
-  // const handlChangeAddress = (event: any) => {
-  //   props.setAddress(event.target.value)
-  // };
-  // const handleChangeTelephoneNo = (event: any) => {
-  //   props.setTelephoneNo(event.target.value)
-  // };
-  // const handleChangeStatus = (event: any) => {
-  //   props.setChangeStatus(event.target.value);
-  // };
-  // const handleChangeServiceCallId = (event: any) => {
-  //   props.setChangeServiceCallId(event.target.value)
-  // };
-  // const handleChangePriority = (event: any) => {
-  //   props.setChangePriority(event.target.value)
-  // };
-  // const handleChangeCustomerName = (event: any) => {
-  //   props.setCustomerName(event.target.value)
-  // };
-
-  function handleChange(e:any,f:any) {
-    
-    fields[f] = e.target.value;
-    handleValidation()
-  }
-
-
-  function select(e:any,f:any) {
-    let field=fields
-    if(!fields[f])
-      field[f] = "0";
-    handleValidation()
-  }
-
-  function handleValidation(){
-    console.log(fields)
   
-   
-    //User role
-    if(typeof fields["User Role"] === "string"){
-      if (fields["User Role"]==="") {
-        errors["User Role"] = "Please Enter a User Role! ";
-        seterrors(errors)
-      }
-      else if (!fields["User Role"].match(/^[a-zA-Z]+$/)) {
-        errors["User Role"] = "Only letters! ";
-        seterrors(errors)
-      }
-      else{
-        errors["User Role"] = ""
-        setfields( fields )
-        seterrors(errors)
-      }
-    }
-    //Content
-    if(typeof fields["Content"] === "string"){
-      if (fields["Content"]==="") {
-        errors["Content"] = "Please Enter a Role Description! ";
-        seterrors(errors)
-      }
-      else if (!fields["Content"].match(/^[a-zA-Z]+$/)) {
-        errors["Content"] = "Only letters! ";
-        seterrors(errors)
-      }
-      else{
-        errors["Content"] = ""
-        setfields( fields )
-        seterrors(errors)
-      }
-    }
-  }
 
+  // function handleChange(e:any,f:any) {
+  //   // let field=fields
+  //   fields[f] = e.target.value;
+  //   handleValidation()
+  // }
+
+
+  // function select(e:any,f:any) {
+  //   let field=fields
+  //   if(!fields[f])
+  //     field[f] = "0";
+  //   handleValidation()
+  // }
+
+  // function handleValidation(){
+  //   console.log(fields)
+  
+
+  // }
 
   const [Description, setDescription] = React.useState("");
   const [RoleDescription, setRoleDescription] = React.useState("");
@@ -318,11 +257,9 @@ const AdministrationTab2 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
-              name="User Role"
+              name=""
               sx={{ width: "99%" }}
-              //onChange={(e) => handleChange(e,"User Role") }
-              required
-              onChange={onChangeRole}
+              
               
             />
             </Grid>
@@ -341,53 +278,13 @@ const AdministrationTab2 = (props: any) => {
               placeholder="Text (default)"
               name=""
               sx={{ width: "99%" }}
-              required
-              onChange={onChangeDesc}
+              
             />
             </Grid></Grid>
 
             <br></br>
             
-            <Grid container spacing={1} ml={1} md={8.7}>         
-          <Grid item xs={4} md={4} >
-      <Button
-                    variant="contained"
-                    className="ModalCommonButton"
-                     sx={{ width: "70%" }}
-                     type='submit'
-                     //onClick={post}
-                    >
-                      Submit
-                      
-        </Button>
-        </Grid>
-        <Grid item xs={4} md={4}>
-        <Button
-                    variant="contained"
-                    className="ModalCommonButton"
-                     sx={{ width: "70%" }}
-                     onClick={() => buttonChange("2")}
-                    >
-                      Edit
-                      
-        </Button>
-        </Grid>
-        <Grid item xs={4} md={4} >
-        <Button
-                    onClick={handleClose}
-                    variant="contained"
-                    className=""
-                     sx={{ width: "70%" }}
-                     
-                    >
-                      Exit
-                      
-        </Button>
-        </Grid>
-        </Grid>
-        
-
-            <span style={{color: "red"}}>{errors["TicketID"]}</span>
+            
             
          
           
@@ -408,4 +305,4 @@ const AdministrationTab2 = (props: any) => {
 };
 
 
-export default AdministrationTab2;
+export default ViewUserRoleSpecific;

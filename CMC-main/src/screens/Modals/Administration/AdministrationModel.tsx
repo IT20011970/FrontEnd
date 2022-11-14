@@ -29,6 +29,8 @@ import { Alert, DialogContentText } from "@mui/material";
 import AdmistrationTab1 from "../../TabScreens/Adminstration/Administrationtab1"
 import AdministrationTab2 from "./AdministrationTab2"
 import AdministrationTab1 from "./AdministrationTab1"
+import AdministrationTab3 from "./AdministrationTab3";
+import AdministrationTab4 from "./AdministrationTab4";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -78,7 +80,7 @@ const TabName = styled("text")(({ theme }) => ({
 }));
 
 const AdministrationModel = (props: any) => {
-   console.log(props.arry)
+   //console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -207,21 +209,21 @@ const AdministrationModel = (props: any) => {
     setSecondTabValue(newValue);
     setTabName(getTab(newValue));
   };
-  console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
-  console.log(Subject, Origin,
-  ProblemType,
-  InquiryType,
-  CreatedBy,
-  HandledBy,
-  Queue,
-  Secretary,
-  SalesAssistant,
-      CreatedOn,
-  EstimatedDuration,
-  PlanedEndDate,
-  PlanedStartDate,
-  ActualStartDate,
-  ActualEndDate)
+  // console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
+  // console.log(Subject, Origin,
+  // ProblemType,
+  // InquiryType,
+  // CreatedBy,
+  // HandledBy,
+  // Queue,
+  // Secretary,
+  // SalesAssistant,
+  //     CreatedOn,
+  // EstimatedDuration,
+  // PlanedEndDate,
+  // PlanedStartDate,
+  // ActualStartDate,
+  // ActualEndDate)
   return (
     <>
       <Modal
@@ -235,7 +237,7 @@ const AdministrationModel = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Spare Part Request
+            Manage User Roles
            
           </ModalTittle>
           <IconButton
@@ -265,7 +267,7 @@ const AdministrationModel = (props: any) => {
               />
             </svg>
           </IconButton>
-          {mainTabValue == "2" && (
+          {mainTabValue == "1" && (
             <TabContext value={secondTabValue}>
               <Box
                 sx={{
@@ -280,7 +282,8 @@ const AdministrationModel = (props: any) => {
                   aria-label="lab API tabs example"
                   sx={{ marginLeft: "-40px" }}
                 >
-                  <Tab label="Spare Part Request ID" value="1" />
+                  <Tab label="User Role" value="1" />
+                  {/* <Tab label="Manage User" value="2" /> */}
                   
                 </TabList>
 
@@ -289,73 +292,31 @@ const AdministrationModel = (props: any) => {
             </TabContext>
           )}
         </DialogTitle>
-        {mainTabValue == "1" && <Divider />}
+        {secondTabValue == "1" } 
         <DialogContent>
-          <TabContext value={mainTabValue}>
+          <TabContext value={secondTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <AdministrationTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+              <AdministrationTab3   />
+            </TabPanel> 
+            <TabPanel value="3" sx={{ p: 0 }}>
+              <Header />
+              
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <AdministrationTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              <AdministrationTab4   />
+              {/* <AdministrationTab3 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} /> */}
             </TabPanel>
           </TabContext>
         </DialogContent>
-        <Divider />
+        
 
         <DialogActions>
           <Box sx={{ flexGrow: 1, p: 1 }}>
             <Grid container spacing={10}>
               {mainTabValue == "1" && <Grid item xs={8} md={10}></Grid>}
               {mainTabValue == "2" && <Grid item xs={6} md={9}></Grid>}
-              <Grid item xs={2} md={1}>
-                <ModalButton
-                    variant="contained"
-                    className="cancelButton"
-                    onClick={handleClose}
-                >
-                  Cancel
-                </ModalButton>
-              </Grid>
-              {mainTabValue == "1" && (
-                  <Grid item xs={2} md={1}>
-                    <ModalButton
-                        variant="contained"
-                        className="ModalCommonButton"
-                        onClick={() => handleChange("2")}
-                    >
-                      Next
-                    </ModalButton>
-                  </Grid>
-              )}
-
-              {mainTabValue == "2" && (
-                  <>
-                    <Grid item xs={2} md={1}>
-                      <ModalButton
-                          variant="contained"
-                          className="cancelButton"
-                          onClick={() => handleChange("1")}
-                      >
-                        Back
-                      </ModalButton>
-                    </Grid>
-                    <Grid item xs={2} md={1}>
-
-                      <ModalButton
-                          variant="contained"
-                          className="ModalCommonButton"
-                          onClick={post}
-                      >
-                        Create
-                    
-                      </ModalButton>
-                      
-                         
-                    </Grid>
-                  </>
-              )}
             </Grid>
           </Box>
         </DialogActions>

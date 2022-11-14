@@ -11,12 +11,9 @@ import { styled } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Header from "./../components/Header";
-import ServiceCallTab1 from "./TabScreens/ServiceCall/ServiceCallTab1";
-import ServiceCallTab2 from "./TabScreens/ServiceCall/ServiceCallTab2";
 import "./../Styles/Styles.css";
-import ReportsTab1 from "./TabScreens/Reports/ReportsTab1";
-import ReportsTab2 from "./TabScreens/Reports/ReportsTab2"
 import Administrationtab1 from "./TabScreens/Adminstration/Administrationtab1"
+import AdministrationMaster from "./TabScreens/Adminstration/AdministrationMaster";
 
 const TabPanel = (props: any) => {
     const { children, value, index, ...other } = props;
@@ -57,7 +54,7 @@ const Administration = (props: any) => {
                     </TabPanel>
                     <TabPanel value={props.value} index={1}>
                         <Header />
-                        <Administrationtab1 />
+                        <AdministrationMaster />
                     </TabPanel>
                 </SwipeableViews>
             </Box>
