@@ -392,10 +392,10 @@ const AttendanceTab1 = () => {
                                         {row.description + Math.round(i * Math.random() * 100)}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {row.customer + Math.round(i * Math.random() * 100)}
+                                        {row.createdDate.toString().substring(0, 24)}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {row.status + Math.round(i * Math.random() * 100)}
+                                        {row.createdDate.toString().substring(0, 24)}
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         {row.createdDate.toString().substring(0, 24)}

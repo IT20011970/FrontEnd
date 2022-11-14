@@ -162,7 +162,7 @@ const EditSparePartsTab1 = (props: any) => {
      fields["TicketType"] = props.dataUpdate.ServiceTicketEntity.TicketType
      fields["Subject"] = props.dataUpdate.ServiceTicketEntity.Subject
      fields["AssignedTo"] = props.dataUpdate.ServiceTicketEntity.AssignedTo
-     fields["Remark"] = props.dataUpdate.ServiceTicketEntity.Remark
+    // fields.fields["Remark"] = props.dataUpdate.ServiceTicketEntity.Remark
     //  fields["ItemDescription"] = props.dataUpdate.itemEntity.ItemDescription
     //  fields["ItemGroup"] = props.dataUpdate.itemEntity.ItemGroup
     //  fields["CustomerID"] = props.dataUpdate.customerEntity.CustomerId
@@ -591,7 +591,7 @@ const EditSparePartsTab1 = (props: any) => {
         />
         <Grid container spacing={2}>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Remark</TextBoxHeader>
+            {/* <TextBoxHeader>Remark</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -601,13 +601,13 @@ const EditSparePartsTab1 = (props: any) => {
               onChange={(e) => handleChange(e,"Remark") }
               onFocus={(e) => handleChange(e,"Remark") }
             />
-            <span style={{color: "red"}}>{errors["Remark"]}</span>
+            <span style={{color: "red"}}>{errors["Remark"]}</span> */}
           </Grid>
          
         </Grid>
 
         <Grid item xs={6} md={3}>
-            <TextBoxHeader>Content</TextBoxHeader>
+            {/* <TextBoxHeader>Content</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -616,13 +616,13 @@ const EditSparePartsTab1 = (props: any) => {
               onChange={(e) => handleChange(e,"Content") }
               onFocus={(e) => handleChange(e,"Content") }
             />
-          <span style={{color: "red"}}>{errors["Content"]}</span>
+          <span style={{color: "red"}}>{errors["Content"]}</span> */}
           </Grid>
      
         <Grid container spacing={2}>
           
         <Grid item xs={6} md={3}>
-            <TextBoxHeader>Secretary</TextBoxHeader>
+            {/* <TextBoxHeader>Secretary</TextBoxHeader>
             <SelectInput
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -638,7 +638,7 @@ const EditSparePartsTab1 = (props: any) => {
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
               <MenuItem value={"Rasika"}>Rasika</MenuItem>
             </SelectInput>
-          <span style={{color: "red"}}>{errors["Secretary"]}</span>
+          <span style={{color: "red"}}>{errors["Secretary"]}</span> */}
           </Grid>
 
                    

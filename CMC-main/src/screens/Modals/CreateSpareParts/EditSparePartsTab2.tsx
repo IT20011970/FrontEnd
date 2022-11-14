@@ -220,7 +220,7 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const CreateSparePartsTab1 = (props: any) => {
+const EditSparePartsTab2 = (props: any) => {
 
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
@@ -344,7 +344,7 @@ const CreateSparePartsTab1 = (props: any) => {
       <>
         <Box sx={{ flexGrow: 1 }}>
         <Grid item xs={6} md={3}>
-            <TextBoxHeader>Service Ticket Type</TextBoxHeader>
+            <TextBoxHeader>Service Ticket ID</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -406,7 +406,7 @@ const CreateSparePartsTab1 = (props: any) => {
                       
                     </TableRow>
                   </TableHead>
-                  <TableBody>
+                  {/* <TableBody>
                     {data1.map((row: ArrayTab, i: number) => (
                         <StyledTableRow key={Math.random()}>
                           <StyledTableCell
@@ -459,7 +459,7 @@ const CreateSparePartsTab1 = (props: any) => {
                        
                         </StyledTableRow>
                     ))}
-                  </TableBody>
+                  </TableBody> */}
                 </Table>
               </TableContainer>
           <Box sx={{ flexGrow: 1, py: 1 }}>
@@ -641,4 +641,4 @@ const CreateSparePartsTab1 = (props: any) => {
   );
 };
 
-export default CreateSparePartsTab1;
+export default EditSparePartsTab2;

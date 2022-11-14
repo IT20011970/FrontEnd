@@ -182,7 +182,7 @@ const EditSparePartsModal = (props: any) => {
       )
     };
     fetch('http://localhost:3000/spare-parts/create',requestOptions)
-    alert("Spare parts request successfully created")
+    alert("Spare parts request successfully updated")
     
   }
   const sendDataToParent = (index: any) => {
@@ -229,7 +229,7 @@ const EditSparePartsModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Spare Part Request
+            Update Spare Part Request
            
           </ModalTittle>
           <IconButton
@@ -292,7 +292,7 @@ const EditSparePartsModal = (props: any) => {
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <EditSparePartsTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              < EditSparePartsTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>
@@ -342,7 +342,7 @@ const EditSparePartsModal = (props: any) => {
                           className="ModalCommonButton"
                           onClick={post}
                       >
-                        Create
+                        Update
                     
                       </ModalButton>
                       

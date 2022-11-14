@@ -299,78 +299,78 @@ const CreateToolRequestTab1 = (props: any) => {
     }
 
 
-    //Remark
-    if(typeof fields["Remark"] === "string"){
-      if (fields["Remark"]==="") {
-        errors["Remark"] = "Please Enter Remark ";
-        seterrors(errors)
-      }
-      else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
-        errors["Remark"] = "Only letters ";
-        seterrors(errors)
-      }
-      else{
-        errors["Remark"] = ""
-        setfields( fields )
-        props.setfieldsSpare({fields})
-        seterrors(errors)
-      }
-    }
-    //Content
-    if(typeof fields["Content"] === "string"){
-      if (fields["Content"]==="") {
-        errors["Content"] = "Please Enter Content ";
-        seterrors(errors)
-      }
-      else if (!fields["Content"].match(/^[a-zA-Z\s]+$/)) {
-        errors["Content"] = "Only letters ";
-        seterrors(errors)
-      }
-      else{
-        errors["Content"] = ""
-        setfields( fields )
-        props.setfieldsSpare({fields})
-        seterrors(errors)
-      }
-    }
-    //TicketType
-    if(typeof fields["Secretary"] === "string"){
-      if (fields["Secretary"]==="") {
-        errors["Secretary"] = "Please Enter Secretary ";
-        seterrors(errors)
-      }
-      else{
-        errors["Secretary"] = ""
-        setfields( fields )
-        props.setfieldsSpare({fields})
-        seterrors(errors)
-      }
-    }
-    if(typeof fields["TicketType"] === "string"){
-      if (fields["TicketType"]==="") {
-        errors["TicketType"] = "Please Enter Ticket Type ";
-        seterrors(errors)
-      }
-      else{
-        errors["TicketType"] = ""
-        setfields( fields )
-        props.setfieldsSpare({fields})
-        seterrors(errors)
-      }
-    }
-    //
-    if(typeof fields["ItemDescription"] === "string"){
-      if (fields["TicketType"]==="") {
-        errors["TicketType"] = "Please Enter Item Description";
-        seterrors(errors)
-      }
-      else{
-        errors["ItemDescription"] = ""
-        setfields( fields )
-        props.setfieldsSpare({fields})
-        seterrors(errors)
-      }
-    }
+    // //Remark
+    // if(typeof fields["Remark"] === "string"){
+    //   if (fields["Remark"]==="") {
+    //     errors["Remark"] = "Please Enter Remark ";
+    //     seterrors(errors)
+    //   }
+    //   else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
+    //     errors["Remark"] = "Only letters ";
+    //     seterrors(errors)
+    //   }
+    //   else{
+    //     errors["Remark"] = ""
+    //     setfields( fields )
+    //     props.setfieldsSpare({fields})
+    //     seterrors(errors)
+    //   }
+    // }
+    // //Content
+    // if(typeof fields["Content"] === "string"){
+    //   if (fields["Content"]==="") {
+    //     errors["Content"] = "Please Enter Content ";
+    //     seterrors(errors)
+    //   }
+    //   else if (!fields["Content"].match(/^[a-zA-Z\s]+$/)) {
+    //     errors["Content"] = "Only letters ";
+    //     seterrors(errors)
+    //   }
+    //   else{
+    //     errors["Content"] = ""
+    //     setfields( fields )
+    //     props.setfieldsSpare({fields})
+    //     seterrors(errors)
+    //   }
+    // }
+    // //TicketType
+    // if(typeof fields["Secretary"] === "string"){
+    //   if (fields["Secretary"]==="") {
+    //     errors["Secretary"] = "Please Enter Secretary ";
+    //     seterrors(errors)
+    //   }
+    //   else{
+    //     errors["Secretary"] = ""
+    //     setfields( fields )
+    //     props.setfieldsSpare({fields})
+    //     seterrors(errors)
+    //   }
+    // }
+    // if(typeof fields["TicketType"] === "string"){
+    //   if (fields["TicketType"]==="") {
+    //     errors["TicketType"] = "Please Enter Ticket Type ";
+    //     seterrors(errors)
+    //   }
+    //   else{
+    //     errors["TicketType"] = ""
+    //     setfields( fields )
+    //     props.setfieldsSpare({fields})
+    //     seterrors(errors)
+    //   }
+    // }
+    // //
+    // if(typeof fields["ItemDescription"] === "string"){
+    //   if (fields["TicketType"]==="") {
+    //     errors["TicketType"] = "Please Enter Item Description";
+    //     seterrors(errors)
+    //   }
+    //   else{
+    //     errors["ItemDescription"] = ""
+    //     setfields( fields )
+    //     props.setfieldsSpare({fields})
+    //     seterrors(errors)
+    //   }
+    // }
     
     
     //Begin
