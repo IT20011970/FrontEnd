@@ -234,7 +234,8 @@ export type DropdownProblemTypes ={
 
   ProblemTypeCode: number,
   ProblemTypeName: string,
-  ProblemTypeValue: string
+  ProblemTypeValue: string,
+  Status: number
 
 }
 

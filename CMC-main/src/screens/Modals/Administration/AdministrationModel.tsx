@@ -283,7 +283,7 @@ const AdministrationModel = (props: any) => {
                   sx={{ marginLeft: "-40px" }}
                 >
                   <Tab label="User Role" value="1" />
-                  <Tab label="Manage User" value="2" />
+                  {/* <Tab label="Manage User" value="2" /> */}
                   
                 </TabList>
 

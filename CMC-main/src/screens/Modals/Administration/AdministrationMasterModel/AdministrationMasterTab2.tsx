@@ -282,7 +282,10 @@ const AdministrationMasterTab2 = (props: any) => {
 
 
   function post(){
-    //handleClose()
+    if (ProblemTypeName == '' || ProblemTypeValue == '') {
+      alert('Please Fill all Required Fields!');
+    } else {
+      //handleClose()
     console.log(fields.fields)
     console.log(fields)
     const requestOptions ={
@@ -291,7 +294,8 @@ const AdministrationMasterTab2 = (props: any) => {
       body:JSON.stringify({
         //UserRoleId: ,
             ProblemTypeName: ProblemTypeName ,
-            ProblemTypeValue: ProblemTypeValue
+            ProblemTypeValue: ProblemTypeValue,
+            Status: "1"
         
       })
     };
@@ -299,7 +303,7 @@ const AdministrationMasterTab2 = (props: any) => {
     
     fetch('http://localhost:3000/problem-type-controller/post',requestOptions)
     setOpenmsg(true)
-    
+    }   
   }
 
   

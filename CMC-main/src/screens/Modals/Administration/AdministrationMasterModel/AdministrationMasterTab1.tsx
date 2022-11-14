@@ -282,7 +282,10 @@ const AdministrationMasterTab1 = (props: any) => {
 
 
   function post(){
-    //handleClose()
+    if(OriginName == '' || OriginValue == ''){
+      alert('Please Fill all Required Fields!');
+    }else{
+       //handleClose()
     console.log(fields.fields)
     console.log(fields)
     const requestOptions ={
@@ -300,7 +303,7 @@ const AdministrationMasterTab1 = (props: any) => {
     
     fetch('http://localhost:3000/origin-type-controller/post',requestOptions)
     setOpenmsg(true)
-    
+    }
   }
 
   
@@ -328,7 +331,8 @@ const AdministrationMasterTab1 = (props: any) => {
               placeholder="Text (default)"
               name="User Role"
               sx={{ width: "99%" }}
-              //onChange={(e) => handleChange(e,"User Role") }
+              required
+              onChangeCapture ={(e) => handleChange(e,"User Role") }
               onChange={onChangeOrigin}
               
             />
@@ -348,6 +352,7 @@ const AdministrationMasterTab1 = (props: any) => {
               placeholder="Text (default)"
               name=""
               sx={{ width: "99%" }}
+              required
               onChange={onChangeOriginValue}
             />
             </Grid></Grid>

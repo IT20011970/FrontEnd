@@ -21,17 +21,15 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import Pagination from "@mui/material/Pagination";
 import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from '@mui/material/TextField';
 import {
     DropdownProblemTypes,
     TablePaginationActionsProps,
     UserRoleTypes,
 } from "./../../../Types/Types";
 import "./../../../Styles/Tabs.css";
-import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal"
-import AdministrationModel from "../../Modals/Administration/AdministrationModel"
 import { useState } from "preact/hooks";
 import { red } from "@material-ui/core/colors";
-// import ViewOriginsSpecific from "../../Modals/Administration/ViewSpecific/ViewOriginsSpecific";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -165,44 +163,6 @@ const TablePaginationActions = (props: TablePaginationActionsProps) => {
     );
 };
 
-const createData = (
-    itemCode: string,
-    description: string,
-    customer: string,
-    status: string,
-    createdDate: Date,
-    priority: string,
-    subject: string
-) => {
-    return {
-        itemCode,
-        description,
-        customer,
-        status,
-        createdDate,
-        priority,
-        subject,
-    };
-};
-
-// const rows: any = [];
-
-
-
-// for (var i = 0; i < 50; i++) {
-//     rows.push(
-//         createData(
-//             "ITEM_SD",
-//             "Item Description ID",
-//             "Customer C",
-//             "Status S",
-//             new Date(),
-//             "Priority P",
-//             "Subject S"
-//         )
-//     );
-// }
-
 const AdministrationMasterSubTab2 = () => {
     const [searchInput, setSearchInput] = React.useState("");
     const [openModal, setOpenModal] = React.useState(false);
@@ -210,52 +170,109 @@ const AdministrationMasterSubTab2 = () => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [openmsg, setOpenmsg] = React.useState(false);
+    const [openmsgupdated, setOpenmsgUpdated] = React.useState(false);
     const [rows, setRows] = React.useState([]);
+    const [open, setOpen] = React.useState(false);
 
-React.useEffect(() => {
-    getData();
-}, []);
+    const [problemId, setProblemId] = React.useState(0);
+    const [problemType, setProblemType] = React.useState('');
+    const [problemDesc, setProblemDesc] = React.useState('');
+    const [mastersProblem, setMastersProblem] = React.useState('');
 
+    React.useEffect(() => {
+        getData();
+    }, []);
 
-const getData = async() => {
+    // Retrieve all Problem types
+    const getData = async() => {
 
-    const requestOptions = {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
+        const requestOptions = {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        };
+
+        fetch('http://localhost:3000/problem-type-controller/get',requestOptions)
+            .then(response=>{ return response.json()})
+            .then(data=>{
+            console.log(data)
+            setRows(data)
+            });
+
+    }
+
+    // delete Problem type
+    const deleteData = async(id: any) => {
+
+        if(window.confirm("Do you Want to Delete this Problem Type?")){
+            
+            const requestOptions = {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json'}
+            };
+        
+            console.log(id);
+            
+        
+            await fetch(`http://localhost:3000/problem-type-controller/delete/${id}`,requestOptions)
+                .then(response=>{ return response.json()})
+                .then(data=>{
+                    getData();
+                });
+                setOpenmsg(true);
+                
+            }
+    }
+
+    // To load data to popup box when it open
+    const handleClickOpen = (data: any) => {
+        setMastersProblem(data);
+        setProblemId(data.ProblemTypeCode);
+
+        setOpen(true);
+        setProblemType(data.ProblemTypeName);
+        setProblemDesc(data.ProblemTypeValue);
+
+        console.log(mastersProblem);
+        
     };
 
-    fetch('http://localhost:3000/problem-type-controller/get',requestOptions)
-        .then(response=>{ return response.json()})
-        .then(data=>{
-           console.log(data)
-           setRows(data)
-        });
+    // Problem type update 
+    const updateProblemTypeData = async () => {
+        setOpen(false);
+        console.log(problemType);
+        console.log(problemDesc);
+    
+        const requestOptions = {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({
+                ProblemTypeName: problemType,
+                ProblemTypeValue: problemDesc
+                })
+            };
+        
+            fetch(`http://localhost:3000/problem-type-controller/update/${problemId}`, requestOptions)
+                .then(response=>{ return response.json()})
+                .then(data=>{
+                console.log('success');
+                
+                });
+                setOpenmsgUpdated(true);
+        
+        };
 
-}
 
-const deleteData = async(id: any) => {
+    const handleClosemsg = () => {
+        setOpenmsg(false);
+    }; 
 
-    const requestOptions = {
-        method: 'DELETE',
-        headers: {'Content-Type': 'application/json'}
+    const handleCloseUpdatedmsg = () => {
+        setOpenmsgUpdated(false);
     };
 
-    console.log(id);
-    
-
-    await fetch(`http://localhost:3000/problem-type-controller/delete/${id}`,requestOptions)
-        .then(response=>{ return response.json()})
-        .then(data=>{
-            getData();
-        });
-        setOpenmsg(true)
-
-}
-
-const handleClosemsg = () => {
-    setOpenmsg(false);
-  }; 
-    
+    const handleClose = () => {
+        setOpen(false);
+    };
     
     function setOpenModalfunction(){
         setOpenModal(true)
@@ -285,6 +302,39 @@ const handleClosemsg = () => {
 
     return (
         <>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle sx={{ textAlign: "center" }}>Update This Problem Type</DialogTitle>
+                <DialogContent>
+                <DialogContentText>
+                    <DialogTitle >Problem Type:</DialogTitle>
+                    <TextField
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                    name=""
+                    sx={{ width: "99%" }}
+                    value={problemType}
+                    onChange={(e) => {setProblemType(e.target.value)}}
+                    />
+                    <DialogTitle >Problem Type Description:</DialogTitle>
+                    <TextField
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                    name=""
+                    sx={{ width: "99%" }}
+                    value={problemDesc}
+                    onChange={(e) => {setProblemDesc(e.target.value)}}
+                    />
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={updateProblemTypeData}>Update</Button>
+                </DialogActions>
+            </Dialog>
+
+
             <Stack spacing={6} direction="row">
                 <Grid container rowSpacing={1}>
                     
@@ -330,10 +380,10 @@ const handleClosemsg = () => {
                                         alignItems="flex-start"
                                         spacing={0}
                                     >
-                                    <ControlButton disableRipple>
+                                    <ControlButton disableRipple onClick={() => handleClickOpen(row)}>
                                         <svg
                                             width="16"
-                                            height="17"
+                                            height="25"
                                             viewBox="0 0 16 17"
                                             className="controlButton"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -348,11 +398,6 @@ const handleClosemsg = () => {
                                     
                                 </StyledTableRow>
                             ))}
-                            {/* {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )} */}
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -370,7 +415,6 @@ const handleClosemsg = () => {
                         count={rows.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
-                        // onPageChanged={handlePageChanged}
                         SelectProps={{
                             inputProps: {
                                 "aria-label": "rows per page",
@@ -383,7 +427,8 @@ const handleClosemsg = () => {
                     />
                 </Stack>
             </Container>
-            {/*msg*/}
+
+            {/*Deleted Notification Message*/}
             <Dialog
                     open={openmsg}
                     onClose={handleClosemsg}
@@ -404,7 +449,28 @@ const handleClosemsg = () => {
                     <Button onClick={handleClosemsg}>Ok</Button>
                 </DialogActions>
                 </Dialog>
-            {/* <ViewOriginsSpecific open={openView} setOpen={setOpenView} /> */}
+
+            {/*Updated Notification Message*/}
+            <Dialog
+                    open={openmsgupdated}
+                    onClose={handleClosemsg}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                <DialogTitle id="alert-dialog-title">
+                    {"Success !"}
+                    <hr/>
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                    Problem Type Updated Successfully !
+                    </DialogContentText>
+                </DialogContent>
+                <hr/>
+                <DialogActions>
+                     <Button onClick={handleCloseUpdatedmsg}>Ok</Button>
+                </DialogActions>
+                </Dialog>
             
         </>
     );

@@ -219,8 +219,6 @@ const AdministrationTab3 = (props: any) => {
 
   function handleChange(e:any,f:any) {
 
-    
-    
     console.log(e.target.value);
     //console.log(f)
     const requestOptions = {

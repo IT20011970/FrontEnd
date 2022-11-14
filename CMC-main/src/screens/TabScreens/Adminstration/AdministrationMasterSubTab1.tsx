@@ -9,8 +9,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import { Alert, DialogContentText } from "@mui/material";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -27,12 +28,7 @@ import {
     UserRoleTypes,
 } from "./../../../Types/Types";
 import "../../../Styles/Tabs.css";
-import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal"
-import AdministrationModel from "../../Modals/Administration/AdministrationModel"
 import { useState } from "preact/hooks";
-import ViewUserRoleSpecific from "../../Modals/Administration/ViewUserRoleSpecific";
-import EditOriginType from "../../Modals/Administration/Edit Masters/EditOriginType";
-import EditServiceCallModal from "../../Modals/CreateServiceCall/EditServiceCallModal";
 import { red } from "@material-ui/core/colors";
 
 const Search = styled("div")(({ theme }) => ({
@@ -167,44 +163,6 @@ const TablePaginationActions = (props: TablePaginationActionsProps) => {
     );
 };
 
-const createData = (
-    itemCode: string,
-    description: string,
-    customer: string,
-    status: string,
-    createdDate: Date,
-    priority: string,
-    subject: string
-) => {
-    return {
-        itemCode,
-        description,
-        customer,
-        status,
-        createdDate,
-        priority,
-        subject,
-    };
-};
-
-// const rows: any = [];
-
-
-
-// for (var i = 0; i < 50; i++) {
-//     rows.push(
-//         createData(
-//             "ITEM_SD",
-//             "Item Description ID",
-//             "Customer C",
-//             "Status S",
-//             new Date(),
-//             "Priority P",
-//             "Subject S"
-//         )
-//     );
-// }
-
 const AdministrationMasterSubTab1 = () => {
     const [searchInput, setSearchInput] = React.useState("");
     const [openModal, setOpenModal] = React.useState(false);
@@ -213,58 +171,136 @@ const AdministrationMasterSubTab1 = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [openEditModal, setOpenEditModal] = React.useState(false);
     const [openmsg, setOpenmsg] = React.useState(false);
+    const [openmsgupdated, setOpenmsgUpdated] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
+
+    const [originId, setOriginId] = React.useState(0);
+    const [originType, setOriginType] = React.useState('');
+    const [originDesc, setOriginDesc] = React.useState('');
+    const [mastersOrigin, setMastersOrigin] = React.useState('');
+    
 
     const [rows, setRows] = React.useState([]);
 
-React.useEffect(() => {
-    getData();
-}, []);
+    React.useEffect(() => {
+        getData();
+    }, []);
 
 
-const getData = async() => {
+    // Retrieve all Origin types
+    const getData = async() => {
 
-    const requestOptions = {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
+        const requestOptions = {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        };
+
+        fetch('http://localhost:3000/origin-type-controller/get',requestOptions)
+            .then(response=>{ return response.json()})
+            .then(data=>{
+            console.log(data)
+            setRows(data)
+            });
+
+    }
+
+    // Delete Origin type  
+    const deleteData = async(id: any) => {
+
+        
+        if(window.confirm("Do you Want to Delete this Origin Type?")){
+            
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'}
+        };
+
+        console.log(id);
+        
+
+        await fetch(`http://localhost:3000/origin-type-controller/delete/${id}`,requestOptions)
+            .then(response=>{ return response.json()})
+            .then(data=>{
+                getData();
+            });
+            setOpenmsg(true);
+
+        }
+    }
+
+    // get by id
+    // function handleChange(e:any) {
+
+    //     console.log(e.target.value);
+    //     const requestOptions = {
+    //       method: 'GET',
+    //       headers: {'Content-Type': 'application/json'}
+    //     };
+    
+    //     fetch('http://localhost:3000/origin-type-controller/get/${id}' + e.target.value)
+    //         .then(response=>{ return response.json()})
+    //         .then(data=>{
+    //           console.log(data[0].OriginName);
+    //           console.log(data[0].OriginValue);
+              
+    //           setOriginId(data[0].OriginCode);
+    //           setOriginType(data[0].OriginName);
+    //           setOriginDesc(data[0].OriginValue);
+    //         });
+        
+    
+    //   }
+
+    const handleClosemsg = () => {
+        setOpenmsg(false);
+    };
+    
+    const handleCloseUpdatedmsg = () => {
+        setOpenmsgUpdated(false);
     };
 
-    fetch('http://localhost:3000/origin-type-controller/get',requestOptions)
-        .then(response=>{ return response.json()})
-        .then(data=>{
-           console.log(data)
-           setRows(data)
-        });
-
-}
-
-const deleteData = async(id: any) => {
-
-    const requestOptions = {
-        method: 'DELETE',
-        headers: {'Content-Type': 'application/json'}
+    const handleClose = () => {
+        setOpen(false);
     };
 
-    console.log(id);
+    // To load data to popup box when it open
+    const handleClickOpen = (data: any) => {
+        setMastersOrigin(data);
+        setOriginId(data.OriginCode);
+
+        setOpen(true);
+        setOriginType(data.OriginName);
+        setOriginDesc(data.OriginValue);
+
+        console.log(mastersOrigin);
+        
+    };
     
+    // Origin type update 
+    const updateData = async () => {
+    setOpen(false);
+    console.log(originType);
+    console.log(originDesc);
 
-    await fetch(`http://localhost:3000/origin-type-controller/delete/${id}`,requestOptions)
-        .then(response=>{ return response.json()})
-        .then(data=>{
-            getData();
-        });
-        setOpenmsg(true)
-
-}
-
-function setOpenEditModalFunction(){
+    const requestOptions = {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body:JSON.stringify({
+            OriginName: originType,
+            OriginValue: originDesc
+            })
+        };
     
-    setOpenEditModal(true)
-  }
-
-  const handleClosemsg = () => {
-    setOpenmsg(false);
-  }; 
+        fetch(`http://localhost:3000/origin-type-controller/update/${originId}`, requestOptions)
+            .then(response=>{ return response.json()})
+            .then(data=>{
+            console.log('success');
+            
+            });
+            setOpenmsgUpdated(true);
     
+    };
+        
     
     function setOpenModalfunction(){
         setOpenModal(true)
@@ -293,6 +329,39 @@ function setOpenEditModalFunction(){
 
     return (
         <>
+            
+            <Dialog open={open} onClose={handleClose} >
+                <DialogTitle sx={{ textAlign: "center" }}>Update This Origin Type</DialogTitle>
+                <DialogContent >
+                <DialogContentText>
+                    <DialogTitle >Origin Type:</DialogTitle>
+                    <TextField
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                    name=""
+                    sx={{ width: "99%" }}
+                    value={originType}
+                    onChange={(e) => {setOriginType(e.target.value)}}
+                    />
+                    <DialogTitle >Origin Type Description:</DialogTitle>
+                    <TextField
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                    name=""
+                    sx={{ width: "99%" }}
+                    value={originDesc}
+                    onChange={(e) => {setOriginDesc(e.target.value)}}
+                    />
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={updateData}>Update</Button>
+                </DialogActions>
+            </Dialog>
+
             <Stack spacing={6} direction="row">
                 <Grid container rowSpacing={1}>
                     
@@ -339,10 +408,10 @@ function setOpenEditModalFunction(){
                             alignItems="flex-start"
                             spacing={0}
                         >
-                          <ControlButton disableRipple onClick={() => setOpenEditModalFunction()}>
+                          <ControlButton disableRipple onClick={() => handleClickOpen(row)}>
                             <svg
                                 width="16"
-                                height="17"
+                                height="25"
                                 viewBox="0 0 16 17"
                                 className="controlButton"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -357,11 +426,6 @@ function setOpenEditModalFunction(){
                       </StyledTableCell> 
                                 </StyledTableRow>
                             ))}
-                            {/* {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )} */}
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -379,7 +443,6 @@ function setOpenEditModalFunction(){
                         count={rows.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
-                        // onPageChanged={handlePageChanged}
                         SelectProps={{
                             inputProps: {
                                 "aria-label": "rows per page",
@@ -392,7 +455,7 @@ function setOpenEditModalFunction(){
                     />
                 </Stack>
             </Container>
-            {/*msg*/}
+            {/*Deleted Notification Message*/}
             <Dialog
                     open={openmsg}
                     onClose={handleClosemsg}
@@ -410,12 +473,32 @@ function setOpenEditModalFunction(){
                 </DialogContent>
                 <hr/>
                 <DialogActions>
-                    <Button onClick={handleClosemsg}>Ok</Button>
+                     <Button onClick={handleClosemsg}>Ok</Button>
                 </DialogActions>
                 </Dialog>
-            {/* <AdministrationModel open={openModal} setOpen={setOpenModal} /> */}
-            {/* <EditOriginType open={openEditModal} setOpen={setOpenEditModal}/> */}
-            <EditServiceCallModal open={openEditModal} setOpen={setOpenEditModal}/>
+
+            {/*Updated Notification Message*/}
+            <Dialog
+                    open={openmsgupdated}
+                    onClose={handleClosemsg}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                <DialogTitle id="alert-dialog-title">
+                    {"Success !"}
+                    <hr/>
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                    Origin Type Updated Successfully !
+                    </DialogContentText>
+                </DialogContent>
+                <hr/>
+                <DialogActions>
+                     <Button onClick={handleCloseUpdatedmsg}>Ok</Button>
+                </DialogActions>
+                </Dialog>
+                        
         </>
     );
 };

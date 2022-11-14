@@ -321,6 +321,7 @@ const AdministrationTab2 = (props: any) => {
               name="User Role"
               sx={{ width: "99%" }}
               //onChange={(e) => handleChange(e,"User Role") }
+              required
               onChange={onChangeRole}
               
             />
@@ -340,6 +341,7 @@ const AdministrationTab2 = (props: any) => {
               placeholder="Text (default)"
               name=""
               sx={{ width: "99%" }}
+              required
               onChange={onChangeDesc}
             />
             </Grid></Grid>
