@@ -424,7 +424,7 @@ const AdministrationTab1 = (props: any) => {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          <Grid item xs={6} md={3}>
+          {/* <Grid item xs={6} md={3}>
             <TextBoxHeader>Service Ticket ID</TextBoxHeader>
             <TextBox
               // name="stid"
@@ -438,8 +438,8 @@ const AdministrationTab1 = (props: any) => {
               
             />
             <span style={{color: "red"}}>{errors["TicketID"]}</span>
-          </Grid>
-          <Grid item xs={6} md={3}>
+          </Grid> */}
+          {/* <Grid item xs={6} md={3}>
             <TextBoxHeader>Service Ticket Type</TextBoxHeader>
             <TextBox
               id="outlined-basic"
@@ -564,9 +564,9 @@ const AdministrationTab1 = (props: any) => {
             <span style={{color: "red"}}>{errors["Remark"]}</span>
           </Grid>
          
-        </Grid>
+        </Grid> */}
 
-        <Grid item xs={6} md={3}>
+        {/* <Grid item xs={6} md={3}>
             <TextBoxHeader>Content</TextBoxHeader>
             <TextBox
               id="outlined-basic"
@@ -599,7 +599,7 @@ const AdministrationTab1 = (props: any) => {
               <MenuItem value={"Rasika"}>Rasika</MenuItem>
             </SelectInput>
           <span style={{color: "red"}}>{errors["Secretary"]}</span>
-          </Grid>
+          </Grid> */}
 
                    
 
@@ -624,7 +624,7 @@ const AdministrationTab1 = (props: any) => {
       </Box>
 
                   <br></br>
-      <Grid item xs={7} md={0.65}>
+      {/* <Grid item xs={7} md={0.65}>
       <Button
                     variant="contained"
                     className="ModalCommonButton"
@@ -638,7 +638,7 @@ const AdministrationTab1 = (props: any) => {
                       View Service Ticket Details
                       
         </Button>
-        </Grid>
+        </Grid> */}
 
 
     </>

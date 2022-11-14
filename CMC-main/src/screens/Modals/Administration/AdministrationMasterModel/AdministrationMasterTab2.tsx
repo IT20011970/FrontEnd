@@ -3,6 +3,10 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import { Alert, DialogContentText } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -10,14 +14,14 @@ import Divider from "@mui/material/Divider";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import "../../../Styles/Modal.css";
+import "../../../../Styles/Modal.css";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DateTimePicker from "@mui/lab/DateTimePicker";
-import AdmistrationTab3 from "../Administration/AdministrationTab3"
+// import AdmistrationTab3 from "../Administration/AdministrationTab3"
 import {useState} from "react"
-import AdministrationTab3 from "../Administration/AdministrationTab3";
-import AdministrationModel from "./AdministrationModel";
+// import AdministrationTab3 from "../Administration/AdministrationTab3";
+// import AdministrationModel from "./AdministrationModel";
 import axios from "axios";
 
 
@@ -131,7 +135,7 @@ const ModalTittle = styled("text")(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const AdministrationTab2 = (props: any) => {
+const AdministrationMasterTab2 = (props: any) => {
 
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
@@ -141,7 +145,7 @@ const AdministrationTab2 = (props: any) => {
     //console.log("closed");
     setOpen(false);
     setMainTabValue("1")
-    AdministrationModel(open)
+    //AdministrationModel(open)
   };
 
   
@@ -153,6 +157,7 @@ const AdministrationTab2 = (props: any) => {
   const [errors,seterrors]=useState<any>({})
   const [mainTabValue, setMainTabValue] = React.useState("1");
   //const [Description, setDescription] = React.useState("");
+  const [openmsg, setOpenmsg] = React.useState(false);
   
   // const handleChange = (event: any) => {
   //   setAge(event.target.value);
@@ -162,6 +167,10 @@ const AdministrationTab2 = (props: any) => {
     setMainTabValue(newValue);
     
   };
+
+  const handleClosemsg = () => {
+    setOpenmsg(false);
+  };  
 
   // const handleChangeItemCode = (event: any) => {
   //   props.setItemCode(event.target.value)
@@ -256,24 +265,27 @@ const AdministrationTab2 = (props: any) => {
   }
 
 
-  const [Description, setDescription] = React.useState("");
-  const [RoleDescription, setRoleDescription] = React.useState("");
+  const [ProblemTypeName, setProblemTypeName] = React.useState("");
+  const [ProblemTypeValue, setProblemTypeValue] = React.useState("");
 
   
-  const onChangeRole = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDescription(e.target.value);
+  const onChangeProblem = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProblemTypeName(e.target.value);
     console.log(e.target.value);
   }
 
-  const onChangeDesc = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRoleDescription(e.target.value );
+  const onChangeProblemDesc = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProblemTypeValue(e.target.value );
     console.log(e.target.value);
     
   }
 
 
   function post(){
-    //handleClose()
+    if (ProblemTypeName == '' || ProblemTypeValue == '') {
+      alert('Please Fill all Required Fields!');
+    } else {
+      //handleClose()
     console.log(fields.fields)
     console.log(fields)
     const requestOptions ={
@@ -281,18 +293,17 @@ const AdministrationTab2 = (props: any) => {
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         //UserRoleId: ,
-            Description: Description ,
-            RoleDescription: RoleDescription,
+            ProblemTypeName: ProblemTypeName ,
+            ProblemTypeValue: ProblemTypeValue,
             Status: "1"
-           
         
       })
     };
     console.log(JSON.parse(requestOptions.body));
     
-    fetch('http://localhost:3000/user-role-controller/post',requestOptions)
-    alert("User Role Type Added Successfully.")
-    
+    fetch('http://localhost:3000/problem-type-controller/post',requestOptions)
+    setOpenmsg(true)
+    }   
   }
 
   
@@ -303,14 +314,14 @@ const AdministrationTab2 = (props: any) => {
     <>
       <Box sx={{ flexGrow: 1 }}>
         
-        {mainTabValue == "2" && (
-               <AdministrationTab3 />
-              )}
+        {/* {mainTabValue == "2" && (
+              <AdministrationTab3 />
+              )} */}
 
 {mainTabValue == "1" && (
         <Grid container spacing={2} >
           <Grid item xs={4} md={2} >
-            <TextBoxHeader>User Role</TextBoxHeader>
+            <TextBoxHeader>Problem Type</TextBoxHeader>
           </Grid>
           <Grid item xs={8} md={6} mb={2}>
             <TextBox
@@ -321,8 +332,7 @@ const AdministrationTab2 = (props: any) => {
               name="User Role"
               sx={{ width: "99%" }}
               //onChange={(e) => handleChange(e,"User Role") }
-              required
-              onChange={onChangeRole}
+              onChange={onChangeProblem}
               
             />
             </Grid>
@@ -331,7 +341,7 @@ const AdministrationTab2 = (props: any) => {
             <br></br>
           <Grid container spacing={1} ml={1} mb={2}>
             <Grid item xs={4} md={2} >
-            <TextBoxHeader>Role Description</TextBoxHeader>
+            <TextBoxHeader>Description</TextBoxHeader>
           </Grid>
           <Grid item xs={8} md={6} mb={2}>
             <TextBox
@@ -341,46 +351,22 @@ const AdministrationTab2 = (props: any) => {
               placeholder="Text (default)"
               name=""
               sx={{ width: "99%" }}
-              required
-              onChange={onChangeDesc}
+              onChange={onChangeProblemDesc}
             />
             </Grid></Grid>
 
             <br></br>
             
             <Grid container spacing={1} ml={1} md={8.7}>         
-          <Grid item xs={4} md={4} >
+          <Grid item xs={4} md={4} ml={61}>
       <Button
                     variant="contained"
                     className="ModalCommonButton"
                      sx={{ width: "70%" }}
                      type='submit'
-                     //onClick={post}
+                     onClick={post}
                     >
                       Submit
-                      
-        </Button>
-        </Grid>
-        <Grid item xs={4} md={4}>
-        <Button
-                    variant="contained"
-                    className="ModalCommonButton"
-                     sx={{ width: "70%" }}
-                     onClick={() => buttonChange("2")}
-                    >
-                      Edit
-                      
-        </Button>
-        </Grid>
-        <Grid item xs={4} md={4} >
-        <Button
-                    onClick={handleClose}
-                    variant="contained"
-                    className=""
-                     sx={{ width: "70%" }}
-                     
-                    >
-                      Exit
                       
         </Button>
         </Grid>
@@ -397,15 +383,30 @@ const AdministrationTab2 = (props: any) => {
                 
 
       </Box>
-
-                  
-      
-        
-
-
+          {/*msg*/}
+        <Dialog
+            open={openmsg}
+            onClose={handleClosemsg}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Success !"}
+            <hr/>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Problem Type Added Successfully !
+            </DialogContentText>
+          </DialogContent>
+          <hr/>
+          <DialogActions>
+            <Button onClick={handleClosemsg}>Ok</Button>
+          </DialogActions>
+        </Dialog>
     </>
   );
 };
 
 
-export default AdministrationTab2;
+export default AdministrationMasterTab2;

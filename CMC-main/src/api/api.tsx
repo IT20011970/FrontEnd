@@ -13,6 +13,7 @@ export  interface IService{
     getServiceCallDocuments():Promise<ServiceCallData2[]>
     getExpences():Promise<ExpencesType[]>
     passValue(Data:any):Promise<any[]>
+
 }
 
 export const ServiceContext =createContext<IService|undefined>(undefined)
@@ -32,6 +33,7 @@ const Service:FC =({children}:any)=>{
 
             return data
         },
+
         async getServiceCallDocuments(): Promise<ServiceCallData2[]> {
             const requestOptions = {
                 method: 'GET',
@@ -44,6 +46,7 @@ const Service:FC =({children}:any)=>{
 
             return data
         },
+
         async getSolutions(): Promise<Solutions[]> {
             const requestOptions = {
                 method: 'GET',
@@ -143,3 +146,48 @@ const Service:FC =({children}:any)=>{
 }
 
 export default Service;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import {createContext, FC} from "react"
+// import * as React from "react"
+// import {ServiceCallData2} from "../Types/Types"
+
+// export  interface IService{
+//     getServiceCall():Promise<ServiceCallData2[]>
+// }
+
+// export const ServiceContext =createContext<IService|undefined>(undefined)
+
+// const Service:FC =({children}:any)=>{
+//     const Service ={
+//         async getServiceCall() : Promise<ServiceCallData2[]>{
+//             const requestOptions = {
+//                 method: 'GET',
+//                 headers: {'Content-Type': 'application/json'}
+//             };
+//            const data= fetch(process.env.React_App_BackendUrl+'/service-calls/service',requestOptions)
+//                 .then(response=>{ return response.json()})
+             
+//             return data
+//         }
+//     }
+//     return (
+//         <ServiceContext.Provider value={Service}>
+//         {children}
+//           </ServiceContext.Provider>
+//     )
+// }
+
+// export default Service;
