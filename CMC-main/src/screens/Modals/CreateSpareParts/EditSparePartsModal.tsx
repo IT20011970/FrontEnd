@@ -23,11 +23,12 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Header from "../../../components/Header";
 import "../../../Styles/Modal.css";
-import CreateToolRequestTab1 from"./CreateToolRequestTab1";
-import CreateToolRequestTab2 from "./CreateVehicleRequestTab1";
+import CreateSparePartsTab1 from "./CreateSparePartsTab1";
+import CreateSparePartsTab2 from "./CreateSparePartsTab2";
 import { useEffect, useState } from "react";
 import { Alert, DialogContentText } from "@mui/material";
-import CreateVehicleRequestTab1 from "./CreateVehicleRequestTab1";
+import EditSparePartsTab1 from "./EditSparePartsTab1";
+import EditSparePartsTab2 from "./EditSparePartsTab2";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -76,8 +77,8 @@ const TabName = styled("text")(({ theme }) => ({
   color: "#0091d5",
 }));
 
-const CreateToolRequestModal = (props: any) => {
-   console.log(props.arry)
+const EditSparePartsModal = (props: any) => {
+   console.log(props.dataUpdate)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -162,7 +163,7 @@ const CreateToolRequestModal = (props: any) => {
     console.log(fields.fields)
     console.log(fields)
     const requestOptions ={
-      method:'POST',
+      method:'PUT',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(
           {
@@ -175,19 +176,13 @@ const CreateToolRequestModal = (props: any) => {
                 Secretary: "Gayan",
                 // Secretary:fields.fields.Secretary,
                 ItemDescription: fields.fields.ItemDescription,
-                itemEntity:{
-                  MrfSerialNumber: "aaa",
-                  SerialNumber: "ssv",
-                  ItemDescription: "css",
-                  ItemGroup: "vss"
-                }
               }
             ]
           }
       )
     };
     fetch('http://localhost:3000/spare-parts/create',requestOptions)
-   
+    alert("Spare parts request successfully updated")
     
   }
   const sendDataToParent = (index: any) => {
@@ -206,21 +201,21 @@ const CreateToolRequestModal = (props: any) => {
     setSecondTabValue(newValue);
     setTabName(getTab(newValue));
   };
-  console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
-  console.log(Subject, Origin,
-  ProblemType,
-  InquiryType,
-  CreatedBy,
-  HandledBy,
-  Queue,
-  Secretary,
-  SalesAssistant,
-      CreatedOn,
-  EstimatedDuration,
-  PlanedEndDate,
-  PlanedStartDate,
-  ActualStartDate,
-  ActualEndDate)
+  // console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
+  // console.log(Subject, Origin,
+  // ProblemType,
+  // InquiryType,
+  // CreatedBy,
+  // HandledBy,
+  // Queue,
+  // Secretary,
+  // SalesAssistant,
+  //     CreatedOn,
+  // EstimatedDuration,
+  // PlanedEndDate,
+  // PlanedStartDate,
+  // ActualStartDate,
+  // ActualEndDate)
   return (
     <>
       <Modal
@@ -234,7 +229,7 @@ const CreateToolRequestModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Request
+            Update Spare Part Request
            
           </ModalTittle>
           <IconButton
@@ -293,11 +288,11 @@ const CreateToolRequestModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateToolRequestTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+              <EditSparePartsTab1 dataUpdate={props.dataUpdate}setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <CreateVehicleRequestTab1 setfieldsSpare={setfieldsSpare}   setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              < EditSparePartsTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>
@@ -347,7 +342,7 @@ const CreateToolRequestModal = (props: any) => {
                           className="ModalCommonButton"
                           onClick={post}
                       >
-                        Create
+                        Update
                     
                       </ModalButton>
                       
@@ -363,4 +358,4 @@ const CreateToolRequestModal = (props: any) => {
   );
 };
 
-export default CreateToolRequestModal;
+export default EditSparePartsModal;

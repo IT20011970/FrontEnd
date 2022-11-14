@@ -206,7 +206,8 @@ const ServiceCallTab1 = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   // const [dataUpdate, setDataUpdate] =React.useState<ServiceCallData2[]>({});
    const [dataUpdate, setDataUpdate] = React.useState({});
-  const [data, setData] =React.useState<ServiceCallData2[]>([]);
+  const [data1, setData1] =React.useState<any[]>([]);
+  const [data2, setData2] =React.useState<any>("");
   const Service =useContext(ServiceContext)
   const employee =useRef<ServiceCallData2[]>([])
   const emptyRows =
@@ -238,7 +239,6 @@ const ServiceCallTab1 = () => {
   }
   
   function setOpenEditModalFunction(data:any){
-    setRepeat("b")
     setDataUpdate(data)
     console.log(dataUpdate)
     setOpenEditModal(true)
@@ -246,7 +246,7 @@ const ServiceCallTab1 = () => {
   function getData (){
    if(Service !==undefined){
      Service.getServiceCall().then((result)=>{
-       setData(result)
+       setData1(result)
        // console.log(result)
      })
    }
@@ -302,11 +302,11 @@ const ServiceCallTab1 = () => {
               </TableHead>
               <TableBody>
                 {(rowsPerPage > 0
-                        ? data.slice(
+                        ? data1.slice(
                             page * rowsPerPage,
                             page * rowsPerPage + rowsPerPage
                         )
-                        : data
+                        : data1
                 ).map(( row:ServiceCallData2, i: number) => (
                     <StyledTableRow key={row.ServiceCallId}>
                       <StyledTableCell

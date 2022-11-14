@@ -32,6 +32,7 @@ import ServiceCall from "../../ServiceCall";
 import SpareParts from "../../SpareParts";
 import ResourceAllocation from "../../ResourceAllocation";
 import CreateSparePartslModal from "../../Modals/CreateSpareParts/CreateSparePartslModal";
+import CreateToolRequestModal from "../../Modals/CreateToolRequest/CreateToolRequestModal";
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -267,6 +268,33 @@ const ResourceAllocationTab2 = () => {
 
     return (<>
                 <Container>
+                <Stack spacing={6} direction="row">
+                <Grid container rowSpacing={2}>
+                    <Grid item xs={6}>
+                        <Heading></Heading>
+                    </Grid>
+                    <Grid item xs={3} sx={{ pr: 3 }}>
+                        <Search>
+                            <SearchIconWrapper>
+                                <SearchIcon />
+                            </SearchIconWrapper>
+                            <StyledInputBase
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                placeholder="Search"
+                                inputProps={{ "aria-label": "search" }}
+                            />
+                        </Search>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <RequestButton
+                            variant="contained"
+                            onClick={() => setOpenModal(true)}
+                        >
+                            Create Vehicle Request
+                        </RequestButton>
+                    </Grid>
+                </Grid>
+            </Stack><br></br>
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
                             <TableHead>
@@ -399,7 +427,8 @@ const ResourceAllocationTab2 = () => {
                     </Route>
                 </Switch>
 
-                <CreateServiceCallModal open={openModal} setOpen={setOpenModal} />
+                <CreateToolRequestModal open={openModal} setOpen={setOpenModal} />
+                
             </>
     );
 };

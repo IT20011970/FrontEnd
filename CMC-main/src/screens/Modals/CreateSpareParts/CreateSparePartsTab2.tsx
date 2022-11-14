@@ -343,8 +343,17 @@ const CreateSparePartsTab1 = (props: any) => {
   return (
       <>
         <Box sx={{ flexGrow: 1 }}>
-          Spare Part Request ID
-
+        <Grid item xs={6} md={3}>
+            <TextBoxHeader>Service Ticket ID</TextBoxHeader>
+            <TextBox
+              id="outlined-basic"
+              variant="outlined"
+              placeholder="Text (default)"
+              sx={{ width: "99%" }}
+              
+            />
+          </Grid>
+          <br></br>
               <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
                 <Table
                     sx={{ minWidth: 500, boxShadow: "none" }}

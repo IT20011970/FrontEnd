@@ -151,7 +151,7 @@ const ModalTittle = styled("text")(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const CreateToolRequestTab1 = (props: any) => {
+const CreateVehicleRequestTab1 = (props: any) => {
   React.useEffect(() => {
  
   });
@@ -299,78 +299,78 @@ const CreateToolRequestTab1 = (props: any) => {
     }
 
 
-    // //Remark
-    // if(typeof fields["Remark"] === "string"){
-    //   if (fields["Remark"]==="") {
-    //     errors["Remark"] = "Please Enter Remark ";
-    //     seterrors(errors)
-    //   }
-    //   else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
-    //     errors["Remark"] = "Only letters ";
-    //     seterrors(errors)
-    //   }
-    //   else{
-    //     errors["Remark"] = ""
-    //     setfields( fields )
-    //     props.setfieldsSpare({fields})
-    //     seterrors(errors)
-    //   }
-    // }
-    // //Content
-    // if(typeof fields["Content"] === "string"){
-    //   if (fields["Content"]==="") {
-    //     errors["Content"] = "Please Enter Content ";
-    //     seterrors(errors)
-    //   }
-    //   else if (!fields["Content"].match(/^[a-zA-Z\s]+$/)) {
-    //     errors["Content"] = "Only letters ";
-    //     seterrors(errors)
-    //   }
-    //   else{
-    //     errors["Content"] = ""
-    //     setfields( fields )
-    //     props.setfieldsSpare({fields})
-    //     seterrors(errors)
-    //   }
-    // }
-    // //TicketType
-    // if(typeof fields["Secretary"] === "string"){
-    //   if (fields["Secretary"]==="") {
-    //     errors["Secretary"] = "Please Enter Secretary ";
-    //     seterrors(errors)
-    //   }
-    //   else{
-    //     errors["Secretary"] = ""
-    //     setfields( fields )
-    //     props.setfieldsSpare({fields})
-    //     seterrors(errors)
-    //   }
-    // }
-    // if(typeof fields["TicketType"] === "string"){
-    //   if (fields["TicketType"]==="") {
-    //     errors["TicketType"] = "Please Enter Ticket Type ";
-    //     seterrors(errors)
-    //   }
-    //   else{
-    //     errors["TicketType"] = ""
-    //     setfields( fields )
-    //     props.setfieldsSpare({fields})
-    //     seterrors(errors)
-    //   }
-    // }
-    // //
-    // if(typeof fields["ItemDescription"] === "string"){
-    //   if (fields["TicketType"]==="") {
-    //     errors["TicketType"] = "Please Enter Item Description";
-    //     seterrors(errors)
-    //   }
-    //   else{
-    //     errors["ItemDescription"] = ""
-    //     setfields( fields )
-    //     props.setfieldsSpare({fields})
-    //     seterrors(errors)
-    //   }
-    // }
+    //Remark
+    if(typeof fields["Remark"] === "string"){
+      if (fields["Remark"]==="") {
+        errors["Remark"] = "Please Enter Remark ";
+        seterrors(errors)
+      }
+      else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
+        errors["Remark"] = "Only letters ";
+        seterrors(errors)
+      }
+      else{
+        errors["Remark"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
+    //Content
+    if(typeof fields["Content"] === "string"){
+      if (fields["Content"]==="") {
+        errors["Content"] = "Please Enter Content ";
+        seterrors(errors)
+      }
+      else if (!fields["Content"].match(/^[a-zA-Z\s]+$/)) {
+        errors["Content"] = "Only letters ";
+        seterrors(errors)
+      }
+      else{
+        errors["Content"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
+    //TicketType
+    if(typeof fields["Secretary"] === "string"){
+      if (fields["Secretary"]==="") {
+        errors["Secretary"] = "Please Enter Secretary ";
+        seterrors(errors)
+      }
+      else{
+        errors["Secretary"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
+    if(typeof fields["TicketType"] === "string"){
+      if (fields["TicketType"]==="") {
+        errors["TicketType"] = "Please Enter Ticket Type ";
+        seterrors(errors)
+      }
+      else{
+        errors["TicketType"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
+    //
+    if(typeof fields["ItemDescription"] === "string"){
+      if (fields["TicketType"]==="") {
+        errors["TicketType"] = "Please Enter Item Description";
+        seterrors(errors)
+      }
+      else{
+        errors["ItemDescription"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
     
     
     //Begin
@@ -442,7 +442,7 @@ const CreateToolRequestTab1 = (props: any) => {
       <Box sx={{ flexGrow: 2 }}>
         <Grid container spacing={2}>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool ID</TextBoxHeader>
+            <TextBoxHeader>Vehicle ID</TextBoxHeader>
             <TextBox
               // name="stid"
               id="outlined-basic"
@@ -457,7 +457,7 @@ const CreateToolRequestTab1 = (props: any) => {
             <span style={{color: "red"}}>{errors["TicketID"]}</span>
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool Group</TextBoxHeader>
+            <TextBoxHeader>Vehicle Type</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -468,7 +468,7 @@ const CreateToolRequestTab1 = (props: any) => {
             />
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool Request ID</TextBoxHeader>
+            <TextBoxHeader>Vehicle Request ID</TextBoxHeader>
             <TextBox
                 id="outlined-basic"
                 variant="outlined"
@@ -483,7 +483,7 @@ const CreateToolRequestTab1 = (props: any) => {
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool Description</TextBoxHeader>
+            <TextBoxHeader>Vehicle Description</TextBoxHeader>
             <TextBox
               // name="stid"
               id="outlined-basic"
@@ -498,7 +498,7 @@ const CreateToolRequestTab1 = (props: any) => {
             <span style={{color: "red"}}>{errors["TicketID"]}</span>
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Serial No</TextBoxHeader>
+            <TextBoxHeader>Vehicle Capacity</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -509,7 +509,7 @@ const CreateToolRequestTab1 = (props: any) => {
             />
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool Request Status</TextBoxHeader>
+            <TextBoxHeader>Vehicle Request Status</TextBoxHeader>
             <TextBox
                 id="outlined-basic"
                 variant="outlined"
@@ -524,7 +524,7 @@ const CreateToolRequestTab1 = (props: any) => {
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Tool Type</TextBoxHeader>
+            <TextBoxHeader>Plate No.</TextBoxHeader>
             <TextBox
               // name="stid"
               id="outlined-basic"
@@ -550,7 +550,7 @@ const CreateToolRequestTab1 = (props: any) => {
                       // onClick={post}
                       onClick={()=>window.location.href='/Calendar'}
                     >
-                      Check Tool Calender
+                      Check Vehicle Calender
                       
         </Button>
           </Grid>
@@ -761,8 +761,8 @@ const CreateToolRequestTab1 = (props: any) => {
          
         </Grid>
 
-        <Grid item xs={6} md={3}>
-            {/* <TextBoxHeader>Content</TextBoxHeader>
+        {/* <Grid item xs={6} md={3}>
+            <TextBoxHeader>Content</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -770,9 +770,9 @@ const CreateToolRequestTab1 = (props: any) => {
               sx={{ width: "400%" }}
               onChange={(e) => handleChange(e,"Content") }
               onFocus={(e) => handleChange(e,"Content") }
-            /> */}
+            />
           <span style={{color: "red"}}>{errors["Content"]}</span>
-          </Grid>
+          </Grid> */}
      
         <Grid container spacing={2}>
           
@@ -841,4 +841,4 @@ const CreateToolRequestTab1 = (props: any) => {
   );
 };
 
-export default CreateToolRequestTab1;
+export default CreateVehicleRequestTab1;

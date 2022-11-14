@@ -27,7 +27,6 @@ import CreateToolRequestTab1 from"./CreateToolRequestTab1";
 import CreateToolRequestTab2 from "./CreateVehicleRequestTab1";
 import { useEffect, useState } from "react";
 import { Alert, DialogContentText } from "@mui/material";
-import CreateVehicleRequestTab1 from "./CreateVehicleRequestTab1";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -76,7 +75,7 @@ const TabName = styled("text")(({ theme }) => ({
   color: "#0091d5",
 }));
 
-const CreateToolRequestModal = (props: any) => {
+const CreateVehicleRequestModal = (props: any) => {
    console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
@@ -187,7 +186,7 @@ const CreateToolRequestModal = (props: any) => {
       )
     };
     fetch('http://localhost:3000/spare-parts/create',requestOptions)
-   
+    alert("Spare parts request successfully created")
     
   }
   const sendDataToParent = (index: any) => {
@@ -234,7 +233,7 @@ const CreateToolRequestModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Request
+            Create Tool Request
            
           </ModalTittle>
           <IconButton
@@ -297,7 +296,7 @@ const CreateToolRequestModal = (props: any) => {
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <CreateVehicleRequestTab1 setfieldsSpare={setfieldsSpare}   setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              <CreateToolRequestTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>
@@ -363,4 +362,4 @@ const CreateToolRequestModal = (props: any) => {
   );
 };
 
-export default CreateToolRequestModal;
+export default CreateVehicleRequestModal;

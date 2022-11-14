@@ -85,6 +85,7 @@ const CreateServiceCallModal = (props: any) => {
   const { open, setOpen } = props;
   React.useEffect(() => {
    props.setOpen(false)
+    console.log("aaa")
    // setselectTabValue(false)
   },[]);
 
@@ -197,14 +198,14 @@ const CreateServiceCallModal = (props: any) => {
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         CustomerId: parseInt(fields.fields.CustomerID),
-        CustomeName:"fields.fields.CustomerName",
+        CustomeName:fields.fields.CustomerName,
         ContactPerson:fields.fields.ContactPerson,
         TelephoneNo: fields.fields.TelephoneNo,
         CustomerAddressId:fields.fields.AddressId,
           serviceCalls: [
         {
           ServiceCallId:parseInt(fields.fields.ServiceCallId),
-          Status:fields.fields.Status,
+          Status:"Pending",
           Priority:fields.fields.Priority,
           Subject: Subject,
           Origin: Origin,

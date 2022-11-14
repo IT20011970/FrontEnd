@@ -25,6 +25,8 @@ import CreateSparePartslModal from "../../Modals/CreateSpareParts/CreateSparePar
 import { Checkbox } from "@material-ui/core";
 
 
+
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: "8px",
@@ -221,6 +223,15 @@ const SparePartsTab1 = () => {
     setPage(0);
   };
 
+  // const [dataUpdate, setDataUpdate] = React.useState({});
+  // const [openEditModal, setOpenEditModal] = React.useState(false);
+
+  // function setOpenEditModalFunction(data:any){
+  //   setDataUpdate(data)
+  //   console.log(dataUpdate)
+  //   setOpenEditModal(true)
+  // }
+
   return (
     <>
       <Stack spacing={6} direction="row" sx={{ padding: "0px" }}>
@@ -316,7 +327,7 @@ const SparePartsTab1 = () => {
                     {row.attachment}
                   </StyledTableCell>
                   <StyledTableCell>
-                    <ControlButton disableRipple >
+                    <ControlButton disableRipple  >
                     {/* <ControlButton disableRipple onClick={e=>getData(row)}> */}
                       <svg
                         width="21"
@@ -366,8 +377,11 @@ const SparePartsTab1 = () => {
             ActionsComponent={TablePaginationActions}
           />
         </Stack>
-        <CreateSparePartslModal arry={arry} open={openModal} setOpen={setOpenModal} />
+      
       </Container>
+        <CreateSparePartslModal arry={arry} open={openModal} setOpen={setOpenModal} />
+         {/* <EditSparePartsModal  dataUpdate={dataUpdate} open={openEditModal} setOpen={setOpenEditModal}/>
+       */}
     </>
   );
 };

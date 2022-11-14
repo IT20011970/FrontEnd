@@ -220,7 +220,7 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const CreateToolRequestTab1 = (props: any) => {
+const EditSparePartsTab2 = (props: any) => {
 
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
@@ -343,8 +343,17 @@ const CreateToolRequestTab1 = (props: any) => {
   return (
       <>
         <Box sx={{ flexGrow: 1 }}>
-          Spare Part Request ID
-
+        <Grid item xs={6} md={3}>
+            <TextBoxHeader>Service Ticket ID</TextBoxHeader>
+            <TextBox
+              id="outlined-basic"
+              variant="outlined"
+              placeholder="Text (default)"
+              sx={{ width: "99%" }}
+              
+            />
+          </Grid>
+          <br></br>
               <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
                 <Table
                     sx={{ minWidth: 500, boxShadow: "none" }}
@@ -397,7 +406,7 @@ const CreateToolRequestTab1 = (props: any) => {
                       
                     </TableRow>
                   </TableHead>
-                  <TableBody>
+                  {/* <TableBody>
                     {data1.map((row: ArrayTab, i: number) => (
                         <StyledTableRow key={Math.random()}>
                           <StyledTableCell
@@ -450,7 +459,7 @@ const CreateToolRequestTab1 = (props: any) => {
                        
                         </StyledTableRow>
                     ))}
-                  </TableBody>
+                  </TableBody> */}
                 </Table>
               </TableContainer>
           <Box sx={{ flexGrow: 1, py: 1 }}>
@@ -632,4 +641,4 @@ const CreateToolRequestTab1 = (props: any) => {
   );
 };
 
-export default CreateToolRequestTab1;
+export default EditSparePartsTab2;
