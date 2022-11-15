@@ -343,7 +343,7 @@ const GeneralTab = (props: any) => {
         />
         <Grid container>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Created On</TextBoxHeader>
+            <TextBoxHeader>Created On <span style={{color:'red'}}>*</span></TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params) => <TextBox {...params} />}
@@ -358,7 +358,7 @@ const GeneralTab = (props: any) => {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Planned start Date & Time</TextBoxHeader>
+            <TextBoxHeader>Planned start Date & Time <span style={{color:'red'}}>*</span></TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
@@ -372,7 +372,7 @@ const GeneralTab = (props: any) => {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Planned End Date & Time</TextBoxHeader>
+            <TextBoxHeader>Planned End Date & Time <span style={{color:'red'}}>*</span></TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(params:any) => <TextBox {...params} />}
@@ -386,7 +386,7 @@ const GeneralTab = (props: any) => {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Estimated Duration</TextBoxHeader>
+            <TextBoxHeader>Estimated Duration <span style={{color:'red'}}>*</span></TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                   renderInput={(params:any) => <TextBox {...params} />}

@@ -418,6 +418,7 @@ const Expences = (props: any) => {
                                         id="outlined-basic"
                                         variant="outlined"
                                         placeholder="Text (default)"
+                                        value={props.props.props.serviceCallData.fields.ServiceCallId}
                                     />
                                 </Grid>
                                 <Grid item xs={6} >

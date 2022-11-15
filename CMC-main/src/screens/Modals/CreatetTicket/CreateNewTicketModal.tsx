@@ -288,13 +288,13 @@ const CreateNewTicketModal = (props: any) => {
     // console.log( typeof fields["Status"])
     //  console.log( fields["Status"])
 
-    //TicketId
-    if (typeof fields["TicketId"] === "string") {
-      if (fields["TicketId"] === "") {
-        errors["TicketId"] = "Please Enter Ticket Id ";
+    //ServiceCallId
+    if (typeof fields["ServiceCallId"] === "string") {
+      if (fields["ServiceCallId"] === "") {
+        errors["ServiceCallId"] = "Please Enter ServiceCall Id ";
         seterrors(errors)
       } else {
-        errors["TicketId"] = ""
+        errors["ServiceCallId"] = ""
         setfields(fields)
         seterrors(errors)
       }
@@ -360,7 +360,7 @@ const CreateNewTicketModal = (props: any) => {
         ServiceCallId: parseInt(fields["ServiceCallId"]),
         serviceTicket: [
           {
-            TicketId: fields["TicketId"],
+            TicketId: Math.floor(Math.random()*1000000),
             TicketType: fields["TicketType"],
             Subject: fields["Subject"],
             AssignedTo: fields["AssignedTo"],
@@ -428,16 +428,16 @@ const CreateNewTicketModal = (props: any) => {
             <Header />
             <Grid container>
               <Grid item xs={6} md={4}>
-                <TextBoxHeader>Service Ticket ID</TextBoxHeader>
+                <TextBoxHeader> ServiceCall ID</TextBoxHeader>
                 <TextBox
                     id="outlined-basic"
                     variant="outlined"
                     placeholder="Text (default)"
                     value={ fields["TicketId"]}
-                    onChange={(e) => handleChangeField(e,"TicketId") }
-                    onFocus={(e) => handleChangeField(e,"TicketId") }
+                    onChange={(e) => handleChangeField(e,"ServiceCallId") }
+                    onFocus={(e) => handleChangeField(e,"ServiceCallId") }
                 />
-                <span style={{color: "red"}}>{errors["TicketId"]}</span>
+                <span style={{color: "red"}}>{errors["ServiceCallId"]}</span>
               </Grid>
               <Grid item xs={6} md={4}>
                 <TextBoxHeader>Service Ticket Type</TextBoxHeader>
