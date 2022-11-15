@@ -129,7 +129,7 @@ const TicketsTab = (props: any) => {
           console.log(data[0].message===null)
           if(data[0].message!==null){
             console.log(data)
-           setStudents(data)
+           setStudents(data[0])
           }
           //console.log(data[3].Groups[1].students)
         });

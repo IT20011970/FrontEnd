@@ -19,6 +19,7 @@ import CreateNewTicketModal from "../CreateTicket";
 import {useEffect, useState} from "react"
 import moment from "moment"
 import UpdateTicketModal from "../../CreatetTicket/UpdateTicketModal";
+import CreateTicket from "../CreateTicket";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "85px",
@@ -137,11 +138,11 @@ const TicketsTab2 = (props: any) => {
     fetch('http://localhost:3000/service-calls/ticketInServiceCall/'+props.props.serviceCallData.fields.ServiceCallId,requestOptions)
         .then(response=>{ return response.json()})
         .then(data=>{
-
+          console.log(data)
           console.log(data[0].message===null)
           if(data[0].message!==null){
             console.log(data)
-           setStudents(data)
+           setStudents(data[0])
           }
           //console.log(data[3].Groups[1].students)
         });
@@ -284,9 +285,6 @@ const TicketsTab2 = (props: any) => {
                         </svg>
                       </ControlButton>
                     </StyledTableCell>
-
-
-                    
                   </StyledTableRow>
               ))}
             </TableBody>
@@ -310,10 +308,10 @@ const TicketsTab2 = (props: any) => {
             </Grid>
           </Grid>
         </Box>
-        <CreateNewTicketModal  props={props} open={openModal} setOpen={setOpenModal} />
-        {/*{openEditModal == true && (*/}
-        {/*    <UpdateTicketModal  dataUpdate={dataUpdate} open={openEditModal} setOpen={setOpenEditModal}/>*/}
-        {/*)}*/}
+        <CreateTicket  props={props} open={openModal} setOpen={setOpenModal} />
+        {openEditModal == true && (
+            <UpdateTicketModal props={props} dataUpdate={dataUpdate} open={openEditModal} setOpen={setOpenEditModal}/>
+        )}
       </Box>
   );
 };

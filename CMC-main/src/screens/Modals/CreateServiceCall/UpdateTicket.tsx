@@ -27,9 +27,8 @@ import GeneralTab from "./CreateTicket/GeneralTab";
 import ContentTab from "./CreateTicket/ContentTab";
 import LinkedDocumentsTab from "./CreateTicket/LinkedDocumentsTab";
 import AttachmentsTab from "./CreateTicket/AttachmentsTab";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import GeneralTabTicket from "./CreateTicket/GeneralTab";
-import {ServiceContext} from "../../../api/api";
 
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
@@ -51,6 +50,27 @@ const SelectInput = styled(Select)(({ theme }) => ({
     width: "auto",
     // padding: "10px",
   },
+}));
+
+
+const SelectBox = styled(Select)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(0),
+  textAlign: "center",
+  boxShadow: "none",
+  fontFamily: "Montserrat",
+  fontSize: 14,
+  fontWeight: 400,
+  color: "#383838",
+  borderRadius: "4px",
+  height: "40px",
+  boxSizing: "content-box",
+  // "& .MuiSelect-select": {
+  //   borderRadius: "4px",
+  //   height: "40px",
+  //   width: "auto",
+  //   // padding: "10px",
+  // },
 }));
 
 const ModalButton = styled(Button)(({ theme }) => ({
@@ -137,28 +157,6 @@ const createData = (
   };
 };
 
-const SelectBox = styled(Select)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "left",
-  boxShadow: "none",
-  fontFamily: "Montserrat",
-  fontSize: 14,
-  fontWeight: 400,
-  color: "#383838",
-  backgroundColor: "#FBFBFB",
-  width: "95%",
-  height: "40px",
-  borderRadius: "4px",
-  // minWidth: "250px",
-  "& .MuiOutlinedInput-root": {
-    borderRadius: "4px",
-    height: "40px",
-    width: "auto",
-    // padding: "10px",
-  },
-}));
-
 const rows: any = [];
 for (var i = 0; i < 5; i++) {
   rows.push(
@@ -175,9 +173,9 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const UpdateTicketModal = (props: any) => {
-
-  const { open, setOpen ,dataUpdate} = props;
+const UpdateTicket = (props: any) => {
+  // console.log(props.props.props.serviceCallData.fields.ServiceCallId)
+  const { open, setOpen, tab } = props;
   const [age, setAge] = React.useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -187,7 +185,7 @@ const UpdateTicketModal = (props: any) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [date, setDate] = React.useState(new Date());
-  const [fields, setfields] = useState<any>({TicketType:'',AssignedTo:''});
+  const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
   const [CreatedOn, setCreatedOnDate] = React.useState("")
   const [planedStartDate, setDatePlanedStart] = React.useState("");
@@ -197,26 +195,7 @@ const UpdateTicketModal = (props: any) => {
   const [actualEndDate, setDateActualEnd] = React.useState("");
   const [Estimate, setEstimate] = React.useState("")
   const [contact, setContact] = React.useState("")
-  const Service =useContext(ServiceContext)
-  React.useEffect(()=>{
-    fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
-    fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
-    fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
-    fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
-    fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
-    fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
-     fields["TicketId"] = dataUpdate.TicketId;
-      fields["Subject"] = dataUpdate.Subject;
-     fields["TicketType"] =dataUpdate.TicketType;
-    // fields["CustomerId"]=dataUpdate.serviceCall.customerEntity.CustomerId
-    //  fields["CustomeName"] =dataUpdate.serviceCall.customerEntity.CustomeName;
-    //   fields["ContactPerson"] = dataUpdate.serviceCall.customerEntity.ContactPerson;
-    //  fields["TelephoneNo"] =dataUpdate.serviceCall.customerEntity.TelephoneNo;
-    //   fields["CustomerAddressId"] =dataUpdate.serviceCall.customerEntity.CustomerAddressId;
-     fields["AssignedTo"] =dataUpdate.AssignedTo;
-     fields["AssignedBy"] =dataUpdate.AssignedBY;
 
-  },[3])
   const getTab = (index: string): string => {
     switch (index) {
       case "1":
@@ -276,11 +255,9 @@ const UpdateTicketModal = (props: any) => {
   };
 
   function handleChangeField(e:any,f:any) {
-
+    console.log(props)
     fields[f] = e.target.value;
-    setfields( fields )
-    console.log(fields[f])
-  //  handleValidation()
+    handleValidation()
   }
 
   function select(f:any) {
@@ -290,11 +267,21 @@ const UpdateTicketModal = (props: any) => {
     handleValidation()
   }
 
-
+  useEffect (()=>{
+    console.log(props.open)
+    fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
+    fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
+    fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
+    fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
+    fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
+    fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
+    fields["TicketId"]= Math.floor(Math.random()*1000000)
+    setfields(fields)
+  },[props.open])
 
   function handleValidation() {
-    //console.log(fields)
-   // console.log(typeof fields["TicketId"])
+    console.log(fields)
+    console.log(typeof fields["TicketId"])
     // console.log(fields["MRF"])
     // let errors: any = {};
     let formIsValid = true;
@@ -364,24 +351,34 @@ const UpdateTicketModal = (props: any) => {
 
   function post(){
     handleClose()
-   // console.log(fields.fields)
+    console.log(fields.fields)
     console.log(fields)
     const requestOptions ={
-      method:'PUT',
+      method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
+        ServiceCallId: parseInt(fields["ServiceCallId"]),
+        serviceTicket: [
+          {
             TicketId: fields["TicketId"],
             TicketType: fields["TicketType"],
             Subject: fields["Subject"],
             AssignedTo: fields["AssignedTo"],
-            AssignedBY: fields["AssignedBy"],
-
-          }
-      )
+            AssignedBY:fields["AssignedBy"],
+            PlannedStartDate: planedStartDate,
+            PlannedEndDate: plannedEndDate ,
+            ActualStartDate: actualStartDate ,
+            CreatedOn:CreatedOn,
+            ActualEndDate: actualEndDate ,
+            EstimatedDuration: Estimate ,
+            ContactPerson: contact
+           }
+        ]
+      })
     };
-    fetch('http://localhost:3000/spare-parts/ticket/'+fields["TicketId"],requestOptions)
+    fetch('http://localhost:3000/spare-parts',requestOptions)
   }
-
+ 
 
   return (
       <Modal
@@ -395,7 +392,7 @@ const UpdateTicketModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Update Ticket
+            Create Ticket
             {/* / <TabName>{tabName}</TabName> */}
           </ModalTittle>
           <IconButton
@@ -444,27 +441,25 @@ const UpdateTicketModal = (props: any) => {
               </Grid>
               <Grid item xs={6} md={4}>
                 <TextBoxHeader>Service Ticket Type</TextBoxHeader>
-                <SelectBox
+                <SelectInput
                     labelId="demo-simple-select-label"
                     id="demo-simple-select1"
                     defaultValue=""
-                    value={fields["TicketType"]}
                     onChange={(e) => handleChangeField(e,"TicketType") }
                     onFocus={ ()=>select("TicketType") }
                 >
                   <MenuItem value={"Type 1"}>Type 1</MenuItem>
                   <MenuItem value={"Type 2"}>Type 2</MenuItem>
                   <MenuItem value={"Type 3"}>Type 3</MenuItem>
-                </SelectBox>
+                </SelectInput>
                 <span style={{color: "red"}}>{errors["TicketType"]}</span>
               </Grid>
-              <Grid item xs={6} md={4}>
+              <Grid item xs={6} md={12}>
                 <TextBoxHeader>Subject</TextBoxHeader>
                 <TextBox
                     id="outlined-basic"
                     variant="outlined"
                     placeholder="Text (default)"
-                    value={ fields["Subject"]}
                     onChange={(e) => handleChangeField(e,"Subject") }
                     onFocus={(e) => handleChangeField(e,"Subject") }
                 />
@@ -537,7 +532,6 @@ const UpdateTicketModal = (props: any) => {
                     id="demo-simple-select1"
                     sx={{ width: "99%" }}
                     defaultValue=""
-                    value={fields["AssignedTo"]}
                     onChange={(e) => handleChangeField(e,"AssignedTo") }
                 >
                   <MenuItem value={"Gayan"}>Gayan</MenuItem>
@@ -574,20 +568,20 @@ const UpdateTicketModal = (props: any) => {
               </Grid>
             </Grid>
             <br />
-            {/*<TabContext>*/}
-            {/*  <TabPanel value="1">*/}
-            {/*    <GeneralTabTicket/>*/}
-            {/*  </TabPanel>*/}
-            {/*  <TabPanel value="2">*/}
-            {/*    <ContentTab />*/}
-            {/*  </TabPanel>*/}
-            {/*  <TabPanel value="3">*/}
-            {/*    <LinkedDocumentsTab/>*/}
-            {/*  </TabPanel>*/}
-            {/*  <TabPanel value="4">*/}
-            {/*    <AttachmentsTab />*/}
-            {/*  </TabPanel>*/}
-            {/*</TabContext>*/}
+            <TabContext value={tab}>
+              <TabPanel value="1">
+                <GeneralTabTicket/>
+              </TabPanel>
+              <TabPanel value="2">
+                <ContentTab />
+              </TabPanel>
+              <TabPanel value="3">
+                <LinkedDocumentsTab/>
+              </TabPanel>
+              <TabPanel value="4">
+                <AttachmentsTab />
+              </TabPanel>
+            </TabContext>
           </Box>
           <TabContext value={value}>
             <Box
@@ -648,14 +642,14 @@ const UpdateTicketModal = (props: any) => {
                     className="ModalCommonButton"
                     onClick={post}
                 >
-                  Update
+                  Save
                 </ModalButton>
               </Grid>
             </Grid>
           </Box>
         </DialogActions>
-     </Modal>
+      </Modal>
   );
 };
 
-export default UpdateTicketModal;
+export default UpdateTicket;
