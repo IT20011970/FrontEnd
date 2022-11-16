@@ -19,17 +19,18 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Pagination from "@mui/material/Pagination";
 
-import { Stack, TableCell } from '@mui/material';
+import Pagination from "@mui/material/Pagination";
+import TableHead from "@mui/material/TableHead";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
     TablePaginationActionsProps,
-    SparePartsRequestListData, ServiceCallData, ServiceCallData2,
+    SparePartsRequestListData, ServiceCallData, ServiceCallData2, Ticket, ArrayTab,
 } from "../../../Types/Types";
 import "./../../../Styles/Tabs.css";
+import moment from "moment";
 
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
@@ -43,6 +44,44 @@ const TextBoxHeader = styled(Paper)(({ theme }) => ({
   color: "#383838",
   backgroundColor: "transparent",
   marginTop: "17px",
+}));
+
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    color: "#383838",
+    backgroundColor: "#fff",
+    fontWeight: 600,
+    fontSize: 14,
+    fontFamily: "Montserrat",
+    textAlign: "left",
+    borderBottom: "2px solid rgba(0, 65, 102, 0.2);",
+    lineHeight: "1.5",
+    padding: 7,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+    fontWeight: 400,
+    fontFamily: "Segoe UI",
+    color: "#383838",
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: "rgba(0, 32, 51, 0.05)",
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    borderBottom: 0,
+  },
+  td: {
+    borderBottom: 0,
+    padding: 7,
+    // lineHeight: "0.5",
+    // borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+  },
 }));
 
 const TextBox = styled(TextField)(({ theme }) => ({
@@ -152,10 +191,22 @@ const ModalTittle = styled("text")(({ theme }) => ({
 }));
 
 const CreateToolRequestTab1 = (props: any) => {
+  
   React.useEffect(() => {
- 
-  });
+    setData1(props.props)
+    console.log(props.props.arry)
+    if(props.props.arry.length!==0){
+    fields["TicketID"] = props.props.arry[0].ServiceCallId
+    fields["ToolGroup"] =  props.props.arry[0].Status
+    fields["ToolType"]= props.props.arry[0].Status
+    fields["ToolDes"] =  props.props.arry[0].Status
+    fields["SerialNo"] =  props.props.arry[0].Status
 
+    fields["ToolReqID"]= Math.floor(Math.random()*1000000)
+  }
+    
+  },[]);
+ 
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -164,50 +215,54 @@ const CreateToolRequestTab1 = (props: any) => {
   
   const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = React.useState(0);
+  const [students, setStudents] =useState<any[]>([]);
+  const [data1, setData1] =React.useState<ArrayTab[]>([]);
 
   // const handleChange = (event: any) => {
   //   setAge(event.target.value);
   // };
 
-  const handleChangeItemCode = (event: any) => {
-    props.setItemCode(event.target.value)
-  };
-  const handleChangeMRF = (event: any) => {
-    props.setChangeMRF(event.target.value)
-  };
-  const handleChangeSerialNumber = (event: any) => {
-    props.setIChangeSerialNumber(event.target.value)
-  };
-  const handleChangeItemDescription = (event: any) => {
-    props.setItemDescription(event.target.value)
-  };
-  const handleChangeItemGroup = (event: any) => {
-    props.setItemGroup(event.target.value)
-  };
-  const handleChangeCustomerID = (event: any) => {
-    props.setCustomerID(event.target.value)
-  };
-  const handleChangeContactPerson = (event: any) => {
-    props.setContactPerson(event.target.value)
-  };
-  const handlChangeAddress = (event: any) => {
-    props.setAddress(event.target.value)
-  };
-  const handleChangeTelephoneNo = (event: any) => {
-    props.setTelephoneNo(event.target.value)
-  };
-  const handleChangeStatus = (event: any) => {
-    props.setChangeStatus(event.target.value);
-  };
-  const handleChangeServiceCallId = (event: any) => {
-    props.setChangeServiceCallId(event.target.value)
-  };
-  const handleChangePriority = (event: any) => {
-    props.setChangePriority(event.target.value)
-  };
-  const handleChangeCustomerName = (event: any) => {
-    props.setCustomerName(event.target.value)
-  };
+  // const handleChangeItemCode = (event: any) => {
+  //   props.setItemCode(event.target.value)
+  // };
+  // const handleChangeMRF = (event: any) => {
+  //   props.setChangeMRF(event.target.value)
+  // };
+  // const handleChangeSerialNumber = (event: any) => {
+  //   props.setIChangeSerialNumber(event.target.value)
+  // };
+  // const handleChangeItemDescription = (event: any) => {
+  //   props.setItemDescription(event.target.value)
+  // };
+  // const handleChangeItemGroup = (event: any) => {
+  //   props.setItemGroup(event.target.value)
+  // };
+  // const handleChangeCustomerID = (event: any) => {
+  //   props.setCustomerID(event.target.value)
+  // };
+  // const handleChangeContactPerson = (event: any) => {
+  //   props.setContactPerson(event.target.value)
+  // };
+  // const handlChangeAddress = (event: any) => {
+  //   props.setAddress(event.target.value)
+  // };
+  // const handleChangeTelephoneNo = (event: any) => {
+  //   props.setTelephoneNo(event.target.value)
+  // };
+  // const handleChangeStatus = (event: any) => {
+  //   props.setChangeStatus(event.target.value);
+  // };
+  // const handleChangeServiceCallId = (event: any) => {
+  //   props.setChangeServiceCallId(event.target.value)
+  // };
+  // const handleChangePriority = (event: any) => {
+  //   props.setChangePriority(event.target.value)
+  // };
+  // const handleChangeCustomerName = (event: any) => {
+  //   props.setCustomerName(event.target.value)
+  // };
 
   function handleChange(e:any,f:any) {
     // let field=fields
@@ -267,55 +322,73 @@ const CreateToolRequestTab1 = (props: any) => {
 
 
 
-    if (fields["TicketID"] === "") {
-      errors["TicketID"] = "Please Enter Item Code";
-      seterrors(errors)
-    }  else {
-      errors["TicketID"] = ""
-      seterrors(errors)
-      const requestOptions = {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
-      };
-      fetch('http://localhost:3000/spare-parts/'+fields["TicketID"],requestOptions)
-          .then(response=>{ return response.json()})
-          .then(data=>{
-            if(data.statusCode===404){
-              setfields(fields)
-            }
-            else{
-              fields["TicketType"] = data.TicketType
-              fields["Subject"] = data.Subject
-              fields["ServiceCallId"] = data.serviceCall.ServiceCallId
-              fields["AssignedTo"] = data.AssignedTo
-              fields["ItemCode"] = data.serviceCall.itemEntity.ItemCode
-              fields["ItemDescription"] = data.serviceCall.itemEntity.ItemDescription
-              fields["CustomeName"] = data.serviceCall.customerEntity.CustomeName
-              setfields(fields)
-              console.log(fields)
-            }
+    
 
-          })
+    //Remark
+    if(typeof fields["Remark"] === "string"){
+      if (fields["Remark"]==="") {
+        errors["Remark"] = "Please Enter Remark ";
+        seterrors(errors)
+      }
+      else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
+        errors["Remark"] = "Only letters ";
+        seterrors(errors)
+      }
+      else{
+        errors["Remark"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
+    //ToolReqStatus
+    if(typeof fields["ToolReqStatus"] === "string"){
+      if (fields["ToolReqStatus"]==="") {
+        errors["ToolReqStatus"] = "Please Enter Tool request status ";
+        seterrors(errors)
+      }
+      else if (!fields["ToolReqStatus"].match(/^[a-zA-Z\s]+$/)) {
+        errors["ToolReqStatus"] = "Only letters ";
+        seterrors(errors)
+      }
+      else{
+        errors["ToolReqStatus"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
+     //NoOfDays
+     if(typeof fields["NoOfDays"] !== "undefined"){
+      if (fields["NoOfDays"]==="0") {
+       // errors["Status"] = "Please Enter Status";
+        seterrors(errors)
+      }
+      else{
+        errors["NoOfDays"] = ""
+        setfields( fields )
+        props.setfields({fields})
+        seterrors(errors)
+      }
     }
 
-
-    // //Remark
-    // if(typeof fields["Remark"] === "string"){
-    //   if (fields["Remark"]==="") {
-    //     errors["Remark"] = "Please Enter Remark ";
-    //     seterrors(errors)
-    //   }
-    //   else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
-    //     errors["Remark"] = "Only letters ";
-    //     seterrors(errors)
-    //   }
-    //   else{
-    //     errors["Remark"] = ""
-    //     setfields( fields )
-    //     props.setfieldsSpare({fields})
-    //     seterrors(errors)
-    //   }
-    // }
+     //ServiceTiceketId
+     if(typeof fields["ServiceTiceketId"] === "string"){
+      if (fields["ServiceTiceketId"]==="") {
+        errors["ServiceTiceketId"] = "Please Enter ServiceTiceketId ";
+        seterrors(errors)
+      }
+      else if (!fields["ServiceTiceketId"].match(/^[a-zA-Z\s]+$/)) {
+        errors["ServiceTiceketId"] = "Only letters ";
+        seterrors(errors)
+      }
+      else{
+        errors["ServiceTiceketId"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
     // //Content
     // if(typeof fields["Content"] === "string"){
     //   if (fields["Content"]==="") {
@@ -346,93 +419,9 @@ const CreateToolRequestTab1 = (props: any) => {
     //     seterrors(errors)
     //   }
     // }
-    // if(typeof fields["TicketType"] === "string"){
-    //   if (fields["TicketType"]==="") {
-    //     errors["TicketType"] = "Please Enter Ticket Type ";
-    //     seterrors(errors)
-    //   }
-    //   else{
-    //     errors["TicketType"] = ""
-    //     setfields( fields )
-    //     props.setfieldsSpare({fields})
-    //     seterrors(errors)
-    //   }
-    // }
-    // //
-    // if(typeof fields["ItemDescription"] === "string"){
-    //   if (fields["TicketType"]==="") {
-    //     errors["TicketType"] = "Please Enter Item Description";
-    //     seterrors(errors)
-    //   }
-    //   else{
-    //     errors["ItemDescription"] = ""
-    //     setfields( fields )
-    //     props.setfieldsSpare({fields})
-    //     seterrors(errors)
-    //   }
-    // }
-    
-    
-    //Begin
+   
     console.log(props.valueNext)
-    // if(props.valueNext==="true") {
-    //   if(typeof fields["ItemCode"] !== "string") {
-    //     errors["ItemCode"] = "Please Enter Item Code ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["MRF"] !== "string") {
-    //     errors["MRF"] = "Please Enter MRF ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["SerialNumber"] !== "string") {
-    //     errors["SerialNumber"] = "Please Enter Serial Number ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["ItemDescription"] !== "string") {
-    //     errors["ItemDescription"] = "Please Enter Item Description ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["ItemGroup"] !== "string") {
-    //     errors["ItemGroup"] = "Please Enter Item Group ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["CustomerID"] !== "string") {
-    //     errors["CustomerID"] = "Please Enter Customer ID ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["CustomerName"] !== "string") {
-    //     errors["CustomerName"] = "Please Enter Customer Name ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["ContactPerson"] !== "string") {
-    //     errors["ContactPerson"] = "Please Enter Contact Person ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["TelephoneNo"] !== "string") {
-    //     errors["TelephoneNo"] = "Please Enter Telephone No ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["AddressId"] !== "string") {
-    //     errors["AddressId"] = "Please Enter Address Id ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["CustomerName"] !== "string") {
-    //     errors["CustomerName"] = "Please Enter Customer Name ";
-    //     seterrors(errors)
-    //   }
-    //   // if(typeof fields["ServiceCallId"] !== "string") {
-    //   //   errors["ServiceCallId"] = "Please Enter ServiceCall Id";
-    //   //   seterrors(errors)
-    //   // }
-    //   if(typeof fields["Status"] !== "string") {
-    //     errors["Status"] = "Please Enter Status ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["Priority"] !== "string") {
-    //     errors["Priority"] = "Please Enter Priority ";
-    //     seterrors(errors)
-    //   }
-    // }
+    
   }
 
   
@@ -449,6 +438,7 @@ const CreateToolRequestTab1 = (props: any) => {
               variant="outlined"
               placeholder="Text (default)"
               name="TicketId"
+              value={fields["TicketID"]}
               sx={{ width: "99%" }}
               onChange={(e) => handleChange(e,"TicketID") }
               onFocus={(e) => handleChange(e,"TicketID") }
@@ -462,8 +452,10 @@ const CreateToolRequestTab1 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
-              value={fields['TicketType']}
+              value={fields["ToolGroup"]}
               sx={{ width: "99%" }}
+              onChange={(e) => handleChange(e,"ToolGroup") }
+              onFocus={(e) => handleChange(e,"ToolGroup") }
               
             />
           </Grid>
@@ -473,10 +465,12 @@ const CreateToolRequestTab1 = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
-                value={fields['Subject']}
+                value={fields["ToolReqID"]}
                 sx={{ width: "99%" }}
+                onChange={(e) => handleChange(e,"ToolReqID") }
+                onFocus={(e) => handleChange(e,"ToolReqID") }
             />
-            <span style={{color: "red"}}>{errors["Subject"]}</span>
+            <span style={{color: "red"}}>{errors["ToolReqID"]}</span>
           </Grid>
           
           
@@ -489,13 +483,14 @@ const CreateToolRequestTab1 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
+              value={fields["ToolDes"]}
               name="TicketId"
               sx={{ width: "99%" }}
-              onChange={(e) => handleChange(e,"TicketID") }
-              onFocus={(e) => handleChange(e,"TicketID") }
+              onChange={(e) => handleChange(e,"ToolDes") }
+              onFocus={(e) => handleChange(e,"ToolDes") }
               
             />
-            <span style={{color: "red"}}>{errors["TicketID"]}</span>
+            <span style={{color: "red"}}>{errors["ToolDes"]}</span>
           </Grid>
           <Grid item xs={6} md={4}>
             <TextBoxHeader>Serial No</TextBoxHeader>
@@ -503,8 +498,10 @@ const CreateToolRequestTab1 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
-              value={fields['TicketType']}
+              value={fields["SerialNo"]}
               sx={{ width: "99%" }}
+              onChange={(e) => handleChange(e,"SerialNo") }
+                onFocus={(e) => handleChange(e,"SerialNo") }
               
             />
           </Grid>
@@ -514,10 +511,12 @@ const CreateToolRequestTab1 = (props: any) => {
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
-                value={fields['Subject']}
+                value={fields["ToolReqStatus"]}
                 sx={{ width: "99%" }}
+                onChange={(e) => handleChange(e,"ToolReqStatus") }
+                onFocus={(e) => handleChange(e,"ToolReqStatus") }
             />
-            <span style={{color: "red"}}>{errors["Subject"]}</span>
+            <span style={{color: "red"}}>{errors["ToolReqStatus"]}</span>
           </Grid>
           
           
@@ -530,20 +529,21 @@ const CreateToolRequestTab1 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
+              value={fields["ToolType"]}
               name="TicketId"
               sx={{ width: "99%" }}
-              onChange={(e) => handleChange(e,"TicketID") }
-              onFocus={(e) => handleChange(e,"TicketID") }
+              onChange={(e) => handleChange(e,"ToolType") }
+              onFocus={(e) => handleChange(e,"ToolType") }
               
             />
-            <span style={{color: "red"}}>{errors["TicketID"]}</span>
+            <span style={{color: "red"}}>{errors["ToolType"]}</span>
           </Grid>
-          <Grid item xs={6} md={0.65}>
-            <TextBoxHeader>.</TextBoxHeader>
-            <Button
+          <Grid item xs={6} md={4}>
+           
+            <ModalButton
                     variant="contained"
                     className="ModalCommonButton"
-                     sx={{ width: "500%" }}
+                     sx={{ width: "99%" ,marginTop:"13%"}}
                      //margin-left="2%"
                     // margin-right:25%
                     
@@ -552,7 +552,7 @@ const CreateToolRequestTab1 = (props: any) => {
                     >
                       Check Tool Calender
                       
-        </Button>
+        </ModalButton>
           </Grid>
                    
           
@@ -582,6 +582,8 @@ const CreateToolRequestTab1 = (props: any) => {
                                 rows={2}
                                 sx={{width: "100%"}}
                                 placeholder="Textarea (default)"
+                                onChange={(e) => handleChange(e,"Remark") }
+                                onFocus={ (e)=> select(e,"Remark")}
                                 // defaultValue="Default Value"
                             />
           </Grid>
@@ -609,8 +611,8 @@ const CreateToolRequestTab1 = (props: any) => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 placeholder="Text (default)"
-                onChange={(e) => handleChange(e,"Secretary") }
-                onFocus={(e) => handleChange(e,"Secretary") }
+                onChange={(e) => handleChange(e,"NoOfDays") }
+                onFocus={ (e)=> select(e,"NoOfDays")}
 
             >
               <MenuItem value={"1"}>1</MenuItem>
@@ -650,101 +652,109 @@ const CreateToolRequestTab1 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
+              onChange={(e) => handleChange(e,"ServiceTiceketId") }
+             
               sx={{ width: "99%" }}
-              value={fields['ServiceCallId']}
+              value={fields['ServiceTiceketId']}
             />
-            <span style={{color: "red"}}>{errors["ServiceCallId"]}</span>
+            <span style={{color: "red"}}>{errors["ServiceTiceketId"]}</span>
           </Grid>
-          {/* <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-                            <TableHead>
-                                <TableRow>
-                                    <StyledTableCell>Tool Request ID</StyledTableCell>
-                                  
-                                    <StyledTableCell align="right">Tool Description</StyledTableCell>
-                                    <StyledTableCell align="right">Created Date</StyledTableCell>
-                                    <StyledTableCell align="right">Requested Date</StyledTableCell>
-                                    <StyledTableCell align="right">Handover Date</StyledTableCell>
-                                    <StyledTableCell align="right">Status</StyledTableCell>
-                                    <StyledTableCell align="right">More</StyledTableCell>
-                                    <StyledTableCell align="right"></StyledTableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {(rowsPerPage > 0
-                                        ? students.slice(
-                                            page * rowsPerPage,
-                                            page * rowsPerPage + rowsPerPage
-                                        )
-                                        : students
-                                ).map(( row:ServiceCallData2, i: number) => (
-                                    <StyledTableRow key={row.ServiceCallId}>
-                                        <StyledTableCell
-                                            sx={{
-                                                borderLeft: "none",
-                                            }}
-                                        >
-                                            {row.ServiceCallId}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.itemEntity.ItemDescription}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.customerEntity.CustomeName}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.Status}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.CreatedOn}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.Priority}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.Subject}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            <Stack
-                                                direction="row"
-                                                justifyContent="center"
-                                                alignItems="flex-start"
-                                                spacing={0}
-                                            >
-                                                <ControlButton disableRipple>
-                                                    <svg
-                                                        width="21"
-                                                        height="21"
-                                                        viewBox="0 0 21 21"
-                                                        className="controlButton"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path d="M10.5 13.125C11.9497 13.125 13.125 11.9497 13.125 10.5C13.125 9.05025 11.9497 7.875 10.5 7.875C9.05025 7.875 7.875 9.05025 7.875 10.5C7.875 11.9497 9.05025 13.125 10.5 13.125Z" />
-                                                        <path d="M20.3046 10.2769C19.5327 8.28033 18.1928 6.55372 16.4503 5.31043C14.7078 4.06715 12.6392 3.36169 10.5002 3.28125C8.36117 3.36169 6.29259 4.06715 4.55012 5.31043C2.80766 6.55372 1.46769 8.28033 0.695834 10.2769C0.643706 10.4211 0.643706 10.5789 0.695834 10.7231C1.46769 12.7197 2.80766 14.4463 4.55012 15.6896C6.29259 16.9329 8.36117 17.6383 10.5002 17.7188C12.6392 17.6383 14.7078 16.9329 16.4503 15.6896C18.1928 14.4463 19.5327 12.7197 20.3046 10.7231C20.3567 10.5789 20.3567 10.4211 20.3046 10.2769ZM10.5002 14.7656C9.65655 14.7656 8.83183 14.5155 8.13036 14.0467C7.42888 13.578 6.88214 12.9118 6.55929 12.1324C6.23643 11.3529 6.15196 10.4953 6.31655 9.66782C6.48114 8.84037 6.8874 8.08031 7.48396 7.48375C8.08051 6.88719 8.84058 6.48093 9.66803 6.31634C10.4955 6.15175 11.3532 6.23622 12.1326 6.55908C12.912 6.88193 13.5782 7.42867 14.0469 8.13015C14.5157 8.83162 14.7658 9.65634 14.7658 10.5C14.7641 11.6308 14.3141 12.7148 13.5145 13.5143C12.715 14.3139 11.631 14.7639 10.5002 14.7656Z" />
-                                                    </svg>
-                                                </ControlButton>
-                                                
-                                            </Stack>
-                                        </StyledTableCell>
-                                    </StyledTableRow>
-                                ))} */}
-                                {/* {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )} */}
-                            {/* </TableBody>
-                        </Table>
-                    </TableContainer>*/}
+          </Grid>
+
+          <br></br>
+          <Grid container spacing={2}>
+          <Grid item xs={6} md={12}>
+
+         
+          <Box sx={{ flexGrow: 1 }}>
+        <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
+          <Table sx={{ width: "100%" }} aria-label="custom pagination table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell
+                    sx={{
+                      borderLeft: "none",
+                    }}
+                >
+                  Date
+                </StyledTableCell>
+                <StyledTableCell
+                    sx={{
+                      borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                    }}
+                >
+                  Engineer
+                </StyledTableCell>
+                <StyledTableCell
+                    sx={{
+                      borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                    }}
+                >
+                  Priority
+                </StyledTableCell>
+                <StyledTableCell
+                    sx={{
+                      borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                    }}
+                >
+                  Planned Start
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {(rowsPerPage > 0
+                      ? students.slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                      )
+                      : students
+              ).map((row: Ticket, i: number) => (
+                  <StyledTableRow key={Math.random()}>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "none",
+                        }}
+                    >
+                      {/* {moment(row.CreatedOn).format("DD/MM/YYYY")} */}
+                    </StyledTableCell>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                        }}
+                    >
+                      {row.AssignedTo}
+                    </StyledTableCell>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                        }}
+                    >
+                      {row.serviceCall.Priority}
+                    </StyledTableCell>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                        }}
+                    >
+                      {row.PlannedStartDate}
+                    </StyledTableCell>
                     
+                  </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+       
+      
+      </Box>
+          
+      </Grid>          
         </Grid> 
+
+           
         
-        <Divider
-          orientation="horizontal"
-          variant="middle"
-          flexItem
-          sx={{ marginTop: "30px" }}
-        />
+        
+       
         <Grid container spacing={2}>
           {/* <Grid item xs={6} md={3}>
             <TextBoxHeader>Remark</TextBoxHeader>

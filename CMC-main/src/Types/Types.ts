@@ -19,6 +19,15 @@ export type SparePartInventoryData = {
   quantity: number;
   attachment: string;
 };
+export type itemMasterEntity={
+  Id: string ,
+  ItemCode: string,
+  ItemName: string,
+  ItemType: string,
+  Onhand: number,
+  SalUnitMsr: string,
+  qty: number
+};
 
 export type SparePartsRequestListData = {
   itemCode: string;
@@ -280,12 +289,13 @@ export type Solutions = {
 };
 
 export type ArrayTab ={
-  attachment:string;
-  description:string;
-  quantity:string;
-  spid:string;
-  type:string;
-  remark:string;
+  Id: string;
+  ItemCode: string;
+  ItemName: string;
+  ItemType: string;
+  Onhand: number;
+  SalUnitMsr: string;
+  qty: number;
 }
 
 export type ExpensesData = {

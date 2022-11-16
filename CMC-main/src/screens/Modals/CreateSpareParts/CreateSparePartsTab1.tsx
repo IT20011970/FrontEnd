@@ -590,7 +590,7 @@ const CreateSparePartsTab1 = (props: any) => {
                 id="demo-simple-select"
                 placeholder="Text (default)"
                 onChange={(e) => handleChange(e,"Secretary") }
-                onFocus={(e) => handleChange(e,"Secretary") }
+                onFocus={ (e)=> select(e,"Secretary")}
 
             >
               <MenuItem value={"Gayan"}>Gayan</MenuItem>
