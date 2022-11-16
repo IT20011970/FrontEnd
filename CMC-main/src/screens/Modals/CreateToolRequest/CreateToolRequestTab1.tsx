@@ -270,6 +270,13 @@ const CreateToolRequestTab1 = (props: any) => {
     handleValidation()
   }
 
+  function handleChangeDate(e:any,f:any){
+    fields[f] = e;
+    setfields( fields )
+    props.setfields({fields})
+    console.log(fields)
+  }
+
 
   function select(e:any,f:any) {
     let field=fields
@@ -278,8 +285,9 @@ const CreateToolRequestTab1 = (props: any) => {
     handleValidation()
   }
 
+
   function handleValidation(){
-    console.log(fields)
+    console.log(typeof fields["Handover"] )
     
     // Ticket ID
     // if(typeof fields["TicketID"] === "string"){
@@ -389,23 +397,20 @@ const CreateToolRequestTab1 = (props: any) => {
         seterrors(errors)
       }
     }
-    // //Content
-    // if(typeof fields["Content"] === "string"){
-    //   if (fields["Content"]==="") {
-    //     errors["Content"] = "Please Enter Content ";
-    //     seterrors(errors)
-    //   }
-    //   else if (!fields["Content"].match(/^[a-zA-Z\s]+$/)) {
-    //     errors["Content"] = "Only letters ";
-    //     seterrors(errors)
-    //   }
-    //   else{
-    //     errors["Content"] = ""
-    //     setfields( fields )
-    //     props.setfieldsSpare({fields})
-    //     seterrors(errors)
-    //   }
-    // }
+    //Handover
+    if(typeof fields["Handover"] === "string"){
+      if (fields["Handover"]==="") {
+        errors["Handover"] = "Please Enter Handover ";
+        seterrors(errors)
+      }
+      
+      else{
+        errors["Handover"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
     // //TicketType
     // if(typeof fields["Secretary"] === "string"){
     //   if (fields["Secretary"]==="") {
@@ -597,8 +602,8 @@ const CreateToolRequestTab1 = (props: any) => {
               <DateTimePicker
                   renderInput={(params:any) => <TextBox {...params} />}
                   value={new Date()}
-                  onChange={(newValue:any) => {
-                    console.log((newValue != null ? newValue.toString() : new Date())
+                  onChange={(newValue) => {
+                    handleChange((newValue != null ? newValue.toString() : new Date()),"Request"
                     );
                   }}
                   className="dateTimePicker"
@@ -613,7 +618,7 @@ const CreateToolRequestTab1 = (props: any) => {
                 placeholder="Text (default)"
                 onChange={(e) => handleChange(e,"NoOfDays") }
                 onFocus={ (e)=> select(e,"NoOfDays")}
-
+                    defaultValue=""
             >
               <MenuItem value={"1"}>1</MenuItem>
               <MenuItem value={"2"}>2</MenuItem>
@@ -628,10 +633,9 @@ const CreateToolRequestTab1 = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                   renderInput={(params:any) => <TextBox {...params} />}
-                  value={new Date()}
-                  onChange={(newValue:any) => {
-                    console.log((newValue != null ? newValue.toString() : new Date())
-                    );
+                  value={fields['Handover']}
+                  onChange={(newValue) => {
+                    handleChangeDate((newValue != null ? newValue.toString() : new Date()),"Handover");
                   }}
                   className="dateTimePicker"
               />

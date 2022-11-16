@@ -135,7 +135,7 @@ const CreateToolRequestModal = (props: any) => {
     setNext("true")
   };
   
-    console.log(fields)
+    //console.log(fields)
   // const handleClickToOpen = () => {
   //   setOpen(true);
   // };
@@ -177,7 +177,8 @@ const CreateToolRequestModal = (props: any) => {
               CreatedDateAndTime: "2022-11-15T06:47:47" ,
               RequestDateAndTime: "2022-11-15T06:47:47" ,
               NoOfDays:fields.fields.NoOfDays ,
-              HandOverDateAndTime: "2022-11-15T06:47:47" 
+              HandOverDateAndTime: "2022-11-15T06:47:47",
+              Status:"Pending",
                }
             ]
           }

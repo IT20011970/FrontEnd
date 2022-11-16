@@ -18,7 +18,7 @@ import Pagination from "@mui/material/Pagination";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
     TablePaginationActionsProps,
-    SparePartsRequestListData, ServiceCallData, ServiceCallData2,
+    SparePartsRequestListData, ServiceCallData, ServiceCallData2,ResourceAllocation
 } from "../../../Types/Types";
 import "./../../../Styles/Tabs.css";
 
@@ -30,7 +30,7 @@ import AppBar from "@mui/material/AppBar";
 import Dashboard from "../../Dashboard";
 import ServiceCall from "../../ServiceCall";
 import SpareParts from "../../SpareParts";
-import ResourceAllocation from "../../ResourceAllocation";
+
 import CreateSparePartslModal from "../../Modals/CreateSpareParts/CreateSparePartslModal";
 import CreateToolRequestModal from "../../Modals/CreateToolRequest/CreateToolRequestModal";
 
@@ -258,12 +258,12 @@ const ResourceAllocationTab1 = () => {
             headers: {'Content-Type': 'application/json'}
         };
 
-        fetch('http://localhost:3000/service-calls/service',requestOptions)
+        fetch('http://localhost:3000/resourceAllocation/get',requestOptions)
             .then(response=>{ return response.json()})
             .then(data=>{
                 //console.log(data[3].Groups[1].students)
-                // console.log(data)
-                setStudents(data)
+                 console.log(data)
+               setStudents(data)
             });
     } )
 
@@ -318,14 +318,14 @@ const ResourceAllocationTab1 = () => {
                                             page * rowsPerPage + rowsPerPage
                                         )
                                         : students
-                                ).map(( row:ServiceCallData2, i: number) => (
-                                    <StyledTableRow key={row.ServiceCallId}>
+                                ).map(( row:ResourceAllocation, i: number) => (
+                                    <StyledTableRow key={row.ToolReqID}>
                                         <StyledTableCell
                                             sx={{
                                                 borderLeft: "none",
                                             }}
                                         >
-                                            {row.ServiceCallId}
+                                            {row.ToolReqID}
                                         </StyledTableCell>
                                         {/* <StyledTableCell>
                                             {row.itemEntity.ItemDescription}
@@ -334,19 +334,19 @@ const ResourceAllocationTab1 = () => {
                                             {row.customerEntity.CustomeName}
                                         </StyledTableCell> */}
                                         <StyledTableCell>
-                                            {row.Status}
+                                            {row.ToolDescription}
+                                        </StyledTableCell>
+                                        <StyledTableCell>
+                                            {row.CreatedDateAndTime}
+                                        </StyledTableCell>
+                                        <StyledTableCell>
+                                            {row.RequestDateAndTime}
+                                        </StyledTableCell>
+                                        <StyledTableCell>
+                                            {row.HandOverDateAndTime}
                                         </StyledTableCell>
                                         <StyledTableCell>
                                             {row.Status}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.Status}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.CreatedOn}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.Priority}
                                         </StyledTableCell>
                                         {/* <StyledTableCell>
                                             {row.Subject}

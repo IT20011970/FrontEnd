@@ -167,6 +167,21 @@ export type ServiceCallData2 = {
   }
 
 };
+export type ResourceAllocation = {
+  ToolId: string,
+  ToolGroup:string,
+  ToolReqID: string,
+  ToolDescription: string,
+  SerialNo:string,
+  ToolRequestStatus: string,
+  ToolType: string,
+  CreatedDateAndTime:string,
+  RequestDateAndTime:string,
+  NoOfDays: string,
+  HandOverDateAndTime: string,
+  Status: string
+
+}
 
 export type CustomerList = {
   label:string;
