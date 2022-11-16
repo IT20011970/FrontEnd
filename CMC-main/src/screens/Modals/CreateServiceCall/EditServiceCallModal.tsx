@@ -249,7 +249,7 @@ const EditServiceCallModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Service Call{" "}
+            Edit Service Call{" "}
             {mainTabValue == "2" && (
               <>
                 <TabName>{tabName}</TabName>

@@ -247,7 +247,21 @@ export type Ticket = {
     }
   }
 }
-
+export type TicketServiceCall = {
+  TicketId: string,
+  TicketType: string,
+  Subject: string,
+  AssignedTo: string,
+  AssignedBY: string,
+  EstimatedDuration:string,
+  ContactPerson:string,
+  PlannedStartDate: string,
+  PlannedEndDate: string,
+  ActualStartDate: string,
+  ActualEndDate: string,
+  CreatedOn: string,
+  priority: string
+}
 export type DropdownUsers ={
 
   UserCode: number,

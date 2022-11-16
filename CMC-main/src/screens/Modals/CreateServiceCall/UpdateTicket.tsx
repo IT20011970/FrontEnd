@@ -173,7 +173,7 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const CreateTicket = (props: any) => {
+const UpdateTicket = (props: any) => {
   // console.log(props.props.props.serviceCallData.fields.ServiceCallId)
   const { open, setOpen, tab } = props;
   const [age, setAge] = React.useState("");
@@ -559,7 +559,7 @@ const CreateTicket = (props: any) => {
                 <TextBox
                     id="outlined-basic4"
                     variant="outlined"
-                    value={JSON.parse(localStorage.getItem('user') || '{}').UserName}
+                    value={fields["AssignedBy"]}
                     placeholder="Text (default)"
                     onFocus={(e) => handleChangeField(e,"AssignedBy")}
                     onChange={(e) => handleChangeField(e,"AssignedBy") }
@@ -652,4 +652,4 @@ const CreateTicket = (props: any) => {
   );
 };
 
-export default CreateTicket;
+export default UpdateTicket;
