@@ -76,7 +76,7 @@ const TabName = styled("text")(({ theme }) => ({
 }));
 
 const CreateSparePartsModal = (props: any) => {
-   console.log(props.arry)
+   //console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -171,8 +171,8 @@ const CreateSparePartsModal = (props: any) => {
                 SPReqId: Math.floor(Math.random()*1000000),
                 Remark: fields.fields.Remark,
                 Content:fields.fields.Content,
-                Secretary: "Gayan",
-                // Secretary:fields.fields.Secretary,
+                //Secretary: "Gayan",
+                Secretary:fields.fields.Secretary,
                 ItemDescription: fields.fields.ItemDescription,
               }
             ]
@@ -199,21 +199,21 @@ const CreateSparePartsModal = (props: any) => {
     //setSecondT(abValue(newValue);
     setTabName(getTab(newValue));
   };
-  console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
-  console.log(Subject, Origin,
-  ProblemType,
-  InquiryType,
-  CreatedBy,
-  HandledBy,
-  Queue,
-  Secretary,
-  SalesAssistant,
-      CreatedOn,
-  EstimatedDuration,
-  PlanedEndDate,
-  PlanedStartDate,
-  ActualStartDate,
-  ActualEndDate)
+  //console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
+  // console.log(Subject, Origin,
+  // ProblemType,
+  // InquiryType,
+  // CreatedBy,
+  // HandledBy,
+  // Queue,
+  // Secretary,
+  // SalesAssistant,
+  //     CreatedOn,
+  // EstimatedDuration,
+  // PlanedEndDate,
+  // PlanedStartDate,
+  // ActualStartDate,
+  // ActualEndDate)
   return (
     <>
       <Modal
@@ -287,10 +287,12 @@ const CreateSparePartsModal = (props: any) => {
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
               <CreateSparePartsTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+            
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
               <CreateSparePartsTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+            
             </TabPanel>
           </TabContext>
         </DialogContent>

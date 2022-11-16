@@ -138,7 +138,7 @@ const ModalTittle = styled("text")(({ theme }) => ({
 
 const EditSparePartsTab1 = (props: any) => {
   
-  console.log(props.dataUpdate.ServiceTicketEntity.TicketId.TicketType)
+  //console.log(props.dataUpdate.ServiceTicketEntity.TicketId.TicketType)
 
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
@@ -146,7 +146,7 @@ const EditSparePartsTab1 = (props: any) => {
   const [age, setAge] = React.useState("");
   const [openModal, setOpenModal] = React.useState(false);
   
-  const [fields, setfields] = useState<any>({});
+  const [fields, setfields] = useState<any>({"Secretary":''});
   const [errors,seterrors]=useState<any>({})
 
   // console.log("dddddd"+props.props1)
@@ -158,11 +158,12 @@ const EditSparePartsTab1 = (props: any) => {
 
     //  console.log("dddddd"+props.props1.dataUpdate)
     fields["TicketID"]= props.dataUpdate.ServiceTicketEntity.TicketId
-    
-     fields["TicketType"] = props.dataUpdate.ServiceTicketEntity.TicketType
-     fields["Subject"] = props.dataUpdate.ServiceTicketEntity.Subject
-     fields["AssignedTo"] = props.dataUpdate.ServiceTicketEntity.AssignedTo
-    // fields.fields["Remark"] = props.dataUpdate.ServiceTicketEntity.Remark
+    fields["TicketType"] = props.dataUpdate.ServiceTicketEntity.TicketType
+    fields["Subject"] = props.dataUpdate.ServiceTicketEntity.Subject
+    fields["AssignedTo"] = props.dataUpdate.ServiceTicketEntity.AssignedTo
+    fields["Remark"] = props.dataUpdate.Remark
+    fields["Content"] = props.dataUpdate.Content
+    fields["Secretary"] = props.dataUpdate.Secretary
     //  fields["ItemDescription"] = props.dataUpdate.itemEntity.ItemDescription
     //  fields["ItemGroup"] = props.dataUpdate.itemEntity.ItemGroup
     //  fields["CustomerID"] = props.dataUpdate.customerEntity.CustomerId
@@ -190,45 +191,45 @@ const EditSparePartsTab1 = (props: any) => {
   //   setAge(event.target.value);
   // };
 
-  const handleChangeItemCode = (event: any) => {
-    props.setItemCode(event.target.value)
-  };
-  const handleChangeMRF = (event: any) => {
-    props.setChangeMRF(event.target.value)
-  };
-  const handleChangeSerialNumber = (event: any) => {
-    props.setIChangeSerialNumber(event.target.value)
-  };
-  const handleChangeItemDescription = (event: any) => {
-    props.setItemDescription(event.target.value)
-  };
-  const handleChangeItemGroup = (event: any) => {
-    props.setItemGroup(event.target.value)
-  };
-  const handleChangeCustomerID = (event: any) => {
-    props.setCustomerID(event.target.value)
-  };
-  const handleChangeContactPerson = (event: any) => {
-    props.setContactPerson(event.target.value)
-  };
-  const handlChangeAddress = (event: any) => {
-    props.setAddress(event.target.value)
-  };
-  const handleChangeTelephoneNo = (event: any) => {
-    props.setTelephoneNo(event.target.value)
-  };
-  const handleChangeStatus = (event: any) => {
-    props.setChangeStatus(event.target.value);
-  };
-  const handleChangeServiceCallId = (event: any) => {
-    props.setChangeServiceCallId(event.target.value)
-  };
-  const handleChangePriority = (event: any) => {
-    props.setChangePriority(event.target.value)
-  };
-  const handleChangeCustomerName = (event: any) => {
-    props.setCustomerName(event.target.value)
-  };
+  // const handleChangeItemCode = (event: any) => {
+  //   props.setItemCode(event.target.value)
+  // };
+  // const handleChangeMRF = (event: any) => {
+  //   props.setChangeMRF(event.target.value)
+  // };
+  // const handleChangeSerialNumber = (event: any) => {
+  //   props.setIChangeSerialNumber(event.target.value)
+  // };
+  // const handleChangeItemDescription = (event: any) => {
+  //   props.setItemDescription(event.target.value)
+  // };
+  // const handleChangeItemGroup = (event: any) => {
+  //   props.setItemGroup(event.target.value)
+  // };
+  // const handleChangeCustomerID = (event: any) => {
+  //   props.setCustomerID(event.target.value)
+  // };
+  // const handleChangeContactPerson = (event: any) => {
+  //   props.setContactPerson(event.target.value)
+  // };
+  // const handlChangeAddress = (event: any) => {
+  //   props.setAddress(event.target.value)
+  // };
+  // const handleChangeTelephoneNo = (event: any) => {
+  //   props.setTelephoneNo(event.target.value)
+  // };
+  // const handleChangeStatus = (event: any) => {
+  //   props.setChangeStatus(event.target.value);
+  // };
+  // const handleChangeServiceCallId = (event: any) => {
+  //   props.setChangeServiceCallId(event.target.value)
+  // };
+  // const handleChangePriority = (event: any) => {
+  //   props.setChangePriority(event.target.value)
+  // };
+  // const handleChangeCustomerName = (event: any) => {
+  //   props.setCustomerName(event.target.value)
+  // };
 
   function handleChange(e:any,f:any) {
     // let field=fields
@@ -244,6 +245,7 @@ const EditSparePartsTab1 = (props: any) => {
     handleValidation()
   }
 
+  
   function handleValidation(){
     console.log(fields)
     
@@ -285,6 +287,20 @@ const EditSparePartsTab1 = (props: any) => {
     //         })
     //   }
     // }
+
+    if(typeof fields["Secretary"] !== "undefined"){
+      if (fields["Secretary"]==="0") {
+       // errors["Status"] = "Please Enter Status";
+        seterrors(errors)
+      }
+      else{
+        errors["Secretary"] = ""
+        setfields( fields )
+        props.setfieldsSpare({fields})
+        seterrors(errors)
+      }
+    }
+
 
 
 
@@ -591,7 +607,7 @@ const EditSparePartsTab1 = (props: any) => {
         />
         <Grid container spacing={2}>
           <Grid item xs={6} md={3}>
-            {/* <TextBoxHeader>Remark</TextBoxHeader>
+            <TextBoxHeader>Remark</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -601,34 +617,38 @@ const EditSparePartsTab1 = (props: any) => {
               onChange={(e) => handleChange(e,"Remark") }
               onFocus={(e) => handleChange(e,"Remark") }
             />
-            <span style={{color: "red"}}>{errors["Remark"]}</span> */}
+            <span style={{color: "red"}}>{errors["Remark"]}</span>
           </Grid>
          
         </Grid>
 
         <Grid item xs={6} md={3}>
-            {/* <TextBoxHeader>Content</TextBoxHeader>
+            <TextBoxHeader>Content</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "400%" }}
+              value={fields["Content"]}
               onChange={(e) => handleChange(e,"Content") }
               onFocus={(e) => handleChange(e,"Content") }
             />
-          <span style={{color: "red"}}>{errors["Content"]}</span> */}
+          <span style={{color: "red"}}>{errors["Content"]}</span>
           </Grid>
      
         <Grid container spacing={2}>
           
         <Grid item xs={6} md={3}>
-            {/* <TextBoxHeader>Secretary</TextBoxHeader>
+            <TextBoxHeader>Secretary</TextBoxHeader>
             <SelectInput
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 placeholder="Text (default)"
+                value={fields["Secretary"]}
+                //onChange={(e) => select(e,"Secretary") }
+                //onFocus={(e) => handleChange(e,"Secretary") }
                 onChange={(e) => handleChange(e,"Secretary") }
-                onFocus={(e) => handleChange(e,"Secretary") }
+                onFocus={ (e)=> select(e,"Secretary")}
 
             >
               <MenuItem value={"Gayan"}>Gayan</MenuItem>
@@ -638,7 +658,7 @@ const EditSparePartsTab1 = (props: any) => {
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
               <MenuItem value={"Rasika"}>Rasika</MenuItem>
             </SelectInput>
-          <span style={{color: "red"}}>{errors["Secretary"]}</span> */}
+          <span style={{color: "red"}}>{errors["Secretary"]}</span>
           </Grid>
 
                    

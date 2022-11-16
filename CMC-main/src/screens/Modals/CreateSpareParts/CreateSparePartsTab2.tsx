@@ -220,7 +220,7 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const CreateSparePartsTab1 = (props: any) => {
+const CreateSparePartsTab2 = (props: any) => {
 
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
@@ -233,10 +233,12 @@ const CreateSparePartsTab1 = (props: any) => {
   const [ticketList, setTicketList] = React.useState([...rows]);
   const [d, setData] =React.useState([]);
   const [data1, setData1] =React.useState<ArrayTab[]>([]);
+  const [fields, setfields] = React.useState<any>({});
   
   console.log(data1)
   React.useEffect(() => {
     setData1(props.props)
+    console.log(props.props)
   });
   
   const addNewTicket = () => {
@@ -349,6 +351,8 @@ const CreateSparePartsTab1 = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
+              
+              value={fields["SPReqId"]}
               sx={{ width: "99%" }}
               
             />
@@ -414,28 +418,28 @@ const CreateSparePartsTab1 = (props: any) => {
                                 borderLeft: "none",
                               }}
                           >
-                            {row.spid}
+                            {row.ItemCode}
                           </StyledTableCell>
                           <StyledTableCell
                               sx={{
                                 borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                               }}
                           >
-                            {row.description}
+                            {row.ItemName}
                           </StyledTableCell>
                           <StyledTableCell
                               sx={{
                                 borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                               }}
                           >
-                            {row.remark}
+                            {row.ItemType}
                           </StyledTableCell>
                           <StyledTableCell
                               sx={{
                                 borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                               }}
                           >
-                            {row.quantity}
+                            {row.qty}
                           </StyledTableCell>
                           <StyledTableCell
                               sx={{
@@ -641,4 +645,4 @@ const CreateSparePartsTab1 = (props: any) => {
   );
 };
 
-export default CreateSparePartsTab1;
+export default CreateSparePartsTab2;
