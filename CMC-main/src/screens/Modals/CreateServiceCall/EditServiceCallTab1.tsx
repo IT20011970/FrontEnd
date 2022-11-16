@@ -145,7 +145,7 @@ const ModalTittle = styled("text")(({ theme }) => ({
 
 const EditServiceCallTab1 = (props: any) => {
  // console.log(props.dataUpdate)
-  const [fields, setfields] = useState<any>({});
+  const [fields, setfields] = useState<any>({Priority:''});
   const [errors,seterrors]=useState<any>({})
   const [next,setnext]=useState("")
   const [flag,setFlag]=useState("0")
@@ -184,7 +184,7 @@ const EditServiceCallTab1 = (props: any) => {
   useEffect (()=>{
    // arr.push("sss")
     //setArray("sss")
-    console.log("ssss"+props.dataUpdate.ItemCode)
+    console.log("ssss"+props.dataUpdate.Priority)
     fields["ServiceCallId"]= props.dataUpdate.ServiceCallId
     fields["ItemCode"] = props.dataUpdate.itemEntity.ItemCode
     fields["MrfSerialNumber"] = props.dataUpdate.itemEntity.MrfSerialNumber
@@ -197,6 +197,8 @@ const EditServiceCallTab1 = (props: any) => {
     fields["TelephoneNo"] = props.dataUpdate.customerEntity.TelephoneNo
     fields["AddressId"] = props.dataUpdate.customerEntity.CustomerAddressId
     fields["Status"] = props.dataUpdate.Status
+    fields["Priority"]=props.dataUpdate.Priority
+
     props.setfields({fields})
     if(props.valueNext==="true"){
       setnext("true")
@@ -869,7 +871,7 @@ const EditServiceCallTab1 = (props: any) => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select1"
                 sx={{ width: "99%" }}
-                defaultValue=""
+                value={fields["Priority"]}
                 onChange={(e) => handleChange(e,"Priority") }
             >
               <MenuItem value={"High"}>High</MenuItem>

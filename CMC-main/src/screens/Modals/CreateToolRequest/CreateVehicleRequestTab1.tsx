@@ -22,12 +22,14 @@ import TablePagination from "@mui/material/TablePagination";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Pagination from "@mui/material/Pagination";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 
-import { Stack, TableCell } from '@mui/material';
+
+
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
     TablePaginationActionsProps,
-    SparePartsRequestListData, ServiceCallData, ServiceCallData2,
+    SparePartsRequestListData, ServiceCallData, ServiceCallData2, Ticket,
 } from "../../../Types/Types";
 import "./../../../Styles/Tabs.css";
 
@@ -151,6 +153,47 @@ const ModalTittle = styled("text")(({ theme }) => ({
   fontWeight: 700,
 }));
 
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    color: "#383838",
+    backgroundColor: "#fff",
+    fontWeight: 600,
+    fontSize: 14,
+    fontFamily: "Montserrat",
+    textAlign: "left",
+    borderBottom: "2px solid rgba(0, 65, 102, 0.2);",
+    lineHeight: "1.5",
+    padding: 7,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+    fontWeight: 400,
+    fontFamily: "Segoe UI",
+    color: "#383838",
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: "rgba(0, 32, 51, 0.05)",
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    borderBottom: 0,
+  },
+  td: {
+    borderBottom: 0,
+    padding: 7,
+    // lineHeight: "0.5",
+    // borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+  },
+}));
+
+
+
+
 const CreateVehicleRequestTab1 = (props: any) => {
   React.useEffect(() => {
  
@@ -164,6 +207,9 @@ const CreateVehicleRequestTab1 = (props: any) => {
   
   const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+const [page, setPage] = React.useState(0);
+const [students, setStudents] =useState<any[]>([]);
 
   // const handleChange = (event: any) => {
   //   setAge(event.target.value);
@@ -538,12 +584,13 @@ const CreateVehicleRequestTab1 = (props: any) => {
             />
             <span style={{color: "red"}}>{errors["TicketID"]}</span>
           </Grid>
-          <Grid item xs={6} md={0.65}>
-            <TextBoxHeader>.</TextBoxHeader>
-            <Button
+          <Grid item xs={6} md={4}>
+            
+            
+            <ModalButton
                     variant="contained"
                     className="ModalCommonButton"
-                     sx={{ width: "500%" }}
+                     sx={{ width: "99%" ,marginTop:"13%"}}
                      //margin-left="2%"
                     // margin-right:25%
                     
@@ -552,7 +599,7 @@ const CreateVehicleRequestTab1 = (props: any) => {
                     >
                       Check Vehicle Calender
                       
-        </Button>
+        </ModalButton>
           </Grid>
                    
           
@@ -655,6 +702,107 @@ const CreateVehicleRequestTab1 = (props: any) => {
             />
             <span style={{color: "red"}}>{errors["ServiceCallId"]}</span>
           </Grid>
+
+
+          </Grid> 
+
+
+          
+
+
+          <br></br>
+          <Grid container spacing={2}>
+          <Grid item xs={6} md={12}>
+
+         
+          <Box sx={{ flexGrow: 1 }}>
+        <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
+          <Table sx={{ width: "100%" }} aria-label="custom pagination table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell
+                    sx={{
+                      borderLeft: "none",
+                    }}
+                >
+                  Date
+                </StyledTableCell>
+                <StyledTableCell
+                    sx={{
+                      borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                    }}
+                >
+                  Engineer
+                </StyledTableCell>
+                <StyledTableCell
+                    sx={{
+                      borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                    }}
+                >
+                  Priority
+                </StyledTableCell>
+                <StyledTableCell
+                    sx={{
+                      borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                    }}
+                >
+                  Planned Start
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {(rowsPerPage > 0
+                      ? students.slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                      )
+                      : students
+              ).map((row: Ticket, i: number) => (
+                  <StyledTableRow key={Math.random()}>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "none",
+                        }}
+                    >
+                      {/* {moment(row.CreatedOn).format("DD/MM/YYYY")} */}
+                    </StyledTableCell>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                        }}
+                    >
+                      {row.AssignedTo}
+                    </StyledTableCell>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                        }}
+                    >
+                      {row.serviceCall.Priority}
+                    </StyledTableCell>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                        }}
+                    >
+                      {row.PlannedStartDate}
+                    </StyledTableCell>
+                    
+                  </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+       
+      
+      </Box>
+          
+      </Grid>          
+        </Grid> 
+
+
+
+
           {/* <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
                             <TableHead>
@@ -737,7 +885,7 @@ const CreateVehicleRequestTab1 = (props: any) => {
                         </Table>
                     </TableContainer>*/}
                     
-        </Grid> 
+      
         
         <Divider
           orientation="horizontal"

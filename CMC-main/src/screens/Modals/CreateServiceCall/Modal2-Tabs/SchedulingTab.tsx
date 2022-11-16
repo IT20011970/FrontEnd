@@ -128,7 +128,7 @@ for (var i = 0; i < 5; i++) {
 }
 
 const ScheduluingTab = (props: any) => {
-  console.log(props)
+  // console.log(props)
   const [age, setAge] = React.useState("");
   const [date, setDate] = React.useState(new Date());
   const [fields, setfields] = useState<any>({})
@@ -136,7 +136,12 @@ const ScheduluingTab = (props: any) => {
   
   function handleChangeField(event:any,data:any) {
     fields[data] = event;
-    console.log(fields)
+   // console.log(fields["PlanedStart"])
+  //  console.log(fields["PlanedEnd"])
+         let aa:any=new Date(fields["PlanedEnd"])
+        let bb:any=new Date(fields["PlanedStart"])
+    console.log((aa-bb)/1000)
+   // console.log(fields)
     setfields(fields)
   }
   function post(){

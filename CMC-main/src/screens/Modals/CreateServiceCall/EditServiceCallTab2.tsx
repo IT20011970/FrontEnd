@@ -30,6 +30,7 @@ import SchedulingTab from "./Modal2-Tabs/SchedulingTab";
 import ExpensesTab from "./Modal2-Tabs/ExpensesTab";
 import Divider from "@mui/material/Divider"
 import GeneralTab2 from "./Modal2-Tabs/GeneralTab2"
+import TicketsTab2 from "./Modal2-Tabs/TicketsTab2";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -200,9 +201,9 @@ const EditServiceCallTab2 = (props: any) => {
           <TabPanel value="1">
             <GeneralTab2 p={props} dataUpdate={props.dataUpdate.dataUpdate} />
           </TabPanel>
-          {/*<TabPanel value="2">*/}
-          {/*  <TicketsTab  props={props} />*/}
-          {/*</TabPanel>*/}
+          <TabPanel value="2">
+            <TicketsTab2  props={props} />
+          </TabPanel>
           {/*<TabPanel value="3">*/}
           {/*  <SolutionsTab/>*/}
           {/*</TabPanel>*/}

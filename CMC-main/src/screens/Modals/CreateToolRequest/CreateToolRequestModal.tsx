@@ -77,7 +77,7 @@ const TabName = styled("text")(({ theme }) => ({
 }));
 
 const CreateToolRequestModal = (props: any) => {
-   console.log(props.arry)
+  // console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -127,6 +127,7 @@ const CreateToolRequestModal = (props: any) => {
   const  [Test, setTest] = React.useState("1");
   const  [Test1, setTest1] = React.useState("1");
   const [fields, setfieldsSpare] = useState<any>({fields:{}});
+  
 
 
   const handleChange = (newValue: string) => {
@@ -134,7 +135,7 @@ const CreateToolRequestModal = (props: any) => {
     setNext("true")
   };
   
-    
+    //console.log(fields)
   // const handleClickToOpen = () => {
   //   setOpen(true);
   // };
@@ -155,7 +156,6 @@ const CreateToolRequestModal = (props: any) => {
     // };
   
   
-  
 
   function post(){
     
@@ -166,27 +166,25 @@ const CreateToolRequestModal = (props: any) => {
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(
           {
-            TicketId: parseInt(fields.fields.TicketID),
-            sparePart: [
-              {
-                SPReqId: Math.floor(Math.random()*1000000),
-                Remark: fields.fields.Remark,
-                Content:fields.fields.Content,
-                Secretary: "Gayan",
-                // Secretary:fields.fields.Secretary,
-                ItemDescription: fields.fields.ItemDescription,
-                itemEntity:{
-                  MrfSerialNumber: "aaa",
-                  SerialNumber: "ssv",
-                  ItemDescription: "css",
-                  ItemGroup: "vss"
-                }
-              }
+            TicketId: parseInt(fields.fields.ServiceTiceketId),
+            resourceAllocation: [{
+              ToolGroup: fields.fields.ToolGroup ,
+              ToolReqID: parseInt(fields.fields.ToolReqID),
+              ToolDescription:  fields.fields.ToolDes,
+              SerialNo: fields.fields.SerialNo ,
+              ToolRequestStatus: fields.fields.ToolReqStatus ,
+              ToolType:fields.fields.ToolType ,
+              CreatedDateAndTime: "2022-11-15T06:47:47" ,
+              RequestDateAndTime: "2022-11-15T06:47:47" ,
+              NoOfDays:fields.fields.NoOfDays ,
+              HandOverDateAndTime: "2022-11-15T06:47:47",
+              Status:"Pending",
+               }
             ]
           }
       )
     };
-    fetch('http://localhost:3000/spare-parts/create',requestOptions)
+    fetch('http://localhost:3000/resourceAllocation/create',requestOptions)
    
     
   }
@@ -206,21 +204,21 @@ const CreateToolRequestModal = (props: any) => {
     setSecondTabValue(newValue);
     setTabName(getTab(newValue));
   };
-  console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
-  console.log(Subject, Origin,
-  ProblemType,
-  InquiryType,
-  CreatedBy,
-  HandledBy,
-  Queue,
-  Secretary,
-  SalesAssistant,
-      CreatedOn,
-  EstimatedDuration,
-  PlanedEndDate,
-  PlanedStartDate,
-  ActualStartDate,
-  ActualEndDate)
+  //console.log(ItemCode,ChangeMRF,CustomerName,ChangeSerialNumber,Address,ItemDescription,ItemGroup,CustomerID,ContactPerson,TelephoneNo,ChangeStatus,ChangeServiceCallId,ChangePriority)
+  // console.log(Subject, Origin,
+  // ProblemType,
+  // InquiryType,
+  // CreatedBy,
+  // HandledBy,
+  // Queue,
+  // Secretary,
+  // SalesAssistant,
+  //     CreatedOn,
+  // EstimatedDuration,
+  // PlanedEndDate,
+  // PlanedStartDate,
+  // ActualStartDate,
+  // ActualEndDate)
   return (
     <>
       <Modal
@@ -234,7 +232,7 @@ const CreateToolRequestModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Request
+            Create Tool Request
            
           </ModalTittle>
           <IconButton
@@ -293,7 +291,7 @@ const CreateToolRequestModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateToolRequestTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+              <CreateToolRequestTab1 props={props} setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
@@ -319,15 +317,17 @@ const CreateToolRequestModal = (props: any) => {
               </Grid>
               {mainTabValue == "1" && (
                   <Grid item xs={2} md={1}>
-                    <ModalButton
-                        variant="contained"
-                        className="ModalCommonButton"
-                        onClick={() => handleChange("2")}
-                    >
-                      Next
-                    </ModalButton>
+                   <ModalButton
+                          variant="contained"
+                          className="ModalCommonButton"
+                          onClick={post}
+                      >
+                        Create
+                    
+                      </ModalButton>
                   </Grid>
               )}
+              
 
               {mainTabValue == "2" && (
                   <>

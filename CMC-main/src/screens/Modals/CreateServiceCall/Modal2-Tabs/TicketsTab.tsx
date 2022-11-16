@@ -11,7 +11,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableHead from "@mui/material/TableHead";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-import {CreateServiceCallTicketData, Ticket} from "../../../../Types/Types"
+import {CreateServiceCallTicketData, Ticket, TicketServiceCall} from "../../../../Types/Types"
 import "../../../../Styles/Modal.css";
 import "../../../../Styles/ServiceCall.css";
 
@@ -109,24 +109,29 @@ for (var i = 0; i < 5; i++) {
 const TicketsTab = (props: any) => {
   //Modal
   const [openModal, setOpenModal] = React.useState(false);
-
+  console.log("edddddeee"+props.props.serviceCallData.fields.ServiceCallId+"ss666sss")
   const [ticketList, setTicketList] = React.useState([...rows]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [students, setStudents] =useState<any[]>([]);
-  
+  const [students, setStudents] =useState<any[]>([""]);
+  console.log(props.props.serviceCallData.fields.ServiceCallId)
   useEffect(() => {
     const requestOptions = {
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
     };
 
-    fetch('http://localhost:3000/spare-parts',requestOptions)
+
+    fetch('http://localhost:3000/service-calls/ticketInServiceCall/'+props.props.serviceCallData.fields.ServiceCallId,requestOptions)
         .then(response=>{ return response.json()})
         .then(data=>{
+
+          console.log(data[0].message===null)
+          if(data[0].message!==null){
+            console.log(data)
+           setStudents(data[0])
+          }
           //console.log(data[3].Groups[1].students)
-          // console.log(data)
-          setStudents(data)
         });
   } ,[])
 
@@ -146,7 +151,17 @@ const TicketsTab = (props: any) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const ControlButton = styled(Button)(({ theme }) => ({
+    color: "#383838",
+    backgroundColor: "transparent",
+    boxShadow: "none",
+    textTransform: "capitalize",
+    fontFamily: "Montserrat",
 
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  }));
   const addNewTicket = () => {
     setTicketList([
       ...ticketList,
@@ -197,6 +212,13 @@ const TicketsTab = (props: any) => {
                 >
                   Planned Start
                 </StyledTableCell>
+                <StyledTableCell
+                    sx={{
+                      borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                    }}
+                >
+
+                </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -206,14 +228,14 @@ const TicketsTab = (props: any) => {
                           page * rowsPerPage + rowsPerPage
                       )
                       : students
-              ).map((row: Ticket, i: number) => (
+              ).map((row: TicketServiceCall, i: number) => (
                   <StyledTableRow key={Math.random()}>
                     <StyledTableCell
                         sx={{
                           borderLeft: "none",
                         }}
                     >
-                      {moment(row.CreatedOn).format("DD/MM/YYYY")}
+                      {row.CreatedOn?moment(row.CreatedOn).format("DD/MM/YYYY"):null}
                     </StyledTableCell>
                     <StyledTableCell
                         sx={{
@@ -227,7 +249,7 @@ const TicketsTab = (props: any) => {
                           borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                         }}
                     >
-                      {row.serviceCall.Priority}
+                      {row.priority}
                     </StyledTableCell>
                     <StyledTableCell
                         sx={{
@@ -236,7 +258,6 @@ const TicketsTab = (props: any) => {
                     >
                       {row.PlannedStartDate}
                     </StyledTableCell>
-                    
                   </StyledTableRow>
               ))}
             </TableBody>

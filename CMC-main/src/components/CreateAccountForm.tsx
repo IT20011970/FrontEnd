@@ -213,8 +213,6 @@ const CreateAccount = () => {
                 onChange={(e) => handleChange(e,"usertype") }
             >
                 <MenuItem value={1}>Admin</MenuItem>
-                <MenuItem value={2}>Medium</MenuItem>
-                <MenuItem value={3}>Low</MenuItem>
             </SelectBox>
         </Paper>
         <Paper className="Password"

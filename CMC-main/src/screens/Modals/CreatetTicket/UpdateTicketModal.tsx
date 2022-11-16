@@ -199,18 +199,23 @@ const UpdateTicketModal = (props: any) => {
   const [contact, setContact] = React.useState("")
   const Service =useContext(ServiceContext)
   React.useEffect(()=>{
-
-    console.log(props.dataUpdate.serviceCall.customerEntity)
-    fields["TicketId"] = dataUpdate.TicketId;
-     fields["Subject"] = dataUpdate.Subject;
-    fields["TicketType"] =dataUpdate.TicketType;
+    console.log(dataUpdate)
+    // fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
+    // fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
+    // fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
+    // fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
+    // fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
+    // fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
+     fields["TicketId"] = dataUpdate.TicketId;
+      fields["Subject"] = dataUpdate.Subject;
+     fields["TicketType"] =dataUpdate.TicketType;
     fields["CustomerId"]=dataUpdate.serviceCall.customerEntity.CustomerId
      fields["CustomeName"] =dataUpdate.serviceCall.customerEntity.CustomeName;
       fields["ContactPerson"] = dataUpdate.serviceCall.customerEntity.ContactPerson;
      fields["TelephoneNo"] =dataUpdate.serviceCall.customerEntity.TelephoneNo;
       fields["CustomerAddressId"] =dataUpdate.serviceCall.customerEntity.CustomerAddressId;
-    fields["AssignedTo"] =dataUpdate.AssignedTo;
-    fields["AssignedBy"] =dataUpdate.AssignedBY;
+     fields["AssignedTo"] =dataUpdate.AssignedTo;
+     fields["AssignedBy"] =dataUpdate.AssignedBY;
 
   },[3])
   const getTab = (index: string): string => {
@@ -391,7 +396,7 @@ const UpdateTicketModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Ticket
+            Update Ticket
             {/* / <TabName>{tabName}</TabName> */}
           </ModalTittle>
           <IconButton
