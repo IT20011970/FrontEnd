@@ -57,10 +57,12 @@ const SpareParts = (props: any) => {
           <TabPanel value={props.value} index={0}>
             <Header />
             <SparePartsTab1 />
+          
           </TabPanel>
           <TabPanel value={props.value} index={1}>
             <Header />
             <SparePartsTab2 />
+          
           </TabPanel>
         </SwipeableViews>
       </Box>

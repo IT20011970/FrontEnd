@@ -25,6 +25,7 @@ import Header from "../../../components/Header";
 import "../../../Styles/Modal.css";
 import CreateSparePartsTab1 from "./CreateSparePartsTab1";
 import CreateSparePartsTab2 from "./CreateSparePartsTab2";
+
 import { useEffect, useState } from "react";
 import { Alert, DialogContentText } from "@mui/material";
 import EditSparePartsTab1 from "./EditSparePartsTab1";
@@ -78,7 +79,7 @@ const TabName = styled("text")(({ theme }) => ({
 }));
 
 const EditSparePartsModal = (props: any) => {
-   console.log(props.dataUpdate)
+   //console.log(props.dataUpdate)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -166,22 +167,21 @@ const EditSparePartsModal = (props: any) => {
       method:'PUT',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(
-          {
-            TicketId: parseInt(fields.fields.TicketID),
-            sparePart: [
+          
+
               {
-                SPReqId: Math.floor(Math.random()*1000000),
+                // SPReqId: Math.floor(Math.random()*1000000),
                 Remark: fields.fields.Remark,
                 Content:fields.fields.Content,
-                Secretary: "Gayan",
+                Secretary: fields.fields.Secretary,
                 // Secretary:fields.fields.Secretary,
                 ItemDescription: fields.fields.ItemDescription,
               }
-            ]
-          }
+            
+          
       )
     };
-    fetch('http://localhost:3000/spare-parts/create',requestOptions)
+    fetch('http://localhost:3000/spare-parts/updateSpare/'+props.dataUpdate.SPReqId,requestOptions)
     alert("Spare parts request successfully updated")
     
   }

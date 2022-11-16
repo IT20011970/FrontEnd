@@ -23,7 +23,9 @@ import "./../../../Styles/Tabs.css";
 import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal";
 import CreateSparePartslModal from "../../Modals/CreateSpareParts/CreateSparePartslModal";
 import { Checkbox } from "@material-ui/core";
-
+import { ServiceContext } from "../../../api/api";
+import { itemMasterEntity } from "./../../../Types/Types";
+import { useState } from "react";
 
 
 
@@ -185,14 +187,18 @@ const TablePaginationActions = (props: TablePaginationActionsProps) => {
 };
 
 const SparePartsTab1 = () => {
-  const [searchInput, setSearchInput] = React.useState("");
-  const [openModal, setOpenModal] = React.useState(false);
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [arry, setArray] = React.useState({});
+  const [searchInput, setSearchInput] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [fields, setfields] = useState<any>({});
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [arry, setArray] = useState({});
+  const Service =React.useContext(ServiceContext)
+  const [data, setData] =useState<any[]>([]);
+  const [arr, setArr] =useState<any[]>([]);
   
-  const arr =new Array();
+  
+  //const arr =new Array();
   
 
   const emptyRows =
@@ -206,8 +212,11 @@ const SparePartsTab1 = () => {
     setPage(newPage);
   };
   function getData(data:any){
-    arr.push(data)
-    console.log(arr)
+//     this.setState({ 
+//       arr: [...arr, 'new value'] 
+//  })
+setArr([...arr, data]);
+   console.log(arr)
   }
   
   function open(){
@@ -231,6 +240,17 @@ const SparePartsTab1 = () => {
   //   console.log(dataUpdate)
   //   setOpenEditModal(true)
   // }
+  React.useEffect(() => {
+    getData1()
+  });
+  function getData1 (){
+    if(Service !==undefined){
+      Service.ItemMasterEntity().then((result:any)=>{
+         setData(result)
+         //console.log(result)
+      })
+    }
+  }
 
   return (
     <>
@@ -274,19 +294,19 @@ const SparePartsTab1 = () => {
                 <StyledTableCell align="right">
                   Available Quantity
                 </StyledTableCell>
-                <StyledTableCell align="right">Attachment</StyledTableCell>
+                {/* <StyledTableCell align="right">Attachment</StyledTableCell> */}
                 <StyledTableCell align="right"></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(
+                ? data.slice(
                     page * rowsPerPage,
                     page * rowsPerPage + rowsPerPage
                   )
-                : rows
-              ).map((row: SparePartInventoryData, i: number) => (
-                <StyledTableRow key={row.spid}>
+                : data
+              ).map((row: itemMasterEntity, i: number) => (
+                <StyledTableRow key={row.Id}>
                    <StyledTableCell>
                    
                     {/* <ControlButton disableRipple onClick={e=>getData(row)}> */}
@@ -309,23 +329,23 @@ const SparePartsTab1 = () => {
                       borderLeft: "none",
                     }}
                   >
-                    {row.spid}
+                    {row.ItemCode}
                   </StyledTableCell>
                   <StyledTableCell>
-                    {row.description}
+                    {row.ItemName}
                   </StyledTableCell>
                   <StyledTableCell>
-                    {row.type}
+                    {row.ItemType}
                   </StyledTableCell>
                   <StyledTableCell>
-                    {row.remark}
+                    
                   </StyledTableCell>
                   <StyledTableCell>
-                    {row.quantity}
+                    {row.qty}
                   </StyledTableCell>
-                  <StyledTableCell>
+                  {/* <StyledTableCell>
                     {row.attachment}
-                  </StyledTableCell>
+                  </StyledTableCell> */}
                   <StyledTableCell>
                     <ControlButton disableRipple  >
                     {/* <ControlButton disableRipple onClick={e=>getData(row)}> */}
@@ -379,7 +399,9 @@ const SparePartsTab1 = () => {
         </Stack>
       
       </Container>
+     
         <CreateSparePartslModal arry={arry} open={openModal} setOpen={setOpenModal} />
+      
          {/* <EditSparePartsModal  dataUpdate={dataUpdate} open={openEditModal} setOpen={setOpenEditModal}/>
        */}
     </>
@@ -387,3 +409,7 @@ const SparePartsTab1 = () => {
 };
 
 export default SparePartsTab1;
+// function useState<T>(arg0: {}): [any, any] {
+//   throw new Error("Function not implemented.");
+// }
+

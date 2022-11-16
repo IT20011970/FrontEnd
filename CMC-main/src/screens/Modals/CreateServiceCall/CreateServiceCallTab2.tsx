@@ -29,7 +29,8 @@ import RemarksTab from "./Modal2-Tabs/RemarksTab";
 import SchedulingTab from "./Modal2-Tabs/SchedulingTab";
 import ExpensesTab from "./Modal2-Tabs/ExpensesTab";
 import Divider from "@mui/material/Divider"
-import History from "./Modal2-Tabs/History"
+//import History from "./Modal2-Tabs/History"
+import History from "./Modal2-Tabs/History";
 import Resolution from "./Modal2-Tabs/Resolution"
 import RelatedDocuments from "./Modal2-Tabs/RelatedDocuments"
 

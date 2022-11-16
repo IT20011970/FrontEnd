@@ -15,6 +15,7 @@ import SparePartsTab1 from "./TabScreens/SpareParts/SparePartsTab1";
 import SparePartsTab2 from "./TabScreens/SpareParts/SparePartsTab2";
 import "./../Styles/Styles.css";
 import ResourceAllocationTab1 from "./TabScreens/ResourceAllocation/ResourceAllocationTab1";
+import ResourceList from "./TabScreens/ResourceAllocation/ResourceList";
 
 const TabPanel = (props: any) => {
     const { children, value, index, ...other } = props;
@@ -61,7 +62,7 @@ const ResourceAllocation = (props: any) => {
                     </TabPanel>
                     <TabPanel value={props.value} index={1}>
                         <Header />
-                        <SparePartsTab2 />
+                        < ResourceList />
                     </TabPanel>
                 </SwipeableViews>
             </Box>

@@ -27,6 +27,7 @@ import CreateToolRequestTab1 from"./CreateToolRequestTab1";
 import CreateToolRequestTab2 from "./CreateVehicleRequestTab1";
 import { useEffect, useState } from "react";
 import { Alert, DialogContentText } from "@mui/material";
+import CreateVehicleRequestTab1 from "./CreateVehicleRequestTab1";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -233,7 +234,7 @@ const CreateVehicleRequestModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Tool Request
+            Create Vehicle Request
            
           </ModalTittle>
           <IconButton
@@ -292,7 +293,7 @@ const CreateVehicleRequestModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateToolRequestTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+              <CreateVehicleRequestTab1 setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
@@ -318,13 +319,14 @@ const CreateVehicleRequestModal = (props: any) => {
               </Grid>
               {mainTabValue == "1" && (
                   <Grid item xs={2} md={1}>
-                    <ModalButton
-                        variant="contained"
-                        className="ModalCommonButton"
-                        onClick={() => handleChange("2")}
-                    >
-                      Next
-                    </ModalButton>
+                     <ModalButton
+                          variant="contained"
+                          className="ModalCommonButton"
+                          onClick={post}
+                      >
+                        Create
+                    
+                      </ModalButton>
                   </Grid>
               )}
 

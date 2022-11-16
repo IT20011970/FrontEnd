@@ -13,6 +13,7 @@ export  interface IService{
     getServiceCallDocuments():Promise<ServiceCallData2[]>
     getExpences():Promise<ExpencesType[]>
     passValue(Data:any):Promise<any[]>
+    ItemMasterEntity():Promise<any[]>
 
 }
 
@@ -133,7 +134,19 @@ const Service:FC =({children}:any)=>{
                     return response.json()
                 })
             return data
-        }
+        },
+        async ItemMasterEntity(): Promise<any[]> {
+            const requestOptions = {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            };
+            const data = fetch(process.env.React_App_BackendUrl + '/spare-parts/itemService', requestOptions)
+                .then(response => {
+                    return response.json()
+                })
+
+            return data
+        },
        
         }
         
