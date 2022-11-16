@@ -261,7 +261,7 @@ const GeneralTab = (props: any) => {
             <TextBox
                 id="outlined-basic1"
                 variant="outlined"
-                value={JSON.parse(localStorage.getItem('user') || '{}').email}
+                value={JSON.parse(localStorage.getItem('user') || '{}').UserName}
                 onChange={handleChangeCreatedBy}
             />
             {/*<span style={{fontWeight: 'bold'}}>{)} </span>*/}

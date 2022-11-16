@@ -199,20 +199,21 @@ const UpdateTicketModal = (props: any) => {
   const [contact, setContact] = React.useState("")
   const Service =useContext(ServiceContext)
   React.useEffect(()=>{
-    fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
-    fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
-    fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
-    fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
-    fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
-    fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
+    console.log(dataUpdate)
+    // fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
+    // fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
+    // fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
+    // fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
+    // fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
+    // fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
      fields["TicketId"] = dataUpdate.TicketId;
       fields["Subject"] = dataUpdate.Subject;
      fields["TicketType"] =dataUpdate.TicketType;
-    // fields["CustomerId"]=dataUpdate.serviceCall.customerEntity.CustomerId
-    //  fields["CustomeName"] =dataUpdate.serviceCall.customerEntity.CustomeName;
-    //   fields["ContactPerson"] = dataUpdate.serviceCall.customerEntity.ContactPerson;
-    //  fields["TelephoneNo"] =dataUpdate.serviceCall.customerEntity.TelephoneNo;
-    //   fields["CustomerAddressId"] =dataUpdate.serviceCall.customerEntity.CustomerAddressId;
+    fields["CustomerId"]=dataUpdate.serviceCall.customerEntity.CustomerId
+     fields["CustomeName"] =dataUpdate.serviceCall.customerEntity.CustomeName;
+      fields["ContactPerson"] = dataUpdate.serviceCall.customerEntity.ContactPerson;
+     fields["TelephoneNo"] =dataUpdate.serviceCall.customerEntity.TelephoneNo;
+      fields["CustomerAddressId"] =dataUpdate.serviceCall.customerEntity.CustomerAddressId;
      fields["AssignedTo"] =dataUpdate.AssignedTo;
      fields["AssignedBy"] =dataUpdate.AssignedBY;
 
