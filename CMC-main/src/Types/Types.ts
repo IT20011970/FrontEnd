@@ -296,6 +296,22 @@ export type UserRoleTypes ={
 
 }
 
+export type ManageUserDetails = {
+
+  Id: number,
+  UserName: string,
+  user: {
+    userType: any;
+    id: string,
+    NIC: string,
+    ContactNumber: string,
+  },
+  userType: {
+    Description: string
+  }
+
+}
+
 
 export type CreateServiceCallTicketData = {
   date: Date;

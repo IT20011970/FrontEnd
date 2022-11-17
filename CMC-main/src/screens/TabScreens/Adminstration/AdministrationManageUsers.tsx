@@ -16,6 +16,7 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import Pagination from "@mui/material/Pagination";
 import {
+    ManageUserDetails,
     TablePaginationActionsProps,
     UserRoleTypes,
 } from "./../../../Types/Types";
@@ -195,7 +196,7 @@ const createData = (
 //     );
 // }
 
-const AdmistrationTab1 = () => {
+const AdministrationManageUsers = () => {
     const [searchInput, setSearchInput] = React.useState("");
     const [openModal, setOpenModal] = React.useState(false);
     const [openView, setOpenView] = React.useState(false);
@@ -216,7 +217,7 @@ const getData = async() => {
         headers: {'Content-Type': 'application/json'}
     };
 
-    fetch('http://localhost:3000/user-role-controller/get',requestOptions)
+    fetch('http://localhost:3000/manage-user-details-controller/get',requestOptions)
         .then(response=>{ return response.json()})
         .then(data=>{
            console.log(data)
@@ -257,7 +258,7 @@ const getData = async() => {
             <Stack spacing={6} direction="row">
                 <Grid container rowSpacing={1}>
                     <Grid item xs={6}>
-                        <Heading>Manage User Roles</Heading>
+                        <Heading>Manage Users</Heading>
 
                     </Grid>
                     <Grid item xs={3} sx={{ pr: 3 }}>
@@ -272,14 +273,7 @@ const getData = async() => {
                             />
                         </Search>
                     </Grid>
-                    <Grid item xs={3}>
-                        <RequestButton
-                            variant="contained"
-                            onClick={setOpenModalfunction}
-                        >
-                            Enable / Disable Role
-                        </RequestButton>
-                    </Grid>
+                    
                 </Grid>
             </Stack>
             <Container>
@@ -287,10 +281,14 @@ const getData = async() => {
                     <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
                         <TableHead>
                             <TableRow >
-                                <StyledTableCell sx={{ align: "center" }}>User Role</StyledTableCell>
-                                <StyledTableCell sx={{ textAlign: "center" }}>User Role Description</StyledTableCell>
-                                <StyledTableCell sx={{ textAlign: "center" }}>User Role Status</StyledTableCell>
-                                
+                                <StyledTableCell sx={{ align: "center" }}>User ID</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "center" }}>User Name</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "center" }}>Email</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "center" }}>Mobile</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "center" }}>NIC</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "center" }}>User Role</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "center" }}>Actions</StyledTableCell>
+
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -300,31 +298,31 @@ const getData = async() => {
                                         page * rowsPerPage + rowsPerPage
                                     )
                                     : rows
-                            ).map((row: UserRoleTypes, i: number) => (
+                            ).map((row: ManageUserDetails, i: number) => (
                                 <StyledTableRow key={row.Id}>
-                                    {/* <StyledTableCell
-                                        sx={{
-                                            borderLeft: "none",
-                                            textAlign: "center"
-                                        }}
-                                    >
-                                        {row.Id }
-                                    </StyledTableCell> */}
-                                    <StyledTableCell>
-                                        {row.Description }
-                                    </StyledTableCell>
-                                    <StyledTableCell>
-                                        {row.RoleDescription }
-                                    </StyledTableCell>
                                     <StyledTableCell
                                         sx={{
                                             borderLeft: "none",
                                             textAlign: "center"
                                         }}
                                     >
-                                        <i>{row.Status == 0 ? 'Disabled' : 'Enabled' }</i>
+                                        {row.user.id }
                                     </StyledTableCell>
-                                    
+                                    <StyledTableCell>
+                                        {row.UserName }
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                    {row.user.ContactNumber}
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                    {row.user.NIC}
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                    {row.user.userType.Description}
+                                    </StyledTableCell>
                                     
                                 </StyledTableRow>
                             ))}
@@ -369,4 +367,4 @@ const getData = async() => {
     );
 };
 
-export default AdmistrationTab1;
+export default AdministrationManageUsers;
