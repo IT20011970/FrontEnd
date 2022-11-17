@@ -124,6 +124,7 @@ const CreateAccount = () => {
                     login:{
                         UserName:fields["username"],
                         Password:fields["password"],
+                        Email:fields["email"],
                         Status:1,
                         DeviceId:"1"
                     }
