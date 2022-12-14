@@ -320,16 +320,18 @@ const Expences = (props: any) => {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                        Id: 1,
                         CreatedDate:CreatedOn,
                         DateExpire:fields["expire"],
                         ExpenseType:fields["Expense"],
                         CreatedBy:fields["createdBy"],
                         Amount:fields["amount"],
-                        Remark:fields["Remarks"]
+                        Remark:fields["Remarks"],
+                        serviceCall:{
+                            ServiceCallId:fields["ServiceCallId"]
+                        }
             })
         };
-        fetch('http://localhost:3000/service-calls/expences', requestOptions)
+        fetch('http://localhost:3000/service-calls/expences/', requestOptions)
     }
 
     return (

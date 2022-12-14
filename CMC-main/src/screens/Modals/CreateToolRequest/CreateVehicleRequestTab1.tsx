@@ -345,10 +345,10 @@ const [students, setStudents] =useState<any[]>([]);
     }
 
 
-    //Remark
+    //Resolution
     if(typeof fields["Remark"] === "string"){
       if (fields["Remark"]==="") {
-        errors["Remark"] = "Please Enter Remark ";
+        errors["Remark"] = "Please Enter Resolution ";
         seterrors(errors)
       }
       else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
@@ -895,16 +895,16 @@ const [students, setStudents] =useState<any[]>([]);
         />
         <Grid container spacing={2}>
           {/* <Grid item xs={6} md={3}>
-            <TextBoxHeader>Remark</TextBoxHeader>
+            <TextBoxHeader>Resolution</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "415%" }}
-              onChange={(e) => handleChange(e,"Remark") }
-              onFocus={(e) => handleChange(e,"Remark") }
+              onChange={(e) => handleChange(e,"Resolution") }
+              onFocus={(e) => handleChange(e,"Resolution") }
             />
-            <span style={{color: "red"}}>{errors["Remark"]}</span>
+            <span style={{color: "red"}}>{errors["Resolution"]}</span>
           </Grid> */}
          
         </Grid>

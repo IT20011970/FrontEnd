@@ -17,6 +17,7 @@ import "../../../../Styles/ServiceCall.css";
 import Button from "@mui/material/Button"
 import {useContext, useState} from "react"
 import {ServiceContext} from "../../../../api/api"
+import ViewScheduling from "../ViewScheduling";
 
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
@@ -127,13 +128,13 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const ScheduluingTab = (props: any) => {
+const ScheduluingTab2 = (props: any) => {
   // console.log(props)
   const [age, setAge] = React.useState("");
   const [date, setDate] = React.useState(new Date());
   const [fields, setfields] = useState<any>({})
   const Service =useContext(ServiceContext)
-  
+  const [openModal, setOpenModal] = React.useState(false);
   function handleChangeField(event:any,data:any) {
     fields[data] = event;
    // console.log(fields["PlanedStart"])
@@ -233,9 +234,8 @@ const ScheduluingTab = (props: any) => {
         <ModalButton
             variant="contained"
             className="ModalCommonButton"
-            disabled={true}
             sx={{ width: "300px"}}
-            // onClick={post}
+             onClick={e=>setOpenModal(true)}
         >
          View Schedule
         </ModalButton>
@@ -312,8 +312,9 @@ const ScheduluingTab = (props: any) => {
           />
         </Grid>
       </Grid>
+      <ViewScheduling props={props} open={openModal} setOpen={setOpenModal}/>
     </Box>
   );
 };
 
-export default ScheduluingTab;
+export default ScheduluingTab2;

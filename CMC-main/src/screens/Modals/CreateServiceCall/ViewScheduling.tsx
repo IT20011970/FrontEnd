@@ -31,6 +31,13 @@ import {useContext, useEffect, useState} from "react"
 import GeneralTabTicket from "./CreateTicket/GeneralTab";
 import {now} from "moment"
 import {ServiceContext} from "../../../api/api"
+import TableContainer from "@mui/material/TableContainer";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableBody from "@mui/material/TableBody";
+import {Schedule, ServiceCallData2, Solutions} from "../../../Types/Types";
+import TableCell, {tableCellClasses} from "@mui/material/TableCell";
 
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
@@ -174,8 +181,43 @@ for (var i = 0; i < 5; i++) {
       )
   );
 }
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    color: "#383838",
+    backgroundColor: "#fff",
+    fontWeight: 600,
+    fontSize: 14,
+    fontFamily: "Montserrat",
+    textAlign: "left",
+    borderBottom: "2px solid rgba(0, 65, 102, 0.2);",
+    lineHeight: "1.5",
+    padding: 7,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+    fontWeight: 400,
+    fontFamily: "Segoe UI",
+    color: "#383838",
+  },
+}));
 
-const AddSolutions = (props: any) => {
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: "rgba(0, 32, 51, 0.05)",
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    borderBottom: 0,
+  },
+  td: {
+    borderBottom: 0,
+    padding: 7,
+    // lineHeight: "0.5",
+    // borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+  },
+}));
+
+const ViewScheduling = (props: any) => {
   // console.log(props.props.props.serviceCallData.fields.ServiceCallId)
   const { open, setOpen, tab } = props;
   const [age, setAge] = React.useState("");
@@ -190,6 +232,7 @@ const AddSolutions = (props: any) => {
   const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
   const Service =useContext(ServiceContext)
+  const [data, setData] =React.useState<any[]>([]);
 
   const getTab = (index: string): string => {
     switch (index) {
@@ -249,90 +292,20 @@ const AddSolutions = (props: any) => {
     ]);
   };
 
-  function handleChangeField(e:any,f:any) {
-    console.log(props)
-    fields[f] = e.target.value;
-    handleValidation()
-  }
+  React.useEffect(() => {
+    getData()
+  });
 
-  function select(f:any) {
-    let field=fields
-    if(!fields[f])
-      field[f] = "0";
-    handleValidation()
-  }
-
-  // useEffect (()=>{
-  //   console.log(props.open)
-  //   // fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
-  //   // fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
-  //   // fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
-  //   // fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
-  //   // fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
-  //   // fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
-  //   // fields["TicketId"]= Math.floor(Math.random()*1000000)
-  //   // setfields(fields)
-  // },[props.open])
-
-  function handleValidation() {
-    //Owner
-    if (typeof fields["Owner"] === "string") {
-      if (fields["Owner"] === "") {
-        errors["Owner"] = "Please Enter Owner ";
-        seterrors(errors)
-      } else {
-        errors["Owner"] = ""
-        setfields(fields)
-        seterrors(errors)
-      }
-    }
-    //HandledBy
-    if(typeof fields["HandledBy"] !== "undefined"){
-      if (fields["HandledBy"]==="") {
-        errors["HandledBy"] = "Please Enter Handled By";
-        seterrors(errors)
-      }
-      else{
-        errors["HandledBy"] = ""
-        setfields( fields )
-        seterrors(errors)
-      }
-    }
-    //Solution
-    if(typeof fields["Solution"] !== "undefined"){
-      if (fields["Solution"]==="") {
-        errors["Solution"] = "Please Enter Solution";
-        seterrors(errors)
-      }
-      else{
-        errors["Solution"] = ""
-        setfields( fields )
-        seterrors(errors)
-      }
-    }
-  //Status
-    if(typeof fields["Status"] !== "undefined"){
-      if (fields["Status"]==="0") {
-        errors["Status"] = "Please Enter Status";
-        seterrors(errors)
-      }
-      else{
-        errors["Status"] = ""
-        setfields( fields )
-        seterrors(errors)
-      }
-    }
-  }
-
-  function post(){
-    handleClose()
-    console.log(fields.fields)
-    console.log(fields)
+  function getData (){
+    console.log(props.props.props.dataUpdate.ServiceCallId)
     if(Service !==undefined){
-      Service.addSolutions(fields,props.props.props.serviceCallData.fields.ServiceCallId).then((result)=>{
-        console.log(result)
+      Service.getSchedule(props.props.props.dataUpdate.ServiceCallId).then((result)=>{
+
+        setData(result)
+        console.log(data)
       })
     }
+  }
     
     // const requestOptions ={
     //   method:'POST',
@@ -347,7 +320,7 @@ const AddSolutions = (props: any) => {
     //   })
     // };
     // fetch('http://localhost:3000/service-calls/solutions',requestOptions)
-  }
+
  
 
   return (
@@ -362,7 +335,7 @@ const AddSolutions = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-           Add Solution
+           View Schedule
             {/* / <TabName>{tabName}</TabName> */}
           </ModalTittle>
           <IconButton
@@ -396,55 +369,71 @@ const AddSolutions = (props: any) => {
         <DialogContent>
           <Box sx={{ flexGrow: 1 }}>
             <Header />
-            <Grid container>
-              <Grid item xs={6} md={4}>
-                <TextBoxHeader>Owner</TextBoxHeader>
-                <TextBox
-                    id="outlined-basic"
-                    variant="outlined"
-                    placeholder="Text (default)"
-                    value={ fields["Owner"]}
-                    onChange={(e) => handleChangeField(e,"Owner") }
-                    onFocus={(e) => handleChangeField(e,"Owner") }
-                />
-                <span style={{color: "red"}}>{errors["Owner"]}</span>
-              </Grid>
-              <Grid item xs={6} md={4}>
-                <TextBoxHeader>Handled By</TextBoxHeader>
-                <TextBox
-                    id="outlined-basic"
-                    variant="outlined"
-                    placeholder="Text (default)"
-                    value={ fields["HandledBy"]}
-                    onChange={(e) => handleChangeField(e,"HandledBy") }
-                    onFocus={(e) => handleChangeField(e,"HandledBy") }
-                />
-                <span style={{color: "red"}}>{errors["HandledBy"]}</span>
-              </Grid>
-              <Grid item xs={6} md={4}>
-                <TextBoxHeader>Status</TextBoxHeader>
-                <TextBox
-                    id="outlined-basic"
-                    variant="outlined"
-                    placeholder="Text (default)"
-                    value={ fields["Status"]}
-                    onChange={(e) => handleChangeField(e,"Status") }
-                    onFocus={(e) => handleChangeField(e,"Status") }
-                />
-                <span style={{color: "red"}}>{errors["Status"]}</span>
-              </Grid>
-              <Grid item xs={6} md={13}>
-                <TextBoxHeader>Solution</TextBoxHeader>
-                <TextBox
-                    id="outlined-basic"
-                    variant="outlined"
-                    placeholder="Text (default)"
-                    onChange={(e) => handleChangeField(e,"Solution") }
-                    onFocus={(e) => handleChangeField(e,"Solution") }
-                />
-                <span style={{color: "red"}}>{errors["Solution"]}</span>
-              </Grid>
-            </Grid>
+            <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
+              <Table
+                  sx={{ minWidth: 500, boxShadow: "none" }}
+                  aria-label="custom pagination table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                        }}
+                    >
+                      ServiceCallId
+                    </StyledTableCell>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                        }}
+                    >
+                      Planed Start
+                    </StyledTableCell>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                        }}
+                    >
+                      Planed End
+                    </StyledTableCell>
+                    <StyledTableCell
+                        sx={{
+                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                        }}
+                    >
+                    </StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data.map((row: any, i: number) => (
+                      <StyledTableRow>
+                        <StyledTableCell
+                            sx={{
+                              borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                            }}
+                        >
+                          {row.ServiceCallId}
+                        </StyledTableCell>
+                        <StyledTableCell
+                            sx={{
+                              borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                            }}
+                        >
+                          {row.NextStartDate}
+                        </StyledTableCell>
+                        <StyledTableCell
+                            sx={{
+                              borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                            }}
+                        >
+                          {row.NextEndDate}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Box>
         </DialogContent>
         <Divider />
@@ -461,20 +450,10 @@ const AddSolutions = (props: any) => {
                   Cancel
                 </ModalButton>
               </Grid>
-              <Grid item xs={2} md={1}>
-                <ModalButton
-                    variant="contained"
-                    className="ModalCommonButton"
-                    onClick={post}
-                >
-                  Save
-                </ModalButton>
-              </Grid>
             </Grid>
           </Box>
         </DialogActions>
       </Modal>
   );
 };
-
-export default AddSolutions;
+export default ViewScheduling;

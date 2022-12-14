@@ -158,7 +158,7 @@ for (var i = 0; i < 50; i++) {
       "ID_SD",
       "Item Description TD",
       "Type T",
-      "Remark R",
+      "Resolution R",
       100,
       "Attachment A"
     )

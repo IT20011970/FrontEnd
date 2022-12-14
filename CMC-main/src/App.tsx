@@ -51,6 +51,9 @@ if((localStorage.getItem('log') || '{}')==='y'){
            <Route exact path="/Masters">
                <Home/>
            </Route>
+           <Route exact path="/Calendar">
+               <Home/>
+           </Route>
            <Route exact path="/ResourceAllocation">
                <Home/>
            </Route>

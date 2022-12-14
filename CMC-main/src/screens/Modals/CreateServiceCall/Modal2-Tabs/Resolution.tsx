@@ -11,9 +11,12 @@ import Table from "@mui/material/Table"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import TableBody from "@mui/material/TableBody"
-import {CreateServiceCallTicketData} from "../../../../Types/Types"
+import {CreateServiceCallTicketData, ResolutionType} from "../../../../Types/Types"
 import TableContainer from "@mui/material/TableContainer"
 import TableCell, {tableCellClasses} from "@mui/material/TableCell"
+import {useContext, useState} from "react";
+import {ServiceContext} from "../../../../api/api";
+
 
 const ModalButton = styled(Button)(({ theme }) => ({
     width: "85px",
@@ -103,7 +106,34 @@ const Resolution = (props: any) => {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [ticketList, setTicketList] = React.useState([...rows]);
     const [page, setPage] = React.useState(0);
-    
+    const Service =useContext(ServiceContext)
+    const [fields, setfields] = useState<any>({})
+    const [data, setData] =React.useState<any[]>([]);
+    function post (){
+        console.log(fields)
+        if(Service !==undefined){
+            Service.addResolution(props.props.serviceCallData.fields.ServiceCallId,fields)
+        }
+    }
+    function handleChangeField(event:any,data:any) {
+        fields[data] = event.target.value;
+        setfields(fields)
+    }
+    React.useEffect(() => {
+        getData()
+    });
+
+    function getData (){
+        if(Service !==undefined){
+            Service.getResolution(props.props.serviceCallData.fields.ServiceCallId).then((result)=>{
+                if(result[0].message!==null) {
+                    console.log(result[0])
+                    setData(result)
+                }
+            })
+        }
+    }
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <TextField
@@ -113,7 +143,7 @@ const Resolution = (props: any) => {
                 rows={6}
                 sx={{ width: "100%" }}
                 placeholder="Textarea (default)"
-                // defaultValue="Default Value"
+                onChange={e=>handleChangeField(e,"resolution")}
             />
             <Box sx={{ flexGrow: 1, py: 1 }}>
                 <Grid container spacing={10}>
@@ -123,6 +153,7 @@ const Resolution = (props: any) => {
                             variant="contained"
                             className="ModalCommonButton"
                             sx={{ width: "250px", mt: 2 }}
+                            onClick={post}
                         >
                             Save
                         </ModalButton>
@@ -166,40 +197,40 @@ const Resolution = (props: any) => {
                     </TableHead>
                     <TableBody>
                         {(rowsPerPage > 0
-                                ? ticketList.slice(
+                                ? data.slice(
                                     page * rowsPerPage,
                                     page * rowsPerPage + rowsPerPage
                                 )
-                                : rows
-                        ).map((row: CreateServiceCallTicketData, i: number) => (
-                            <StyledTableRow key={Math.random()}>
+                                : data
+                        ).map((row: ResolutionType, i: number) => (
+                            <StyledTableRow >
                                 <StyledTableCell
                                     sx={{
                                         borderLeft: "none",
                                     }}
                                 >
-                                    {row.date.toString().substring(0, 24)}
+                                    {row.ResolutionId}
                                 </StyledTableCell>
                                 <StyledTableCell
                                     sx={{
                                         borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                                     }}
                                 >
-                                    {row.date.toString().substring(0, 24)}
+                                    {row.Date}
                                 </StyledTableCell>
                                 <StyledTableCell
                                     sx={{
                                         borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                                     }}
                                 >
-                                    {row.priority}
+                                    {row.Resolution}
                                 </StyledTableCell>
                                 <StyledTableCell
                                     sx={{
                                         borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                                     }}
                                 >
-                                    {row.priority}
+
                                 </StyledTableCell>
                             </StyledTableRow>
                         ))}

@@ -33,6 +33,7 @@ import "./../../../Styles/Tabs.css";
 
 import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal";
 import {useEffect, useState} from "react";
+import ViewTicketModal from "../../Modals/CreatetTicket/ViewTicketModal";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -218,6 +219,7 @@ const CalenderTab1 = () => {
 
   const [formInput, setFormInput] = useState<any[]>([]);
   const [fields, setfields] = useState<any>([]);
+  const [dataUpdate, setDataUpdate] = React.useState({});
   // const events = [{ title: "today's event", date:'2022-09-01' }];
 
 
@@ -245,7 +247,7 @@ const CalenderTab1 = () => {
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
     };
-    fetch('http://localhost:3000/service-calls/service/',requestOptions)
+    fetch('http://localhost:3000/spare-parts',requestOptions)
         .then(response=>{
           return response.json()
         })
@@ -254,8 +256,8 @@ const CalenderTab1 = () => {
           console.log(serviceCalls)
           for(let serviceCall of serviceCalls){
             status.push({
-              start: getDate(serviceCall.CreatedOn),
-              title:serviceCall.ServiceCallId,
+              start: getDate(serviceCall.PlannedStartDate),
+              title:serviceCall.TicketId,
             },)
           }
            setFormInput(status)
@@ -276,6 +278,12 @@ const CalenderTab1 = () => {
     }
 
     return dayString.replace("YEAR", year).replace("MONTH", month);
+  }
+  function handleDateClick  (arg:any)  { // bind with an arrow function
+    console.log(arg.event._def.title)
+    setDataUpdate(arg.event._def.title)
+    //  console.log(dataUpdate)
+    setOpenModal(true)
   }
 
   return (
@@ -306,7 +314,8 @@ const CalenderTab1 = () => {
                 dayMaxEvents={true}
                 events={formInput}
                 // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-                // select={this.handleDateSelect}
+                eventClick={e=>handleDateClick(e)}
+                // dateClick={e=>handleDateClick(e)}
                 // eventContent={renderEventContent} // custom render function
                 // eventClick={this.handleEventClick}
                 // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
@@ -341,7 +350,7 @@ const CalenderTab1 = () => {
           </Stack>
         </Container>
 
-        <CreateServiceCallModal open={openModal} setOpen={setOpenModal} />
+        <ViewTicketModal dataUpdate={dataUpdate} open={openModal} setOpen={setOpenModal}/>
       </>
   );
 };

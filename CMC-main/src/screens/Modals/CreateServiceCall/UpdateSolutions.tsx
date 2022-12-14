@@ -175,12 +175,12 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const AddSolutions = (props: any) => {
+const UpdateSolutions = (props: any) => {
   // console.log(props.props.props.serviceCallData.fields.ServiceCallId)
-  const { open, setOpen, tab } = props;
+  const { openEditModal, setEditOpenModal, tab ,dataUpdate} = props;
   const [age, setAge] = React.useState("");
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => setEditOpenModal(true);
+  const handleClose = () => setEditOpenModal(false);
   const [value, setValue] = React.useState("1");
   const [ticketList, setTicketList] = React.useState([...rows]);
   const [tabName, setTabName] = React.useState("General");
@@ -262,17 +262,24 @@ const AddSolutions = (props: any) => {
     handleValidation()
   }
 
-  // useEffect (()=>{
-  //   console.log(props.open)
-  //   // fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
-  //   // fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
-  //   // fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
-  //   // fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
-  //   // fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
-  //   // fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
-  //   // fields["TicketId"]= Math.floor(Math.random()*1000000)
-  //   // setfields(fields)
-  // },[props.open])
+  useEffect (()=>{
+    console.log(openEditModal)
+    console.log(dataUpdate)
+    //     Solution:fields["Solution"],
+    //     CreatedOn:new Date(now()),
+    //     Owner:fields["Owner"],
+    //     Status:fields["Status"],
+    //     Status:fields["HandledBy"],
+    fields["Id"] = dataUpdate.Id;
+    fields["Solution"] = dataUpdate.Solution;
+    fields["CreatedOn"] = dataUpdate.CreatedOn;
+    fields["Owner"] = dataUpdate.Owner;
+    fields["Status"] = dataUpdate.Status;
+    fields["HandledBy"] = dataUpdate.HandledBy;
+
+    // fields["TicketId"]= Math.floor(Math.random()*1000000)
+    // setfields(fields)
+  },[])
 
   function handleValidation() {
     //Owner
@@ -329,7 +336,7 @@ const AddSolutions = (props: any) => {
     console.log(fields.fields)
     console.log(fields)
     if(Service !==undefined){
-      Service.addSolutions(fields,props.props.props.serviceCallData.fields.ServiceCallId).then((result)=>{
+      Service.updateSolutions(fields).then((result)=>{
         console.log(result)
       })
     }
@@ -354,7 +361,7 @@ const AddSolutions = (props: any) => {
       <Modal
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"
-          open={open}
+          open={openEditModal}
           PaperProps={{ sx: { maxWidth: "65%", height: "50%" } }}
           // maxWidth={"md"}
           // disableBackdropClick
@@ -439,6 +446,7 @@ const AddSolutions = (props: any) => {
                     id="outlined-basic"
                     variant="outlined"
                     placeholder="Text (default)"
+                    value={ fields["Solution"]}
                     onChange={(e) => handleChangeField(e,"Solution") }
                     onFocus={(e) => handleChangeField(e,"Solution") }
                 />
@@ -477,4 +485,4 @@ const AddSolutions = (props: any) => {
   );
 };
 
-export default AddSolutions;
+export default UpdateSolutions;
