@@ -14,7 +14,7 @@ import "../../../Styles/Modal.css";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DateTimePicker from "@mui/lab/DateTimePicker";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
@@ -314,7 +314,7 @@ const [students, setStudents] =useState<any[]>([]);
 
 
     if (fields["TicketID"] === "") {
-      errors["TicketID"] = "Please Enter Item Code";
+      errors["TicketID"] = "Required";
       seterrors(errors)
     }  else {
       errors["TicketID"] = ""
@@ -348,11 +348,12 @@ const [students, setStudents] =useState<any[]>([]);
     //Resolution
     if(typeof fields["Remark"] === "string"){
       if (fields["Remark"]==="") {
-        errors["Remark"] = "Please Enter Resolution ";
+        errors["Remark"] = "Required";
+
         seterrors(errors)
       }
       else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
-        errors["Remark"] = "Only letters ";
+        errors["Remark"] = "Required ";
         seterrors(errors)
       }
       else{
@@ -365,11 +366,11 @@ const [students, setStudents] =useState<any[]>([]);
     //Content
     if(typeof fields["Content"] === "string"){
       if (fields["Content"]==="") {
-        errors["Content"] = "Please Enter Content ";
+        errors["Content"] = "Required ";
         seterrors(errors)
       }
       else if (!fields["Content"].match(/^[a-zA-Z\s]+$/)) {
-        errors["Content"] = "Only letters ";
+        errors["Content"] = "Required ";
         seterrors(errors)
       }
       else{
@@ -382,7 +383,7 @@ const [students, setStudents] =useState<any[]>([]);
     //TicketType
     if(typeof fields["Secretary"] === "string"){
       if (fields["Secretary"]==="") {
-        errors["Secretary"] = "Please Enter Secretary ";
+        errors["Secretary"] = "Required ";
         seterrors(errors)
       }
       else{
@@ -394,7 +395,7 @@ const [students, setStudents] =useState<any[]>([]);
     }
     if(typeof fields["TicketType"] === "string"){
       if (fields["TicketType"]==="") {
-        errors["TicketType"] = "Please Enter Ticket Type ";
+        errors["TicketType"] = "Required ";
         seterrors(errors)
       }
       else{
@@ -407,7 +408,7 @@ const [students, setStudents] =useState<any[]>([]);
     //
     if(typeof fields["ItemDescription"] === "string"){
       if (fields["TicketType"]==="") {
-        errors["TicketType"] = "Please Enter Item Description";
+        errors["TicketType"] = "Required";
         seterrors(errors)
       }
       else{
@@ -481,6 +482,19 @@ const [students, setStudents] =useState<any[]>([]);
     // }
   }
 
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    };
+    fetch('http://localhost:3000/spare-parts',requestOptions)
+        .then(response=>{ return response.json()})
+        .then(data=>{
+          //console.log(data[3].Groups[1].students)
+      //   console.log(data)
+         setStudents(data)
+        });
+  } )
   
 
   return (
@@ -692,23 +706,19 @@ const [students, setStudents] =useState<any[]>([]);
 
         <Grid container spacing={2}>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Service Ticket</TextBoxHeader>
+          <TextBoxHeader>Service Ticket</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
+              onChange={(e) => handleChange(e,"ServiceTiceketId") }
+             
               sx={{ width: "99%" }}
-              value={fields['ServiceCallId']}
+              value={fields['ServiceTiceketId']}
             />
-            <span style={{color: "red"}}>{errors["ServiceCallId"]}</span>
+            <span style={{color: "red"}}>{errors["ServiceTiceketId"]}</span>
           </Grid>
-
-
-          </Grid> 
-
-
-          
-
+          </Grid>
 
           <br></br>
           <Grid container spacing={2}>
@@ -720,13 +730,14 @@ const [students, setStudents] =useState<any[]>([]);
           <Table sx={{ width: "100%" }} aria-label="custom pagination table">
             <TableHead>
               <TableRow>
-                <StyledTableCell
+              <StyledTableCell
                     sx={{
                       borderLeft: "none",
                     }}
                 >
-                  Date
+                  Service Ticket ID
                 </StyledTableCell>
+                
                 <StyledTableCell
                     sx={{
                       borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
@@ -758,141 +769,33 @@ const [students, setStudents] =useState<any[]>([]);
                       )
                       : students
               ).map((row: Ticket, i: number) => (
-                  <StyledTableRow key={Math.random()}>
-                    <StyledTableCell
-                        sx={{
-                          borderLeft: "none",
-                        }}
+                  <StyledTableRow key={row.TicketId}>
+                    <StyledTableCell  sx={{borderLeft: "none", }}
                     >
+                          {row.TicketId}
                       {/* {moment(row.CreatedOn).format("DD/MM/YYYY")} */}
                     </StyledTableCell>
-                    <StyledTableCell
-                        sx={{
-                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                        }}
+                    <StyledTableCell  sx={{borderLeft: "1px solid rgba(0, 65, 102, 0.2);",}}
                     >
-                      {row.AssignedTo}
+                        {row.AssignedTo}
                     </StyledTableCell>
-                    <StyledTableCell
-                        sx={{
-                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                        }}
+                    <StyledTableCell  sx={{borderLeft: "1px solid rgba(0, 65, 102, 0.2);",}}
                     >
-                      {row.serviceCall.Priority}
+                        {row.serviceCall.Priority}
                     </StyledTableCell>
-                    <StyledTableCell
-                        sx={{
-                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                        }}
+                    <StyledTableCell  sx={{borderLeft: "1px solid rgba(0, 65, 102, 0.2);",}}
                     >
-                      {row.PlannedStartDate}
+                         {row.PlannedStartDate}
                     </StyledTableCell>
                     
                   </StyledTableRow>
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
-       
-      
-      </Box>
-          
+        </TableContainer>    
+      </Box>    
       </Grid>          
         </Grid> 
-
-
-
-
-          {/* <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-                            <TableHead>
-                                <TableRow>
-                                    <StyledTableCell>Tool Request ID</StyledTableCell>
-                                  
-                                    <StyledTableCell align="right">Tool Description</StyledTableCell>
-                                    <StyledTableCell align="right">Created Date</StyledTableCell>
-                                    <StyledTableCell align="right">Requested Date</StyledTableCell>
-                                    <StyledTableCell align="right">Handover Date</StyledTableCell>
-                                    <StyledTableCell align="right">Status</StyledTableCell>
-                                    <StyledTableCell align="right">More</StyledTableCell>
-                                    <StyledTableCell align="right"></StyledTableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {(rowsPerPage > 0
-                                        ? students.slice(
-                                            page * rowsPerPage,
-                                            page * rowsPerPage + rowsPerPage
-                                        )
-                                        : students
-                                ).map(( row:ServiceCallData2, i: number) => (
-                                    <StyledTableRow key={row.ServiceCallId}>
-                                        <StyledTableCell
-                                            sx={{
-                                                borderLeft: "none",
-                                            }}
-                                        >
-                                            {row.ServiceCallId}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.itemEntity.ItemDescription}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.customerEntity.CustomeName}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.Status}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.CreatedOn}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.Priority}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            {row.Subject}
-                                        </StyledTableCell>
-                                        <StyledTableCell>
-                                            <Stack
-                                                direction="row"
-                                                justifyContent="center"
-                                                alignItems="flex-start"
-                                                spacing={0}
-                                            >
-                                                <ControlButton disableRipple>
-                                                    <svg
-                                                        width="21"
-                                                        height="21"
-                                                        viewBox="0 0 21 21"
-                                                        className="controlButton"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path d="M10.5 13.125C11.9497 13.125 13.125 11.9497 13.125 10.5C13.125 9.05025 11.9497 7.875 10.5 7.875C9.05025 7.875 7.875 9.05025 7.875 10.5C7.875 11.9497 9.05025 13.125 10.5 13.125Z" />
-                                                        <path d="M20.3046 10.2769C19.5327 8.28033 18.1928 6.55372 16.4503 5.31043C14.7078 4.06715 12.6392 3.36169 10.5002 3.28125C8.36117 3.36169 6.29259 4.06715 4.55012 5.31043C2.80766 6.55372 1.46769 8.28033 0.695834 10.2769C0.643706 10.4211 0.643706 10.5789 0.695834 10.7231C1.46769 12.7197 2.80766 14.4463 4.55012 15.6896C6.29259 16.9329 8.36117 17.6383 10.5002 17.7188C12.6392 17.6383 14.7078 16.9329 16.4503 15.6896C18.1928 14.4463 19.5327 12.7197 20.3046 10.7231C20.3567 10.5789 20.3567 10.4211 20.3046 10.2769ZM10.5002 14.7656C9.65655 14.7656 8.83183 14.5155 8.13036 14.0467C7.42888 13.578 6.88214 12.9118 6.55929 12.1324C6.23643 11.3529 6.15196 10.4953 6.31655 9.66782C6.48114 8.84037 6.8874 8.08031 7.48396 7.48375C8.08051 6.88719 8.84058 6.48093 9.66803 6.31634C10.4955 6.15175 11.3532 6.23622 12.1326 6.55908C12.912 6.88193 13.5782 7.42867 14.0469 8.13015C14.5157 8.83162 14.7658 9.65634 14.7658 10.5C14.7641 11.6308 14.3141 12.7148 13.5145 13.5143C12.715 14.3139 11.631 14.7639 10.5002 14.7656Z" />
-                                                    </svg>
-                                                </ControlButton>
-                                                
-                                            </Stack>
-                                        </StyledTableCell>
-                                    </StyledTableRow>
-                                ))} */}
-                                {/* {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )} */}
-                            {/* </TableBody>
-                        </Table>
-                    </TableContainer>*/}
-                    
-      
-        
-        <Divider
-          orientation="horizontal"
-          variant="middle"
-          flexItem
-          sx={{ marginTop: "30px" }}
-        />
         <Grid container spacing={2}>
           {/* <Grid item xs={6} md={3}>
             <TextBoxHeader>Resolution</TextBoxHeader>
@@ -909,8 +812,8 @@ const [students, setStudents] =useState<any[]>([]);
          
         </Grid>
 
-        {/* <Grid item xs={6} md={3}>
-            <TextBoxHeader>Content</TextBoxHeader>
+        <Grid item xs={6} md={3}>
+            {/* <TextBoxHeader>Content</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -918,9 +821,9 @@ const [students, setStudents] =useState<any[]>([]);
               sx={{ width: "400%" }}
               onChange={(e) => handleChange(e,"Content") }
               onFocus={(e) => handleChange(e,"Content") }
-            />
+            /> */}
           <span style={{color: "red"}}>{errors["Content"]}</span>
-          </Grid> */}
+          </Grid>
      
         <Grid container spacing={2}>
           

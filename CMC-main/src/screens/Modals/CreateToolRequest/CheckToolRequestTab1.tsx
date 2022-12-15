@@ -190,7 +190,7 @@ const ModalTittle = styled("text")(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const CreateToolRequestTab1 = (props: any) => {
+const CheckToolRequestTab1 = (props: any) => {
   
   React.useEffect(() => {
     setData1(props.props)
@@ -331,16 +331,14 @@ const CreateToolRequestTab1 = (props: any) => {
 
     
 
-    //Resolution
+    //Remark
     if(typeof fields["Remark"] === "string"){
       if (fields["Remark"]==="") {
-
-        errors["Remark"] = "Required ";
-
+        errors["Remark"] = "Please Enter Remark ";
         seterrors(errors)
       }
       else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
-        errors["Remark"] = "Required";
+        errors["Remark"] = "Only letters ";
         seterrors(errors)
       }
       else{
@@ -353,11 +351,11 @@ const CreateToolRequestTab1 = (props: any) => {
     //ToolReqStatus
     if(typeof fields["ToolReqStatus"] === "string"){
       if (fields["ToolReqStatus"]==="") {
-        errors["ToolReqStatus"] = "Required ";
+        errors["ToolReqStatus"] = "Please Enter Tool request status ";
         seterrors(errors)
       }
       else if (!fields["ToolReqStatus"].match(/^[a-zA-Z\s]+$/)) {
-        errors["ToolReqStatus"] = "Required ";
+        errors["ToolReqStatus"] = "Only letters ";
         seterrors(errors)
       }
       else{
@@ -384,11 +382,11 @@ const CreateToolRequestTab1 = (props: any) => {
      //ServiceTiceketId
      if(typeof fields["ServiceTiceketId"] === "string"){
       if (fields["ServiceTiceketId"]==="") {
-        errors["ServiceTiceketId"] = "Required ";
+        errors["ServiceTiceketId"] = "Please Enter ServiceTiceketId ";
         seterrors(errors)
       }
       else if (!fields["ServiceTiceketId"].match(/^[a-zA-Z\s]+$/)) {
-        errors["ServiceTiceketId"] = "Required";
+        errors["ServiceTiceketId"] = "Only letters ";
         seterrors(errors)
       }
       else{
@@ -401,7 +399,7 @@ const CreateToolRequestTab1 = (props: any) => {
     //Handover
     if(typeof fields["Handover"] === "string"){
       if (fields["Handover"]==="") {
-        errors["Handover"] = "Required ";
+        errors["Handover"] = "Please Enter Handover ";
         seterrors(errors)
       }
       
@@ -437,10 +435,20 @@ const CreateToolRequestTab1 = (props: any) => {
     fetch('http://localhost:3000/spare-parts',requestOptions)
         .then(response=>{ return response.json()})
         .then(data=>{
-          //console.log(data[3].Groups[1].students)
-      //   console.log(data)
-         setStudents(data)
-        });
+            if(data.statusCode===404){
+              setfields(fields)
+            }
+            else{
+                fields["TicketID"] = props.props.arry[0].ServiceCallId
+                fields["ToolGroup"] =  props.props.arry[0].Status
+                fields["ToolType"]= props.props.arry[0].Status
+                fields["ToolDes"] =  props.props.arry[0].Status
+                fields["SerialNo"] =  props.props.arry[0].Status
+            
+                fields["ToolReqID"]= Math.floor(Math.random()*1000000)
+              }
+
+          });
   } )
   
 
@@ -765,16 +773,16 @@ const CreateToolRequestTab1 = (props: any) => {
         </Grid> 
         <Grid container spacing={2}>
           {/* <Grid item xs={6} md={3}>
-            <TextBoxHeader>Resolution</TextBoxHeader>
+            <TextBoxHeader>Remark</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "415%" }}
-              onChange={(e) => handleChange(e,"Resolution") }
-              onFocus={(e) => handleChange(e,"Resolution") }
+              onChange={(e) => handleChange(e,"Remark") }
+              onFocus={(e) => handleChange(e,"Remark") }
             />
-            <span style={{color: "red"}}>{errors["Resolution"]}</span>
+            <span style={{color: "red"}}>{errors["Remark"]}</span>
           </Grid> */}
          
         </Grid>
@@ -859,4 +867,4 @@ const CreateToolRequestTab1 = (props: any) => {
   );
 };
 
-export default CreateToolRequestTab1;
+export default CheckToolRequestTab1;

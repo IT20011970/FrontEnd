@@ -23,11 +23,12 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Header from "../../../components/Header";
 import "../../../Styles/Modal.css";
-import CreateToolRequestTab1 from"./CreateToolRequestTab1";
+//import CreateToolRequestTab1 from"./CreateToolRequestTab1";
 import CreateToolRequestTab2 from "./CreateVehicleRequestTab1";
 import { useEffect, useState } from "react";
 import { Alert, DialogContentText } from "@mui/material";
 import CreateVehicleRequestTab1 from "./CreateVehicleRequestTab1";
+import CheckToolRequestTab1 from "./CheckToolRequestTab1";
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
@@ -76,7 +77,7 @@ const TabName = styled("text")(({ theme }) => ({
   color: "#0091d5",
 }));
 
-const CreateToolRequestModal = (props: any) => {
+const CheckToolRequestModal = (props: any) => {
   // console.log(props.arry)
   const { open, setOpen } = props;
   // const handleOpen = () => setOpen(true);
@@ -162,30 +163,29 @@ const CreateToolRequestModal = (props: any) => {
     console.log(fields.fields)
     console.log(fields)
     const requestOptions ={
-      method:'POST',
+      method:'PUT',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(
           {
-            TicketId: parseInt(fields.fields.ServiceTiceketId),
-            resourceAllocation: [{
+           
               ToolGroup: fields.fields.ToolGroup ,
-              ToolReqID: parseInt(fields.fields.ToolReqID),
+             // ToolReqID: parseInt(fields.fields.ToolReqID),
               ToolDescription:  fields.fields.ToolDes,
               SerialNo: fields.fields.SerialNo ,
               ToolRequestStatus: fields.fields.ToolReqStatus ,
               ToolType:fields.fields.ToolType ,
-              CreatedDateAndTime: new Date() ,
+             // CreatedDateAndTime: new Date() ,
               RequestDateAndTime: fields.fields.Request ,
               NoOfDays:fields.fields.NoOfDays ,
               HandOverDateAndTime: fields.fields.Handover,
               Status:"Pending",
-               }
-            ]
+               
+            
           }
       )
     };
-    fetch('http://localhost:3000/resourceAllocation/create',requestOptions)
-    alert("Tool request successfully created")
+    fetch('http://localhost:3000/resourceAllocation/updateTool/'+"props.dataUpdate.ToolReqID",requestOptions)
+    alert("Tool request successfully updated")
     
     
   }
@@ -233,7 +233,7 @@ const CreateToolRequestModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Tool Request
+            Check Tool Request
            
           </ModalTittle>
           <IconButton
@@ -292,11 +292,13 @@ const CreateToolRequestModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <CreateToolRequestTab1 props={props} setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+              <CheckToolRequestTab1 props={props} setfieldsSpare={setfieldsSpare} setItemCode={setItemCode} setChangeServiceCallId={setChangeServiceCallId} setChangeMRF={setChangeMRF} setChangePriority={setChangePriority} setChangeStatus={setChangeStatus}setContactPerson={setContactPerson}setIChangeSerialNumber={setIChangeSerialNumber}setItemDescription={setItemDescription}setItemGroup={setItemGroup}setCustomerID={setCustomerID}setTelephoneNo={setTelephoneNo} setAddress={setAddress} setCustomerName={setCustomerName} />
+           
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <CreateVehicleRequestTab1 setfieldsSpare={setfieldsSpare}   setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              {/* <CreateVehicleRequestTab1 setfieldsSpare={setfieldsSpare}   setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+             */}
             </TabPanel>
           </TabContext>
         </DialogContent>
@@ -364,4 +366,4 @@ const CreateToolRequestModal = (props: any) => {
   );
 };
 
-export default CreateToolRequestModal;
+export default CheckToolRequestModal;
