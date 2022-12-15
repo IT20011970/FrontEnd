@@ -14,6 +14,7 @@ import Header from "./../components/Header";
 import "./../Styles/Styles.css";
 import Administrationtab1 from "./TabScreens/Adminstration/Administrationtab1"
 import AdministrationMaster from "./TabScreens/Adminstration/AdministrationMaster";
+import AdministrationManageUsers from "./TabScreens/Adminstration/AdministrationManageUsers";
 
 const TabPanel = (props: any) => {
     const { children, value, index, ...other } = props;
@@ -53,6 +54,10 @@ const Administration = (props: any) => {
                         <Administrationtab1 />
                     </TabPanel>
                     <TabPanel value={props.value} index={1}>
+                        <Header />
+                        <AdministrationManageUsers />
+                    </TabPanel>
+                    <TabPanel value={props.value} index={2}>
                         <Header />
                         <AdministrationMaster />
                     </TabPanel>

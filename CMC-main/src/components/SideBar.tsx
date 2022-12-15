@@ -484,7 +484,8 @@ const SideBar = () => {
                         variant="fullWidth"
                     >
                       <Tab label="Manage User Roles" {...a11yProps(0)} />
-                      <Tab label="Masters" {...a11yProps(1)} />
+                      <Tab label="Manage Users" {...a11yProps(1)} />
+                      <Tab label="Masters" {...a11yProps(2)} />
                     </Tabs>
                   </AppBar>
                 </Box>
