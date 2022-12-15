@@ -197,6 +197,7 @@ const UpdateTicketModalS = (props: any) => {
   const [actualEndDate, setDateActualEnd] = React.useState("");
   const [Estimate, setEstimate] = React.useState("")
   const [contact, setContact] = React.useState("")
+  const [subfields, setSubfields] = useState<any>({fields:{}});
   const Service =useContext(ServiceContext)
   React.useEffect(()=>{
     fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
@@ -361,7 +362,7 @@ const UpdateTicketModalS = (props: any) => {
       }
     }
   }
-
+  console.log(subfields)
   function post(){
     handleClose()
     // console.log(fields.fields)
@@ -375,6 +376,13 @@ const UpdateTicketModalS = (props: any) => {
             Subject: fields["Subject"],
             AssignedTo: fields["AssignedTo"],
             AssignedBY: fields["AssignedBy"],
+        PlannedStartDate: subfields.fields.planedStartDate,
+        PlannedEndDate: subfields.fields.plannedEndDate ,
+        ActualStartDate: subfields.fields.actualStartDate ,
+        CreatedOn:subfields.fields.CreatedOn,
+        ActualEndDate: subfields.fields.actualEndDate ,
+        EstimatedDuration: subfields.fields.actualEndDate ,
+        ContactPerson: subfields.fields.contact
 
           }
       )
@@ -613,7 +621,7 @@ const UpdateTicketModalS = (props: any) => {
           <Box>
             <TabContext value={value}>
               <TabPanel value="1">
-                <GeneralTab setCreatedOnDate={setCreatedOnDate} setDateEstimated={setDateEstimated} setDatePlannedEnd={setDatePlannedEnd} setDatePlanedStart={setDatePlanedStart} setDateActualStart={setDateActualStart} setDateActualEnd={setDateActualEnd} setEstimate={setEstimate} setContact={setContact}/>
+                <GeneralTab props={props} setSubfields={setSubfields} setCreatedOnDate={setCreatedOnDate} setDateEstimated={setDateEstimated} setDatePlannedEnd={setDatePlannedEnd} setDatePlanedStart={setDatePlanedStart} setDateActualStart={setDateActualStart} setDateActualEnd={setDateActualEnd} setEstimate={setEstimate} setContact={setContact}/>
               </TabPanel>
               <TabPanel value="2">
                 <ContentTab />

@@ -6,7 +6,7 @@ import {now} from "moment"
 export  interface IService{
     getServiceCall():Promise<ServiceCallData2[]>
     getCustomerList():Promise<CustomerList[]>
-    getItemList():Promise<Item[]>
+    getItemList(Id:any):Promise<Item[]>
     getSolutions(Id:any):Promise<any[]>
     addSolutions(Data:any,Id:any):Promise<Solutions[]>
     updateSolutions(Data:any):Promise<Solutions[]>
@@ -108,12 +108,12 @@ const Service:FC =({children}:any)=>{
                 })
             return data
         },
-        async getItemList(): Promise<Item[]> {
+        async getItemList(Id:any): Promise<Item[]> {
             const requestOptions = {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'}
             };
-            const data = fetch('http://localhost:3000/service-calls/itemlist', requestOptions)
+            const data = fetch('http://localhost:3000/service-calls/itemlist/'+Id, requestOptions)
                 .then(response => {
                     return response.json()
                 })

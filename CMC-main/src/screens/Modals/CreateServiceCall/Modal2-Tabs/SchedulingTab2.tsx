@@ -255,7 +255,7 @@ const ScheduluingTab2 = (props: any) => {
       </Grid>
       <Grid container spacing={2}>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>Address ID</TextBoxHeader>
+          <TextBoxHeader>Address</TextBoxHeader>
           <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -263,54 +263,54 @@ const ScheduluingTab2 = (props: any) => {
               placeholder="Text (default)"
           />
         </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>Street 1</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>Street 2</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>Room</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>State</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>City</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>Country</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
+        {/*<Grid item xs={6} md={3}>*/}
+        {/*  <TextBoxHeader>Street 1</TextBoxHeader>*/}
+        {/*  <TextBox*/}
+        {/*    id="outlined-basic"*/}
+        {/*    variant="outlined"*/}
+        {/*    placeholder="Text (default)"*/}
+        {/*  />*/}
+        {/*</Grid>*/}
+        {/*<Grid item xs={6} md={3}>*/}
+        {/*  <TextBoxHeader>Street 2</TextBoxHeader>*/}
+        {/*  <TextBox*/}
+        {/*    id="outlined-basic"*/}
+        {/*    variant="outlined"*/}
+        {/*    placeholder="Text (default)"*/}
+        {/*  />*/}
+        {/*</Grid>*/}
+        {/*<Grid item xs={6} md={3}>*/}
+        {/*  <TextBoxHeader>Room</TextBoxHeader>*/}
+        {/*  <TextBox*/}
+        {/*    id="outlined-basic"*/}
+        {/*    variant="outlined"*/}
+        {/*    placeholder="Text (default)"*/}
+        {/*  />*/}
+        {/*</Grid>*/}
+        {/*<Grid item xs={6} md={3}>*/}
+        {/*  <TextBoxHeader>State</TextBoxHeader>*/}
+        {/*  <TextBox*/}
+        {/*    id="outlined-basic"*/}
+        {/*    variant="outlined"*/}
+        {/*    placeholder="Text (default)"*/}
+        {/*  />*/}
+        {/*</Grid>*/}
+        {/*<Grid item xs={6} md={3}>*/}
+        {/*  <TextBoxHeader>City</TextBoxHeader>*/}
+        {/*  <TextBox*/}
+        {/*    id="outlined-basic"*/}
+        {/*    variant="outlined"*/}
+        {/*    placeholder="Text (default)"*/}
+        {/*  />*/}
+        {/*</Grid>*/}
+        {/*<Grid item xs={6} md={3}>*/}
+        {/*  <TextBoxHeader>Country</TextBoxHeader>*/}
+        {/*  <TextBox*/}
+        {/*    id="outlined-basic"*/}
+        {/*    variant="outlined"*/}
+        {/*    placeholder="Text (default)"*/}
+        {/*  />*/}
+        {/*</Grid>*/}
       </Grid>
       <ViewScheduling props={props} open={openModal} setOpen={setOpenModal}/>
     </Box>

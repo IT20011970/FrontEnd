@@ -176,7 +176,7 @@ for (var i = 0; i < 5; i++) {
 }
 
 const ViewTicketModal = (props: any) => {
-
+console.log(props)
   const { open, setOpen ,dataUpdate} = props;
   const [age, setAge] = React.useState("");
   const handleOpen = () => setOpen(true);
@@ -198,26 +198,39 @@ const ViewTicketModal = (props: any) => {
   const [Estimate, setEstimate] = React.useState("")
   const [contact, setContact] = React.useState("")
   const Service =useContext(ServiceContext)
-  React.useEffect(()=>{
-    console.log(dataUpdate)
-    // fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
-    // fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
-    // fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
-    // fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
-    // fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
-    // fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
-    //  fields["TicketId"] = dataUpdate.TicketId;
-    //   fields["Subject"] = dataUpdate.Subject;
-    //  fields["TicketType"] =dataUpdate.TicketType;
-    // fields["CustomerId"]=dataUpdate.serviceCall.customerEntity.CustomerId
-    //  fields["CustomeName"] =dataUpdate.serviceCall.customerEntity.CustomeName;
-    //   fields["ContactPerson"] = dataUpdate.serviceCall.customerEntity.ContactPerson;
-    //  fields["TelephoneNo"] =dataUpdate.serviceCall.customerEntity.TelephoneNo;
-    //   fields["CustomerAddressId"] =dataUpdate.serviceCall.customerEntity.CustomerAddressId;
-    //  fields["AssignedTo"] =dataUpdate.AssignedTo;
-    //  fields["AssignedBy"] =dataUpdate.AssignedBY;
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    };
+    fetch('http://localhost:3000/spare-parts/FindTicket/'+props.dataUpdate,requestOptions)
+        .then(response=>{
+          return response.json()
+        })
+        .then(serviceCalls=> {
+              console.log(serviceCalls[0])
+              //  fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
+              // fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
+              // fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
+              // fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
+              // fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
+              // fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
+              fields["TicketId"] = serviceCalls[0].TicketId;
+              fields["Subject"] = serviceCalls[0].Subject;
+              fields["TicketType"] = serviceCalls[0].TicketType;
+              fields["CustomerId"] = serviceCalls[0].serviceCall.customerEntity.CustomerId
+              fields["CustomeName"] = serviceCalls[0].serviceCall.customerEntity.CustomeName;
+              fields["ContactPerson"] = serviceCalls[0].serviceCall.customerEntity.ContactPerson;
+              fields["TelephoneNo"] = serviceCalls[0].serviceCall.customerEntity.TelephoneNo;
+              fields["CustomerAddressId"] = serviceCalls[0].serviceCall.customerEntity.CustomerAddressId;
+              fields["AssignedTo"] = serviceCalls[0].AssignedTo;
+              fields["AssignedBy"] = serviceCalls[0].AssignedBY;
+            }
+        );
 
-  },[3])
+
+  } )
+
   const getTab = (index: string): string => {
     switch (index) {
       case "1":
@@ -396,7 +409,7 @@ const ViewTicketModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Update Ticket
+            View Ticket
             {/* / <TabName>{tabName}</TabName> */}
           </ModalTittle>
           <IconButton
@@ -633,25 +646,25 @@ const ViewTicketModal = (props: any) => {
           <Box sx={{ flexGrow: 1, py: 1 }}>
             <Grid container spacing={12}>
               <Grid item xs={6} md={9.8}></Grid>
-              <Grid item xs={2} md={1}>
-                <ModalButton
-                    variant="contained"
-                    className="cancelButton"
-                    onClick={handleClose}
-                >
-                  Cancel
-                </ModalButton>
-              </Grid>
+              {/*<Grid item xs={2} md={1}>*/}
+              {/*  <ModalButton*/}
+              {/*      variant="contained"*/}
+              {/*      className="cancelButton"*/}
+              {/*      onClick={handleClose}*/}
+              {/*  >*/}
+              {/*    Cancel*/}
+              {/*  </ModalButton>*/}
+              {/*</Grid>*/}
 
-              <Grid item xs={2} md={1}>
-                <ModalButton
-                    variant="contained"
-                    className="ModalCommonButton"
-                    onClick={post}
-                >
-                  Update
-                </ModalButton>
-              </Grid>
+              {/*<Grid item xs={2} md={1}>*/}
+              {/*  <ModalButton*/}
+              {/*      variant="contained"*/}
+              {/*      className="ModalCommonButton"*/}
+              {/*      onClick={post}*/}
+              {/*  >*/}
+              {/*    Update*/}
+              {/*  </ModalButton>*/}
+              {/*</Grid>*/}
             </Grid>
           </Box>
         </DialogActions>

@@ -455,13 +455,13 @@ const CreateServiceCallDocumentModal = (props: any) => {
                 </ModalButton>
               </Grid>
               <Grid item xs={2} md={2}>
-                <ModalButton
-                  variant="contained"
-                  className="cancelButton"
-                  onClick={handleClose}
-                >
-                  Cancel
-                </ModalButton>
+                {/*<ModalButton*/}
+                {/*  variant="contained"*/}
+                {/*  className="cancelButton"*/}
+                {/*  onClick={handleClose}*/}
+                {/*>*/}
+                {/*  Cancel*/}
+                {/*</ModalButton>*/}
               </Grid>
               <Grid item xs={8} md={8}>
                 <ModalButton

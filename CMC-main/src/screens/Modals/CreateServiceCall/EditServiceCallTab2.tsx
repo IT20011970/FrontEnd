@@ -35,6 +35,7 @@ import SolutionsTab2 from "./Modal2-Tabs/SolutionsTab2";
 import SchedulingTab2 from "./Modal2-Tabs/SchedulingTab2";
 import Resolution from "./Modal2-Tabs/Resolution";
 import RelatedDocuments from "./Modal2-Tabs/RelatedDocuments";
+import History from "./Modal2-Tabs/History";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -223,7 +224,7 @@ const EditServiceCallTab2 = (props: any) => {
             <ExpensesTab props={props}/>
           </TabPanel>
           <TabPanel value="7" ><Resolution  props={props}/></TabPanel>
-          {/*<TabPanel value="8">History</TabPanel>*/}
+          <TabPanel value="8"><History props={props}/></TabPanel>
           <TabPanel value="9"><RelatedDocuments props={props}/></TabPanel>
         </TabContext>
     </Box>

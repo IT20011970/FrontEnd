@@ -14,6 +14,7 @@ import Select from "@mui/material/Select";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import {useEffect, useState} from "react";
 //import "../../../../Styles/Modal.css";
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
@@ -105,9 +106,37 @@ const GeneralTabTicket = (props: any) => {
   const [actualEndDate, setActualEndDate] = React.useState(new Date());
   const [estimate, setEstimation] = React.useState("");
   const [contact, setContact] = React.useState("");
+  const [fields, setfields] = useState<any>({contact:''});
+  React.useEffect(()=>{
+    fields["CreatedOn"] = new Date(props.props.dataUpdate.CreatedOn)
+    fields["planedStartDate"] = new Date(props.props.dataUpdate.PlannedStartDate)
+    fields["plannedEndDate"] = new Date(props.props.dataUpdate.PlannedEndDate)
+     fields["actualStartDate"] =new Date(props.props.dataUpdate.ActualStartDate)
+    fields["actualEndDate"] =new Date(props.props.dataUpdate.ActualEndDate)
+    fields["contact"]=props.props.dataUpdate.ContactPerson
+    // fields["CustomerId"]=dataUpdate.serviceCall.customerEntity.CustomerId
+    // fields["CustomeName"] =dataUpdate.serviceCall.customerEntity.CustomeName;
+    // fields["ContactPerson"] = dataUpdate.serviceCall.customerEntity.ContactPerson;
+    // fields["TelephoneNo"] =dataUpdate.serviceCall.customerEntity.TelephoneNo;
+    // fields["CustomerAddressId"] =dataUpdate.serviceCall.customerEntity.CustomerAddressId;
+    // fields["AssignedTo"] =dataUpdate.AssignedTo;
+    // fields["AssignedBy"] =dataUpdate.AssignedBY;
+    props.setSubfields({fields})
 
+  },[])
 
-
+  function handleChangeDateField(event:any,data:any) {
+    fields[data] = event;
+    setfields(fields)
+    props.setSubfields({fields})
+    console.log(fields)
+  }
+  function handleChangeField(event:any,data:any) {
+    fields[data] = event.target.value;
+    setfields(fields)
+    props.setSubfields({fields})
+    console.log(fields)
+  }
   const handleChangesetDateCreatedOn= (event:any) => {
     console.log(props)
     setDateCreatedOn(event)
@@ -149,11 +178,10 @@ const GeneralTabTicket = (props: any) => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                     renderInput={(params) => <TextBox {...params} />}
-                    value={CreatedOn}
+                    value={fields["CreatedOn"]}
                     // onChange={handleChangesetDateCreatedOn}
                     onChange={(newValue) => {
-                      handleChangesetDateCreatedOn((newValue != null ? newValue.toString() : new Date())
-                      );
+                      handleChangeDateField((newValue != null ? newValue.toString() : new Date()),"CreatedOn");
                     }}
                     className="dateTimePicker"
                 />
@@ -164,10 +192,9 @@ const GeneralTabTicket = (props: any) => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                     renderInput={(params:any) => <TextBox {...params} />}
-                    value={planedStartDate}
+                    value={fields["planedStartDate"]}
                     onChange={(newValue) => {
-                      handleChangesetPlanedStartDate((newValue != null ? newValue.toString() : new Date())
-                      );
+                      handleChangeDateField((newValue != null ? newValue.toString() : new Date()),"planedStartDate");
                     }}
                     className="dateTimePicker"
                 />
@@ -194,10 +221,9 @@ const GeneralTabTicket = (props: any) => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                     renderInput={(params:any) => <TextBox {...params} />}
-                    value={plannedEndDate}
+                    value={fields["plannedEndDate"]}
                     onChange={(newValue) => {
-                      handleChangesetPlanedEndDate((newValue != null ? newValue.toString() : new Date())
-                      );
+                      handleChangeDateField((newValue != null ? newValue.toString() : new Date()),"plannedEndDate");
                     }}
                     className="dateTimePicker"
                 />
@@ -208,10 +234,9 @@ const GeneralTabTicket = (props: any) => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                     renderInput={(params:any) => <TextBox {...params} />}
-                    value={actualStartDate}
+                    value={fields["actualStartDate"]}
                     onChange={(newValue) => {
-                      handleChangesetActualStartDate((newValue != null ? newValue.toString() : new Date())
-                      );
+                      handleChangeDateField((newValue != null ? newValue.toString() : new Date()),"actualStartDate");
                     }}
                     className="dateTimePicker"
                 />
@@ -222,10 +247,9 @@ const GeneralTabTicket = (props: any) => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                     renderInput={(params:any) => <TextBox {...params} />}
-                    value={actualEndDate}
+                    value={fields["actualEndDate"]}
                     onChange={(newValue) => {
-                      handleChangesetActualEndDate((newValue != null ? newValue.toString() : new Date())
-                      );
+                      handleChangeDateField((newValue != null ? newValue.toString() : new Date()),"actualEndDate");
                     }}
                     className="dateTimePicker"
                 />
@@ -233,21 +257,36 @@ const GeneralTabTicket = (props: any) => {
             </Grid>
             <Grid item xs={5} md={4}>
               <TextBoxHeader>Contact Person</TextBoxHeader>
-              <SelectBox
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  // value={age}
-                  // label="Age"
-                  defaultValue=""
-                  onChange={handleChangesetContact}
-              >
-                <MenuItem value={"Gayan"}>Gayan</MenuItem>
-                <MenuItem value={"Dilini"}>Dilini</MenuItem>
-                <MenuItem value={"Poornima"}>Poornima</MenuItem>
-                <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
-                <MenuItem value={"Pawani"}>Pawani</MenuItem>
-                <MenuItem value={"Rasika"}>Rasika</MenuItem>
-              </SelectBox>
+              <TextBox
+                  id="outlined-basic"
+                  variant="outlined"
+                  placeholder="Text (default)"
+                  value={fields["contact"]}
+                  onChange={e=>handleChangeField(e,"contact")}
+              />
+              {/*<SelectBox*/}
+              {/*    labelId="demo-simple-select-label"*/}
+              {/*    id="demo-simple-select"*/}
+              {/*    // value={age}*/}
+              {/*    // label="Age"*/}
+              {/*    onChange={handleChangesetContact}*/}
+              {/*>*/}
+              {/*  <MenuItem value={"Gayan"}>Gayan</MenuItem>*/}
+              {/*  <MenuItem value={"Dilini"}>Dilini</MenuItem>*/}
+              {/*  <MenuItem value={"Poornima"}>Poornima</MenuItem>*/}
+              {/*  <MenuItem value={"Rukshan"}>Rukshan</MenuItem>*/}
+              {/*  <MenuItem value={"Pawani"}>Pawani</MenuItem>*/}
+              {/*  <MenuItem value={"Rasika"}>Rasika</MenuItem>*/}
+              {/*</SelectBox>*/}
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextBoxHeader>Mobile</TextBoxHeader>
+              <TextBox
+                  id="outlined-basic"
+                  variant="outlined"
+                  placeholder="Text (default)"
+                  value={fields["contact"]}
+              />
             </Grid>
           </Grid>
         </Box>

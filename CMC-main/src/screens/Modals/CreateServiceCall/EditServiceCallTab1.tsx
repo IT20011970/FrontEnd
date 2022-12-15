@@ -173,10 +173,10 @@ const EditServiceCallTab1 = (props: any) => {
         console.log(result)
         setArray(result)
       })
-      Service.getItemList().then((result)=>{
-        console.log(result)
-        setArrayItem(result)
-      })
+      // Service.getItemList().then((result)=>{
+      //   console.log(result)
+      //   setArrayItem(result)
+      // })
     }
     
   }
@@ -239,11 +239,17 @@ const EditServiceCallTab1 = (props: any) => {
     console.log(value)
     if(value!=null){
       fields["CustomerName"]=value.label
+      if(Service !==undefined){
+        Service.getItemList(fields["CustomerName"]).then((result)=>{
+          console.log(result)
+          setArrayItem(result)
+        })
+      }
       const requestOptions = {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
       };
-      fetch('http://localhost:3000/service-calls/name/',requestOptions)
+      fetch('http://localhost:3000/service-calls/name/'+fields["CustomerName"],requestOptions)
           .then(response=>{ return response.json()})
           .then(data=>{
             console.log(data)
@@ -260,10 +266,10 @@ const EditServiceCallTab1 = (props: any) => {
             }
             else{
               // console.log(data)
-              fields["CustomerID"] = data.CustomerId
-              fields["ContactPerson"] = data.ContactPerson
-              fields["TelephoneNo"] = data.TelephoneNo
-              fields["AddressId"] = data.CustomerAddressId
+              fields["CustomerID"] = data.customer
+              fields["ContactPerson"] = "data.ContactPerson"
+              fields["TelephoneNo"] = data.ContactPhone
+              fields["AddressId"] = data.Address
               setfields(fields)
               // setfields( {CustomerID:data.CustomerId,ContactPerson:data.ContactPerson,CustomerName:data.CustomeName,TelephoneNo:data.TelephoneNo,AddressId:data.CustomerAddressId} )
               props.setfields({fields})
@@ -293,7 +299,7 @@ const EditServiceCallTab1 = (props: any) => {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
       };
-      fetch('http://localhost:3000/service-calls/itemName1/' , requestOptions)
+      fetch('http://localhost:3000/service-calls/itemName/'+fields["ItemDescription"] , requestOptions)
           .then(response => {
             return response.json()
           })
@@ -313,8 +319,10 @@ const EditServiceCallTab1 = (props: any) => {
             } else {
                console.log(data)
               fields["ItemCode"] = data.ItemCode
-              fields["MrfSerialNumber"] = data.MrfSerialNumber
-              fields["SerialNumber"] = data.SerialNumber
+              if(fields["MRF"]==""||!fields["MRF"])
+                fields["MRF"] = data.MrfSerialNumber
+              if(fields["SerialNumber"]==""||!fields["SerialNumber"])
+                fields["SerialNumber"] = data.SerialNumber
               fields["ItemDescription"] = data.ItemDescription
               fields["ItemGroup"] = data.ItemGroup
               setfields(fields)
@@ -699,19 +707,19 @@ const EditServiceCallTab1 = (props: any) => {
                 />
             <span style={{color: "red"}}>{errors["CustomerID"]}</span>
           </Grid>
-          <Grid item xs={6} md={3}>
-            <TextBoxHeader>Contact Person</TextBoxHeader>
-            <TextBox
-              id="outlined-basic3"
-              variant="outlined"
-              placeholder="Text (default)"
-              sx={{ width: "99%" }}
-              value={fields["ContactPerson"]}
-              onChange={(e) => handleChange(e,"ContactPerson") }
-              onFocus={(e) => handleChange(e,"ContactPerson") }
-            />
-            <span style={{color: "red"}}>{errors["ContactPerson"]}</span>
-        </Grid>
+        {/*  <Grid item xs={6} md={3}>*/}
+        {/*    <TextBoxHeader>Contact Person</TextBoxHeader>*/}
+        {/*    <TextBox*/}
+        {/*      id="outlined-basic3"*/}
+        {/*      variant="outlined"*/}
+        {/*      placeholder="Text (default)"*/}
+        {/*      sx={{ width: "99%" }}*/}
+        {/*      value={fields["ContactPerson"]}*/}
+        {/*      onChange={(e) => handleChange(e,"ContactPerson") }*/}
+        {/*      onFocus={(e) => handleChange(e,"ContactPerson") }*/}
+        {/*    />*/}
+        {/*    <span style={{color: "red"}}>{errors["ContactPerson"]}</span>*/}
+        {/*</Grid>*/}
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Telephone No</TextBoxHeader>
             <TextBox
@@ -726,7 +734,7 @@ const EditServiceCallTab1 = (props: any) => {
             <span style={{color: "red"}}>{errors["TelephoneNo"]}</span>
             </Grid>
           <Grid item xs={6} md={3}>
-            <TextBoxHeader>Customer Address ID</TextBoxHeader>
+            <TextBoxHeader>Customer Address </TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -816,19 +824,19 @@ const EditServiceCallTab1 = (props: any) => {
             />
             <span style={{color: "red"}}>{errors["SerialNumber"]}</span>
           </Grid>
-          <Grid item xs={6} md={3}>
-            <TextBoxHeader>Item Group</TextBoxHeader>
-            <TextBox
-                id="outlined-basic"
-                variant="outlined"
-                placeholder="Text (default)"
-                sx={{ width: "99%" }}
-                value={fields["ItemGroup"]}
-                onChange={(e) => handleChange(e,"ItemGroup") }
-                onFocus={(e) => handleChange(e,"ItemGroup") }
-            />
-            <span style={{color: "red"}}>{errors["ItemGroup"]}</span>
-          </Grid>
+          {/*<Grid item xs={6} md={3}>*/}
+          {/*  <TextBoxHeader>Item Group</TextBoxHeader>*/}
+          {/*  <TextBox*/}
+          {/*      id="outlined-basic"*/}
+          {/*      variant="outlined"*/}
+          {/*      placeholder="Text (default)"*/}
+          {/*      sx={{ width: "99%" }}*/}
+          {/*      value={fields["ItemGroup"]}*/}
+          {/*      onChange={(e) => handleChange(e,"ItemGroup") }*/}
+          {/*      onFocus={(e) => handleChange(e,"ItemGroup") }*/}
+          {/*  />*/}
+          {/*  <span style={{color: "red"}}>{errors["ItemGroup"]}</span>*/}
+          {/*</Grid>*/}
         </Grid>
         
         <Divider

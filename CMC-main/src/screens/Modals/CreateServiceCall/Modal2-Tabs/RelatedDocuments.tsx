@@ -6,11 +6,12 @@ import "../../../../Styles/ServiceCall.css";
 import Grid from "@mui/material/Grid"
 import {styled} from "@mui/material/styles"
 import Button from "@mui/material/Button"
-import {File, ResolutionType, Solutions, Ticket} from "../../../../Types/Types"
+import {File, ResolutionType, ServiceCallData2, Solutions, Ticket} from "../../../../Types/Types"
 import {now} from "moment"
 import {useContext, useState} from "react";
 import {ServiceContext} from "../../../../api/api";
 import Paper from "@mui/material/Paper";
+import Link from "react";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -18,6 +19,8 @@ import TableBody from "@mui/material/TableBody";
 import moment from "moment/moment";
 import TableContainer from "@mui/material/TableContainer";
 import TableCell, {tableCellClasses} from "@mui/material/TableCell";
+import fileDownload from 'js-file-download'
+import axios from 'axios'
 const ModalButton = styled(Button)(({ theme }) => ({
     width: "85px",
     height: "auto",
@@ -50,7 +53,17 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
         color: "#383838",
     },
 }));
+const ControlButton = styled(Button)(({ theme }) => ({
+    color: "#383838",
+    backgroundColor: "transparent",
+    boxShadow: "none",
+    textTransform: "capitalize",
+    fontFamily: "Montserrat",
 
+    "&:hover": {
+        backgroundColor: "transparent",
+    },
+}));
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
         backgroundColor: "rgba(0, 32, 51, 0.05)",
@@ -89,7 +102,7 @@ const RelatedDocuments = (props: any) => {
         }
     React.useEffect(() => {
         getData()
-    });
+    },[]);
 
     function getData (){
         if(Service !==undefined){
@@ -101,6 +114,31 @@ const RelatedDocuments = (props: any) => {
                 }
             })
         }
+    }
+    function path(data:any){
+        window.location.href='C:/Users/Gayan/Documents/GitHub/img1.png'
+    }
+   // async function download(){
+   //      console.log("aaa")
+   //          const requestOptions = {
+   //              method: 'GET',
+   //          };
+   //         fetch('http://localhost:3000/15', requestOptions).then((res) => {
+   //             console.log(res.body)
+   //         // fileDownload(res,"a")
+   //     })
+   //     console.log(data)
+   //           // data.then((res) => {
+   //           //     fileDownload(res.data,"a")
+   //           // })
+   //  }
+    function handleDownload (url:any, filename:any)  {
+        axios.get(url, {
+            responseType: 'blob',
+        })
+            .then((res) => {
+                fileDownload(res.data, filename)
+            })
     }
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -176,6 +214,13 @@ const RelatedDocuments = (props: any) => {
                             >
                                 Name
                             </StyledTableCell>
+                            <StyledTableCell
+                                sx={{
+                                    borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                                }}
+                            >
+                                More
+                            </StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -217,11 +262,31 @@ const RelatedDocuments = (props: any) => {
                                         />
                                     </svg>{row.Name}
                                 </StyledTableCell>
+                                <StyledTableCell
+                                    sx={{
+                                        borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+                                    }}
+                                >
+                                    <ControlButton disableRipple onClick={e=>path(row)}>
+                                        {/*<a href={row.Path} download>Click to download</a>*/}
+
+                                        <svg
+                                            width="16"
+                                            height="17"
+                                            viewBox="0 0 16 17"
+                                            className="controlButton"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path d="M15.36 14.98H0.64C0.286 14.98 0 15.266 0 15.62V16.34C0 16.428 0.072 16.5 0.16 16.5H15.84C15.928 16.5 16 16.428 16 16.34V15.62C16 15.266 15.714 14.98 15.36 14.98ZM2.914 13.3C2.954 13.3 2.994 13.296 3.034 13.29L6.398 12.7C6.438 12.692 6.476 12.674 6.504 12.644L14.982 4.166C15.0005 4.1475 15.0153 4.12552 15.0253 4.10133C15.0353 4.07713 15.0405 4.05119 15.0405 4.025C15.0405 3.99881 15.0353 3.97287 15.0253 3.94867C15.0153 3.92448 15.0005 3.9025 14.982 3.884L11.658 0.558C11.62 0.52 11.57 0.5 11.516 0.5C11.462 0.5 11.412 0.52 11.374 0.558L2.896 9.036C2.866 9.066 2.848 9.102 2.84 9.142L2.25 12.506C2.23054 12.6131 2.2375 12.7234 2.27025 12.8273C2.30301 12.9311 2.36059 13.0254 2.438 13.102C2.57 13.23 2.736 13.3 2.914 13.3Z" />
+                                        </svg>
+                                    </ControlButton>
+                                </StyledTableCell>
 
                             </StyledTableRow>
                         ))}
                     </TableBody>
                 </Table>
+                {/*<button onClick={e => this.handleDownload('https://your-website.com/your-image.jpg', 'test-download.jpg') >Download Image</button>*/}
             </TableContainer>
         </Box>
     );

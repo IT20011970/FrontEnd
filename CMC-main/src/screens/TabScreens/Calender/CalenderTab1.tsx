@@ -247,7 +247,7 @@ const CalenderTab1 = () => {
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
     };
-    fetch('http://localhost:3000/spare-parts',requestOptions)
+    fetch('http://localhost:3000/spare-parts/FindTicket',requestOptions)
         .then(response=>{
           return response.json()
         })
@@ -349,8 +349,9 @@ const CalenderTab1 = () => {
             />
           </Stack>
         </Container>
-
+        {openModal == true && (
         <ViewTicketModal dataUpdate={dataUpdate} open={openModal} setOpen={setOpenModal}/>
+            )}
       </>
   );
 };

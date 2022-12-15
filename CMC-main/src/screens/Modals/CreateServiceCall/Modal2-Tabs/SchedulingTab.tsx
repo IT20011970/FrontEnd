@@ -17,6 +17,8 @@ import "../../../../Styles/ServiceCall.css";
 import Button from "@mui/material/Button"
 import {useContext, useState} from "react"
 import {ServiceContext} from "../../../../api/api"
+import ViewScheduling from "../ViewScheduling";
+import ViewScheduling2 from "../ViewScheduling2";
 
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
@@ -133,7 +135,8 @@ const ScheduluingTab = (props: any) => {
   const [date, setDate] = React.useState(new Date());
   const [fields, setfields] = useState<any>({})
   const Service =useContext(ServiceContext)
-  
+  const [openModal, setOpenModal] = React.useState(false);
+
   function handleChangeField(event:any,data:any) {
     fields[data] = event;
    // console.log(fields["PlanedStart"])
@@ -233,9 +236,8 @@ const ScheduluingTab = (props: any) => {
         <ModalButton
             variant="contained"
             className="ModalCommonButton"
-            disabled={true}
             sx={{ width: "300px"}}
-            // onClick={post}
+            onClick={e=>setOpenModal(true)}
         >
          View Schedule
         </ModalButton>
@@ -255,7 +257,7 @@ const ScheduluingTab = (props: any) => {
       </Grid>
       <Grid container spacing={2}>
         <Grid item xs={6} md={3}>
-          <TextBoxHeader>Address ID</TextBoxHeader>
+          <TextBoxHeader>Address</TextBoxHeader>
           <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -263,55 +265,9 @@ const ScheduluingTab = (props: any) => {
               placeholder="Text (default)"
           />
         </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>Street 1</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>Street 2</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>Room</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>State</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>City</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextBoxHeader>Country</TextBoxHeader>
-          <TextBox
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Text (default)"
-          />
-        </Grid>
+
       </Grid>
+      <ViewScheduling2 props={props} open={openModal} setOpen={setOpenModal}/>
     </Box>
   );
 };

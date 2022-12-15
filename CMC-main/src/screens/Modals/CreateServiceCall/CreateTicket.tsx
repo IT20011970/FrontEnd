@@ -371,7 +371,8 @@ const CreateTicket = (props: any) => {
             CreatedOn:CreatedOn,
             ActualEndDate: actualEndDate ,
             EstimatedDuration: Estimate ,
-            ContactPerson: contact
+            ContactPerson: contact,
+            Status:"pending"
            }
         ]
       })
