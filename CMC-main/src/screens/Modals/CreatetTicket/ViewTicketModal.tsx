@@ -225,6 +225,7 @@ console.log(props)
               fields["CustomerAddressId"] = serviceCalls[0].serviceCall.customerEntity.CustomerAddressId;
               fields["AssignedTo"] = serviceCalls[0].AssignedTo;
               fields["AssignedBy"] = serviceCalls[0].AssignedBY;
+          setfields(fields)
             }
         );
 
