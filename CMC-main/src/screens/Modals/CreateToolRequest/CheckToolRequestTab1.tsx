@@ -19,19 +19,18 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+
 import Pagination from "@mui/material/Pagination";
+import TableHead from "@mui/material/TableHead";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-
-
-
+import TableRow from "@mui/material/TableRow";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
     TablePaginationActionsProps,
-    SparePartsRequestListData, ServiceCallData, ServiceCallData2, Ticket,
+    SparePartsRequestListData, ServiceCallData, ServiceCallData2, Ticket, ArrayTab,
 } from "../../../Types/Types";
 import "./../../../Styles/Tabs.css";
+import moment from "moment";
 
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
@@ -45,6 +44,44 @@ const TextBoxHeader = styled(Paper)(({ theme }) => ({
   color: "#383838",
   backgroundColor: "transparent",
   marginTop: "17px",
+}));
+
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    color: "#383838",
+    backgroundColor: "#fff",
+    fontWeight: 600,
+    fontSize: 14,
+    fontFamily: "Montserrat",
+    textAlign: "left",
+    borderBottom: "2px solid rgba(0, 65, 102, 0.2);",
+    lineHeight: "1.5",
+    padding: 7,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+    fontWeight: 400,
+    fontFamily: "Segoe UI",
+    color: "#383838",
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: "rgba(0, 32, 51, 0.05)",
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    borderBottom: 0,
+  },
+  td: {
+    borderBottom: 0,
+    padding: 7,
+    // lineHeight: "0.5",
+    // borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
+  },
 }));
 
 const TextBox = styled(TextField)(({ theme }) => ({
@@ -153,52 +190,23 @@ const ModalTittle = styled("text")(({ theme }) => ({
   fontWeight: 700,
 }));
 
-
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    color: "#383838",
-    backgroundColor: "#fff",
-    fontWeight: 600,
-    fontSize: 14,
-    fontFamily: "Montserrat",
-    textAlign: "left",
-    borderBottom: "2px solid rgba(0, 65, 102, 0.2);",
-    lineHeight: "1.5",
-    padding: 7,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-    fontWeight: 400,
-    fontFamily: "Segoe UI",
-    color: "#383838",
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: "rgba(0, 32, 51, 0.05)",
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    borderBottom: 0,
-  },
-  td: {
-    borderBottom: 0,
-    padding: 7,
-    // lineHeight: "0.5",
-    // borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-  },
-}));
-
-
-
-
-const CreateVehicleRequestTab1 = (props: any) => {
+const CheckToolRequestTab1 = (props: any) => {
+  
   React.useEffect(() => {
- 
-  });
+    setData1(props.props)
+    console.log(props.props.arry)
+    if(props.props.arry.length!==0){
+    fields["TicketID"] = props.props.arry[0].ServiceCallId
+    fields["ToolGroup"] =  props.props.arry[0].Status
+    fields["ToolType"]= props.props.arry[0].Status
+    fields["ToolDes"] =  props.props.arry[0].Status
+    fields["SerialNo"] =  props.props.arry[0].Status
 
+    fields["ToolReqID"]= Math.floor(Math.random()*1000000)
+  }
+    
+  },[]);
+ 
   const { open, setOpen } = props;
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -208,57 +216,64 @@ const CreateVehicleRequestTab1 = (props: any) => {
   const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-const [page, setPage] = React.useState(0);
-const [students, setStudents] =useState<any[]>([]);
+  const [page, setPage] = React.useState(0);
+  const [students, setStudents] =useState<any[]>([]);
+  const [data1, setData1] =React.useState<ArrayTab[]>([]);
 
   // const handleChange = (event: any) => {
   //   setAge(event.target.value);
   // };
 
-  const handleChangeItemCode = (event: any) => {
-    props.setItemCode(event.target.value)
-  };
-  const handleChangeMRF = (event: any) => {
-    props.setChangeMRF(event.target.value)
-  };
-  const handleChangeSerialNumber = (event: any) => {
-    props.setIChangeSerialNumber(event.target.value)
-  };
-  const handleChangeItemDescription = (event: any) => {
-    props.setItemDescription(event.target.value)
-  };
-  const handleChangeItemGroup = (event: any) => {
-    props.setItemGroup(event.target.value)
-  };
-  const handleChangeCustomerID = (event: any) => {
-    props.setCustomerID(event.target.value)
-  };
-  const handleChangeContactPerson = (event: any) => {
-    props.setContactPerson(event.target.value)
-  };
-  const handlChangeAddress = (event: any) => {
-    props.setAddress(event.target.value)
-  };
-  const handleChangeTelephoneNo = (event: any) => {
-    props.setTelephoneNo(event.target.value)
-  };
-  const handleChangeStatus = (event: any) => {
-    props.setChangeStatus(event.target.value);
-  };
-  const handleChangeServiceCallId = (event: any) => {
-    props.setChangeServiceCallId(event.target.value)
-  };
-  const handleChangePriority = (event: any) => {
-    props.setChangePriority(event.target.value)
-  };
-  const handleChangeCustomerName = (event: any) => {
-    props.setCustomerName(event.target.value)
-  };
+  // const handleChangeItemCode = (event: any) => {
+  //   props.setItemCode(event.target.value)
+  // };
+  // const handleChangeMRF = (event: any) => {
+  //   props.setChangeMRF(event.target.value)
+  // };
+  // const handleChangeSerialNumber = (event: any) => {
+  //   props.setIChangeSerialNumber(event.target.value)
+  // };
+  // const handleChangeItemDescription = (event: any) => {
+  //   props.setItemDescription(event.target.value)
+  // };
+  // const handleChangeItemGroup = (event: any) => {
+  //   props.setItemGroup(event.target.value)
+  // };
+  // const handleChangeCustomerID = (event: any) => {
+  //   props.setCustomerID(event.target.value)
+  // };
+  // const handleChangeContactPerson = (event: any) => {
+  //   props.setContactPerson(event.target.value)
+  // };
+  // const handlChangeAddress = (event: any) => {
+  //   props.setAddress(event.target.value)
+  // };
+  // const handleChangeTelephoneNo = (event: any) => {
+  //   props.setTelephoneNo(event.target.value)
+  // };
+  // const handleChangeStatus = (event: any) => {
+  //   props.setChangeStatus(event.target.value);
+  // };
+  // const handleChangeServiceCallId = (event: any) => {
+  //   props.setChangeServiceCallId(event.target.value)
+  // };
+  // const handleChangePriority = (event: any) => {
+  //   props.setChangePriority(event.target.value)
+  // };
+  // const handleChangeCustomerName = (event: any) => {
+  //   props.setCustomerName(event.target.value)
+  // };
 
   function handleChange(e:any,f:any) {
     // let field=fields
     fields[f] = e.target.value;
     handleValidation()
+  }
+
+  function handleChangeDate(e:any,f:any){
+    fields[f] = e;
+    setfields( fields )
+    console.log(fields)
   }
 
 
@@ -269,8 +284,9 @@ const [students, setStudents] =useState<any[]>([]);
     handleValidation()
   }
 
+
   function handleValidation(){
-    console.log(fields)
+    console.log(typeof fields["Handover"] )
     
     // Ticket ID
     // if(typeof fields["TicketID"] === "string"){
@@ -313,46 +329,16 @@ const [students, setStudents] =useState<any[]>([]);
 
 
 
-    if (fields["TicketID"] === "") {
-      errors["TicketID"] = "Required";
-      seterrors(errors)
-    }  else {
-      errors["TicketID"] = ""
-      seterrors(errors)
-      const requestOptions = {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
-      };
-      fetch('http://localhost:3000/spare-parts/'+fields["TicketID"],requestOptions)
-          .then(response=>{ return response.json()})
-          .then(data=>{
-            if(data.statusCode===404){
-              setfields(fields)
-            }
-            else{
-              fields["TicketType"] = data.TicketType
-              fields["Subject"] = data.Subject
-              fields["ServiceCallId"] = data.serviceCall.ServiceCallId
-              fields["AssignedTo"] = data.AssignedTo
-              fields["ItemCode"] = data.serviceCall.itemEntity.ItemCode
-              fields["ItemDescription"] = data.serviceCall.itemEntity.ItemDescription
-              fields["CustomeName"] = data.serviceCall.customerEntity.CustomeName
-              setfields(fields)
-              console.log(fields)
-            }
-
-          })
-    }
-
+    
 
     //Remark
     if(typeof fields["Remark"] === "string"){
       if (fields["Remark"]==="") {
-        errors["Remark"] = "Required";
+        errors["Remark"] = "Please Enter Remark ";
         seterrors(errors)
       }
       else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
-        errors["Remark"] = "Required ";
+        errors["Remark"] = "Only letters ";
         seterrors(errors)
       }
       else{
@@ -362,125 +348,85 @@ const [students, setStudents] =useState<any[]>([]);
         seterrors(errors)
       }
     }
-    //Content
-    if(typeof fields["Content"] === "string"){
-      if (fields["Content"]==="") {
-        errors["Content"] = "Required ";
+    //ToolReqStatus
+    if(typeof fields["ToolReqStatus"] === "string"){
+      if (fields["ToolReqStatus"]==="") {
+        errors["ToolReqStatus"] = "Please Enter Tool request status ";
         seterrors(errors)
       }
-      else if (!fields["Content"].match(/^[a-zA-Z\s]+$/)) {
-        errors["Content"] = "Required ";
+      else if (!fields["ToolReqStatus"].match(/^[a-zA-Z\s]+$/)) {
+        errors["ToolReqStatus"] = "Only letters ";
         seterrors(errors)
       }
       else{
-        errors["Content"] = ""
+        errors["ToolReqStatus"] = ""
         setfields( fields )
         props.setfieldsSpare({fields})
         seterrors(errors)
       }
     }
-    //TicketType
-    if(typeof fields["Secretary"] === "string"){
-      if (fields["Secretary"]==="") {
-        errors["Secretary"] = "Required ";
+     //NoOfDays
+     if(typeof fields["NoOfDays"] !== "undefined"){
+      if (fields["NoOfDays"]==="0") {
+       // errors["Status"] = "Please Enter Status";
         seterrors(errors)
       }
       else{
-        errors["Secretary"] = ""
+        errors["NoOfDays"] = ""
+        setfields( fields )
+        props.setfields({fields})
+        seterrors(errors)
+      }
+    }
+
+     //ServiceTiceketId
+     if(typeof fields["ServiceTiceketId"] === "string"){
+      if (fields["ServiceTiceketId"]==="") {
+        errors["ServiceTiceketId"] = "Please Enter ServiceTiceketId ";
+        seterrors(errors)
+      }
+      else if (!fields["ServiceTiceketId"].match(/^[a-zA-Z\s]+$/)) {
+        errors["ServiceTiceketId"] = "Only letters ";
+        seterrors(errors)
+      }
+      else{
+        errors["ServiceTiceketId"] = ""
         setfields( fields )
         props.setfieldsSpare({fields})
         seterrors(errors)
       }
     }
-    if(typeof fields["TicketType"] === "string"){
-      if (fields["TicketType"]==="") {
-        errors["TicketType"] = "Required ";
+    //Handover
+    if(typeof fields["Handover"] === "string"){
+      if (fields["Handover"]==="") {
+        errors["Handover"] = "Please Enter Handover ";
         seterrors(errors)
       }
+      
       else{
-        errors["TicketType"] = ""
+        errors["Handover"] = ""
         setfields( fields )
         props.setfieldsSpare({fields})
         seterrors(errors)
       }
     }
-    //
-    if(typeof fields["ItemDescription"] === "string"){
-      if (fields["TicketType"]==="") {
-        errors["TicketType"] = "Required";
-        seterrors(errors)
-      }
-      else{
-        errors["ItemDescription"] = ""
-        setfields( fields )
-        props.setfieldsSpare({fields})
-        seterrors(errors)
-      }
-    }
-    
-    
-    //Begin
-    console.log(props.valueNext)
-    // if(props.valueNext==="true") {
-    //   if(typeof fields["ItemCode"] !== "string") {
-    //     errors["ItemCode"] = "Please Enter Item Code ";
+    // //TicketType
+    // if(typeof fields["Secretary"] === "string"){
+    //   if (fields["Secretary"]==="") {
+    //     errors["Secretary"] = "Please Enter Secretary ";
     //     seterrors(errors)
     //   }
-    //   if(typeof fields["MRF"] !== "string") {
-    //     errors["MRF"] = "Please Enter MRF ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["SerialNumber"] !== "string") {
-    //     errors["SerialNumber"] = "Please Enter Serial Number ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["ItemDescription"] !== "string") {
-    //     errors["ItemDescription"] = "Please Enter Item Description ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["ItemGroup"] !== "string") {
-    //     errors["ItemGroup"] = "Please Enter Item Group ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["CustomerID"] !== "string") {
-    //     errors["CustomerID"] = "Please Enter Customer ID ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["CustomerName"] !== "string") {
-    //     errors["CustomerName"] = "Please Enter Customer Name ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["ContactPerson"] !== "string") {
-    //     errors["ContactPerson"] = "Please Enter Contact Person ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["TelephoneNo"] !== "string") {
-    //     errors["TelephoneNo"] = "Please Enter Telephone No ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["AddressId"] !== "string") {
-    //     errors["AddressId"] = "Please Enter Address Id ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["CustomerName"] !== "string") {
-    //     errors["CustomerName"] = "Please Enter Customer Name ";
-    //     seterrors(errors)
-    //   }
-    //   // if(typeof fields["ServiceCallId"] !== "string") {
-    //   //   errors["ServiceCallId"] = "Please Enter ServiceCall Id";
-    //   //   seterrors(errors)
-    //   // }
-    //   if(typeof fields["Status"] !== "string") {
-    //     errors["Status"] = "Please Enter Status ";
-    //     seterrors(errors)
-    //   }
-    //   if(typeof fields["Priority"] !== "string") {
-    //     errors["Priority"] = "Please Enter Priority ";
+    //   else{
+    //     errors["Secretary"] = ""
+    //     setfields( fields )
+    //     props.setfieldsSpare({fields})
     //     seterrors(errors)
     //   }
     // }
+   
+    console.log(props.valueNext)
+    
   }
-
   useEffect(() => {
     const requestOptions = {
       method: 'GET',
@@ -489,10 +435,20 @@ const [students, setStudents] =useState<any[]>([]);
     fetch('http://localhost:3000/spare-parts',requestOptions)
         .then(response=>{ return response.json()})
         .then(data=>{
-          //console.log(data[3].Groups[1].students)
-      //   console.log(data)
-         setStudents(data)
-        });
+            if(data.statusCode===404){
+              setfields(fields)
+            }
+            else{
+                fields["TicketID"] = props.props.arry[0].ServiceCallId
+                fields["ToolGroup"] =  props.props.arry[0].Status
+                fields["ToolType"]= props.props.arry[0].Status
+                fields["ToolDes"] =  props.props.arry[0].Status
+                fields["SerialNo"] =  props.props.arry[0].Status
+            
+                fields["ToolReqID"]= Math.floor(Math.random()*1000000)
+              }
+
+          });
   } )
   
 
@@ -501,13 +457,14 @@ const [students, setStudents] =useState<any[]>([]);
       <Box sx={{ flexGrow: 2 }}>
         <Grid container spacing={2}>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Vehicle ID</TextBoxHeader>
+            <TextBoxHeader>Tool ID</TextBoxHeader>
             <TextBox
               // name="stid"
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
               name="TicketId"
+              value={fields["TicketID"]}
               sx={{ width: "99%" }}
               onChange={(e) => handleChange(e,"TicketID") }
               onFocus={(e) => handleChange(e,"TicketID") }
@@ -516,91 +473,100 @@ const [students, setStudents] =useState<any[]>([]);
             <span style={{color: "red"}}>{errors["TicketID"]}</span>
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Vehicle Type</TextBoxHeader>
+            <TextBoxHeader>Tool Group</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
-              value={fields['TicketType']}
+              value={fields["ToolGroup"]}
               sx={{ width: "99%" }}
+              onChange={(e) => handleChange(e,"ToolGroup") }
+              onFocus={(e) => handleChange(e,"ToolGroup") }
               
             />
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Vehicle Request ID</TextBoxHeader>
+            <TextBoxHeader>Tool Request ID</TextBoxHeader>
             <TextBox
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
-                value={fields['Subject']}
+                value={fields["ToolReqID"]}
                 sx={{ width: "99%" }}
+                onChange={(e) => handleChange(e,"ToolReqID") }
+                onFocus={(e) => handleChange(e,"ToolReqID") }
             />
-            <span style={{color: "red"}}>{errors["Subject"]}</span>
+            <span style={{color: "red"}}>{errors["ToolReqID"]}</span>
           </Grid>
           
           
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Vehicle Description</TextBoxHeader>
+            <TextBoxHeader>Tool Description</TextBoxHeader>
             <TextBox
               // name="stid"
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
+              value={fields["ToolDes"]}
               name="TicketId"
               sx={{ width: "99%" }}
-              onChange={(e) => handleChange(e,"TicketID") }
-              onFocus={(e) => handleChange(e,"TicketID") }
+              onChange={(e) => handleChange(e,"ToolDes") }
+              onFocus={(e) => handleChange(e,"ToolDes") }
               
             />
-            <span style={{color: "red"}}>{errors["TicketID"]}</span>
+            <span style={{color: "red"}}>{errors["ToolDes"]}</span>
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Vehicle Capacity</TextBoxHeader>
+            <TextBoxHeader>Serial No</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
-              value={fields['TicketType']}
+              value={fields["SerialNo"]}
               sx={{ width: "99%" }}
+              onChange={(e) => handleChange(e,"SerialNo") }
+                onFocus={(e) => handleChange(e,"SerialNo") }
               
             />
           </Grid>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Vehicle Request Status</TextBoxHeader>
+            <TextBoxHeader>Tool Request Status</TextBoxHeader>
             <TextBox
                 id="outlined-basic"
                 variant="outlined"
                 placeholder="Text (default)"
-                value={fields['Subject']}
+                value={fields["ToolReqStatus"]}
                 sx={{ width: "99%" }}
+                onChange={(e) => handleChange(e,"ToolReqStatus") }
+                onFocus={(e) => handleChange(e,"ToolReqStatus") }
             />
-            <span style={{color: "red"}}>{errors["Subject"]}</span>
+            <span style={{color: "red"}}>{errors["ToolReqStatus"]}</span>
           </Grid>
           
           
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={6} md={4}>
-            <TextBoxHeader>Plate No.</TextBoxHeader>
+            <TextBoxHeader>Tool Type</TextBoxHeader>
             <TextBox
               // name="stid"
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
+              value={fields["ToolType"]}
               name="TicketId"
               sx={{ width: "99%" }}
-              onChange={(e) => handleChange(e,"TicketID") }
-              onFocus={(e) => handleChange(e,"TicketID") }
+              onChange={(e) => handleChange(e,"ToolType") }
+              onFocus={(e) => handleChange(e,"ToolType") }
               
             />
-            <span style={{color: "red"}}>{errors["TicketID"]}</span>
+            <span style={{color: "red"}}>{errors["ToolType"]}</span>
           </Grid>
           <Grid item xs={6} md={4}>
-            
-            
-            <ModalButton
+           
+            {/* <ModalButton
                     variant="contained"
                     className="ModalCommonButton"
                      sx={{ width: "99%" ,marginTop:"13%"}}
@@ -610,9 +576,23 @@ const [students, setStudents] =useState<any[]>([]);
                       // onClick={post}
                       onClick={()=>window.location.href='/Calendar'}
                     >
-                      Check Vehicle Calender
+                      Check Tool Calender
                       
-        </ModalButton>
+        </ModalButton> */}
+
+                    <Button
+                    variant="contained"
+                    className="ModalCommonButton"
+                    sx={{ width: "99%" ,marginTop:"13%"}}
+                     //margin-left="2%"
+                    // margin-right:25%
+                    
+                      // onClick={post}
+                      onClick={()=>window.location.href='/Calendar'}
+                    >
+                        Check Tool Calender
+                      
+        </Button>
           </Grid>
                    
           
@@ -642,21 +622,20 @@ const [students, setStudents] =useState<any[]>([]);
                                 rows={2}
                                 sx={{width: "100%"}}
                                 placeholder="Textarea (default)"
+                                onChange={(e) => handleChange(e,"Remark") }
+                                onFocus={ (e)=> select(e,"Remark")}
                                 // defaultValue="Default Value"
                             />
-          </Grid>
-          
-                        
-          
+          </Grid>   
         </Grid>
         <Grid item xs={6} md={3}>
             <TextBoxHeader>Request Date & Time</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                   renderInput={(params:any) => <TextBox {...params} />}
-                  value={new Date()}
-                  onChange={(newValue:any) => {
-                    console.log((newValue != null ? newValue.toString() : new Date())
+                  value={fields['Request']}
+                  onChange={(newValue) => {
+                    handleChangeDate((newValue != null ? newValue.toString() : new Date()),"Request"
                     );
                   }}
                   className="dateTimePicker"
@@ -669,27 +648,25 @@ const [students, setStudents] =useState<any[]>([]);
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 placeholder="Text (default)"
-                onChange={(e) => handleChange(e,"Secretary") }
-                onFocus={(e) => handleChange(e,"Secretary") }
-
+                onChange={(e) => handleChange(e,"NoOfDays") }
+                onFocus={ (e)=> select(e,"NoOfDays")}
+                    defaultValue=""
             >
               <MenuItem value={"1"}>1</MenuItem>
               <MenuItem value={"2"}>2</MenuItem>
               <MenuItem value={"3"}>3</MenuItem>
               <MenuItem value={"4"}>4</MenuItem>
               <MenuItem value={"5"}>5</MenuItem>
-              <MenuItem value={"6"}>6</MenuItem>
-            </SelectInput>
+                       </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Handover Date & Time</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                   renderInput={(params:any) => <TextBox {...params} />}
-                  value={new Date()}
-                  onChange={(newValue:any) => {
-                    console.log((newValue != null ? newValue.toString() : new Date())
-                    );
+                  value={fields['Handover']}
+                  onChange={(newValue) => {
+                    handleChangeDate((newValue != null ? newValue.toString() : new Date()),"Handover");
                   }}
                   className="dateTimePicker"
               />
@@ -702,10 +679,9 @@ const [students, setStudents] =useState<any[]>([]);
           flexItem
           sx={{ marginTop: "30px" }}
         />
-
         <Grid container spacing={2}>
           <Grid item xs={6} md={3}>
-          <TextBoxHeader>Service Ticket</TextBoxHeader>
+            <TextBoxHeader>Service Ticket</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
@@ -891,4 +867,4 @@ const [students, setStudents] =useState<any[]>([]);
   );
 };
 
-export default CreateVehicleRequestTab1;
+export default CheckToolRequestTab1;

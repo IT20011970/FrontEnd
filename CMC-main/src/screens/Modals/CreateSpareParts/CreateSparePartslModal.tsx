@@ -77,12 +77,13 @@ const TabName = styled("text")(({ theme }) => ({
 
 const CreateSparePartsModal = (props: any) => {
    //console.log(props.arry)
-  const { open, setOpen } = props;
+  const { open, setOpen ,setArray,arry} = props;
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setMainTabValue("1");
     setNext("false")
+    arry.length = 0
   };
   const [mainTabValue, setMainTabValue] = React.useState("1");
   const [secondTabValue, setSecondTabValue] = React.useState("1");

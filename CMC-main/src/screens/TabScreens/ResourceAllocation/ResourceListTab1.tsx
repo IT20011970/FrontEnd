@@ -33,6 +33,9 @@ import SpareParts from "../../SpareParts";
 
 import CreateSparePartslModal from "../../Modals/CreateSpareParts/CreateSparePartslModal";
 import CreateToolRequestModal from "../../Modals/CreateToolRequest/CreateToolRequestModal";
+import CheckToolRequestModal from "../../Modals/CreateToolRequest/CheckToolRequestModel";
+import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
+import Radio from "@mui/material/Radio/Radio";
 
 
 
@@ -346,7 +349,13 @@ const ResourceAllocationTab1 = () => {
                                             {row.HandOverDateAndTime}
                                         </StyledTableCell>
                                         <StyledTableCell>
-                                            {row.Status}
+                                            {/* {row.Status} */}<br></br>
+                                            {/* <input type="radio" value="ACCEPT" name="ACCEPT" /> Accept Request<br></br>
+                                             <input type="radio" value="REJECT" name="REJECT" /> Reject Request */}
+                                             <FormControlLabel value="ACCEPT" control={<Radio />} label="ACCEPT" />
+                                            <FormControlLabel value="REJECT" control={<Radio />} label="REJECT" />
+                                        
+                                        
                                         </StyledTableCell>
                                         {/* <StyledTableCell>
                                             {row.Subject}
@@ -377,9 +386,12 @@ const ResourceAllocationTab1 = () => {
                                                         height="25"
                                                         viewBox="0 0 22 22"
                                                         className="controlButton"
+                                                        onClick={()=>window.location.href='/Calendar'}
+                   
                                                         xmlns="http://www.w3.org/2000/svg"
                                                     >
                                                          <path d="M0 17C0 18.7 1.3 20 3 20H17C18.7 20 20 18.7 20 17V9H0V17ZM17 2H15V1C15 0.4 14.6 0 14 0C13.4 0 13 0.4 13 1V2H7V1C7 0.4 6.6 0 6 0C5.4 0 5 0.4 5 1V2H3C1.3 2 0 3.3 0 5V7H20V5C20 3.3 18.7 2 17 2Z" />
+                                                   
                                                     </svg>
                                                 </ControlButton>
                                                 <ControlButton disableRipple>
@@ -388,6 +400,8 @@ const ResourceAllocationTab1 = () => {
                                                         height="25"
                                                         viewBox="0 0 22 22"
                                                         className="controlButton"
+                                                        // onClick={}
+                                                        onClick={() => setOpenModal2(true)}
                                                         xmlns="http://www.w3.org/2000/svg"
                                                     >
                                                         <path d="M15.74 5.33L11.3 0.330001C11.2065 0.226408 11.0924 0.14353 10.9649 0.0866961C10.8375 0.0298621 10.6995 0.000330515 10.56 6.85395e-07H2.56C2.22775 -0.00396241 1.89797 0.0575607 1.5895 0.181057C1.28103 0.304553 0.999904 0.487604 0.762182 0.719755C0.524459 0.951906 0.334794 1.22861 0.204018 1.53407C0.0732421 1.83952 0.00391638 2.16775 0 2.5V17.5C0.00391638 17.8323 0.0732421 18.1605 0.204018 18.4659C0.334794 18.7714 0.524459 19.0481 0.762182 19.2802C0.999904 19.5124 1.28103 19.6954 1.5895 19.8189C1.89797 19.9424 2.22775 20.004 2.56 20H13.44C13.7723 20.004 14.102 19.9424 14.4105 19.8189C14.719 19.6954 15.0001 19.5124 15.2378 19.2802C15.4755 19.0481 15.6652 18.7714 15.796 18.4659C15.9268 18.1605 15.9961 17.8323 16 17.5V6C15.9994 5.75216 15.9067 5.5134 15.74 5.33ZM5 10H8C8.26522 10 8.51957 10.1054 8.70711 10.2929C8.89464 10.4804 9 10.7348 9 11C9 11.2652 8.89464 11.5196 8.70711 11.7071C8.51957 11.8946 8.26522 12 8 12H5C4.73478 12 4.48043 11.8946 4.29289 11.7071C4.10536 11.5196 4 11.2652 4 11C4 10.7348 4.10536 10.4804 4.29289 10.2929C4.48043 10.1054 4.73478 10 5 10ZM11 16H5C4.73478 16 4.48043 15.8946 4.29289 15.7071C4.10536 15.5196 4 15.2652 4 15C4 14.7348 4.10536 14.4804 4.29289 14.2929C4.48043 14.1054 4.73478 14 5 14H11C11.2652 14 11.5196 14.1054 11.7071 14.2929C11.8946 14.4804 12 14.7348 12 15C12 15.2652 11.8946 15.5196 11.7071 15.7071C11.5196 15.8946 11.2652 16 11 16ZM10.71 6C10.5038 5.9797 10.3139 5.87924 10.1811 5.72025C10.0483 5.56126 9.98327 5.35648 10 5.15V2L13.74 6H10.71Z" />
@@ -433,13 +447,9 @@ const ResourceAllocationTab1 = () => {
                     </Stack>
                 </Container>
 
-                <Switch>
-                    <Route exact path="/ResourceAllocation">
-                        {/*<ResourceAllocation value={value} />*/}
-                    </Route>
-                </Switch>
 
-                <CreateToolRequestModal open={openModal} setOpen={setOpenModal} />
+                {/* <CreateToolRequestModal open={openModal} setOpen={setOpenModal} /> */}
+                <CheckToolRequestModal open={openModal2} setOpen={setOpenModal2} />
             </>
     );
 };

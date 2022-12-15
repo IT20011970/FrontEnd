@@ -201,6 +201,11 @@ for (var i = 0; i < 50; i++) {
   );
 }
 
+ type Inut = {
+   start: string
+   title:string
+}
+
 const CalenderTab2 = () => {
   //Modal
   const [openModal, setOpenModal] = React.useState(false);
@@ -210,6 +215,9 @@ const CalenderTab2 = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [students, setStudents] =useState<any[]>([]);
+
+  const [formInput, setFormInput] = useState<any[]>([]);
+  const [fields, setfields] = useState<any>([]);
   // const events = [{ title: "today's event", date:'2022-09-01' }];
 
 
@@ -237,27 +245,53 @@ const CalenderTab2 = () => {
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
     };
+    fetch('http://localhost:3000/resourceAllocation/get',requestOptions)
+        .then(response=>{
+          return response.json()
+        })
+        .then(serviceCalls=>{
+          let status=[]
+          console.log(serviceCalls)
+          for(let serviceCall of serviceCalls){
+            status.push({
+              start: getDate(serviceCall.RequestDateAndTime),
+              title:serviceCall.ToolReqID+","+serviceCall.ToolDescription,
+            },)
+          }
+           setFormInput(status)
+          console.log(formInput)
+          }
+        );
 
-    fetch('http://localhost:3000/service-calls/service',requestOptions)
-        .then(response=>{ return response.json()})
-        .then(data=>{
-          //console.log(data[3].Groups[1].students)
-         // console.log(data)
-         setStudents(data)
-        });
-  } )
+
+  },[] )
+
+  function getDate(dayString:any) {
+    const today = new Date();
+    const year = today.getFullYear().toString();
+    let month = (today.getMonth() + 1).toString();
+
+    if (month.length === 1) {
+      month = "0" + month;
+    }
+
+    return dayString.replace("YEAR", year).replace("MONTH", month);
+  }
 
   return (
       <>
         <Stack spacing={6} direction="row">
           <Grid container rowSpacing={1}>
             <Grid item xs={6}>
-              <Heading>Resource Calender</Heading>
+              <Heading>Personl Calender</Heading>
             </Grid>
           </Grid>
         </Stack>
         <Container>
           <div style={{color: "#383838", backgroundColor: "#fff",borderRadius:10}}>
+              {formInput.map((row: Inut, i: number) => (
+                      console.log(row)
+              ))}
             <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin]}
                 headerToolbar={{
@@ -270,7 +304,7 @@ const CalenderTab2 = () => {
                 selectable={true}
                 selectMirror={true}
                 dayMaxEvents={true}
-                events={event}
+                events={formInput}
                 // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
                 // select={this.handleDateSelect}
                 // eventContent={renderEventContent} // custom render function
