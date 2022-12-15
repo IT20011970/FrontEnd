@@ -296,10 +296,52 @@ export type UserRoleTypes ={
 
 }
 
+export type HandledBy ={
+
+  HandledByCode: number,
+  HandledByName: string,
+  HandledByStatus: number
+
+}
+
+export type ClusterHead ={
+
+  ClusterHeadCode: number,
+  ClusterHeadName: string,
+  ClusterHeadStatus: number
+
+}
+
+export type Secretary ={
+
+  SecretaryCode: number,
+  SecretaryName: string,
+  SecretaryStatus: number
+
+}
+
+export type SalesAssistant ={
+
+  SalesAssistantCode: number,
+  SalesAssistantName: string,
+  SalesAssistantStatus: number
+
+}
+
+export type Engineer ={
+
+  EngineerCode: number,
+  EngineerName: string,
+  ClusterHead: string,
+  EngineerStatus: number
+
+}
+
 export type ManageUserDetails = {
 
   Id: number,
   UserName: string,
+  Email: string,
   user: {
     userType: any;
     id: string,

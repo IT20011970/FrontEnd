@@ -15,7 +15,7 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import "../../../../Styles/Modal.css";
 import {useEffect, useState} from "react"
-import {DropdownOrigins, DropdownProblemTypes, DropdownUsers, Ticket} from "../../../../Types/Types"
+import {ClusterHead, DropdownOrigins, DropdownProblemTypes, DropdownUsers, HandledBy, SalesAssistant, Secretary, Ticket} from "../../../../Types/Types"
 import moment from "moment"
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
@@ -86,6 +86,11 @@ const GeneralTab = (props: any) => {
   const [students, setStudents] =useState<any[]>([]);
   const [originDropDown, setOriginDropDown] =useState<any[]>([]);
   const [problemTypeDropDown, setProblemTypeDropDown] =useState<any[]>([]);
+
+  const [handledBy, setHandledBy] =useState<any[]>([]);
+  const [clusterHead, setClusterHead] =useState<any[]>([]);
+  const [secretary, setSecretary] =useState<any[]>([]);
+  const [salesAssistant, setSalesAssistant] =useState<any[]>([]);
   
   useEffect(() => {
     const requestOptions = {
@@ -129,6 +134,66 @@ const GeneralTab = (props: any) => {
           //console.log(data[3].Groups[1].students)
           // console.log(data)
           setProblemTypeDropDown(data)
+        });
+  },[] )
+
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    };
+
+    fetch('http://localhost:3000/handled-by-controller/get',requestOptions)
+        .then(response=>{ return response.json()})
+        .then(data=>{
+          //console.log(data[3].Groups[1].students)
+          // console.log(data)
+          setHandledBy(data)
+        });
+  },[] )
+
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    };
+
+    fetch('http://localhost:3000/cluster-head-controller/get',requestOptions)
+        .then(response=>{ return response.json()})
+        .then(data=>{
+          //console.log(data[3].Groups[1].students)
+          // console.log(data)
+          setClusterHead(data)
+        });
+  },[] )
+
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    };
+
+    fetch('http://localhost:3000/secretary-controller/get',requestOptions)
+        .then(response=>{ return response.json()})
+        .then(data=>{
+          //console.log(data[3].Groups[1].students)
+          // console.log(data)
+          setSecretary(data)
+        });
+  },[] )
+
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    };
+
+    fetch('http://localhost:3000/sales-assistant-controller/get',requestOptions)
+        .then(response=>{ return response.json()})
+        .then(data=>{
+          //console.log(data[3].Groups[1].students)
+          // console.log(data)
+          setSalesAssistant(data)
         });
   },[] )
 
@@ -212,7 +277,7 @@ const GeneralTab = (props: any) => {
 
             >
               {originDropDown.map(( row:DropdownOrigins, i: number) => (
-              <MenuItem value={row.OriginValue}>{row.OriginName}</MenuItem>
+              <MenuItem value={row.OriginName}>{row.OriginName}</MenuItem>
               ))}
               {/* <MenuItem value={"Email"}>Email</MenuItem>
               <MenuItem value={"Call"}>Call</MenuItem>
@@ -230,7 +295,7 @@ const GeneralTab = (props: any) => {
               onChange={handleChangeProblemType}
             >
               {problemTypeDropDown.map(( row:DropdownProblemTypes, i: number) => (
-              <MenuItem value={row.ProblemTypeValue}>{row.ProblemTypeName}</MenuItem>
+              <MenuItem value={row.ProblemTypeName}>{row.ProblemTypeName}</MenuItem>
               ))}
               {/* <MenuItem value={"Mechanical"}>Mechanical</MenuItem>
               <MenuItem value={"Electrical"}>Electrical</MenuItem>
@@ -275,12 +340,15 @@ const GeneralTab = (props: any) => {
                 defaultValue=""
                 onChange={handleChangeHandledBy}
             >
-              <MenuItem value={"Gayan"}>Gayan</MenuItem>
+              {handledBy.map(( row:HandledBy, i: number) => (
+              <MenuItem key={row.HandledByCode} value={row.HandledByName}>{row.HandledByName}</MenuItem>
+              ))}
+              {/* <MenuItem value={"Gayan"}>Gayan</MenuItem>
               <MenuItem value={"Dilini"}>Dilini</MenuItem>
               <MenuItem value={"Poornima"}>Poornima</MenuItem>
               <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
-              <MenuItem value={"Rasika"}>Rasika</MenuItem>
+              <MenuItem value={"Rasika"}>Rasika</MenuItem> */}
             </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
@@ -293,8 +361,8 @@ const GeneralTab = (props: any) => {
                 // onChange={handleChangeSecretary}
             >
 
-              {students.map(( row:DropdownUsers, i: number) => (
-              <MenuItem value={row.Value}>{row.UserName}</MenuItem>
+              {clusterHead.map(( row:ClusterHead, i: number) => (
+              <MenuItem key={row.ClusterHeadCode} value={row.ClusterHeadName}>{row.ClusterHeadName}</MenuItem>
               ))}
             </SelectInput>
           </Grid>
@@ -307,10 +375,9 @@ const GeneralTab = (props: any) => {
               defaultValue=""
               onChange={handleChangeSecretary}
             >
-              {students.map(( row:DropdownUsers, i: number) => (
-              <MenuItem value={row.Value}>{row.UserName}</MenuItem>
+              {secretary.map(( row:Secretary, i: number) => (
+              <MenuItem key={row.SecretaryCode} value={row.SecretaryName}>{row.SecretaryName}</MenuItem>
               ))}
-
               {/* <MenuItem value={"Gayan"}>Gayan</MenuItem>
               <MenuItem value={"Dilini"}>Dilini</MenuItem>
               <MenuItem value={"Poornima"}>Poornima</MenuItem>
@@ -328,8 +395,8 @@ const GeneralTab = (props: any) => {
               defaultValue=""
                onChange={handleChangeSalesAssistant}
             >
-              {students.map(( row:DropdownUsers, i: number) => (
-              <MenuItem value={row.Value}>{row.UserName}</MenuItem>
+              {salesAssistant.map(( row:SalesAssistant, i: number) => (
+              <MenuItem key={row.SalesAssistantCode} value={row.SalesAssistantName}>{row.SalesAssistantName}</MenuItem>
               ))}
             </SelectInput>
           </Grid>
