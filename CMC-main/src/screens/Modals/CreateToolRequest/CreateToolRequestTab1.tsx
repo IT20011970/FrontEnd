@@ -14,7 +14,7 @@ import "../../../Styles/Modal.css";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DateTimePicker from "@mui/lab/DateTimePicker";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
@@ -273,7 +273,6 @@ const CreateToolRequestTab1 = (props: any) => {
   function handleChangeDate(e:any,f:any){
     fields[f] = e;
     setfields( fields )
-    props.setfields({fields})
     console.log(fields)
   }
 
@@ -335,11 +334,11 @@ const CreateToolRequestTab1 = (props: any) => {
     //Remark
     if(typeof fields["Remark"] === "string"){
       if (fields["Remark"]==="") {
-        errors["Remark"] = "Please Enter Remark ";
+        errors["Remark"] = "Required ";
         seterrors(errors)
       }
       else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
-        errors["Remark"] = "Only letters ";
+        errors["Remark"] = "Required";
         seterrors(errors)
       }
       else{
@@ -352,11 +351,11 @@ const CreateToolRequestTab1 = (props: any) => {
     //ToolReqStatus
     if(typeof fields["ToolReqStatus"] === "string"){
       if (fields["ToolReqStatus"]==="") {
-        errors["ToolReqStatus"] = "Please Enter Tool request status ";
+        errors["ToolReqStatus"] = "Required ";
         seterrors(errors)
       }
       else if (!fields["ToolReqStatus"].match(/^[a-zA-Z\s]+$/)) {
-        errors["ToolReqStatus"] = "Only letters ";
+        errors["ToolReqStatus"] = "Required ";
         seterrors(errors)
       }
       else{
@@ -383,11 +382,11 @@ const CreateToolRequestTab1 = (props: any) => {
      //ServiceTiceketId
      if(typeof fields["ServiceTiceketId"] === "string"){
       if (fields["ServiceTiceketId"]==="") {
-        errors["ServiceTiceketId"] = "Please Enter ServiceTiceketId ";
+        errors["ServiceTiceketId"] = "Required ";
         seterrors(errors)
       }
       else if (!fields["ServiceTiceketId"].match(/^[a-zA-Z\s]+$/)) {
-        errors["ServiceTiceketId"] = "Only letters ";
+        errors["ServiceTiceketId"] = "Required";
         seterrors(errors)
       }
       else{
@@ -400,7 +399,7 @@ const CreateToolRequestTab1 = (props: any) => {
     //Handover
     if(typeof fields["Handover"] === "string"){
       if (fields["Handover"]==="") {
-        errors["Handover"] = "Please Enter Handover ";
+        errors["Handover"] = "Required ";
         seterrors(errors)
       }
       
@@ -428,7 +427,19 @@ const CreateToolRequestTab1 = (props: any) => {
     console.log(props.valueNext)
     
   }
-
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    };
+    fetch('http://localhost:3000/spare-parts',requestOptions)
+        .then(response=>{ return response.json()})
+        .then(data=>{
+          //console.log(data[3].Groups[1].students)
+      //   console.log(data)
+         setStudents(data)
+        });
+  } )
   
 
   return (
@@ -545,7 +556,7 @@ const CreateToolRequestTab1 = (props: any) => {
           </Grid>
           <Grid item xs={6} md={4}>
            
-            <ModalButton
+            {/* <ModalButton
                     variant="contained"
                     className="ModalCommonButton"
                      sx={{ width: "99%" ,marginTop:"13%"}}
@@ -557,7 +568,21 @@ const CreateToolRequestTab1 = (props: any) => {
                     >
                       Check Tool Calender
                       
-        </ModalButton>
+        </ModalButton> */}
+
+                    <Button
+                    variant="contained"
+                    className="ModalCommonButton"
+                    sx={{ width: "99%" ,marginTop:"13%"}}
+                     //margin-left="2%"
+                    // margin-right:25%
+                    
+                      // onClick={post}
+                      onClick={()=>window.location.href='/Calendar'}
+                    >
+                        Check Tool Calender
+                      
+        </Button>
           </Grid>
                    
           
@@ -591,19 +616,16 @@ const CreateToolRequestTab1 = (props: any) => {
                                 onFocus={ (e)=> select(e,"Remark")}
                                 // defaultValue="Default Value"
                             />
-          </Grid>
-          
-                        
-          
+          </Grid>   
         </Grid>
         <Grid item xs={6} md={3}>
             <TextBoxHeader>Request Date & Time</TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                   renderInput={(params:any) => <TextBox {...params} />}
-                  value={new Date()}
+                  value={fields['Request']}
                   onChange={(newValue) => {
-                    handleChange((newValue != null ? newValue.toString() : new Date()),"Request"
+                    handleChangeDate((newValue != null ? newValue.toString() : new Date()),"Request"
                     );
                   }}
                   className="dateTimePicker"
@@ -625,8 +647,7 @@ const CreateToolRequestTab1 = (props: any) => {
               <MenuItem value={"3"}>3</MenuItem>
               <MenuItem value={"4"}>4</MenuItem>
               <MenuItem value={"5"}>5</MenuItem>
-              <MenuItem value={"6"}>6</MenuItem>
-            </SelectInput>
+                       </SelectInput>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Handover Date & Time</TextBoxHeader>
@@ -648,7 +669,6 @@ const CreateToolRequestTab1 = (props: any) => {
           flexItem
           sx={{ marginTop: "30px" }}
         />
-
         <Grid container spacing={2}>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Service Ticket</TextBoxHeader>
@@ -675,13 +695,14 @@ const CreateToolRequestTab1 = (props: any) => {
           <Table sx={{ width: "100%" }} aria-label="custom pagination table">
             <TableHead>
               <TableRow>
-                <StyledTableCell
+              <StyledTableCell
                     sx={{
                       borderLeft: "none",
                     }}
                 >
-                  Date
+                  Service Ticket ID
                 </StyledTableCell>
+                
                 <StyledTableCell
                     sx={{
                       borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
@@ -713,52 +734,33 @@ const CreateToolRequestTab1 = (props: any) => {
                       )
                       : students
               ).map((row: Ticket, i: number) => (
-                  <StyledTableRow key={Math.random()}>
-                    <StyledTableCell
-                        sx={{
-                          borderLeft: "none",
-                        }}
+                  <StyledTableRow key={row.TicketId}>
+                    <StyledTableCell  sx={{borderLeft: "none", }}
                     >
+                          {row.TicketId}
                       {/* {moment(row.CreatedOn).format("DD/MM/YYYY")} */}
                     </StyledTableCell>
-                    <StyledTableCell
-                        sx={{
-                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                        }}
+                    <StyledTableCell  sx={{borderLeft: "1px solid rgba(0, 65, 102, 0.2);",}}
                     >
-                      {row.AssignedTo}
+                        {row.AssignedTo}
                     </StyledTableCell>
-                    <StyledTableCell
-                        sx={{
-                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                        }}
+                    <StyledTableCell  sx={{borderLeft: "1px solid rgba(0, 65, 102, 0.2);",}}
                     >
-                      {row.serviceCall.Priority}
+                        {row.serviceCall.Priority}
                     </StyledTableCell>
-                    <StyledTableCell
-                        sx={{
-                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                        }}
+                    <StyledTableCell  sx={{borderLeft: "1px solid rgba(0, 65, 102, 0.2);",}}
                     >
-                      {row.PlannedStartDate}
+                         {row.PlannedStartDate}
                     </StyledTableCell>
                     
                   </StyledTableRow>
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
-       
-      
-      </Box>
-          
+        </TableContainer>    
+      </Box>    
       </Grid>          
         </Grid> 
-
-           
-        
-        
-       
         <Grid container spacing={2}>
           {/* <Grid item xs={6} md={3}>
             <TextBoxHeader>Remark</TextBoxHeader>

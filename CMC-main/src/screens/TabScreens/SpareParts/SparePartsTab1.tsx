@@ -400,7 +400,7 @@ setArr([...arr, data]);
       
       </Container>
      
-        <CreateSparePartslModal arry={arry} open={openModal} setOpen={setOpenModal} />
+        <CreateSparePartslModal arry={arry} setArray={setArray} open={openModal} setOpen={setOpenModal} />
       
          {/* <EditSparePartsModal  dataUpdate={dataUpdate} open={openEditModal} setOpen={setOpenEditModal}/>
        */}
