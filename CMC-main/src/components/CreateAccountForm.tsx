@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import Button from "@mui/material/Button";
@@ -18,6 +18,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { UserRoleTypes } from "../Types/Types";
 
 const StyledLink = styled(Link)(({ theme }) => ({
     textDecoration: "none",
@@ -62,6 +63,10 @@ const CreateAccount = () => {
     const [fields, setfields] = useState<any>({});
     const [errors,seterrors]=useState<any>({})
     const [open, setOpen] = React.useState(false);
+
+    const [userRoleTypes, setUserRoleTypes] =useState<any[]>([]);
+
+    const [inputUserRole, setInputUserRole] = React.useState("");
     
     const handleChangeLogin = (event: any) => {
         setUserName(event.target.value)
@@ -108,6 +113,22 @@ const CreateAccount = () => {
         }
 
     }
+
+    // to get all userRole types to the dropDown
+    useEffect(() => {
+        const requestOptions = {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json'}
+        };
+    
+        fetch('http://localhost:3000/user-role-controller/get',requestOptions)
+            .then(response=>{ return response.json()})
+            .then(data=>{
+              //console.log(data[3].Groups[1].students)
+              // console.log(data)
+              setUserRoleTypes(data)
+            });
+      },[] )
 
     function locationNav(){
         console.log(fields)
@@ -212,8 +233,12 @@ const CreateAccount = () => {
                 sx={{ width: "99%" }}
                 placeholder="Select User Type"
                 onChange={(e) => handleChange(e,"usertype") }
+                //onChange={(e) => setClusterName(String(e.target.value)) }
             >
-                <MenuItem value={1}>Admin</MenuItem>
+                {/* {userRoleTypes.map(( row:UserRoleTypes, i: number) => (
+              <MenuItem value={row.Description}>{row.Description}</MenuItem>
+              ))} */}
+              <MenuItem value={1}>Admin</MenuItem>
             </SelectBox>
         </Paper>
         <Paper className="Password"

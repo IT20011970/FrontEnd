@@ -257,7 +257,7 @@ const getData = async() => {
             <Stack spacing={6} direction="row">
                 <Grid container rowSpacing={1}>
                     <Grid item xs={6}>
-                        <Heading>Administration</Heading>
+                        <Heading>Manage User Roles</Heading>
 
                     </Grid>
                     <Grid item xs={3} sx={{ pr: 3 }}>

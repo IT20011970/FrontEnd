@@ -38,6 +38,11 @@ import SparePartsTab2 from "../SpareParts/SparePartsTab2";
 import AdministrationMasterSubTab1 from "./AdministrationMasterSubTab1";
 import AdministrationMasterSubTab2 from "./AdministrationMasterSubTab2";
 import AdministrationMasterModel from "../../Modals/Administration/AdministrationMasterModel/AdministrationMasterModel";
+import AdministrationMasterSubTab3 from "./AdministrationMasterSubTab3";
+import AdministrationMasterSubTab4 from "./AdministrationMasterSubTab4";
+import AdministrationMasterSubTab5 from "./AdministrationMasterSubTab5";
+import AdministrationMasterSubTab6 from "./AdministrationMasterSubTab6";
+import AdministrationMasterSubTab7 from "./AdministrationMasterSubTab7";
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -265,10 +270,15 @@ const AdministrationMaster = () => {
                                     value={value}
                                     onChange={handleChange}
                                     textColor="inherit"
-                                    variant="fullWidth"
+                                    
                                 >
-                                        <Tab label="Origins" {...a11yProps(0)} />
-                                        <Tab label="Problem Types" {...a11yProps(1)} />
+                                        <Tab  sx={{ width: "100px"}} label="Origins" {...a11yProps(0)} />
+                                        <Tab sx={{ width: "100px"}} label="Problem Types" {...a11yProps(1)} />
+                                        <Tab label="Handled By" {...a11yProps(2)} />
+                                        <Tab label="Cluster Head" {...a11yProps(3)} />
+                                        <Tab label="Secretary" {...a11yProps(4)} />
+                                        <Tab label="Sales Assistant" {...a11yProps(5)} />
+                                        <Tab label="Engineers" {...a11yProps(6)} />
                                     </Tabs>
                             </Box>
                             </Route>
@@ -276,6 +286,8 @@ const AdministrationMaster = () => {
                     </Grid>
                 </Grid>
             </Stack>
+
+
 
             <Container>
                 <>
@@ -291,6 +303,22 @@ const AdministrationMaster = () => {
                             <TabPanel value={value} index={1}>
                                 <AdministrationMasterSubTab2/>
                             </TabPanel>
+                            <TabPanel value={value} index={2}>
+                                <AdministrationMasterSubTab3/>
+                            </TabPanel>
+                            <TabPanel value={value} index={3}>
+                                <AdministrationMasterSubTab4/>
+                            </TabPanel>
+                            <TabPanel value={value} index={4}>
+                                <AdministrationMasterSubTab5/>
+                            </TabPanel>
+                            <TabPanel value={value} index={5}>
+                                <AdministrationMasterSubTab6/>
+                            </TabPanel>
+                            <TabPanel value={value} index={6}>
+                                <AdministrationMasterSubTab7/>
+                            </TabPanel>
+                            
                         </SwipeableViews>
                     </Box>
                 </>

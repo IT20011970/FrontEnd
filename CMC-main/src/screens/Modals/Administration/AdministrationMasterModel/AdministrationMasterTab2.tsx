@@ -358,7 +358,7 @@ const AdministrationMasterTab2 = (props: any) => {
             <br></br>
             
             <Grid container spacing={1} ml={1} md={8.7}>         
-          <Grid item xs={4} md={4} ml={61}>
+          <Grid item xs={4} md={4} ml={68}>
       <Button
                     variant="contained"
                     className="ModalCommonButton"

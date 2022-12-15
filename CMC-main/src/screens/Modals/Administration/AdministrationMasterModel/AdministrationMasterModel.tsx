@@ -29,6 +29,11 @@ import { Alert, DialogContentText } from "@mui/material";
 import AdministrationMasterTab1 from "./AdministrationMasterTab1";
 import AdministrationMasterTab2 from "./AdministrationMasterTab2";
 import Header from "../../../../components/Header";
+import AdministrationMasterTab3 from "./AdministrationMasterTab3";
+import AdministrationMasterTab4 from "./AdministrationMasterTab4";
+import AdministrationMasterTab5 from "./AdministrationMasterTab5";
+import AdministrationMasterTab6 from "./AdministrationMasterTab6";
+import AdministrationMasterTab7 from "./AdministrationMasterTab7";
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "90px",
   height: "auto",
@@ -239,7 +244,7 @@ const AdministrationMasterModel = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Manage Masters
+            Create Masters
            
           </ModalTittle>
           <IconButton
@@ -286,8 +291,11 @@ const AdministrationMasterModel = (props: any) => {
                 >
                   <Tab label="Add Origin Type" value="1" />
                   <Tab label="Add Problem Type" value="2" />
-                  {/* <Tab label="" value="3" />
-                  <Tab label="" value="4" /> */}
+                  <Tab label="Add Handled-By" value="3" />
+                  <Tab label="Add Cluster Head" value="4" />
+                  <Tab label="Add Secretary" value="5" />
+                  <Tab label="Add Sales Assistant" value="6" />
+                  <Tab label="Add Engineer" value="7" />
                   
                 </TabList>
 
@@ -303,14 +311,32 @@ const AdministrationMasterModel = (props: any) => {
               <Header />
               <AdministrationMasterTab1   />
             </TabPanel> 
-            <TabPanel value="3" sx={{ p: 0 }}>
+            {/* <TabPanel value="3" sx={{ p: 0 }}>
               <Header />
-              
-            </TabPanel>
+            </TabPanel> */}
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
               <AdministrationMasterTab2   />
-              {/* <AdministrationTab3 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} /> */}
+            </TabPanel>
+            <TabPanel value="3" sx={{ p: 0 }}>
+              <Header />
+              <AdministrationMasterTab3   />
+            </TabPanel>
+            <TabPanel value="4" sx={{ p: 0 }}>
+              <Header />
+              <AdministrationMasterTab4   />
+            </TabPanel>
+            <TabPanel value="5" sx={{ p: 0 }}>
+              <Header />
+              <AdministrationMasterTab5   />
+            </TabPanel>
+            <TabPanel value="6" sx={{ p: 0 }}>
+              <Header />
+              <AdministrationMasterTab6   />
+            </TabPanel>
+            <TabPanel value="7" sx={{ p: 0 }}>
+              <Header />
+              <AdministrationMasterTab7   />
             </TabPanel>
           </TabContext>
         </DialogContent>
