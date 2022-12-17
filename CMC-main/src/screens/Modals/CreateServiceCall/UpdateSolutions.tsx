@@ -27,8 +27,10 @@ import GeneralTab from "./CreateTicket/GeneralTab";
 import ContentTab from "./CreateTicket/ContentTab";
 import LinkedDocumentsTab from "./CreateTicket/LinkedDocumentsTab";
 import AttachmentsTab from "./CreateTicket/AttachmentsTab";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react"
 import GeneralTabTicket from "./CreateTicket/GeneralTab";
+import {now} from "moment"
+import {ServiceContext} from "../../../api/api"
 
 const SelectInput = styled(Select)(({ theme }) => ({
   ...theme.typography.body2,
@@ -173,12 +175,12 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const CreateTicket = (props: any) => {
+const UpdateSolutions = (props: any) => {
   // console.log(props.props.props.serviceCallData.fields.ServiceCallId)
-  const { open, setOpen, tab } = props;
+  const { openEditModal, setEditOpenModal, tab ,dataUpdate} = props;
   const [age, setAge] = React.useState("");
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => setEditOpenModal(true);
+  const handleClose = () => setEditOpenModal(false);
   const [value, setValue] = React.useState("1");
   const [ticketList, setTicketList] = React.useState([...rows]);
   const [tabName, setTabName] = React.useState("General");
@@ -187,14 +189,7 @@ const CreateTicket = (props: any) => {
   const [date, setDate] = React.useState(new Date());
   const [fields, setfields] = useState<any>({});
   const [errors,seterrors]=useState<any>({})
-  const [CreatedOn, setCreatedOnDate] = React.useState("")
-  const [planedStartDate, setDatePlanedStart] = React.useState("");
-  const [estimatedDate, setDateEstimated] = React.useState("");
-  const [plannedEndDate, setDatePlannedEnd] = React.useState("");
-  const [actualStartDate, setDateActualStart] = React.useState("");
-  const [actualEndDate, setDateActualEnd] = React.useState("");
-  const [Estimate, setEstimate] = React.useState("")
-  const [contact, setContact] = React.useState("")
+  const Service =useContext(ServiceContext)
 
   const getTab = (index: string): string => {
     switch (index) {
@@ -268,81 +263,68 @@ const CreateTicket = (props: any) => {
   }
 
   useEffect (()=>{
-    console.log(props.open)
-    fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
-    fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
-    fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
-    fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
-    fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
-    fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
-    fields["TicketId"]= Math.floor(Math.random()*1000000)
-    setfields(fields)
-  },[props.open])
+    console.log(openEditModal)
+    console.log(dataUpdate)
+    //     Solution:fields["Solution"],
+    //     CreatedOn:new Date(now()),
+    //     Owner:fields["Owner"],
+    //     Status:fields["Status"],
+    //     Status:fields["HandledBy"],
+    fields["Id"] = dataUpdate.Id;
+    fields["Solution"] = dataUpdate.Solution;
+    fields["CreatedOn"] = dataUpdate.CreatedOn;
+    fields["Owner"] = dataUpdate.Owner;
+    fields["Status"] = dataUpdate.Status;
+    fields["HandledBy"] = dataUpdate.HandledBy;
+
+    // fields["TicketId"]= Math.floor(Math.random()*1000000)
+    // setfields(fields)
+  },[])
 
   function handleValidation() {
-    console.log(fields)
-    console.log(typeof fields["TicketId"])
-    // console.log(fields["MRF"])
-    // let errors: any = {};
-    let formIsValid = true;
-    // console.log( typeof fields["Status"])
-    //  console.log( fields["Status"])
-
-    //TicketId
-    if (typeof fields["TicketId"] === "string") {
-      if (fields["TicketId"] === "") {
-        errors["TicketId"] = "Please Enter Ticket Id ";
+    //Owner
+    if (typeof fields["Owner"] === "string") {
+      if (fields["Owner"] === "") {
+        errors["Owner"] = "Please Enter Owner ";
         seterrors(errors)
       } else {
-        errors["TicketId"] = ""
+        errors["Owner"] = ""
         setfields(fields)
         seterrors(errors)
       }
     }
-    //TicketType
-    if(typeof fields["TicketType"] !== "undefined"){
-      if (fields["TicketType"]==="0") {
-        errors["TicketType"] = "Please Enter Ticket Type";
+    //HandledBy
+    if(typeof fields["HandledBy"] !== "undefined"){
+      if (fields["HandledBy"]==="") {
+        errors["HandledBy"] = "Please Enter Handled By";
         seterrors(errors)
       }
       else{
-        errors["TicketType"] = ""
+        errors["HandledBy"] = ""
         setfields( fields )
         seterrors(errors)
       }
     }
-    //Subject
-    if(typeof fields["Subject"] !== "undefined"){
-      if (fields["Subject"]==="0") {
-        errors["Subject"] = "Please Enter Subject";
+    //Solution
+    if(typeof fields["Solution"] !== "undefined"){
+      if (fields["Solution"]==="") {
+        errors["Solution"] = "Please Enter Solution";
         seterrors(errors)
       }
       else{
-        errors["Subject"] = ""
+        errors["Solution"] = ""
         setfields( fields )
         seterrors(errors)
       }
     }
-  //Assigned To
-    if(typeof fields["AssignedTo"] !== "undefined"){
-      if (fields["AssignedTo"]==="0") {
-        errors["AssignedTo"] = "Please Enter Assign To";
+  //Status
+    if(typeof fields["Status"] !== "undefined"){
+      if (fields["Status"]==="0") {
+        errors["Status"] = "Please Enter Status";
         seterrors(errors)
       }
       else{
-        errors["AssignedTo"] = ""
-        setfields( fields )
-        seterrors(errors)
-      }
-    }
-    //Assigned By
-    if(typeof fields["AssignedBy"] !== "undefined"){
-      if (fields["AssignedBy"]==="0") {
-        errors["AssignedBy"] = "Please Enter Assigned By";
-        seterrors(errors)
-      }
-      else{
-        errors["AssignedBy"] = ""
+        errors["Status"] = ""
         setfields( fields )
         seterrors(errors)
       }
@@ -353,31 +335,25 @@ const CreateTicket = (props: any) => {
     handleClose()
     console.log(fields.fields)
     console.log(fields)
-    const requestOptions ={
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        ServiceCallId: parseInt(fields["ServiceCallId"]),
-        serviceTicket: [
-          {
-            TicketId: fields["TicketId"],
-            TicketType: fields["TicketType"],
-            Subject: fields["Subject"],
-            AssignedTo: fields["AssignedTo"],
-            AssignedBY:fields["AssignedBy"],
-            PlannedStartDate: planedStartDate,
-            PlannedEndDate: plannedEndDate ,
-            ActualStartDate: actualStartDate ,
-            CreatedOn:CreatedOn,
-            ActualEndDate: actualEndDate ,
-            EstimatedDuration: Estimate ,
-            ContactPerson: contact,
-            Status:"pending"
-           }
-        ]
+    if(Service !==undefined){
+      Service.updateSolutions(fields).then((result)=>{
+        console.log(result)
       })
-    };
-    fetch('http://localhost:3000/spare-parts',requestOptions)
+    }
+    
+    // const requestOptions ={
+    //   method:'POST',
+    //   headers:{'Content-Type':'application/json'},
+    //   body:JSON.stringify({
+    //     Id:"",
+    //     Solution:fields["Solution"],
+    //     CreatedOn:new Date(now()),
+    //     Owner:fields["Owner"],
+    //     Status:fields["Status"],
+    //     HandledBy:fields["HandledBy"],
+    //   })
+    // };
+    // fetch('http://localhost:3000/service-calls/solutions',requestOptions)
   }
  
 
@@ -385,15 +361,15 @@ const CreateTicket = (props: any) => {
       <Modal
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"
-          open={open}
-          PaperProps={{ sx: { maxWidth: "65%", height: "90%" } }}
+          open={openEditModal}
+          PaperProps={{ sx: { maxWidth: "65%", height: "50%" } }}
           // maxWidth={"md"}
           // disableBackdropClick
           // disableEscapeKeyDown
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Create Ticket
+           Add Solution
             {/* / <TabName>{tabName}</TabName> */}
           </ModalTittle>
           <IconButton
@@ -429,197 +405,54 @@ const CreateTicket = (props: any) => {
             <Header />
             <Grid container>
               <Grid item xs={6} md={4}>
-                <TextBoxHeader>Service Ticket ID</TextBoxHeader>
+                <TextBoxHeader>Owner</TextBoxHeader>
                 <TextBox
                     id="outlined-basic"
                     variant="outlined"
                     placeholder="Text (default)"
-                    value={ fields["TicketId"]}
-                    onChange={(e) => handleChangeField(e,"TicketId") }
-                    onFocus={(e) => handleChangeField(e,"TicketId") }
+                    value={ fields["Owner"]}
+                    onChange={(e) => handleChangeField(e,"Owner") }
+                    onFocus={(e) => handleChangeField(e,"Owner") }
                 />
-                <span style={{color: "red"}}>{errors["TicketId"]}</span>
+                <span style={{color: "red"}}>{errors["Owner"]}</span>
               </Grid>
               <Grid item xs={6} md={4}>
-                <TextBoxHeader>Service Ticket Type</TextBoxHeader>
-                <SelectInput
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select1"
-                    defaultValue=""
-                    onChange={(e) => handleChangeField(e,"TicketType") }
-                    onFocus={ ()=>select("TicketType") }
-                >
-                  <MenuItem value={"Type 1"}>Type 1</MenuItem>
-                  <MenuItem value={"Type 2"}>Type 2</MenuItem>
-                  <MenuItem value={"Type 3"}>Type 3</MenuItem>
-                </SelectInput>
-                <span style={{color: "red"}}>{errors["TicketType"]}</span>
-              </Grid>
-              <Grid item xs={6} md={12}>
-                <TextBoxHeader>Subject</TextBoxHeader>
+                <TextBoxHeader>Handled By</TextBoxHeader>
                 <TextBox
                     id="outlined-basic"
                     variant="outlined"
                     placeholder="Text (default)"
-                    onChange={(e) => handleChangeField(e,"Subject") }
-                    onFocus={(e) => handleChangeField(e,"Subject") }
+                    value={ fields["HandledBy"]}
+                    onChange={(e) => handleChangeField(e,"HandledBy") }
+                    onFocus={(e) => handleChangeField(e,"HandledBy") }
                 />
-                <span style={{color: "red"}}>{errors["Subject"]}</span>
+                <span style={{color: "red"}}>{errors["HandledBy"]}</span>
+              </Grid>
+              <Grid item xs={6} md={4}>
+                <TextBoxHeader>Status</TextBoxHeader>
+                <TextBox
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                    value={ fields["Status"]}
+                    onChange={(e) => handleChangeField(e,"Status") }
+                    onFocus={(e) => handleChangeField(e,"Status") }
+                />
+                <span style={{color: "red"}}>{errors["Status"]}</span>
+              </Grid>
+              <Grid item xs={6} md={13}>
+                <TextBoxHeader>Solution</TextBoxHeader>
+                <TextBox
+                    id="outlined-basic"
+                    variant="outlined"
+                    placeholder="Text (default)"
+                    value={ fields["Solution"]}
+                    onChange={(e) => handleChangeField(e,"Solution") }
+                    onFocus={(e) => handleChangeField(e,"Solution") }
+                />
+                <span style={{color: "red"}}>{errors["Solution"]}</span>
               </Grid>
             </Grid>
-            <Divider
-                orientation="horizontal"
-                variant="middle"
-                flexItem
-                sx={{ marginTop: "30px" }}
-            />
-
-            <Grid container>
-              <Grid item xs={6} md={4}>
-                <TextBoxHeader>Customer ID</TextBoxHeader>
-                <TextBox
-                    id="outlined-basic"
-                    variant="outlined"
-                    placeholder="Text (default)"
-                    value={fields["CustomerId"]}
-                />
-              </Grid>
-              <Grid item xs={6} md={4}>
-                <TextBoxHeader>Customer Name</TextBoxHeader>
-                <TextBox
-                    id="outlined-basic"
-                    variant="outlined"
-                    placeholder="Text (default)"
-                    value={fields["CustomeName"]}
-                />
-              </Grid>
-              <Grid item xs={6} md={4}>
-                <TextBoxHeader>Contact Person</TextBoxHeader>
-                <TextBox
-                    id="outlined-basic"
-                    variant="outlined"
-                    placeholder="Text (default)"
-                    value={fields["ContactPerson"]}
-                />
-              </Grid>
-              <Grid item xs={6} md={4}>
-                <TextBoxHeader>Telephone Number</TextBoxHeader>
-                <TextBox
-                    id="outlined-basic"
-                    variant="outlined"
-                    placeholder="Text (default)"
-                    value={fields["TelephoneNo"]}
-                />
-              </Grid>
-            </Grid>
-
-            <Divider
-                orientation="horizontal"
-                variant="middle"
-                flexItem
-                sx={{ marginTop: "30px", marginBottom: "10px" }}
-            />
-            <Grid container>
-              <Grid xs={12}>
-                <FormControlLabel
-                    control={<Checkbox />}
-                    label="Personal Ticket"
-                />
-              </Grid>
-              <Grid item xs={6} md={4}>
-                <TextBoxHeader>Assigned To</TextBoxHeader>
-                <SelectBox
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select1"
-                    sx={{ width: "99%" }}
-                    defaultValue=""
-                    onChange={(e) => handleChangeField(e,"AssignedTo") }
-                >
-                  <MenuItem value={"Gayan"}>Gayan</MenuItem>
-                  <MenuItem value={"Dilini"}>Dilini</MenuItem>
-                  <MenuItem value={"Poornima"}>Poornima</MenuItem>
-                  <MenuItem value={"Rukshan"}>Rukshan</MenuItem>
-                  <MenuItem value={"Pawani"}>Pawani</MenuItem>
-                  <MenuItem value={"Rasika"}>Rasika</MenuItem>
-                </SelectBox>
-                {/*<SelectInput*/}
-                {/*    labelId="demo-simple-select-labelqa"*/}
-                {/*    id="demo-simple-select32"*/}
-                {/*    value={age}*/}
-                {/*    defaultValue=""*/}
-                {/*    onChange={(e) => handleChangeField(e,"AssignedTo") }*/}
-                {/*>*/}
-                {/*  <MenuItem value={10}>Ten</MenuItem>*/}
-                {/*  <MenuItem value={20}>Twenty</MenuItem>*/}
-                {/*  <MenuItem value={30}>Thirty</MenuItem>*/}
-                {/*</SelectInput>*/}
-                <span style={{color: "red"}}>{errors["AssignedTo"]}</span>
-              </Grid>
-              <Grid item xs={6} md={4}>
-                <TextBoxHeader>Assigned By</TextBoxHeader>
-                <TextBox
-                    id="outlined-basic4"
-                    variant="outlined"
-                    value={JSON.parse(localStorage.getItem('user') || '{}').UserName}
-                    placeholder="Text (default)"
-                    onFocus={(e) => handleChangeField(e,"AssignedBy")}
-                    onChange={(e) => handleChangeField(e,"AssignedBy") }
-                />
-                <span style={{color: "red"}}>{errors["AssignedBy"]}</span>
-              </Grid>
-            </Grid>
-            <br />
-            <TabContext value={tab}>
-              <TabPanel value="1">
-                <GeneralTabTicket/>
-              </TabPanel>
-              <TabPanel value="2">
-                <ContentTab />
-              </TabPanel>
-              <TabPanel value="3">
-                <LinkedDocumentsTab/>
-              </TabPanel>
-              <TabPanel value="4">
-                <AttachmentsTab />
-              </TabPanel>
-            </TabContext>
-          </Box>
-          <TabContext value={value}>
-            <Box
-                sx={{
-                  borderBottom: 1,
-                  borderColor: "divider",
-                }}
-            >
-              <TabList
-                  variant="scrollable"
-                  scrollButtons
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-                  sx={{ marginLeft: "-40px" }}
-              >
-                <Tab label="General" value="1" />
-                <Tab label="Content" value="2" />
-                <Tab label="Linked Documents" value="3" />
-                <Tab label="Attachments" value="4" />
-              </TabList>
-            </Box>
-          </TabContext>
-          <Box>
-            <TabContext value={value}>
-              <TabPanel value="1">
-                <GeneralTab setCreatedOnDate={setCreatedOnDate} setDateEstimated={setDateEstimated} setDatePlannedEnd={setDatePlannedEnd} setDatePlanedStart={setDatePlanedStart} setDateActualStart={setDateActualStart} setDateActualEnd={setDateActualEnd} setEstimate={setEstimate} setContact={setContact}/>
-              </TabPanel>
-              <TabPanel value="2">
-                <ContentTab />
-              </TabPanel>
-              <TabPanel value="3">
-                <LinkedDocumentsTab />
-              </TabPanel>
-              <TabPanel value="4">
-                <AttachmentsTab />
-              </TabPanel>
-            </TabContext>
           </Box>
         </DialogContent>
         <Divider />
@@ -636,7 +469,6 @@ const CreateTicket = (props: any) => {
                   Cancel
                 </ModalButton>
               </Grid>
-
               <Grid item xs={2} md={1}>
                 <ModalButton
                     variant="contained"
@@ -653,4 +485,4 @@ const CreateTicket = (props: any) => {
   );
 };
 
-export default CreateTicket;
+export default UpdateSolutions;

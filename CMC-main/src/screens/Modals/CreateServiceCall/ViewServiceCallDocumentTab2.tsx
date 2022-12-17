@@ -33,6 +33,8 @@ import Divider from "@mui/material/Divider"
 import History from "./Modal2-Tabs/History";
 import Resolution from "./Modal2-Tabs/Resolution"
 import RelatedDocuments from "./Modal2-Tabs/RelatedDocuments"
+import GeneralServiceCallDocumentTab from "./Modal2-Tabs/GeneralServiceCallDocumentTab";
+import TicketsDocumentTab from "./Modal2-Tabs/TicketsDocumentTab";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -119,7 +121,7 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const CreateServiceCallModal2 = (props: any) => {
+const ViewServiceCallDocumentTab2 = (props: any) => {
   const { open, setOpen, tab } = props;
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -201,29 +203,18 @@ const CreateServiceCallModal2 = (props: any) => {
     <Box>
         <TabContext value={tab}>
           <TabPanel value="1">
-            <GeneralTab p={props} />
+            <GeneralServiceCallDocumentTab props={props} />
           </TabPanel>
           <TabPanel value="2">
-            <TicketsTab createTicket={props} props={props} />
+            <TicketsDocumentTab props={props}/>
           </TabPanel>
           <TabPanel value="3">
-            <SolutionsTab props={props}/>
+            {/*<SolutionsTab props={props}/>*/}
           </TabPanel>
-          <TabPanel value="4">
-            <RemarksTab props={props}/>
-          </TabPanel>
-          <TabPanel value="5">
-            <SchedulingTab props={props}/>
-          </TabPanel>
-          <TabPanel value="6">
-            <ExpensesTab props={props}/>
-          </TabPanel>
-          <TabPanel value="7"><Resolution props={props}/></TabPanel>
-          <TabPanel value="8"><History props={props}/></TabPanel>
-          <TabPanel value="9"><RelatedDocuments props={props}/></TabPanel>
+
         </TabContext>
     </Box>
   );
 };
 
-export default CreateServiceCallModal2;
+export default ViewServiceCallDocumentTab2;

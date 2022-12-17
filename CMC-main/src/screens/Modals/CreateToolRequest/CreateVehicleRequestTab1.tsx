@@ -345,10 +345,11 @@ const [students, setStudents] =useState<any[]>([]);
     }
 
 
-    //Remark
+    //Resolution
     if(typeof fields["Remark"] === "string"){
       if (fields["Remark"]==="") {
         errors["Remark"] = "Required";
+
         seterrors(errors)
       }
       else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
@@ -486,7 +487,7 @@ const [students, setStudents] =useState<any[]>([]);
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
     };
-    fetch('http://localhost:3000/spare-parts',requestOptions)
+    fetch('http://localhost:3000/spare-parts/FindTicket',requestOptions)
         .then(response=>{ return response.json()})
         .then(data=>{
           //console.log(data[3].Groups[1].students)
@@ -797,16 +798,16 @@ const [students, setStudents] =useState<any[]>([]);
         </Grid> 
         <Grid container spacing={2}>
           {/* <Grid item xs={6} md={3}>
-            <TextBoxHeader>Remark</TextBoxHeader>
+            <TextBoxHeader>Resolution</TextBoxHeader>
             <TextBox
               id="outlined-basic"
               variant="outlined"
               placeholder="Text (default)"
               sx={{ width: "415%" }}
-              onChange={(e) => handleChange(e,"Remark") }
-              onFocus={(e) => handleChange(e,"Remark") }
+              onChange={(e) => handleChange(e,"Resolution") }
+              onFocus={(e) => handleChange(e,"Resolution") }
             />
-            <span style={{color: "red"}}>{errors["Remark"]}</span>
+            <span style={{color: "red"}}>{errors["Resolution"]}</span>
           </Grid> */}
          
         </Grid>

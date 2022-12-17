@@ -336,10 +336,10 @@ const EditSparePartsTab1 = (props: any) => {
     }
 
 
-    //Remark
+    //Resolution
     if(typeof fields["Remark"] === "string"){
       if (fields["Remark"]==="") {
-        errors["Remark"] = "Please Enter Remark ";
+        errors["Remark"] = "Please Enter Resolution ";
         seterrors(errors)
       }
       else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {

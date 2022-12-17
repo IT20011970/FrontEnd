@@ -28,8 +28,10 @@ import "../../../Styles/Modal.css";
 import {useEffect, useState} from "react";
 import DialogContentText from "@mui/material/DialogContentText"
 import CreateNewTicketModal from "./CreateTicket"
-import EditServiceCallTab1 from "./EditServiceCallTab1"
-import EditServiceCallTab2 from "./EditServiceCallTab2"
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepButton from '@mui/material/StepButton';
+import ViewServiceCallDocumentTab2 from "./ViewServiceCallDocumentTab2";
 
 
 const ModalButton = styled(Button)(({ theme }) => ({
@@ -78,24 +80,25 @@ const TabName = styled("text")(({ theme }) => ({
   fontWeight: 500,
   color: "#0091d5",
 }));
+const steps = ['Fill Form 1', 'Fill Form 2', 'Create Form','Create Ticket'];
 
-const EditServiceCallModal = (props: any) => {
- //   console.log(props.dataUpdate)
-  const { openEditModal, setOpenEditModal } = props;
-  // React.useEffect(() => {
-  //  props.setOpen(false)
-  //  // console.log(props.dataUpdate)
-  //  // setselectTabValue(false)
-  // },[]);
+const CreateServiceCallDocumentModal = (props: any) => {
+  const { open, setOpen } = props;
+  React.useEffect(() => {
+   props.setOpen(false)
+    console.log("aaa")
+   // setselectTabValue(false)
+  },[]);
 
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    setOpenEditModal(false);
+    setOpen(false);
+    setActiveStep(0)
     setMainTabValue("1");
     setNext("false");
     setSecondTabValue("1")
-    setselectTabValue(false)
-    
+    setselectTabValue(1)
+    createTicket(0)
   };
   const [mainTabValue, setMainTabValue] = React.useState("1");
   const [secondTabValue, setSecondTabValue] = React.useState("1");
@@ -118,18 +121,22 @@ const EditServiceCallModal = (props: any) => {
   const [PlanedStartDate, setPlanedStartDate] = React.useState("")
   const [ActualStartDate, setActualStartDate] = React.useState("")
   const [ActualEndDate, setActualEndDate] = React.useState("")
-  const [selectTabValue, setselectTabValue] = React.useState(false);
+  const [selectTabValue, setselectTabValue] = React.useState(2);
   
   var [Next, setNext] = React.useState("")
+  const [ticket, createTicket] = React.useState(0)
   const [allError,setError]=React.useState(true)
   var [array2, setArray2] = useState([]);
 
   const  [Test, setTest] = React.useState("1");
   const  [Test1, setTest1] = React.useState("1");
   const [fields, setfields] = useState<any>({fields:{}});
-  const [fields2, setfields2] = useState<any>({fields:{}});
   const [openmsg, setOpenmsg] = React.useState(false);
   const [openModal, setOpenModal] = React.useState(false);
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [completed, setCompleted] = React.useState<{
+    [k: number]: boolean;
+  }>({});
   
   const handleClosemsg = () => {
     setOpenmsg(false);
@@ -140,12 +147,55 @@ const EditServiceCallModal = (props: any) => {
        setMainTabValue(newValue);
        setNext("true")
   };
-  // console.log(fields2)
+  const totalSteps = () => {
+    return steps.length;
+  };
 
+  const completedSteps = () => {
+    return Object.keys(completed).length;
+  };
+
+  const isLastStep = () => {
+    return activeStep === totalSteps() - 1;
+  };
+
+  const allStepsCompleted = () => {
+    return completedSteps() === totalSteps();
+  };
+
+  const handleNext = () => {
+    const newActiveStep =
+        isLastStep() && !allStepsCompleted()
+            ? // It's the last step, but not all steps have been completed,
+              // find the first step that has been completed
+            steps.findIndex((step, i) => !(i in completed))
+            : activeStep + 1;
+    setActiveStep(newActiveStep);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStep = (step: number) => () => {
+    setActiveStep(step);
+  };
+
+  const handleComplete = () => {
+    const newCompleted = completed;
+    newCompleted[activeStep] = true;
+    setCompleted(newCompleted);
+    handleNext();
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+    setCompleted({});
+  };
   function post(){
-   console.log(fields.fields)
+    console.log(fields.fields)
     const requestOptions ={
-      method:'PUT',
+      method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         CustomerId: parseInt(fields.fields.CustomerID),
@@ -156,21 +206,24 @@ const EditServiceCallModal = (props: any) => {
           serviceCalls: [
         {
           ServiceCallId:parseInt(fields.fields.ServiceCallId),
-          Status:fields.fields.Status,
+          Status:"Pending",
           Priority:fields.fields.Priority,
-          Subject: fields2.fields.Subject,
-          Origin: fields2.fields.Origin,
-          ProblemType: fields2.fields.ProblemType,
-          InquiryType: fields2.fields.InquiryType,
-          CreatedBy: fields2.fields.CreatedBy,
-          HandledBy: fields2.fields.HandledBy,
-          Queue: fields2.fields.Queue,
-          Secretary: fields2.fields.Secretary,
-          SalesAssistant: fields2.fields.SalesAssistant,
-          PlanedStartDateTime: fields2.fields.planedStartDate,
-          PlanedEndDateTime: fields2.fields.plannedEndDate,
+          Subject: Subject,
+          Origin: Origin,
+          ProblemType: ProblemType,
+          InquiryType: InquiryType,
+          CreatedBy: CreatedBy,
+          HandledBy: HandledBy,
+          Queue: Queue,
+          Secretary: Secretary,
+          SalesAssistant: SalesAssistant,
+          CreatedOn: CreatedOn,
+          PlanedStartDateTime: PlanedStartDate,
+          EstimatedDutation: EstimatedDuration,
+          PlanedEndDateTime: PlanedEndDate,
+          ActualStartDate: ActualStartDate,
+          ActualEndDate: ActualEndDate,
           itemEntity: {
-            Id:parseInt(props.dataUpdate.itemEntity.Id),
             ItemCode:fields.fields.ItemCode,
             MrfSerialNumber: fields.fields.MRF,
             SerialNumber: fields.fields.SerialNumber,
@@ -181,10 +234,11 @@ const EditServiceCallModal = (props: any) => {
       ]})
     };
     console.log(requestOptions)
-    fetch('http://localhost:3000/service-calls/a/'+ parseInt(fields.fields.CustomerID),requestOptions)
-    setselectTabValue(true)
+    fetch('http://localhost:3000/service-calls/',requestOptions)
+    setselectTabValue(2)
     setOpenmsg(true)
     setOpenModal(true)
+    handleNext()
   }
   const sendDataToParent = (index: any) => {
     //console.log(index);
@@ -241,7 +295,7 @@ const EditServiceCallModal = (props: any) => {
       <Modal
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
-        open={openEditModal}
+        open={open}
         PaperProps={{ sx: { maxWidth: "75%", height: "80%" } }}
         // maxWidth={"md"}
         // disableBackdropClick
@@ -249,12 +303,59 @@ const EditServiceCallModal = (props: any) => {
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           <ModalTittle>
-            Edit Service Call{" "}
+            View Service Call{" "}
             {mainTabValue == "2" && (
-              <>
-                <TabName>{tabName}</TabName>
-              </>
+                <>
+                  <TabName>{tabName}</TabName>
+                </>
             )}
+
+            <div>
+              {
+                allStepsCompleted() ? (
+                    <React.Fragment>
+                      <Typography sx={{ mt: 2, mb: 1 }}>
+                        All steps completed - you&apos;re finished
+                      </Typography>
+                      <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        <Box sx={{ flex: '1 1 auto' }} />
+                        <Button onClick={handleReset}>Reset</Button>
+                      </Box>
+                    </React.Fragment>
+                ) : (
+                    <React.Fragment>
+                      {/*<Typography sx={{ mt: 2, mb: 1, py: 1 }}>*/}
+                      {/*  Step {activeStep + 1}*/}
+                      {/*</Typography>*/}
+                      {/*<Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>*/}
+                      {/*  <Button*/}
+                      {/*      color="inherit"*/}
+                      {/*      disabled={activeStep === 0}*/}
+                      {/*      onClick={handleBack}*/}
+                      {/*      sx={{ mr: 1 }}*/}
+                      {/*  >*/}
+                      {/*    Back*/}
+                      {/*  </Button>*/}
+                      {/*  <Box sx={{ flex: '1 1 auto' }} />*/}
+                      {/*  <Button onClick={handleNext} sx={{ mr: 1 }}>*/}
+                      {/*    Next*/}
+                      {/*  </Button>*/}
+                      {/*  {activeStep !== steps.length &&*/}
+                      {/*  (completed[activeStep] ? (*/}
+                      {/*      <Typography variant="caption" sx={{ display: 'inline-block' }}>*/}
+                      {/*        Step {activeStep + 1} already completed*/}
+                      {/*      </Typography>*/}
+                      {/*  ) : (*/}
+                      {/*      <Button onClick={handleComplete}>*/}
+                      {/*        {completedSteps() === totalSteps() - 1*/}
+                      {/*            ? 'Finish'*/}
+                      {/*            : 'Complete Step'}*/}
+                      {/*      </Button>*/}
+                      {/*  ))}*/}
+                      {/*</Box>*/}
+                    </React.Fragment>
+                )}
+            </div>
           </ModalTittle>
           <IconButton
             onClick={handleClose}
@@ -283,7 +384,7 @@ const EditServiceCallModal = (props: any) => {
               />
             </svg>
           </IconButton>
-          {mainTabValue == "2" && (
+          {mainTabValue == "1" && (
             <TabContext value={secondTabValue}>
               <Box
                 sx={{
@@ -299,14 +400,9 @@ const EditServiceCallModal = (props: any) => {
                   sx={{ marginLeft: "-40px" }}
                 >
                         <Tab  label="General" value="1" />
-                  {selectTabValue ==true   &&   <Tab label="Tickets" value="2" /> }
-                  {selectTabValue ==true   &&   <Tab label="AddSolutions" value="3" />}
-                  {selectTabValue ==true   &&   <Tab label="Remarks" value="4" />}
-                  {selectTabValue ==true   &&   <Tab label="Scheduling" value="5" />}
-                  {selectTabValue ==true   &&   <Tab label="Expenses" value="6" />}
-                  {selectTabValue ==true   &&   <Tab label="Resolution" value="7" />}
-                  {selectTabValue ==true   &&   <Tab label="History" value="8" />}
-                  {selectTabValue ==true   &&   <Tab label="Related Documents" value="9" />}
+                        <Tab label="Tickets" value="2" />
+                        <Tab label="Spare parts" value="3" />
+
                 </TabList>
               </Box>
             </TabContext>
@@ -316,13 +412,11 @@ const EditServiceCallModal = (props: any) => {
           <TabContext value={mainTabValue}>
             <TabPanel value="1" sx={{ p: 0 }}>
               <Header />
-              <EditServiceCallTab1 dataUpdate={props.dataUpdate} sendDataToParent={sendDataToParent}  setfields={setfields}  valueNext={Next}  setNext={setNext}/>
+            <ViewServiceCallDocumentTab2 props={props} tab={secondTabValue}/>
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              {mainTabValue === "2" && (
-              <EditServiceCallTab2 dataUpdate={props.dataUpdate} setfields2={setfields2} serviceCallData={fields} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
-                  )}
+              {/*<CreateServiceCallTab2 createTicket={createTicket} serviceCallData={fields} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />*/}
             </TabPanel>
           </TabContext>
         </DialogContent>
@@ -351,61 +445,35 @@ const EditServiceCallModal = (props: any) => {
         <DialogActions>
           <Box sx={{ flexGrow: 1, p: 1 }}>
             <Grid container spacing={10}>
-              {mainTabValue == "1" && <Grid item xs={8} md={10}></Grid>}
-              {mainTabValue == "2" && <Grid item xs={8} md={8}></Grid>}
-              <Grid item xs={2} md={1}>
+              <Grid item xs={2} md={2}>
                 <ModalButton
-                  variant="contained"
-                  className="cancelButton"
-                  onClick={handleClose}
+                    variant="contained"
+                    className="cancelButton"
+                    onClick={handleClose}
                 >
                   Cancel
                 </ModalButton>
               </Grid>
-              {mainTabValue == "1" && (
-                <Grid item xs={2} md={1}>
-                  <ModalButton
+              <Grid item xs={2} md={2}>
+                {/*<ModalButton*/}
+                {/*  variant="contained"*/}
+                {/*  className="cancelButton"*/}
+                {/*  onClick={handleClose}*/}
+                {/*>*/}
+                {/*  Cancel*/}
+                {/*</ModalButton>*/}
+              </Grid>
+              <Grid item xs={8} md={8}>
+                <ModalButton
                     variant="contained"
                     className="ModalCommonButton"
-                    onClick={() => handleChange("2")}
-                  >
-                    Next
-                  </ModalButton>
-                </Grid>
-              )}
+                    onClick={(event) => {handleChange("2");}}
+                    sx={{ width: "350px"}}
+                >
+                  Create Service Call Summary
+                </ModalButton>
+              </Grid>
 
-              {mainTabValue == "2" && (
-                <>
-                  <Grid item xs={2} md={1}>
-                    <ModalButton
-                      variant="contained"
-                      className="cancelButton"
-                      onClick={() => handleChange("1")}
-                    >
-                      Back
-                    </ModalButton>
-                  </Grid>
-                  <Grid item xs={2} md={1}>
-                    <ModalButton
-                        variant="contained"
-                        className="ModalCommonButton"
-                        onClick={post}
-                    >
-                      Update
-                    </ModalButton>
-                  </Grid>
-                  <Grid item xs={2} md={1}>
-                    <ModalButton
-                      variant="contained"
-                      className="ModalCommonButton"
-                      disabled={true}
-                      onClick={post}
-                    >
-                      SAP
-                    </ModalButton>
-                  </Grid>
-                </>
-              )}
             </Grid>
           </Box>
         </DialogActions>
@@ -415,4 +483,4 @@ const EditServiceCallModal = (props: any) => {
   );
 };
 
-export default EditServiceCallModal;
+export default CreateServiceCallDocumentModal;

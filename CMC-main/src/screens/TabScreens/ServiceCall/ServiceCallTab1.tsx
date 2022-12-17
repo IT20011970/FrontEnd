@@ -405,7 +405,7 @@ const ServiceCallTab1 = () => {
         </Container>
         <CreateServiceCallModal open={openModal} setOpen={setOpenModal} />
         {openEditModal == true && (
-        <EditServiceCallModal dataUpdate={dataUpdate} open={openEditModal} setOpen={setOpenEditModal}/>
+        <EditServiceCallModal dataUpdate={dataUpdate} openEditModal={openEditModal} setOpenEditModal={setOpenEditModal}/>
         )}
       </>
   );

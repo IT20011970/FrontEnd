@@ -195,7 +195,7 @@ const CreateNewTicketModal = (props: any) => {
   const [actualEndDate, setDateActualEnd] = React.useState("");
   const [Estimate, setEstimate] = React.useState("")
   const [contact, setContact] = React.useState("")
-
+  const [subfields, setSubfields] = useState<any>({fields:{}});
   const getTab = (index: string): string => {
     switch (index) {
       case "1":
@@ -365,13 +365,14 @@ const CreateNewTicketModal = (props: any) => {
             Subject: fields["Subject"],
             AssignedTo: fields["AssignedTo"],
             AssignedBY:fields["AssignedBy"],
-            PlannedStartDate: planedStartDate,
-            PlannedEndDate: plannedEndDate ,
-            ActualStartDate: actualStartDate ,
-            CreatedOn:CreatedOn,
-            ActualEndDate: actualEndDate ,
-            EstimatedDuration: Estimate ,
-            ContactPerson: contact
+            PlannedStartDate: subfields.fields.planedStartDate,
+            PlannedEndDate: subfields.fields.plannedEndDate ,
+            ActualStartDate: subfields.fields.actualStartDate ,
+            CreatedOn:subfields.fields.CreatedOn,
+            ActualEndDate: subfields.fields.actualEndDate ,
+            EstimatedDuration: subfields.fields.actualEndDate ,
+            ContactPerson: subfields.fields.contact,
+            Status:"pending"
            }
         ]
       })
@@ -570,7 +571,7 @@ const CreateNewTicketModal = (props: any) => {
             <br />
             <TabContext value={tab}>
               <TabPanel value="1">
-                <GeneralTabTicket/>
+                <GeneralTab/>
               </TabPanel>
               <TabPanel value="2">
                 <ContentTab />
@@ -607,7 +608,7 @@ const CreateNewTicketModal = (props: any) => {
           <Box>
             <TabContext value={value}>
               <TabPanel value="1">
-                <GeneralTab setCreatedOnDate={setCreatedOnDate} setDateEstimated={setDateEstimated} setDatePlannedEnd={setDatePlannedEnd} setDatePlanedStart={setDatePlanedStart} setDateActualStart={setDateActualStart} setDateActualEnd={setDateActualEnd} setEstimate={setEstimate} setContact={setContact}/>
+                <GeneralTab  props={props} setSubfields={setSubfields} setCreatedOnDate={setCreatedOnDate} setDateEstimated={setDateEstimated} setDatePlannedEnd={setDatePlannedEnd} setDatePlanedStart={setDatePlanedStart} setDateActualStart={setDateActualStart} setDateActualEnd={setDateActualEnd} setEstimate={setEstimate} setContact={setContact}/>
               </TabPanel>
               <TabPanel value="2">
                 <ContentTab />

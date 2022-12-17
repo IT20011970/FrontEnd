@@ -197,6 +197,7 @@ const UpdateTicketModal = (props: any) => {
   const [actualEndDate, setDateActualEnd] = React.useState("");
   const [Estimate, setEstimate] = React.useState("")
   const [contact, setContact] = React.useState("")
+  const [subfields, setSubfields] = useState<any>({fields:{}});
   const Service =useContext(ServiceContext)
   React.useEffect(()=>{
     console.log(dataUpdate)
@@ -206,18 +207,18 @@ const UpdateTicketModal = (props: any) => {
     // fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
     // fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
     // fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
-     fields["TicketId"] = dataUpdate.TicketId;
+      fields["TicketId"] = dataUpdate.TicketId;
       fields["Subject"] = dataUpdate.Subject;
-     fields["TicketType"] =dataUpdate.TicketType;
-    fields["CustomerId"]=dataUpdate.serviceCall.customerEntity.CustomerId
-     fields["CustomeName"] =dataUpdate.serviceCall.customerEntity.CustomeName;
+      fields["TicketType"] =dataUpdate.TicketType;
+      fields["CustomerId"]=dataUpdate.serviceCall.customerEntity.CustomerId
+      fields["CustomeName"] =dataUpdate.serviceCall.customerEntity.CustomeName;
       fields["ContactPerson"] = dataUpdate.serviceCall.customerEntity.ContactPerson;
-     fields["TelephoneNo"] =dataUpdate.serviceCall.customerEntity.TelephoneNo;
+      fields["TelephoneNo"] =dataUpdate.serviceCall.customerEntity.TelephoneNo;
       fields["CustomerAddressId"] =dataUpdate.serviceCall.customerEntity.CustomerAddressId;
-     fields["AssignedTo"] =dataUpdate.AssignedTo;
-     fields["AssignedBy"] =dataUpdate.AssignedBY;
+      fields["AssignedTo"] =dataUpdate.AssignedTo;
+      fields["AssignedBy"] =dataUpdate.AssignedBY;
 
-  },[3])
+  },[])
   const getTab = (index: string): string => {
     switch (index) {
       case "1":
@@ -232,7 +233,7 @@ const UpdateTicketModal = (props: any) => {
         return "General";
     }
   };
-
+  console.log(subfields.fields)
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
     setTabName(getTab(newValue));
@@ -376,6 +377,13 @@ const UpdateTicketModal = (props: any) => {
             Subject: fields["Subject"],
             AssignedTo: fields["AssignedTo"],
             AssignedBY: fields["AssignedBy"],
+            PlannedStartDate: subfields.fields.planedStartDate,
+            PlannedEndDate: subfields.fields.plannedEndDate ,
+            ActualStartDate: subfields.fields.actualStartDate ,
+            CreatedOn:subfields.fields.CreatedOn,
+            ActualEndDate: subfields.fields.actualEndDate ,
+            EstimatedDuration: subfields.fields.actualEndDate ,
+            ContactPerson: subfields.fields.contact
 
           }
       )
@@ -614,7 +622,7 @@ const UpdateTicketModal = (props: any) => {
           <Box>
             <TabContext value={value}>
               <TabPanel value="1">
-                <GeneralTab setCreatedOnDate={setCreatedOnDate} setDateEstimated={setDateEstimated} setDatePlannedEnd={setDatePlannedEnd} setDatePlanedStart={setDatePlanedStart} setDateActualStart={setDateActualStart} setDateActualEnd={setDateActualEnd} setEstimate={setEstimate} setContact={setContact}/>
+                <GeneralTab props={props} setSubfields={setSubfields} setCreatedOnDate={setCreatedOnDate} setDateEstimated={setDateEstimated} setDatePlannedEnd={setDatePlannedEnd} setDatePlanedStart={setDatePlanedStart} setDateActualStart={setDateActualStart} setDateActualEnd={setDateActualEnd} setEstimate={setEstimate} setContact={setContact}/>
               </TabPanel>
               <TabPanel value="2">
                 <ContentTab />
