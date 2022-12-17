@@ -147,7 +147,7 @@ const TicketsTab2 = (props: any) => {
           }
           //console.log(data[3].Groups[1].students)
         });
-  } )
+  },[] )
 
   const emptyRows =
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -276,7 +276,7 @@ const TicketsTab2 = (props: any) => {
                           borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                         }}
                     >
-                      <Button  onClick={e=>
+                      <Button  onClick={()=>
                         setOpenEditModalFunction(row)} >
                         <svg
                             width="16"

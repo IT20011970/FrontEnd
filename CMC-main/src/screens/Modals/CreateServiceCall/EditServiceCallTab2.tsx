@@ -31,6 +31,11 @@ import ExpensesTab from "./Modal2-Tabs/ExpensesTab";
 import Divider from "@mui/material/Divider"
 import GeneralTab2 from "./Modal2-Tabs/GeneralTab2"
 import TicketsTab2 from "./Modal2-Tabs/TicketsTab2";
+import SolutionsTab2 from "./Modal2-Tabs/SolutionsTab2";
+import SchedulingTab2 from "./Modal2-Tabs/SchedulingTab2";
+import Resolution from "./Modal2-Tabs/Resolution";
+import RelatedDocuments from "./Modal2-Tabs/RelatedDocuments";
+import History from "./Modal2-Tabs/History";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -202,23 +207,25 @@ const EditServiceCallTab2 = (props: any) => {
             <GeneralTab2 p={props} dataUpdate={props.dataUpdate.dataUpdate} />
           </TabPanel>
           <TabPanel value="2">
+            {tab === "2" && (
             <TicketsTab2  props={props} />
+                )}
           </TabPanel>
-          {/*<TabPanel value="3">*/}
-          {/*  <SolutionsTab/>*/}
-          {/*</TabPanel>*/}
-          {/*<TabPanel value="4">*/}
-          {/*  <RemarksTab />*/}
-          {/*</TabPanel>*/}
-          {/*<TabPanel value="5">*/}
-          {/*  <SchedulingTab />*/}
-          {/*</TabPanel>*/}
-          {/*<TabPanel value="6">*/}
-          {/*  <ExpensesTab props={props}/>*/}
-          {/*</TabPanel>*/}
-          {/*<TabPanel value="7">Resolution</TabPanel>*/}
-          {/*<TabPanel value="8">History</TabPanel>*/}
-          {/*<TabPanel value="9">Related Documents</TabPanel>*/}
+          <TabPanel value="3">
+            <SolutionsTab2 props={props}/>
+          </TabPanel>
+          <TabPanel value="4">
+            <RemarksTab props={props}/>
+          </TabPanel>
+          <TabPanel value="5">
+            <SchedulingTab2  props={props} />
+          </TabPanel>
+          <TabPanel value="6">
+            <ExpensesTab props={props}/>
+          </TabPanel>
+          <TabPanel value="7" ><Resolution  props={props}/></TabPanel>
+          <TabPanel value="8"><History props={props}/></TabPanel>
+          <TabPanel value="9"><RelatedDocuments props={props}/></TabPanel>
         </TabContext>
     </Box>
   );

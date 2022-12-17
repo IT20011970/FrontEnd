@@ -24,6 +24,8 @@ import {useContext} from "react"
 //import {ServiceContext} from "../../api/api"
 import { ServiceContext } from "../../../api/api";
 import moment from "moment"
+import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal";
+import CreateServiceCallDocumentModal from "../../Modals/CreateServiceCall/CreateServiceCallDocumentModal";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -199,13 +201,15 @@ const ServiceCallTab2 = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const Service =useContext(ServiceContext)
   const [data, setData] =React.useState<ServiceCallData2[]>([]);
-  
+  const [openModal, setOpenModal] = React.useState(false);
+  const [dataUpdate, setDataUpdate] = React.useState({});
+
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   React.useEffect(() => {
     getData()
-  });
+  },[]);
 
   // Change the page displaying page to user clicked
   const handleChangePage = (
@@ -214,6 +218,12 @@ const ServiceCallTab2 = () => {
   ) => {
     setPage(newPage);
   };
+
+  function setOpenEditModalFunction(data:any){
+    setDataUpdate(data)
+    console.log(openModal)
+    setOpenModal(true)
+  }
 
   // Change the number of rows per page when user changes
   const handleChangeRowsPerPage = (
@@ -235,26 +245,20 @@ const ServiceCallTab2 = () => {
       <Stack spacing={6} direction="row">
         <Grid container rowSpacing={1}>
           <Grid item xs={6}>
-            <Heading>Service Call</Heading>
+            <Heading>Service Call Documents</Heading>
           </Grid>
-          <Grid item xs={3} sx={{ pr: 3 }}></Grid>
-          <Grid item xs={3} sx={{ pr: 0 }}>
+          <Grid item xs={3} sx={{ pr: 3 }}>
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
-                onChange={(e) => setSearchInput(e.target.value)}
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  placeholder="Search"
+                  inputProps={{ "aria-label": "search" }}
               />
             </Search>
           </Grid>
-          {/* <Grid item xs={3}>
-            <RequestButton variant="contained">
-              Create Spare Parts Request
-            </RequestButton>
-          </Grid> */}
         </Grid>
       </Stack>
       <Container>
@@ -313,7 +317,7 @@ const ServiceCallTab2 = () => {
                           alignItems="flex-start"
                           spacing={0}
                       >
-                        <ControlButton disableRipple>
+                        <ControlButton disableRipple  onClick={e=>setOpenEditModalFunction(row)}>
                           <svg
                               width="21"
                               height="21"
@@ -375,6 +379,7 @@ const ServiceCallTab2 = () => {
           />
         </Stack>
       </Container>
+      <CreateServiceCallDocumentModal dataUpdate={dataUpdate} open={openModal} setOpen={setOpenModal} />
     </>
   );
 };

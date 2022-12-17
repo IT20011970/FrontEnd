@@ -174,7 +174,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -182,7 +182,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -190,7 +190,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -198,7 +198,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -206,7 +206,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -214,7 +214,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -222,7 +222,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -230,7 +230,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -238,7 +238,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -246,7 +246,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -254,7 +254,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -262,7 +262,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -270,7 +270,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -278,7 +278,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -286,7 +286,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -294,7 +294,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -302,7 +302,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -310,7 +310,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -318,7 +318,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -326,7 +326,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -334,7 +334,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -342,7 +342,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -350,7 +350,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -358,7 +358,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -366,7 +366,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -374,7 +374,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -382,7 +382,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -390,7 +390,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -398,7 +398,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -406,7 +406,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -414,7 +414,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -422,7 +422,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -430,7 +430,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),
@@ -438,7 +438,7 @@ const rows = [
     "ID_SD1234",
     "Item Description",
     "Type A",
-    "Remark 1",
+    "Resolution 1",
     100,
     "Attachment"
   ),

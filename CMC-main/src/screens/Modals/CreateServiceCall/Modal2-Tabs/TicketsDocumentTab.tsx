@@ -11,14 +11,13 @@ import TablePagination from "@mui/material/TablePagination";
 import TableHead from "@mui/material/TableHead";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-import {CreateServiceCallTicketData, ExpencesType} from "../../../../Types/Types";
+import {CreateServiceCallTicketData, Ticket, TicketServiceCall} from "../../../../Types/Types"
 import "../../../../Styles/Modal.css";
 import "../../../../Styles/ServiceCall.css";
 
 import CreateNewTicketModal from "../CreateTicket";
-import Expences from "../CreateServiceCallExpences";
-import {useContext} from "react";
-import {ServiceContext} from "../../../../api/api";
+import {useEffect, useState} from "react"
+import moment from "moment"
 
 const ModalButton = styled(Button)(({ theme }) => ({
   width: "85px",
@@ -107,16 +106,35 @@ for (var i = 0; i < 5; i++) {
   );
 }
 
-const ExpencesTab = (props: any) => {
-  console.log("eeee"+props.props.serviceCallData.fields.ServiceCallId+"sssss")
+const TicketsTab = (props: any) => {
   //Modal
   const [openModal, setOpenModal] = React.useState(false);
-
+  // console.log("edddddeee"+props.props.serviceCallData.fields.ServiceCallId+"ss666sss")
   const [ticketList, setTicketList] = React.useState([...rows]);
-  const [data, setData] =React.useState<any[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const Service =useContext(ServiceContext)
+  const [students, setStudents] =useState<any[]>([""]);
+  //console.log(props.props.serviceCallData.fields.ServiceCallId)
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    };
+
+
+    fetch('http://localhost:3000/service-calls/ticketInServiceCall/'+props.props.props.dataUpdate.ServiceCallId,requestOptions)
+        .then(response=>{ return response.json()})
+        .then(data=>{
+
+          console.log(data[0].message===null)
+          if(data[0].message!==null){
+            console.log(data)
+           setStudents(data[0])
+          }
+          //console.log(data[3].Groups[1].students)
+        });
+  } )
+
   const emptyRows =
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -133,23 +151,17 @@ const ExpencesTab = (props: any) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const ControlButton = styled(Button)(({ theme }) => ({
+    color: "#383838",
+    backgroundColor: "transparent",
+    boxShadow: "none",
+    textTransform: "capitalize",
+    fontFamily: "Montserrat",
 
-  React.useEffect(() => {
-    getData()
-  });
-
-  function getData (){
-    if(Service !==undefined){
-      Service.getExpences(props.props.serviceCallData.fields.ServiceCallId).then((result)=>{
-        if(result[0].message!==null) {
-          console.log(result[0])
-          setData(result)
-        }
-         //console.log(result)
-      })
-    }
-  }
-
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  }));
   const addNewTicket = () => {
     setTicketList([
       ...ticketList,
@@ -177,7 +189,7 @@ const ExpencesTab = (props: any) => {
                       borderLeft: "none",
                     }}
                 >
-                   ID
+                  Date
                 </StyledTableCell>
                 <StyledTableCell
                     sx={{
@@ -191,92 +203,68 @@ const ExpencesTab = (props: any) => {
                       borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                     }}
                 >
-                    Created Date
+                  Priority
                 </StyledTableCell>
                 <StyledTableCell
                     sx={{
                       borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                     }}
                 >
-                    End Date
+                  Planned Start
                 </StyledTableCell>
                 <StyledTableCell
                     sx={{
                       borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                     }}
                 >
-                  Content
+
                 </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {(rowsPerPage > 0
-                      ? data.slice(
+                      ? students.slice(
                           page * rowsPerPage,
                           page * rowsPerPage + rowsPerPage
                       )
-                      : data
-              ).map((row: ExpencesType, i: number) => (
-                  <StyledTableRow key={Math.random()}>
+                      : students
+              ).map((row: TicketServiceCall, i: number) => (
+                  <StyledTableRow>
                     <StyledTableCell
                         sx={{
                           borderLeft: "none",
                         }}
                     >
-                      {row.Id}
+                      {row.CreatedOn?moment(row.CreatedOn).format("DD/MM/YYYY"):null}
                     </StyledTableCell>
                     <StyledTableCell
                         sx={{
                           borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                         }}
                     >
-                      {row.CreatedBy}
+                      {row.AssignedTo}
                     </StyledTableCell>
                     <StyledTableCell
                         sx={{
                           borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                         }}
                     >
-                      {row.CreatedDate}
+                      {row.priority}
                     </StyledTableCell>
                     <StyledTableCell
                         sx={{
                           borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                         }}
                     >
-                      {row.DateExpire}
-                    </StyledTableCell>
-                    <StyledTableCell
-                        sx={{
-                          borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
-                        }}
-                    >
-                      {row.Remark}
+                      {row.PlannedStartDate}
                     </StyledTableCell>
                   </StyledTableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-        <Box sx={{ flexGrow: 1, py: 1 }}>
-          <Grid container spacing={10}>
-            <Grid item xs={8} md={10}></Grid>
-            <Grid item xs={4} md={2}>
-              <ModalButton
-                  variant="contained"
-                  className="ModalCommonButton"
-                  onClick={() => setOpenModal(true)}
-                  sx={{ width: "250px", mt: 2 }}
-              >
-                Create New Expences
-              </ModalButton>
-            </Grid>
-          </Grid>
-        </Box>
-
-        <Expences props={props} open={openModal} setOpen={setOpenModal} />
       </Box>
   );
 };
 
-export default ExpencesTab;
+export default TicketsTab;

@@ -112,6 +112,13 @@ export type ServiceTicketData = {
   subject: string;
 };
 
+export type File = {
+  Id: string;
+  Name: string;
+  Path: string;
+  status: string;
+};
+
 export type SparePartsData = {
   itemCode: string;
   description: string;
@@ -133,6 +140,7 @@ export type ServiceCallData = {
 };
 
 export type ServiceCallData2 = {
+  ServiceCallId:string
   ActualEndDate: string
   ActualStartDate: string
   CreatedBy: string
@@ -143,12 +151,13 @@ export type ServiceCallData2 = {
   Origin: string
   PlanedEndDateTime: string
   PlanedStartDateTime: string
+  NextStartDate: string,
+  NextEndDate: string,
   Priority: string
   ProblemType: string
   Queue: string
   SalesAssistant: string
   Secretary: string
-  ServiceCallId: string
   Status: string
   Subject: string
   customerEntity:{
@@ -269,7 +278,13 @@ export type DropdownUsers ={
   Value: string
 
 }
+export type ResolutionType ={
 
+  ResolutionId: string,
+  Resolution: string,
+  Date: string
+
+}
 export type DropdownOrigins ={
 
   OriginCode: number,
@@ -373,6 +388,12 @@ export type Solutions = {
   Owner: string,
   Status: string,
   HandledBy: string
+};
+
+export type Schedule = {
+  ServiceCallId: number,
+  NextStartDate: Date,
+  NextEndDate: Date,
 };
 
 export type ArrayTab ={
