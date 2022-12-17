@@ -434,7 +434,7 @@ const CreateToolRequestTab1 = (props: any) => {
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
     };
-    fetch('http://localhost:3000/spare-parts',requestOptions)
+    fetch('http://localhost:3000/spare-parts/FindTicket',requestOptions)
         .then(response=>{ return response.json()})
         .then(data=>{
           //console.log(data[3].Groups[1].students)
