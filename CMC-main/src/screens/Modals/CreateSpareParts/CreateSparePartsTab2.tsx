@@ -259,9 +259,9 @@ const CreateSparePartsTab2 = (props: any) => {
 
   
 
-  const handleChange = (event: any) => {
-    setAge(event.target.value);
-  };
+  // const handleChange = (event: any) => {
+  //   setAge(event.target.value);
+  // };
 
   const handleChangeItemCode = (event: any) => {
     props.setItemCode(event.target.value)
@@ -303,7 +303,11 @@ const CreateSparePartsTab2 = (props: any) => {
     props.setCustomerName(event.target.value)
   };
 
- 
+  // function handleChange(e:any,f:any) {
+  //   // let field=fields
+  //   fields[f] = e.target.value;
+  //   handleValidation()
+  // }
 
 
 //   const stidRegex = RegExp(
@@ -450,8 +454,17 @@ const CreateSparePartsTab2 = (props: any) => {
                                 id="outlined-basic"
                                 variant="outlined"
                                 placeholder="Text (default)"
+                                value={fields['Subject']}
                                 sx={{ width: "99%",backgroundColor: 'white' }}
                             />
+                                {/* <TextBox
+                               id="outlined-basic"
+                               variant="outlined"
+                               placeholder="Text (default)"
+                               sx={{ width: "400%" }}
+                               onChange={(e) => handleChange(e,"Content") }
+                               onFocus={(e) => handleChange(e,"Content") }
+                                /> */}
                           </StyledTableCell>
                           <StyledTableCell
                               sx={{
