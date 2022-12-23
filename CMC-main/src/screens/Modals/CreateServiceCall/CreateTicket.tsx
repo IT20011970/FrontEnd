@@ -255,7 +255,7 @@ const CreateTicket = (props: any) => {
   };
 
   function handleChangeField(e:any,f:any) {
-    console.log(props)
+    console.log(fields)
     fields[f] = e.target.value;
     handleValidation()
   }
@@ -269,16 +269,18 @@ const CreateTicket = (props: any) => {
 
   useEffect (()=>{
     console.log(props.open)
+    setfields({})
     fields["ServiceCallId"] = props.props.props.serviceCallData.fields.ServiceCallId;
     fields["CustomerId"] = props.props.props.serviceCallData.fields.CustomerID;
     fields["CustomeName"] = props.props.props.serviceCallData.fields.CustomerName;
     fields["ContactPerson"] = props.props.props.serviceCallData.fields.ContactPerson;
     fields["TelephoneNo"] = props.props.props.serviceCallData.fields.TelephoneNo;
     fields["CustomerAddressId"] = props.props.props.serviceCallData.fields.AddressId;
-    fields["TicketId"]= Math.floor(Math.random()*1000000)
+    fields["TicketId"]= Math.floor(Math.random()*1000000);
     setfields(fields)
   },[props.open])
 
+  console.log(fields)
   function handleValidation() {
     console.log(fields)
     console.log(typeof fields["TicketId"])
@@ -313,7 +315,7 @@ const CreateTicket = (props: any) => {
     }
     //Subject
     if(typeof fields["Subject"] !== "undefined"){
-      if (fields["Subject"]==="0") {
+      if (fields["Subject"]==="") {
         errors["Subject"] = "Please Enter Subject";
         seterrors(errors)
       }
@@ -337,7 +339,7 @@ const CreateTicket = (props: any) => {
     }
     //Assigned By
     if(typeof fields["AssignedBy"] !== "undefined"){
-      if (fields["AssignedBy"]==="0") {
+      if (fields["AssignedBy"]==="") {
         errors["AssignedBy"] = "Please Enter Assigned By";
         seterrors(errors)
       }
@@ -464,8 +466,9 @@ const CreateTicket = (props: any) => {
                     onChange={(e) => handleChangeField(e,"Subject") }
                     onFocus={(e) => handleChangeField(e,"Subject") }
                 />
-                <span style={{color: "red"}}>{errors["Subject"]}</span>
+
               </Grid>
+              <span style={{color: "red"}}>{errors["Subject"]}</span>
             </Grid>
             <Divider
                 orientation="horizontal"
@@ -534,6 +537,7 @@ const CreateTicket = (props: any) => {
                     sx={{ width: "99%" }}
                     defaultValue=""
                     onChange={(e) => handleChangeField(e,"AssignedTo") }
+                    onFocus={ ()=>select("AssignedTo") }
                 >
                   <MenuItem value={"Gayan"}>Gayan</MenuItem>
                   <MenuItem value={"Dilini"}>Dilini</MenuItem>

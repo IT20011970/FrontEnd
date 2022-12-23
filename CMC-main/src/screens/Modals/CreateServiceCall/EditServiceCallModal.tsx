@@ -81,7 +81,7 @@ const TabName = styled("text")(({ theme }) => ({
 
 const EditServiceCallModal = (props: any) => {
  //   console.log(props.dataUpdate)
-  const { openEditModal, setOpenEditModal } = props;
+  const { openEditModal, setOpenEditModal,openViewModal, setViewModal } = props;
   // React.useEffect(() => {
   //  props.setOpen(false)
   //  // console.log(props.dataUpdate)
@@ -91,6 +91,7 @@ const EditServiceCallModal = (props: any) => {
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpenEditModal(false);
+    setViewModal(false)
     setMainTabValue("1");
     setNext("false");
     setSecondTabValue("1")
@@ -298,15 +299,15 @@ const EditServiceCallModal = (props: any) => {
                   aria-label="lab API tabs example"
                   sx={{ marginLeft: "-40px" }}
                 >
-                        <Tab  label="General" value="1" />
-                  {selectTabValue ==true   &&   <Tab label="Tickets" value="2" /> }
-                  {selectTabValue ==true   &&   <Tab label="AddSolutions" value="3" />}
-                  {selectTabValue ==true   &&   <Tab label="Remarks" value="4" />}
-                  {selectTabValue ==true   &&   <Tab label="Scheduling" value="5" />}
-                  {selectTabValue ==true   &&   <Tab label="Expenses" value="6" />}
-                  {selectTabValue ==true   &&   <Tab label="Resolution" value="7" />}
-                  {selectTabValue ==true   &&   <Tab label="History" value="8" />}
-                  {selectTabValue ==true   &&   <Tab label="Related Documents" value="9" />}
+                     <Tab  label="General" value="1" />
+                     <Tab label="Tickets" value="2" />
+                     <Tab label="AddSolutions" value="3" />
+                     <Tab label="Remarks" value="4" />
+                     <Tab label="Scheduling" value="5" />
+                     <Tab label="Expenses" value="6" />
+                     <Tab label="Resolution" value="7" />
+                     <Tab label="History" value="8" />
+                     <Tab label="Related Documents" value="9" />
                 </TabList>
               </Box>
             </TabContext>

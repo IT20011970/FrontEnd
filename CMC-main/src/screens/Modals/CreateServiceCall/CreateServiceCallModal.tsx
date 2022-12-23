@@ -121,7 +121,7 @@ const CreateServiceCallModal = (props: any) => {
   const [ActualStartDate, setActualStartDate] = React.useState("")
   const [ActualEndDate, setActualEndDate] = React.useState("")
   const [selectTabValue, setselectTabValue] = React.useState(2);
-  
+  const [fields2, setfields2] = useState<any>({fields:{}});
   var [Next, setNext] = React.useState("")
   const [ticket, createTicket] = React.useState(0)
   const [allError,setError]=React.useState(true)
@@ -192,7 +192,7 @@ const CreateServiceCallModal = (props: any) => {
     setCompleted({});
   };
   function post(){
-    console.log(fields.fields)
+    console.log(fields2.fields)
     const requestOptions ={
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -207,21 +207,21 @@ const CreateServiceCallModal = (props: any) => {
           ServiceCallId:parseInt(fields.fields.ServiceCallId),
           Status:"Pending",
           Priority:fields.fields.Priority,
-          Subject: Subject,
-          Origin: Origin,
-          ProblemType: ProblemType,
-          InquiryType: InquiryType,
-          CreatedBy: CreatedBy,
-          HandledBy: HandledBy,
-          Queue: Queue,
-          Secretary: Secretary,
-          SalesAssistant: SalesAssistant,
-          CreatedOn: CreatedOn,
-          PlanedStartDateTime: PlanedStartDate,
-          EstimatedDutation: EstimatedDuration,
-          PlanedEndDateTime: PlanedEndDate,
-          ActualStartDate: ActualStartDate,
-          ActualEndDate: ActualEndDate,
+          Subject: fields2.fields.Subject,
+          Origin: fields2.fields.Origin,
+          ProblemType: fields2.fields.ProblemType,
+          InquiryType: fields2.fields.InquiryType,
+          CreatedBy: fields2.fields.CreatedBy,
+          HandledBy: fields2.fields.HandledBy,
+          Queue: fields2.fields.Queue,
+          Secretary: fields2.fields.Secretary,
+          CreatedOn:new Date(),
+          SalesAssistant: fields2.fields.SalesAssistant,
+          PlanedStartDateTime: fields2.fields.planedStartDate,
+          EstimatedDutation: fields2.fields.Duration,
+          PlanedEndDateTime: fields2.fields.plannedEndDate,
+          ActualStartDate: fields2.fields.ActualStartDate,
+          ActualEndDate: fields2.fields.ActualEndDate,
           itemEntity: {
             ItemCode:fields.fields.ItemCode,
             MrfSerialNumber: fields.fields.MRF,
@@ -428,7 +428,7 @@ const CreateServiceCallModal = (props: any) => {
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
               <Header />
-              <CreateServiceCallTab2 createTicket={createTicket} serviceCallData={fields} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              <CreateServiceCallTab2 createTicket={createTicket} setfields2={setfields2} serviceCallData={fields} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             </TabPanel>
           </TabContext>
         </DialogContent>
