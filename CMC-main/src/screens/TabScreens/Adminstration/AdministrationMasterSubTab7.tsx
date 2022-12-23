@@ -216,7 +216,8 @@ const AdministrationMasterSubTab7 = () => {
 
     React.useEffect(() => {
         getData();
-    }, []);
+        getData2();
+    });
 
     // Retrieve all Engineers
     const getData = async() => {
@@ -235,7 +236,7 @@ const AdministrationMasterSubTab7 = () => {
 
     }
 
-    useEffect(() => {
+    const getData2 = async() => {
         const requestOptions = {
           method: 'GET',
           headers: {'Content-Type': 'application/json'}
@@ -248,7 +249,7 @@ const AdministrationMasterSubTab7 = () => {
               // console.log(data)
               setClusterHead(data)
             });
-      },[] )
+      }
 
     // delete Sales Assistant
     const deleteData = async(id: any) => {
@@ -425,7 +426,7 @@ const AdministrationMasterSubTab7 = () => {
                                     )
                                     : rows
                             ).map((row: Engineer, i: number) => (
-                                <StyledTableRow key={row.EngineerCode}>
+                                <StyledTableRow >
                                     {/* <StyledTableCell
                                         sx={{
                                             borderLeft: "none",
