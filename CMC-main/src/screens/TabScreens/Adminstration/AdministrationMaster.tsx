@@ -43,6 +43,7 @@ import AdministrationMasterSubTab4 from "./AdministrationMasterSubTab4";
 import AdministrationMasterSubTab5 from "./AdministrationMasterSubTab5";
 import AdministrationMasterSubTab6 from "./AdministrationMasterSubTab6";
 import AdministrationMasterSubTab7 from "./AdministrationMasterSubTab7";
+import { TabContext, TabList } from "@mui/lab";
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -224,6 +225,8 @@ const AdministrationMaster = () => {
             });
     } )
 
+    
+
     return (
         <>
             <Stack spacing={6} direction="row">
@@ -254,9 +257,10 @@ const AdministrationMaster = () => {
                 </Grid>
             </Stack>
             <br/>
+
             <Stack spacing={1} direction="row">
-                <Grid container rowSpacing={1} sx={{color: "#383838", backgroundColor: "#fff"}}>
-                    <Grid item xs={3}>
+                <Grid container xs= {12} sm={12} md={12} rowSpacing={1} sx={{color: "#383838", backgroundColor: "#fff"}}>
+                    <Grid item xs={12} >
                         <Switch>
                             <Route exact path="/Administration">
                             <Box>
@@ -270,10 +274,11 @@ const AdministrationMaster = () => {
                                     value={value}
                                     onChange={handleChange}
                                     textColor="inherit"
+                                    variant="fullWidth"
                                     
                                 >
-                                        <Tab  sx={{ width: "100px"}} label="Origins" {...a11yProps(0)} />
-                                        <Tab sx={{ width: "100px"}} label="Problem Types" {...a11yProps(1)} />
+                                        <Tab label="Origins" {...a11yProps(0)} />
+                                        <Tab label="Problem Types" {...a11yProps(1)} />
                                         <Tab label="Handled By" {...a11yProps(2)} />
                                         <Tab label="Cluster Head" {...a11yProps(3)} />
                                         <Tab label="Secretary" {...a11yProps(4)} />
@@ -286,8 +291,6 @@ const AdministrationMaster = () => {
                     </Grid>
                 </Grid>
             </Stack>
-
-
 
             <Container>
                 <>
@@ -329,5 +332,6 @@ const AdministrationMaster = () => {
         </>
     );
 };
+
 
 export default AdministrationMaster;

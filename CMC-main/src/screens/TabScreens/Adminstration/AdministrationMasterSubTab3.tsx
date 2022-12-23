@@ -29,7 +29,7 @@ import {
     UserRoleTypes,
 } from "./../../../Types/Types";
 import "./../../../Styles/Tabs.css";
-import { useState } from "preact/hooks";
+//import { useState } from "preact/hooks";
 import { red } from "@material-ui/core/colors";
 
 const Search = styled("div")(({ theme }) => ({
@@ -334,28 +334,29 @@ const AdministrationMasterSubTab3 = () => {
                                     <StyledTableCell>
                                         {row.HandledByName }
                                     </StyledTableCell>
-                                    <Stack
-                                        direction="row"
-                                        justifyContent="center"
-                                        alignItems="flex-start"
-                                        spacing={0}
-                                    >
-                                    {/* <ControlButton disableRipple onClick={() => handleClickOpen(row)}>
-                                        <svg
-                                            width="16"
-                                            height="25"
-                                            viewBox="0 0 16 17"
-                                            className="controlButton"
-                                            xmlns="http://www.w3.org/2000/svg"
+                                    <StyledTableCell>
+                                        <Stack
+                                            direction="row"
+                                            justifyContent="center"
+                                            alignItems="flex-start"
+                                            spacing={0}
                                         >
-                                        <path d="M15.36 14.98H0.64C0.286 14.98 0 15.266 0 15.62V16.34C0 16.428 0.072 16.5 0.16 16.5H15.84C15.928 16.5 16 16.428 16 16.34V15.62C16 15.266 15.714 14.98 15.36 14.98ZM2.914 13.3C2.954 13.3 2.994 13.296 3.034 13.29L6.398 12.7C6.438 12.692 6.476 12.674 6.504 12.644L14.982 4.166C15.0005 4.1475 15.0153 4.12552 15.0253 4.10133C15.0353 4.07713 15.0405 4.05119 15.0405 4.025C15.0405 3.99881 15.0353 3.97287 15.0253 3.94867C15.0153 3.92448 15.0005 3.9025 14.982 3.884L11.658 0.558C11.62 0.52 11.57 0.5 11.516 0.5C11.462 0.5 11.412 0.52 11.374 0.558L2.896 9.036C2.866 9.066 2.848 9.102 2.84 9.142L2.25 12.506C2.23054 12.6131 2.2375 12.7234 2.27025 12.8273C2.30301 12.9311 2.36059 13.0254 2.438 13.102C2.57 13.23 2.736 13.3 2.914 13.3Z" />
-                                        </svg>
-                                    </ControlButton> */}
-                                    <ControlButton disableRipple onClick={() => deleteData(row.HandledByCode)}>
-                                        <DeleteIcon sx={{ color: red[500] }}/>
-                                    </ControlButton>
-                                    </Stack>
-                                    
+                                        {/* <ControlButton disableRipple onClick={() => handleClickOpen(row)}>
+                                            <svg
+                                                width="16"
+                                                height="25"
+                                                viewBox="0 0 16 17"
+                                                className="controlButton"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                            <path d="M15.36 14.98H0.64C0.286 14.98 0 15.266 0 15.62V16.34C0 16.428 0.072 16.5 0.16 16.5H15.84C15.928 16.5 16 16.428 16 16.34V15.62C16 15.266 15.714 14.98 15.36 14.98ZM2.914 13.3C2.954 13.3 2.994 13.296 3.034 13.29L6.398 12.7C6.438 12.692 6.476 12.674 6.504 12.644L14.982 4.166C15.0005 4.1475 15.0153 4.12552 15.0253 4.10133C15.0353 4.07713 15.0405 4.05119 15.0405 4.025C15.0405 3.99881 15.0353 3.97287 15.0253 3.94867C15.0153 3.92448 15.0005 3.9025 14.982 3.884L11.658 0.558C11.62 0.52 11.57 0.5 11.516 0.5C11.462 0.5 11.412 0.52 11.374 0.558L2.896 9.036C2.866 9.066 2.848 9.102 2.84 9.142L2.25 12.506C2.23054 12.6131 2.2375 12.7234 2.27025 12.8273C2.30301 12.9311 2.36059 13.0254 2.438 13.102C2.57 13.23 2.736 13.3 2.914 13.3Z" />
+                                            </svg>
+                                        </ControlButton> */}
+                                        <ControlButton disableRipple onClick={() => deleteData(row.HandledByCode)}>
+                                            <DeleteIcon sx={{ color: red[500] }}/>
+                                        </ControlButton>
+                                        </Stack>
+                                    </StyledTableCell>
                                 </StyledTableRow>
                             ))}
                         </TableBody>
