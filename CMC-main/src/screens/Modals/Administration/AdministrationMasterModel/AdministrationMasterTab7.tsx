@@ -226,7 +226,7 @@ const AdministrationMasterTab7 = (props: any) => {
   // Add Engineer
   function post(){
     if ( engineerName == '' ||  clusterHeadName == ''){
-      alert('Please Select All Required Fields!');
+      alert('Please Select All Fields!');
     } else {
       console.log(fields.fields)
       console.log(fields)
