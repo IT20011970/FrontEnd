@@ -86,12 +86,13 @@ const GeneralTab = (props: any) => {
   const [students, setStudents] =useState<any[]>([]);
   const [originDropDown, setOriginDropDown] =useState<any[]>([]);
   const [problemTypeDropDown, setProblemTypeDropDown] =useState<any[]>([]);
-
   const [handledBy, setHandledBy] =useState<any[]>([]);
   const [clusterHead, setClusterHead] =useState<any[]>([]);
   const [secretary, setSecretary] =useState<any[]>([]);
   const [salesAssistant, setSalesAssistant] =useState<any[]>([]);
-  
+  const [fields,setFields]=useState<any>({});
+  const [errors,seterrors]=useState<any>({})
+
   useEffect(() => {
     const requestOptions = {
       method: 'GET',
@@ -197,6 +198,220 @@ const GeneralTab = (props: any) => {
         });
   },[] )
 
+
+  function handleChange(e:any,f:any) {
+    fields[f] = e.target.value;
+    console.log(e)
+    handleValidation()
+  }
+
+  function select(e:any,f:any) {
+    let field=fields
+    if(!fields[f])
+      field[f] = "0";
+    handleValidation()
+  }
+  // function select(e:any,f:any) {
+  //   let field=fields
+  //   if(!fields[f])
+  //     field[f] = "0";
+  //   // setfields({Status:"0"})
+  //   handleValidation()
+  // }
+  // console.log(fields)
+  function handleChangeDate(e:any,f:any){
+    fields[f] = e;
+
+    let aa:any=new Date(fields["plannedEndDate"])
+    let bb:any=new Date(fields["planedStartDate"])
+    let difference=aa-bb
+    console.log(msToTime(difference))
+    fields['Duration']=msToTime(difference)
+    handleValidation()
+    // setFields( fields )
+    // props.p.setfields2({fields})
+  }
+  function msToTime(millisec:number) {
+    var seconds:any = (millisec / 1000).toFixed(0);
+    var minutes:any = Math.floor(seconds / 60);
+    var hours:any = "";
+    if (minutes > 59) {
+      hours = Math.floor(minutes / 60);
+      hours = (hours >= 10) ? hours : "0" + hours;
+      minutes = minutes - (hours * 60);
+      minutes = (minutes >= 10) ? minutes : "0" + minutes;
+    }
+
+    seconds = Math.floor(seconds % 60);
+    seconds = (seconds >= 10) ? seconds : "0" + seconds;
+    if (hours != "") {
+      return hours + "H:" + minutes + "M:" + seconds+"S";
+    }
+    return minutes + "M:" + seconds;
+  }
+  function handleValidation(){
+    console.log( typeof fields["Duration"])
+    console.log(  fields["Duration"])
+    if(typeof fields["Subject"] === "string"){
+      if (fields["Subject"] === "") {
+        errors["Subject"] = "Please Enter Subject ";
+        seterrors(errors)
+      }  else {
+        setFields( fields )
+        props.p.setfields2({fields})
+        errors["Subject"] = ""
+        seterrors(errors)
+      }
+    }
+
+    if(typeof fields["InquiryType"] === "string"){
+      if (fields["InquiryType"] === "") {
+        errors["InquiryType"] = "Please Enter Inquiry Type ";
+        seterrors(errors)
+      }  else {
+        setFields( fields )
+        props.p.setfields2({fields})
+        errors["InquiryType"] = ""
+        seterrors(errors)
+      }
+    }
+
+    if(typeof fields["Duration"] === "string"){
+      if (fields["Duration"] === "") {
+        errors["Duration"] = "Please Enter Estimated Duration ";
+        seterrors(errors)
+      }  else {
+        setFields( fields )
+        props.p.setfields2({fields})
+        errors["Duration"] = ""
+        seterrors(errors)
+      }
+    }
+
+
+
+    // if(typeof fields["CreatedBy"] === "string"){
+    //   if (fields["CreatedBy"] === "") {
+    //   }  else {
+    //     setFields( fields )
+    //     props.p.setfields2({fields})
+    //   }
+    // }
+
+    if(typeof fields["Origin"] !== "undefined"){
+      if (fields["Origin"]==="0") {
+        errors["Origin"] = "Please Enter Origin";
+        seterrors(errors)
+      }
+      else{
+        errors["Origin"] = ""
+        setFields( fields )
+        seterrors(errors)
+        props.p.setfields2({fields})
+      }
+    }
+
+    if(typeof fields["ProblemType"] !== "undefined"){
+      if (fields["ProblemType"]==="0") {
+        errors["ProblemType"] = "Please Enter Problem Type";
+        seterrors(errors)
+      }
+      else{
+        errors["ProblemType"] = ""
+        setFields( fields )
+        seterrors(errors)
+        props.p.setfields2({fields})
+      }
+    }
+
+    if(typeof fields["HandledBy"] !== "undefined"){
+      if (fields["HandledBy"]==="0") {
+        errors["HandledBy"] = "Please Enter Handled By";
+        seterrors(errors)
+      }
+      else{
+        errors["HandledBy"] = ""
+        setFields( fields )
+        seterrors(errors)
+        props.p.setfields2({fields})
+      }
+    }
+
+    if(typeof fields["Queue"] !== "undefined"){
+      if (fields["Queue"]==="0") {
+        errors["Queue"] = "Please Enter Queue";
+        seterrors(errors)
+      }
+      else{
+        errors["Queue"] = ""
+        setFields( fields )
+        seterrors(errors)
+        props.p.setfields2({fields})
+      }
+    }
+    if(typeof fields["Secretary"] !== "undefined"){
+      if (fields["Secretary"]==="0") {
+        errors["Secretary"] = "Please Enter Secretary";
+        seterrors(errors)
+      }
+      else{
+        errors["Secretary"] = ""
+        setFields( fields )
+        seterrors(errors)
+        props.p.setfields2({fields})
+      }
+    }
+    if(typeof fields["SalesAssistant"] !== "undefined"){
+      if (fields["SalesAssistant"]==="0") {
+        errors["SalesAssistant"] = "Please Enter Sales Assistant";
+        seterrors(errors)
+      }
+      else{
+        errors["SalesAssistant"] = ""
+        setFields( fields )
+        seterrors(errors)
+        props.p.setfields2({fields})
+      }
+    }
+    if(typeof fields["plannedEndDate"] === "string"){
+      if (fields["plannedEndDate"] === "0") {
+        errors["plannedEndDate"] = "Please Enter Planned End Date";
+        seterrors(errors)
+      }  else {
+        setFields( fields )
+        props.p.setfields2({fields})
+
+        errors["plannedEndDate"] = ""
+        seterrors(errors)
+      }
+    }
+    if(typeof fields["plannedEndDate"] === "string"){
+      if (fields["plannedEndDate"] === "0") {
+        errors["plannedEndDate"] = "Please Enter Planned End Date";
+        seterrors(errors)
+      }  else {
+        setFields( fields )
+        props.p.setfields2({fields})
+
+        errors["plannedEndDate"] = ""
+        seterrors(errors)
+      }
+    }
+    if(typeof fields["planedStartDate"] === "string"){
+      if (fields["planedStartDate"] === "0") {
+        errors["planedStartDate"] = "Please Enter Planed Start Date";
+        seterrors(errors)
+      }  else {
+        setFields( fields )
+        props.p.setfields2({fields})
+
+        errors["planedStartDate"] = ""
+        seterrors(errors)
+      }
+    }
+  }
+
+
   const handleChangeSubject = (event: any) => {
     console.log(props)
     console.log(JSON.parse(localStorage.getItem('user') || '{}').email)
@@ -263,15 +478,18 @@ const GeneralTab = (props: any) => {
               id="outlined-basic"
               variant="outlined"
               sx={{ width: "99%" }}
-              onChange={handleChangeSubject}
+              onChange={(e) => handleChange(e,"Subject")}
+              onFocus={(e) => handleChange(e,"Subject")}
             />
+            <span style={{color: "red"}}>{errors["Subject"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Origin</TextBoxHeader>
             <SelectInput
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              onChange={handleChangeOrigin}
+              onChange={(e) => handleChange(e,"Origin")}
+              onFocus={(e) => select(e,"Origin")}
               // label="Age"
               defaultValue=""
 
@@ -284,6 +502,7 @@ const GeneralTab = (props: any) => {
               <MenuItem value={"Web"}>Web</MenuItem>
               <MenuItem value={"Other"}>Other</MenuItem> */}
             </SelectInput>
+            <span style={{color: "red"}}>{errors["Origin"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Problem Type</TextBoxHeader>
@@ -292,7 +511,8 @@ const GeneralTab = (props: any) => {
               id="demo-simple-select"
               // label="Age"
               defaultValue=""
-              onChange={handleChangeProblemType}
+              onChange={(e) => handleChange(e,"ProblemType")}
+              onFocus={(e) => select(e,"ProblemType")}
             >
               {problemTypeDropDown.map(( row:DropdownProblemTypes, i: number) => (
               <MenuItem value={row.ProblemTypeName}>{row.ProblemTypeName}</MenuItem>
@@ -303,14 +523,17 @@ const GeneralTab = (props: any) => {
               <MenuItem value={"Service"}>Service</MenuItem>
               <MenuItem value={"Other"}>Other</MenuItem> */}
             </SelectInput>
+            <span style={{color: "red"}}>{errors["ProblemType"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Inquiry Type</TextBoxHeader>
             <TextBox
                 id="outlined-basic1"
                 variant="outlined"
-                onChange={handleChangeInquiryType}
+                onChange={(e) => handleChange(e,"InquiryType")}
+                onFocus={(e) => handleChange(e,"InquiryType")}
             />
+            <span style={{color: "red"}}>{errors["InquiryType"]}</span>
           </Grid>
         </Grid>
         <Divider
@@ -327,9 +550,10 @@ const GeneralTab = (props: any) => {
                 id="outlined-basic1"
                 variant="outlined"
                 value={JSON.parse(localStorage.getItem('user') || '{}').UserName}
-                onChange={handleChangeCreatedBy}
+                onChange={(e) => handleChange(e,"CreatedBy")}
+                onFocus={(e) => select(e,"CreatedBy")}
             />
-            {/*<span style={{fontWeight: 'bold'}}>{)} </span>*/}
+            <span style={{color: "red"}}>{errors["CreatedBy"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Handled By</TextBoxHeader>
@@ -338,7 +562,8 @@ const GeneralTab = (props: any) => {
                 id="demo-simple-select"
                 // label="Age"
                 defaultValue=""
-                onChange={handleChangeHandledBy}
+                onChange={(e) => handleChange(e,"HandledBy")}
+                onFocus={(e) => select(e,"HandledBy")}
             >
               {handledBy.map(( row:HandledBy, i: number) => (
               <MenuItem key={row.HandledByCode} value={row.HandledByName}>{row.HandledByName}</MenuItem>
@@ -350,6 +575,7 @@ const GeneralTab = (props: any) => {
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
               <MenuItem value={"Rasika"}>Rasika</MenuItem> */}
             </SelectInput>
+            <span style={{color: "red"}}>{errors["HandledBy"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Cluster Head</TextBoxHeader>
@@ -358,13 +584,15 @@ const GeneralTab = (props: any) => {
                 id="demo-simple-select"
                 // label="Age"
                 defaultValue=""
-                // onChange={handleChangeSecretary}
+                onChange={(e) => handleChange(e,"Queue")}
+                onFocus={(e) => select(e,"Queue")}
             >
 
               {clusterHead.map(( row:ClusterHead, i: number) => (
               <MenuItem key={row.ClusterHeadCode} value={row.ClusterHeadName}>{row.ClusterHeadName}</MenuItem>
               ))}
             </SelectInput>
+            <span style={{color: "red"}}>{errors["Queue"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Secretary</TextBoxHeader>
@@ -373,7 +601,8 @@ const GeneralTab = (props: any) => {
               id="demo-simple-select"
               // label="Age"
               defaultValue=""
-              onChange={handleChangeSecretary}
+              onChange={(e) => handleChange(e,"Secretary")}
+              onFocus={(e) => select(e,"Secretary")}
             >
               {secretary.map(( row:Secretary, i: number) => (
               <MenuItem key={row.SecretaryCode} value={row.SecretaryName}>{row.SecretaryName}</MenuItem>
@@ -385,6 +614,7 @@ const GeneralTab = (props: any) => {
               <MenuItem value={"Pawani"}>Pawani</MenuItem>
               <MenuItem value={"Rasika"}>Rasika</MenuItem> */}
             </SelectInput>
+            <span style={{color: "red"}}>{errors["Secretary"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Sales Assistant</TextBoxHeader>
@@ -393,12 +623,14 @@ const GeneralTab = (props: any) => {
               id="demo-simple-select"
               // label="Age"
               defaultValue=""
-               onChange={handleChangeSalesAssistant}
+              onChange={(e) => handleChange(e,"SalesAssistant")}
+              onFocus={(e) => select(e,"SalesAssistant")}
             >
               {salesAssistant.map(( row:SalesAssistant, i: number) => (
               <MenuItem key={row.SalesAssistantCode} value={row.SalesAssistantName}>{row.SalesAssistantName}</MenuItem>
               ))}
             </SelectInput>
+            <span style={{color: "red"}}>{errors["SalesAssistant"]}</span>
           </Grid>
         </Grid>
 
@@ -428,43 +660,42 @@ const GeneralTab = (props: any) => {
             <TextBoxHeader>Planned start Date & Time <span style={{color:'red'}}>*</span></TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                renderInput={(params:any) => <TextBox {...params} />}
-                value={planedStartDate}
+                renderInput={(params:any) => <TextBox   onFocus={(e) => select(e,"planedStartDate")} {...params} />}
+                value={fields["planedStartDate"]}
                 onChange={(newValue:any) => {
-                  handleChangesetPlanedStartDate((newValue != null ? newValue.toString() : new Date())
+                  handleChangeDate((newValue != null ? newValue.toString() : new Date()),"planedStartDate"
                   );
                 }}
                 className="dateTimePicker"
               />
             </LocalizationProvider>
+            <span style={{color: "red"}}>{errors["planedStartDate"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Planned End Date & Time <span style={{color:'red'}}>*</span></TextBoxHeader>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                renderInput={(params:any) => <TextBox {...params} />}
-                value={plannedEndDate}
+                renderInput={(params:any) => <TextBox  onFocus={(e) => select(e,"plannedEndDate")} {...params} />}
+                value={fields["c"]}
                 onChange={(newValue:any) => {
-                  handleChangesetPlanedEndDate((newValue != null ? newValue.toString() : new Date())
+                  handleChangeDate((newValue != null ? newValue.toString() : new Date()),"plannedEndDate"
                   );
                 }}
                 className="dateTimePicker"
               />
             </LocalizationProvider>
+            <span style={{color: "red"}}>{errors["plannedEndDate"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Estimated Duration <span style={{color:'red'}}>*</span></TextBoxHeader>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                  renderInput={(params:any) => <TextBox {...params} />}
-                  value={estimatedDate}
-                  onChange={(newValue:any) => {
-                    handleChangesetEstimatedDuration((newValue != null ? newValue.toString() : new Date())
-                    );
-                  }}
-                  className="dateTimePicker"
+              <TextBox
+                  id="outlined-basic1"
+                  variant="outlined"
+                  onChange={(e) => handleChange(e,"Duration")}
+                  onFocus={(e) => handleChange(e,"Duration")}
+                  value={fields['Duration']}
               />
-            </LocalizationProvider>
+            <span style={{color: "red"}}>{errors["Duration"]}</span>
           </Grid>
           <Grid item xs={6} md={3}>
             <TextBoxHeader>Actual Start Date</TextBoxHeader>

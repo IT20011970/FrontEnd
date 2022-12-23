@@ -133,7 +133,7 @@ const TicketsTab = (props: any) => {
           }
           //console.log(data[3].Groups[1].students)
         });
-  } ,[])
+  } )
 
   const emptyRows =
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -281,7 +281,9 @@ const TicketsTab = (props: any) => {
             </Grid>
           </Grid>
         </Box>
+        {openModal == true && (
         <CreateNewTicketModal  props={props} open={openModal} setOpen={setOpenModal} />
+        )}
       </Box>
   );
 };

@@ -242,7 +242,7 @@ const TicketsTab2 = (props: any) => {
                       )
                       : students
               ).map((row: TicketServiceCall, i: number) => (
-                  <StyledTableRow key={Math.random()}>
+                  <StyledTableRow >
                     <StyledTableCell
                         sx={{
                           borderLeft: "none",

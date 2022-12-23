@@ -290,7 +290,6 @@ setArr([...arr, data]);
                   Item Description
                 </StyledTableCell>
                 <StyledTableCell align="right">Item Type</StyledTableCell>
-                <StyledTableCell align="right">Remarks</StyledTableCell>
                 <StyledTableCell align="right">
                   Available Quantity
                 </StyledTableCell>
@@ -338,10 +337,7 @@ setArr([...arr, data]);
                     {row.ItemType}
                   </StyledTableCell>
                   <StyledTableCell>
-                    
-                  </StyledTableCell>
-                  <StyledTableCell>
-                    {row.qty}
+                    {row.Onhand}
                   </StyledTableCell>
                   {/* <StyledTableCell>
                     {row.attachment}

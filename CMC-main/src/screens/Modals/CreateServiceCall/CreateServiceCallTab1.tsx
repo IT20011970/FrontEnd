@@ -166,6 +166,7 @@ const CreateServiceCallModal1 = (props: any) => {
   //   getData()
   // });
 
+  console.log(errors)
   function getData (){
     if(Service !==undefined){
       Service.getCustomerList().then((result)=>{
@@ -184,7 +185,9 @@ const CreateServiceCallModal1 = (props: any) => {
    // arr.push("sss")
     //setArray("sss")
     console.log(fields)
+    setnext("false")
     fields["ServiceCallId"]= Math.floor(Math.random()*1000000)
+    fields["SerialNumber"]=fields["SerialNumber"]
     props.setfields({fields})
     if(props.valueNext==="true"){
       setnext("true")
