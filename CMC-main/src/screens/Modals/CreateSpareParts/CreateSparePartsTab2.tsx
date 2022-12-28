@@ -21,6 +21,7 @@ import TableBody from "@mui/material/TableBody"
 import { ArrayTab, CreateServiceCallTicketData, ExpensesData, ServiceCallData2, SparePartInventoryData} from "../../../Types/Types"
 import TableContainer from "@mui/material/TableContainer"
 import TableCell, {tableCellClasses} from "@mui/material/TableCell"
+import { ar } from "date-fns/locale";
 
 
 const TextBoxHeader = styled(Paper)(({ theme }) => ({
@@ -234,12 +235,11 @@ const CreateSparePartsTab2 = (props: any) => {
   const [d, setData] =React.useState([]);
   const [data1, setData1] =React.useState<ArrayTab[]>([]);
   const [fields, setfields] = React.useState<any>({});
-  
-  console.log(data1)
+  const [arr, setArr] = React.useState<any>([]);
   React.useEffect(() => {
     setData1(props.props)
     console.log(props.props)
-  });
+  },[]);
   
   const addNewTicket = () => {
     setTicketList([
@@ -259,9 +259,9 @@ const CreateSparePartsTab2 = (props: any) => {
 
   
 
-  const handleChange = (event: any) => {
-    setAge(event.target.value);
-  };
+  // const handleChange = (event: any) => {
+  //   setAge(event.target.value);
+  // };
 
   const handleChangeItemCode = (event: any) => {
     props.setItemCode(event.target.value)
@@ -302,8 +302,25 @@ const CreateSparePartsTab2 = (props: any) => {
   const handleChangeCustomerName = (event: any) => {
     props.setCustomerName(event.target.value)
   };
-
+  function handleChange(e:any,f:any,data:any) {
+    // console.log( "e.target.value")
+    // console.log(data.qty)
+    data.qty = e.target.value;
+    setfields(fields)
+    console.log( e.target.value)
+    // props.setfieldsSpare2(fields)
+   
+    setArr([...arr,data])
+    console.log(arr)
  
+  }
+function   addArray(){
+  let uniq=Array.from(new Set(arr))
+  console.log(uniq)
+  props.setfieldsSpare3(uniq)
+}
+
+
 
 
 //   const stidRegex = RegExp(
@@ -345,19 +362,7 @@ const CreateSparePartsTab2 = (props: any) => {
   return (
       <>
         <Box sx={{ flexGrow: 1 }}>
-        <Grid item xs={6} md={3}>
-            <TextBoxHeader>Spare Part Request ID</TextBoxHeader>
-            <TextBox
-              id="outlined-basic"
-              variant="outlined"
-              placeholder="Text (default)"
-              
-              value={fields["SPReqId"]}
-              sx={{ width: "99%" }}
-              
-            />
-          </Grid>
-          <br></br>
+        kk
               <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
                 <Table
                     sx={{ minWidth: 500, boxShadow: "none" }}
@@ -384,7 +389,7 @@ const CreateSparePartsTab2 = (props: any) => {
                             borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                           }}
                       >
-                        Remarks
+                        Remarkssss
                       </StyledTableCell>
                       <StyledTableCell
                           sx={{
@@ -412,7 +417,7 @@ const CreateSparePartsTab2 = (props: any) => {
                   </TableHead>
                   <TableBody>
                     {data1.map((row: ArrayTab, i: number) => (
-                        <StyledTableRow key={Math.random()}>
+                        <StyledTableRow >
                           <StyledTableCell
                               sx={{
                                 borderLeft: "none",
@@ -439,7 +444,7 @@ const CreateSparePartsTab2 = (props: any) => {
                                 borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                               }}
                           >
-                            {row.qty}
+                            {row.Onhand}
                           </StyledTableCell>
                           <StyledTableCell
                               sx={{
@@ -450,8 +455,18 @@ const CreateSparePartsTab2 = (props: any) => {
                                 id="outlined-basic"
                                 variant="outlined"
                                 placeholder="Text (default)"
-                                sx={{ width: "99%",backgroundColor: 'white' }}
+                                value={row.qty}
+                                sx={{ width: "99%"}}
+                                onChange={(e) => handleChange(e,"request",row) }
                             />
+                                {/* <TextBox
+                               id="outlined-basic"
+                               variant="outlined"
+                               placeholder="Text (default)"
+                               sx={{ width: "400%" }}
+                               onChange={(e) => handleChange(e,"Content") }
+                               onFocus={(e) => handleChange(e,"Content") }
+                                /> */}
                           </StyledTableCell>
                           <StyledTableCell
                               sx={{
@@ -470,23 +485,29 @@ const CreateSparePartsTab2 = (props: any) => {
             <Grid container spacing={10}>
               <Grid item xs={8} md={10}></Grid>
               <Grid item xs={4} md={2}>
-                <ModalButton
+                
+              </Grid>
+            </Grid>
+          </Box>
+
+
+          <ModalButton
                     variant="contained"
                     className="ModalCommonButton"
-                    onClick={addNewTicket}
+                    onClick={addArray}
                     sx={{ width: "300px", mt: 2 }}
                 >
                   Add Spare Parts
                 </ModalButton>
-              </Grid>
-            </Grid>
-          </Box>
+
           <Divider
               orientation="horizontal"
               variant="middle"
               flexItem
               sx={{ marginTop: "30px" }}
           />
+
+             
 
 
           <h2>Add Additional Spare Parts</h2> 

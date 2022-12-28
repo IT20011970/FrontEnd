@@ -336,7 +336,11 @@ setArr([...arr, data]);
                   <StyledTableCell>
                     {row.ItemType}
                   </StyledTableCell>
+               
+                    
+         
                   <StyledTableCell>
+
                     {row.Onhand}
                   </StyledTableCell>
                   {/* <StyledTableCell>
