@@ -253,7 +253,7 @@ const CreateSparePartsTab1 = (props: any) => {
 
 
     if (fields["TicketID"] === "") {
-      errors["TicketID"] = "Please Enter Item Code";
+      errors["TicketID"] = "Required";
       seterrors(errors)
     }  else {
       errors["TicketID"] = ""
@@ -287,11 +287,11 @@ const CreateSparePartsTab1 = (props: any) => {
     //Resolution
     if(typeof fields["Remark"] === "string"){
       if (fields["Remark"]==="") {
-        errors["Remark"] = "Please Enter Resolution ";
+        errors["Remark"] = "Required";
         seterrors(errors)
       }
       else if (!fields["Remark"].match(/^[a-zA-Z\s]+$/)) {
-        errors["Remark"] = "Only letters ";
+        errors["Remark"] = "Required";
         seterrors(errors)
       }
       else{
@@ -304,11 +304,11 @@ const CreateSparePartsTab1 = (props: any) => {
     //Content
     if(typeof fields["Content"] === "string"){
       if (fields["Content"]==="") {
-        errors["Content"] = "Please Enter Content ";
+        errors["Content"] = "Required ";
         seterrors(errors)
       }
       else if (!fields["Content"].match(/^[a-zA-Z\s]+$/)) {
-        errors["Content"] = "Only letters ";
+        errors["Content"] = "Required ";
         seterrors(errors)
       }
       else{
@@ -321,7 +321,7 @@ const CreateSparePartsTab1 = (props: any) => {
     //TicketType
     if(typeof fields["Secretary"] === "string"){
       if (fields["Secretary"]==="") {
-        errors["Secretary"] = "Please Enter Secretary ";
+        errors["Secretary"] = "Required";
         seterrors(errors)
       }
       else{
@@ -333,7 +333,7 @@ const CreateSparePartsTab1 = (props: any) => {
     }
     if(typeof fields["TicketType"] === "string"){
       if (fields["TicketType"]==="") {
-        errors["TicketType"] = "Please Enter Ticket Type ";
+        errors["TicketType"] = "Required";
         seterrors(errors)
       }
       else{
@@ -346,7 +346,7 @@ const CreateSparePartsTab1 = (props: any) => {
     //
     if(typeof fields["ItemDescription"] === "string"){
       if (fields["TicketType"]==="") {
-        errors["TicketType"] = "Please Enter Item Description";
+        errors["TicketType"] = "Required";
         seterrors(errors)
       }
       else{
