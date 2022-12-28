@@ -226,9 +226,9 @@ const ScheduluingTab = (props: any) => {
             variant="contained"
             className="ModalCommonButton"
             sx={{ width: "300px"}}
-             onClick={post}
+            onClick={e=>setOpenModal(true)}
         >
-          Add Schedule
+          View Schedule
         </ModalButton>
       </Grid>
         <Grid item xs={8} md={4}></Grid>
@@ -237,9 +237,9 @@ const ScheduluingTab = (props: any) => {
             variant="contained"
             className="ModalCommonButton"
             sx={{ width: "300px"}}
-            onClick={e=>setOpenModal(true)}
+            onClick={post}
         >
-         View Schedule
+          Add Schedule
         </ModalButton>
       </Grid>
       </Grid>

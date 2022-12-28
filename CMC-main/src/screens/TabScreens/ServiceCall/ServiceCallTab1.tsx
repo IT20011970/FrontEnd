@@ -206,6 +206,8 @@ const ServiceCallTab1 = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   // const [dataUpdate, setDataUpdate] =React.useState<ServiceCallData2[]>({});
    const [dataUpdate, setDataUpdate] = React.useState({});
+  const [openViewModal, setViewModal] = React.useState(false)
+
   const [data1, setData1] =React.useState<any[]>([]);
   const [data2, setData2] =React.useState<any>("");
   const Service =useContext(ServiceContext)
@@ -242,6 +244,11 @@ const ServiceCallTab1 = () => {
     setDataUpdate(data)
     console.log(dataUpdate)
     setOpenEditModal(true)
+  }
+  function setOpenViewFunction(data:any){
+    setViewModal(true)
+    console.log(dataUpdate)
+    setDataUpdate(data)
   }
   function getData (){
    if(Service !==undefined){
@@ -341,7 +348,7 @@ const ServiceCallTab1 = () => {
                             alignItems="flex-start"
                             spacing={0}
                         >
-                          <ControlButton disableRipple>
+                          <ControlButton disableRipple onClick={e=>setOpenViewFunction(row)}>
                             <svg
                                 width="21"
                                 height="21"
@@ -406,6 +413,9 @@ const ServiceCallTab1 = () => {
         <CreateServiceCallModal open={openModal} setOpen={setOpenModal} />
         {openEditModal == true && (
         <EditServiceCallModal dataUpdate={dataUpdate} openEditModal={openEditModal} setOpenEditModal={setOpenEditModal}/>
+        )}
+        {openViewModal == true && (
+            <EditServiceCallModal dataUpdate={dataUpdate} openViewModal={openViewModal} setViewModal={setViewModal}/>
         )}
       </>
   );

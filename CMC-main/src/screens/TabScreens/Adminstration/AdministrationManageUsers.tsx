@@ -28,8 +28,9 @@ import {
 import "./../../../Styles/Tabs.css";
 import CreateServiceCallModal from "../../Modals/CreateServiceCall/CreateServiceCallModal"
 import AdministrationModel from "../../Modals/Administration/AdministrationModel"
-import { useState } from "preact/hooks";
+//import { useState } from "preact/hooks";
 import ViewUserRoleSpecific from "../../Modals/Administration/ViewUserRoleSpecific";
+import { useState } from "react";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -201,7 +202,7 @@ const createData = (
 //     );
 // }
 
-const AdministrationManageUsers = () => {
+const AdministrationManageUsers = (props: any) => {
     const [searchInput, setSearchInput] = React.useState("");
     const [openModal, setOpenModal] = React.useState(false);
     const [openView, setOpenView] = React.useState(false);
@@ -222,28 +223,65 @@ const AdministrationManageUsers = () => {
     const [rows, setRows] = React.useState([]);
     const [openmsg, setOpenmsg] = React.useState(false);
     const [openmsgupdated, setOpenmsgUpdated] = React.useState(false);
+
+    const [fields, setfields] = useState<any>({});
+    const [errors,seterrors]= useState<any>({})
     
 
-React.useEffect(() => {
-    getData();
-}, []);
+    React.useEffect(() => {
+        getData();
+    }, []);
 
 
-const getData = async() => {
+    const getData = async() => {
 
-    const requestOptions = {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
-    };
+        const requestOptions = {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        };
 
-    fetch('http://localhost:3000/manage-user-details-controller/get',requestOptions)
-        .then(response=>{ return response.json()})
-        .then(data=>{
-           console.log(data)
-           setRows(data)
-        });
+        fetch('http://localhost:3000/manage-user-details-controller/get',requestOptions)
+            .then(response=>{ return response.json()})
+            .then(data=>{
+            console.log(data)
+            setRows(data)
+            });
 
-}
+    }
+
+    function select() {
+        let field=fields
+        if(!fields["Status"])
+        field["Status"] = "0";
+        // setfields({Status:"0"})
+        handleValidation()
+    }
+
+    function handleValidation(){
+
+        let formIsValid = true;
+
+        //TelephoneNo
+        if(typeof fields["TelephoneNo"] === "string"){
+            
+        if (fields["TelephoneNo"]==="") {
+            errors["TelephoneNo"] = "Please Enter Telephone No";
+            seterrors(errors)
+        }
+        else if (fields["TelephoneNo"].match(/^[0-9]{10}$/)) {
+            errors["TelephoneNo"] = "";
+            seterrors(errors)
+        }
+        else{
+            errors["TelephoneNo"] = "Invalid Telephone No"
+            seterrors(errors)
+            setfields( fields )
+            props.setfields({fields})
+            seterrors(errors)
+        }
+        }
+
+    }
 
     const handleClose = () => {
         setOpen(false);
@@ -275,8 +313,14 @@ const getData = async() => {
     const updateData = async () => {
         setOpen(false);
     
-        if ( userEmail == '' || userMobile == '' ){
-            alert('Email Address and Contact Number Fields Cannot Be Empty!');
+        if ( userEmail == '' ){
+            alert('Email Address Cannot Be Empty!');
+        } else if (userMobile == '' ) {
+            alert('Contact Number Cannot Be Empty!');
+        } else if (userEmail == "" || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(userEmail)) {
+            alert('Email Address Is Invalid! Please Enter a Valid Email Address!');
+        } else if (userMobile == "" || !/^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/i.test(userMobile)) {
+            alert('Contact Number Is Invalid! Please Enter a Valid Contact Number!');
         } else {
             const requestOptions = {
                 method: 'PUT',
@@ -369,9 +413,12 @@ const getData = async() => {
                     placeholder="Text (default)"
                     name=""
                     sx={{ width: "99%" }}
+                    //value={fields["TelephoneNo"]}
                     value={userMobile}
                     onChange={(e) => {setUserMobile(e.target.value)}}
-                    />
+                    >
+                    <span style={{color: "red"}}>{errors["TelephoneNo"]}</span>
+                    </TextField>
                     <DialogTitle >NIC:</DialogTitle>
                     <TextField
                     id="outlined-basic"
@@ -555,3 +602,5 @@ const getData = async() => {
 };
 
 export default AdministrationManageUsers;
+
+                    
