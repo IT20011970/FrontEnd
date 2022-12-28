@@ -129,6 +129,7 @@ const TicketsTab2 = (props: any) => {
   const [students, setStudents] =useState<any[]>([""]);
   const [openEditModal, setOpenEditModal] = React.useState(false);
   const [dataUpdate, setDataUpdate] = React.useState({});
+
   useEffect(() => {
     const requestOptions = {
       method: 'GET',

@@ -219,8 +219,11 @@ export type Ticket = {
   TicketType: string,
   Subject: string,
   AssignedTo: string,
-  CreatedOn:string
-  PlannedStartDate:string
+  CreatedOn:string,
+  PlannedStartDate:string,
+  PlannedEndDate:string,
+  ActualStartDate:string,
+  ActualEndDate:string,
   serviceCall: {
     ServiceCallId: string,
     Status: string,

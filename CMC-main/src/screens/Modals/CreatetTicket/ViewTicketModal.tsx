@@ -203,7 +203,7 @@ console.log(props)
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
     };
-    fetch('http://localhost:3000/spare-parts/FindTicket/'+props.dataUpdate,requestOptions)
+    fetch('http://localhost:3000/spare-parts/FindTicket/'+dataUpdate,requestOptions)
         .then(response=>{
           return response.json()
         })
@@ -225,7 +225,7 @@ console.log(props)
               fields["CustomerAddressId"] = serviceCalls[0].serviceCall.customerEntity.CustomerAddressId;
               fields["AssignedTo"] = serviceCalls[0].AssignedTo;
               fields["AssignedBy"] = serviceCalls[0].AssignedBY;
-          setfields(fields)
+
             }
         );
 

@@ -27,6 +27,7 @@ import {ServiceContext} from "../../../api/api"
 import { format } from 'date-fns';
 import moment from "moment"
 import EditServiceCallModal from "../../Modals/CreateServiceCall/EditServiceCallModal"
+import ViewServiceCallModal from "../../Modals/CreateServiceCall/ViewServiceCallModal";
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -235,8 +236,9 @@ const ServiceCallTab1 = () => {
     getData()
   });
 
-  function setOpenModalfunction(){
+  function setOpenModalfunction(e:any){
     setRepeat("b")
+    console.log(e)
     setOpenModal(true)
   }
   
@@ -247,12 +249,13 @@ const ServiceCallTab1 = () => {
   }
   function setOpenViewFunction(data:any){
     setViewModal(true)
-    console.log(dataUpdate)
+    console.log(openViewModal)
     setDataUpdate(data)
   }
   function getData (){
    if(Service !==undefined){
      Service.getServiceCall().then((result)=>{
+       if(result[0]!=null)
        setData1(result)
        // console.log(result)
      })
@@ -285,7 +288,7 @@ const ServiceCallTab1 = () => {
             <Grid item xs={3}>
               <RequestButton
                   variant="contained"
-                  onClick={setOpenModalfunction}
+                  onClick={e=>setOpenModalfunction(e)}
               >
                 Create Service Call
               </RequestButton>
@@ -315,7 +318,7 @@ const ServiceCallTab1 = () => {
                         )
                         : data1
                 ).map(( row:ServiceCallData2, i: number) => (
-                    <StyledTableRow key={row.ServiceCallId}>
+                    <StyledTableRow >
                       <StyledTableCell
                           sx={{
                             borderLeft: "none",
@@ -348,7 +351,7 @@ const ServiceCallTab1 = () => {
                             alignItems="flex-start"
                             spacing={0}
                         >
-                          <ControlButton disableRipple onClick={e=>setOpenViewFunction(row)}>
+                          <ControlButton disableRipple onClick={setOpenViewFunction}>
                             <svg
                                 width="21"
                                 height="21"
@@ -410,12 +413,12 @@ const ServiceCallTab1 = () => {
             />
           </Stack>
         </Container>
-        <CreateServiceCallModal open={openModal} setOpen={setOpenModal} />
+            <CreateServiceCallModal open={openModal} setOpen={setOpenModal} />
         {openEditModal == true && (
         <EditServiceCallModal dataUpdate={dataUpdate} openEditModal={openEditModal} setOpenEditModal={setOpenEditModal}/>
         )}
         {openViewModal == true && (
-            <EditServiceCallModal dataUpdate={dataUpdate} openViewModal={openViewModal} setViewModal={setViewModal}/>
+            <ViewServiceCallModal dataUpdate={dataUpdate} openViewModal={openViewModal} setViewModal={setViewModal}/>
         )}
       </>
   );
