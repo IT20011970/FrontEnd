@@ -124,7 +124,7 @@ const AttachmentsTab = (props: any) => {
         // Make a fileInfo Object
         // console.log("Called", reader);
         baseURL = reader.result;
-        // console.log(baseURL);
+         console.log(baseURL);
         resolve(baseURL);
       };
       // console.log(fileInfo);
@@ -140,7 +140,7 @@ const AttachmentsTab = (props: any) => {
     getBase64(file)
         .then(result => {
           state["base64URL"]  = result;
-          console.log("File Is", file);
+          console.log("File Is", result);
           setState(file)
         })
         .catch(err => {
