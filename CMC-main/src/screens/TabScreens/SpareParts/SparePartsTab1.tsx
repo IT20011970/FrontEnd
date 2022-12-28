@@ -341,7 +341,7 @@ setArr([...arr, data]);
                     
                   </StyledTableCell>
                   <StyledTableCell>
-                    {row.qty}
+                    {row.Onhand}
                   </StyledTableCell>
                   {/* <StyledTableCell>
                     {row.attachment}

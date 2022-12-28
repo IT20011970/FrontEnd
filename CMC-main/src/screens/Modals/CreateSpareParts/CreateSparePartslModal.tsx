@@ -127,7 +127,9 @@ const CreateSparePartsModal = (props: any) => {
   const  [Test, setTest] = React.useState("1");
   const  [Test1, setTest1] = React.useState("1");
   const [fields, setfieldsSpare] = useState<any>({fields:{}});
-
+  const [fields2, setfieldsSpare2] = useState<any>({fields:{}});
+  const [fields3, setfieldsSpare3] = useState<any>({fields:{}});
+  console.log(fields3);
 
   const handleChange = (newValue: string) => {
     setMainTabValue(newValue);
@@ -155,29 +157,39 @@ const CreateSparePartsModal = (props: any) => {
     // };
   
   
-  
+    //console.log(fields3)
 
   function post(){
     
     console.log(fields.fields)
-    console.log(fields)
+    
     const requestOptions ={
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(
           {
-            TicketId: parseInt(fields.fields.TicketID),
-            sparePart: [
-              {
-                SPReqId: Math.floor(Math.random()*1000000),
-                Remark: fields.fields.Remark,
-                Content:fields.fields.Content,
-                //Secretary: "Gayan",
-                Secretary:fields.fields.Secretary,
-                ItemDescription: fields.fields.ItemDescription,
+            // TicketId: parseInt(fields.fields.TicketID),
+            // sparePart: [
+            //   {
+            //     SPReqId: Math.floor(Math.random()*1000000),
+            //     Remark: fields.fields.Remark,
+            //     Content:fields.fields.Content,
+            //     //Secretary: "Gayan",
+            //     Secretary:fields.fields.Secretary,
+            //     ItemDescription: fields.fields.ItemDescription,
+            //   }
+            // ]
+                  
+              TicketId:  parseInt(fields.fields.TicketID),
+              sparePart: {
+                   SPReqId:  Math.floor(Math.random()*1000000),
+                   Remark: fields.fields.Remark,
+                   Content:fields.fields.Content,
+                   Secretary:fields.fields.Secretary,
+                   ItemDescription:fields.fields.ItemDescription,
+                   inventory: fields3
               }
-            ]
-          }
+                    }
       )
     };
     fetch('http://localhost:3000/spare-parts/create',requestOptions)
@@ -261,10 +273,10 @@ const CreateSparePartsModal = (props: any) => {
           {mainTabValue == "2" && (
             <TabContext value={secondTabValue}>
               <Box
-                sx={{
-                  borderBottom: 1,
-                  borderColor: "divider",
-                }}
+                // sx={{
+                //   borderBottom: 1,
+                //   borderColor: "divider",
+                // }}
               >
                 <TabList
                   variant="scrollable"
@@ -291,8 +303,8 @@ const CreateSparePartsModal = (props: any) => {
             
             </TabPanel>
             <TabPanel value="2" sx={{ p: 0 }}>
-              <Header />
-              <CreateSparePartsTab2 props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
+              {/* <Header /> */}
+              <CreateSparePartsTab2 setfieldsSpare2={setfieldsSpare2} setfieldsSpare3={setfieldsSpare3}  props={props.arry} tab={secondTabValue}  setSubject={setSubject} setOrigin={setOrigin} setProblemType={setProblemType} setInquiryType={setInquiryType} setCreatedBy={setCreatedBy} setHandledBy={setHandledBy} setQueue={setQueue} setSecretary={setSecretary} setSalesAssistant={setSalesAssistant} setDateCreatedOn={setDateCreatedOn} setEstimatedDuration={setEstimatedDuration} setPlanedEndDate={setPlanedEndDate} setPlanedStartDate={setPlanedStartDate} setActualStartDate={setActualStartDate} setActualEndDate={setActualEndDate} />
             
             </TabPanel>
           </TabContext>
