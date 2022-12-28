@@ -262,12 +262,14 @@ const RelatedDocuments = (props: any) => {
                                         />
                                     </svg>{row.Name}
                                 </StyledTableCell>
+
                                 <StyledTableCell
                                     sx={{
                                         borderLeft: "1px solid rgba(0, 65, 102, 0.2);",
                                     }}
-                                >
-                                    <ControlButton disableRipple onClick={e=>path(row)}>
+                                > <a href={'C:/Users/Gayan/Documents/GitHub/img1.png'} download={'a.png'}>d</a>
+                                    <ControlButton disableRipple >
+
                                         {/*<a href={row.Path} download>Click to download</a>*/}
 
                                         <svg

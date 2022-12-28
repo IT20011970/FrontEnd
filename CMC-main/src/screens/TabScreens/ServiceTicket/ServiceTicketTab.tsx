@@ -251,6 +251,7 @@ const ServiceTicketTab = () => {
         .then(data=>{
           //console.log(data[3].Groups[1].students)
       //   console.log(data)
+          if(data[0]!=null)
          setStudents(data)
         });
   } )
@@ -351,19 +352,19 @@ const ServiceTicketTab = () => {
                         {row.serviceCall.customerEntity.ContactPerson}
                       </StyledTableCell>
                       <StyledTableCell>
-                        {moment(row.serviceCall.CreatedOn).format("DD/MM/YYYY")}
+                        {moment(row.CreatedOn).format("DD/MM/YYYY")}
                       </StyledTableCell>
                       <StyledTableCell>
-                        {moment(row.serviceCall.PlanedStartDateTime).format("DD/MM/YYYY")}
+                        {moment(row.PlannedStartDate).format("DD/MM/YYYY")}
                       </StyledTableCell>
                       <StyledTableCell>
-                        {moment(row.serviceCall.PlanedEndDateTime).format("DD/MM/YYYY")}
+                        {moment(row.PlannedEndDate).format("DD/MM/YYYY")}
                       </StyledTableCell>
                       <StyledTableCell>
-                        {moment(row.serviceCall.ActualStartDate).format("DD/MM/YYYY")}
+                        {moment(row.ActualStartDate).format("DD/MM/YYYY")}
                       </StyledTableCell>
                       <StyledTableCell>
-                        {moment(row.serviceCall.ActualEndDate).format("DD/MM/YYYY")}
+                        {moment(row.ActualEndDate).format("DD/MM/YYYY")}
                       </StyledTableCell>
                       <StyledTableCell>
                         <Stack

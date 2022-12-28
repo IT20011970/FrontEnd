@@ -209,7 +209,7 @@ for (var i = 0; i < 50; i++) {
 
 const CalenderTab1 = () => {
   //Modal
-  const [openModal, setOpenModal] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const [searchInput, setSearchInput] = React.useState("");
 
@@ -243,6 +243,7 @@ const CalenderTab1 = () => {
   };
 
   useEffect(() => {
+    var status:any=[]
     const requestOptions = {
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
@@ -252,13 +253,13 @@ const CalenderTab1 = () => {
           return response.json()
         })
         .then(serviceCalls=>{
-          let status=[]
+
           console.log(serviceCalls)
           for(let serviceCall of serviceCalls){
             status.push({
               start: getDate(serviceCall.PlannedStartDate),
               title:serviceCall.TicketId,
-            },)
+            })
           }
            setFormInput(status)
           console.log(formInput)
@@ -266,7 +267,7 @@ const CalenderTab1 = () => {
         );
 
 
-  },[] )
+  } )
 
   function getDate(dayString:any) {
     const today = new Date();
@@ -282,8 +283,8 @@ const CalenderTab1 = () => {
   function handleDateClick  (arg:any)  { // bind with an arrow function
     console.log(arg.event._def.title)
     setDataUpdate(arg.event._def.title)
-    //  console.log(dataUpdate)
-    setOpenModal(true)
+      console.log("dataUpdate")
+    setOpen(true)
   }
 
   return (
@@ -297,9 +298,6 @@ const CalenderTab1 = () => {
         </Stack>
         <Container>
           <div style={{color: "#383838", backgroundColor: "#fff",borderRadius:10}}>
-              {formInput.map((row: Inut, i: number) => (
-                      console.log(row)
-              ))}
             <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin]}
                 headerToolbar={{
@@ -349,8 +347,8 @@ const CalenderTab1 = () => {
             />
           </Stack>
         </Container>
-        {openModal == true && (
-        <ViewTicketModal dataUpdate={dataUpdate} open={openModal} setOpen={setOpenModal}/>
+        {open == true && (
+        <ViewTicketModal dataUpdate={dataUpdate} open={open} setOpen={setOpen}/>
             )}
       </>
   );
